@@ -227,7 +227,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   devServer: {
     host: resolveDevServerHost(VITE_DEV_MODE),
-    port: 5173,
+    // port: 5173,
   },
   vite: {
     define: {
@@ -256,7 +256,7 @@ pnpm build
 ```
 Expected: `nuxt build` 成功，生成 `.output/public`（SPA）。
 
-> dev 啟動可選驗（背景跑後關閉）：`pnpm dev` 應於 `http://localhost:5173`（或 `VITE_DEV_MODE=true` 時 `0.0.0.0:5173`）啟動，顯示預設 Nuxt 畫面。
+> dev 啟動可選驗（背景跑後關閉）：`pnpm dev` 應於 `http://localhost`（或 `VITE_DEV_MODE=true` 時 `0.0.0.0`）啟動，顯示預設 Nuxt 畫面。
 
 - [ ] **Step 8: Commit**
 

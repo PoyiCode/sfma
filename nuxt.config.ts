@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   devServer: {
     // 開發者模式綁 0.0.0.0（區網可及，供實機測試）；否則 localhost（02 §2.11、08 §8.9）
     host: resolveDevServerHost(VITE_DEV_MODE),
-    port: 5173,
+    // port: 5173,
   },
   vite: {
     define: {

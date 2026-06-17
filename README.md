@@ -18,7 +18,7 @@ pnpm install
 
 ## 開發
 
-啟動開發伺服器（`http://localhost:5173`）：
+啟動開發伺服器（`http://localhost`）：
 
 ```bash
 pnpm dev

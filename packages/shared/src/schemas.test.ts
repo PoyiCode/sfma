@@ -141,8 +141,7 @@ describe('patientSchema', () => {
 
   it('個資欄逐欄選填（gender／birthDate／contact／notes）', () => {
     for (const field of ['gender', 'birthDate', 'contact', 'notes'] as const) {
-      const without: Record<string, unknown> = { ...PATIENT };
-      delete without[field];
+      const without = Object.fromEntries(Object.entries(PATIENT).filter(([key]) => key !== field));
       expect(patientSchema.safeParse(without).success).toBe(true);
     }
   });
