@@ -1,0 +1,56 @@
+{
+  "name": "sfma",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@11.3.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "test": "vitest run",
+    "typecheck": "nuxt typecheck && tsc --noEmit -p packages/shared && tsc --noEmit -p packages/definitions",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "verify:bundle": "node infra/scripts/verifyProdBundle.mjs",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@nuxt/fonts": "^0.14.0",
+    "@nuxt/icon": "^2.2.3",
+    "@nuxt/ui": "^4.8.2",
+    "@nuxtjs/color-mode": "^4.0.1",
+    "@nuxtjs/i18n": "^10.4.0",
+    "@pinia/nuxt": "^0.11.3",
+    "nuxt": "^4.4.8",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.35",
+    "vue-router": "^5.1.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint": "^1.16.0",
+    "@vite-pwa/nuxt": "^1.1.1",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
+    "prettier": "^3.8.4",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.1",
+    "vitest": "^4.1.8",
+    "vue-tsc": "^3.3.5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,html,json,yml,yaml,mjs,md}": [
+      "prettier --write"
+    ]
+  }
+}

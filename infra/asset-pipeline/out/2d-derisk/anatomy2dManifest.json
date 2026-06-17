@@ -1,0 +1,64 @@
+{
+  "viewBox": "0 0 512 1024",
+  "resolution": {
+    "x": 512,
+    "y": 1024
+  },
+  "orientations": [
+    "front",
+    "side",
+    "back"
+  ],
+  "coverage": {
+    "front": [
+      "bone.humerus",
+      "bone.radius",
+      "bone.ulna",
+      "muscle.brachialis",
+      "muscle.bicepsBrachii",
+      "muscle.tricepsBrachii",
+      "muscle.flexorCarpiRadialis",
+      "muscle.flexorCarpiUlnaris",
+      "muscle.extensorCarpiRadialisLongus",
+      "muscle.extensorCarpiUlnaris",
+      "muscle.pronatorTeres",
+      "muscle.supinator"
+    ],
+    "side": [
+      "bone.humerus",
+      "bone.radius",
+      "bone.ulna",
+      "muscle.brachialis",
+      "muscle.bicepsBrachii",
+      "muscle.tricepsBrachii",
+      "muscle.flexorCarpiRadialis",
+      "muscle.flexorCarpiUlnaris",
+      "muscle.extensorCarpiRadialisLongus",
+      "muscle.extensorCarpiUlnaris",
+      "muscle.pronatorTeres",
+      "muscle.supinator"
+    ],
+    "back": [
+      "bone.humerus",
+      "bone.radius",
+      "bone.ulna",
+      "muscle.brachialis",
+      "muscle.bicepsBrachii",
+      "muscle.tricepsBrachii",
+      "muscle.flexorCarpiRadialis",
+      "muscle.flexorCarpiUlnaris",
+      "muscle.extensorCarpiRadialisLongus",
+      "muscle.extensorCarpiUlnaris",
+      "muscle.pronatorTeres",
+      "muscle.supinator"
+    ]
+  },
+  "provenance": {
+    "sourceManifest": "manifestV1.json",
+    "sourceManifestSha256": "3a251a2e7f7e5599a041f4e2603e6d307171c7c56c2632c43e813100c74d9885",
+    "generatedAt": "2026-06-16T00:13:56.945857+00:00",
+    "tool": "export2dSvg.py",
+    "profile": "detailed",
+    "technique": "geometric-silhouette-projection"
+  }
+}

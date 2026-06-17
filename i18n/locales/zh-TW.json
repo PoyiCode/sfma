@@ -1,0 +1,18 @@
+{
+  "appTitle": "物理治療評估",
+  "notFound": "找不到頁面",
+  "skipToContent": "跳至主內容",
+  "backHome": "回首頁",
+  "navBack": "返回",
+  "navSettings": "設定",
+  "titlePatients": "個案清單",
+  "titlePatientNew": "新增個案",
+  "titlePatientDetail": "個案詳情",
+  "titlePatientEdit": "編輯個案",
+  "titleAssessments": "評估紀錄",
+  "titleAssessmentNew": "新評估",
+  "titleAssessmentSession": "評估表",
+  "titleModel": "人體模型",
+  "titleSettings": "設定",
+  "screenTodo": "此畫面尚在建置"
+}

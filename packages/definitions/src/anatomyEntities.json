@@ -1,0 +1,6471 @@
+[
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.bicepsBrachii",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "肱二頭肌",
+      "en": "Biceps Brachii"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.elbow"],
+    "actions": [
+      {
+        "jointId": "joint.elbow",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.musculocutaneous"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.brachialis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "肱肌",
+      "en": "Brachialis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.elbow"],
+    "actions": [
+      {
+        "jointId": "joint.elbow",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.musculocutaneous"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.tricepsBrachii",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "肱三頭肌",
+      "en": "Triceps Brachii"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.elbow"],
+    "actions": [
+      {
+        "jointId": "joint.elbow",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.musculocutaneous",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "肌皮神經",
+      "en": "Musculocutaneous Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.radial",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "橈神經",
+      "en": "Radial Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.ulnar",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "尺神經",
+      "en": "Ulnar Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.humerus",
+    "type": "bone",
+    "name": {
+      "zh-TW": "肱骨",
+      "en": "Humerus"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.radius",
+    "type": "bone",
+    "name": {
+      "zh-TW": "橈骨",
+      "en": "Radius"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.ulna",
+    "type": "bone",
+    "name": {
+      "zh-TW": "尺骨",
+      "en": "Ulna"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.elbow",
+    "type": "joint",
+    "name": {
+      "zh-TW": "肘關節",
+      "en": "Elbow Joint"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": 0,
+        "max": 145,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.median",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "正中神經",
+      "en": "Median Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.wrist",
+    "type": "joint",
+    "name": {
+      "zh-TW": "腕關節",
+      "en": "Wrist Joint"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": -70,
+        "max": 80,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "radialUlnarDeviation",
+        "min": -30,
+        "max": 20,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.radioulnar",
+    "type": "joint",
+    "name": {
+      "zh-TW": "橈尺關節",
+      "en": "Radioulnar Joint"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "pronationSupination",
+        "min": -90,
+        "max": 90,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorCarpiRadialis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "橈側屈腕肌",
+      "en": "Flexor Carpi Radialis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.wrist"],
+    "actions": [
+      {
+        "jointId": "joint.wrist",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.wrist",
+        "action": "radialDeviation"
+      }
+    ],
+    "innervation": ["nerve.median"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorCarpiUlnaris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "尺側屈腕肌",
+      "en": "Flexor Carpi Ulnaris"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.wrist"],
+    "actions": [
+      {
+        "jointId": "joint.wrist",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.wrist",
+        "action": "ulnarDeviation"
+      }
+    ],
+    "innervation": ["nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorCarpiRadialisLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "橈側伸腕長肌",
+      "en": "Extensor Carpi Radialis Longus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.wrist"],
+    "actions": [
+      {
+        "jointId": "joint.wrist",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.wrist",
+        "action": "radialDeviation"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorCarpiUlnaris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "尺側伸腕肌",
+      "en": "Extensor Carpi Ulnaris"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.wrist"],
+    "actions": [
+      {
+        "jointId": "joint.wrist",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.wrist",
+        "action": "ulnarDeviation"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.pronatorTeres",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "旋前圓肌",
+      "en": "Pronator Teres"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.radioulnar"],
+    "actions": [
+      {
+        "jointId": "joint.radioulnar",
+        "action": "pronation"
+      }
+    ],
+    "innervation": ["nerve.median"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.supinator",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "旋後肌",
+      "en": "Supinator"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.radioulnar"],
+    "actions": [
+      {
+        "jointId": "joint.radioulnar",
+        "action": "supination"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.scapula",
+    "type": "bone",
+    "name": {
+      "zh-TW": "肩胛骨",
+      "en": "Scapula"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.clavicle",
+    "type": "bone",
+    "name": {
+      "zh-TW": "鎖骨",
+      "en": "Clavicle"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.axillary",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "腋神經",
+      "en": "Axillary Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.suprascapular",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "肩胛上神經",
+      "en": "Suprascapular Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.subscapular",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "肩胛下神經",
+      "en": "Subscapular Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.glenohumeral",
+    "type": "joint",
+    "name": {
+      "zh-TW": "盂肱關節",
+      "en": "Glenohumeral Joint"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": -60,
+        "max": 180,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "abductionAdduction",
+        "min": -50,
+        "max": 180,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "internalExternalRotation",
+        "min": -70,
+        "max": 90,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.deltoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "三角肌",
+      "en": "Deltoid"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.glenohumeral"],
+    "actions": [
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "abduction"
+      },
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.axillary"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.supraspinatus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "棘上肌",
+      "en": "Supraspinatus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.glenohumeral"],
+    "actions": [
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "abduction"
+      }
+    ],
+    "innervation": ["nerve.suprascapular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.infraspinatus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "棘下肌",
+      "en": "Infraspinatus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.glenohumeral"],
+    "actions": [
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "externalRotation"
+      }
+    ],
+    "innervation": ["nerve.suprascapular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.teresMinor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "小圓肌",
+      "en": "Teres Minor"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.glenohumeral"],
+    "actions": [
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "externalRotation"
+      }
+    ],
+    "innervation": ["nerve.axillary"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.subscapularis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "肩胛下肌",
+      "en": "Subscapularis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.glenohumeral"],
+    "actions": [
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "internalRotation"
+      }
+    ],
+    "innervation": ["nerve.subscapular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.teresMajor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "大圓肌",
+      "en": "Teres Major"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.glenohumeral"],
+    "actions": [
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "internalRotation"
+      },
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "adduction"
+      },
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.subscapular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.fingers",
+    "type": "joint",
+    "name": {
+      "zh-TW": "手指關節",
+      "en": "Finger Joints"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": -30,
+        "max": 90,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "abductionAdduction",
+        "min": -20,
+        "max": 20,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.thumb",
+    "type": "joint",
+    "name": {
+      "zh-TW": "拇指關節",
+      "en": "Thumb Joints"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": -20,
+        "max": 80,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "abductionAdduction",
+        "min": 0,
+        "max": 60,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorDigitorumSuperficialis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "指淺屈肌",
+      "en": "Flexor Digitorum Superficialis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.median"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorDigitorumProfundus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "指深屈肌",
+      "en": "Flexor Digitorum Profundus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.median", "nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorPollicisLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "拇長屈肌",
+      "en": "Flexor Pollicis Longus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thumb"],
+    "actions": [
+      {
+        "jointId": "joint.thumb",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.median"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorDigitorum",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "指伸肌",
+      "en": "Extensor Digitorum"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorPollicisLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "拇長伸肌",
+      "en": "Extensor Pollicis Longus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thumb"],
+    "actions": [
+      {
+        "jointId": "joint.thumb",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.abductorPollicisLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "拇長展肌",
+      "en": "Abductor Pollicis Longus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thumb"],
+    "actions": [
+      {
+        "jointId": "joint.thumb",
+        "action": "abduction"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.abductorPollicisBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "拇短展肌",
+      "en": "Abductor Pollicis Brevis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thumb"],
+    "actions": [
+      {
+        "jointId": "joint.thumb",
+        "action": "abduction"
+      }
+    ],
+    "innervation": ["nerve.median"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorPollicisBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "拇短屈肌",
+      "en": "Flexor Pollicis Brevis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thumb"],
+    "actions": [
+      {
+        "jointId": "joint.thumb",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.median", "nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.opponensPollicis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "拇對掌肌",
+      "en": "Opponens Pollicis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thumb"],
+    "actions": [
+      {
+        "jointId": "joint.thumb",
+        "action": "opposition"
+      }
+    ],
+    "innervation": ["nerve.median"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.adductorPollicis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "拇內收肌",
+      "en": "Adductor Pollicis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thumb"],
+    "actions": [
+      {
+        "jointId": "joint.thumb",
+        "action": "adduction"
+      }
+    ],
+    "innervation": ["nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.abductorDigitiMinimiManus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "小指外展肌",
+      "en": "Abductor Digiti Minimi"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "abduction"
+      }
+    ],
+    "innervation": ["nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorDigitiMinimiManus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "小指短屈肌",
+      "en": "Flexor Digiti Minimi Brevis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.opponensDigitiMinimiManus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "小指對掌肌",
+      "en": "Opponens Digiti Minimi"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "opposition"
+      }
+    ],
+    "innervation": ["nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.dorsalInterosseiManus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "骨間背側肌群",
+      "en": "Dorsal Interossei"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "abduction"
+      }
+    ],
+    "innervation": ["nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.palmarInterossei",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "骨間掌側肌群",
+      "en": "Palmar Interossei"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "adduction"
+      }
+    ],
+    "innervation": ["nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.lumbricalsManus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "蚓狀肌群",
+      "en": "Lumbricals"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.median", "nerve.ulnar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.femur",
+    "type": "bone",
+    "name": {
+      "zh-TW": "股骨",
+      "en": "Femur"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.tibia",
+    "type": "bone",
+    "name": {
+      "zh-TW": "脛骨",
+      "en": "Tibia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.fibula",
+    "type": "bone",
+    "name": {
+      "zh-TW": "腓骨",
+      "en": "Fibula"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.patella",
+    "type": "bone",
+    "name": {
+      "zh-TW": "髕骨",
+      "en": "Patella"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.knee",
+    "type": "joint",
+    "name": {
+      "zh-TW": "膝關節",
+      "en": "Knee Joint"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": -5,
+        "max": 140,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.femoral",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "股神經",
+      "en": "Femoral Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.sciatic",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "坐骨神經",
+      "en": "Sciatic Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.rectusFemoris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "股直肌",
+      "en": "Rectus Femoris"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.knee", "joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.knee",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.hip",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.femoral"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.vastusLateralis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "股外側肌",
+      "en": "Vastus Lateralis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.knee"],
+    "actions": [
+      {
+        "jointId": "joint.knee",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.femoral"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.vastusMedialis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "股內側肌",
+      "en": "Vastus Medialis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.knee"],
+    "actions": [
+      {
+        "jointId": "joint.knee",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.femoral"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.vastusIntermedius",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "股中間肌",
+      "en": "Vastus Intermedius"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.knee"],
+    "actions": [
+      {
+        "jointId": "joint.knee",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.femoral"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.bicepsFemoris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "股二頭肌",
+      "en": "Biceps Femoris"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.knee", "joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.knee",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.hip",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.sciatic"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.semitendinosus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "半腱肌",
+      "en": "Semitendinosus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.knee", "joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.knee",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.hip",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.sciatic"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.semimembranosus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "半膜肌",
+      "en": "Semimembranosus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.knee", "joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.knee",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.hip",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.sciatic"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.hip",
+    "type": "bone",
+    "name": {
+      "zh-TW": "髖骨",
+      "en": "Hip Bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.hip",
+    "type": "joint",
+    "name": {
+      "zh-TW": "髖關節",
+      "en": "Hip Joint"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": -20,
+        "max": 120,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "abductionAdduction",
+        "min": -30,
+        "max": 45,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "internalExternalRotation",
+        "min": -45,
+        "max": 45,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.superiorGluteal",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "臀上神經",
+      "en": "Superior Gluteal Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.inferiorGluteal",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "臀下神經",
+      "en": "Inferior Gluteal Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.gluteusMaximus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "臀大肌",
+      "en": "Gluteus Maximus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.inferiorGluteal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.gluteusMedius",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "臀中肌",
+      "en": "Gluteus Medius"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "abduction"
+      }
+    ],
+    "innervation": ["nerve.superiorGluteal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.gluteusMinimus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "臀小肌",
+      "en": "Gluteus Minimus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "abduction"
+      }
+    ],
+    "innervation": ["nerve.superiorGluteal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.iliopsoas",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "髂腰肌",
+      "en": "Iliopsoas"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.femoral"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.tensorFasciaeLatae",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "闊筋膜張肌",
+      "en": "Tensor Fasciae Latae"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "abduction"
+      }
+    ],
+    "innervation": ["nerve.superiorGluteal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.obturator",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "閉孔神經",
+      "en": "Obturator Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.adductorLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "內收長肌",
+      "en": "Adductor Longus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "adduction"
+      }
+    ],
+    "innervation": ["nerve.obturator"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.adductorBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "內收短肌",
+      "en": "Adductor Brevis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "adduction"
+      }
+    ],
+    "innervation": ["nerve.obturator"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.adductorMagnus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "內收大肌",
+      "en": "Adductor Magnus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "adduction"
+      },
+      {
+        "jointId": "joint.hip",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.obturator", "nerve.sciatic"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.gracilis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "股薄肌",
+      "en": "Gracilis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip", "joint.knee"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "adduction"
+      },
+      {
+        "jointId": "joint.knee",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.obturator"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.pectineus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "恥骨肌",
+      "en": "Pectineus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "adduction"
+      },
+      {
+        "jointId": "joint.hip",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.femoral"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.ankle",
+    "type": "joint",
+    "name": {
+      "zh-TW": "踝關節",
+      "en": "Ankle Joint"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "plantarDorsiflexion",
+        "min": -50,
+        "max": 20,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "inversionEversion",
+        "min": -35,
+        "max": 15,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.tibial",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "脛神經",
+      "en": "Tibial Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.deepFibular",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "腓深神經",
+      "en": "Deep Fibular Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.superficialFibular",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "腓淺神經",
+      "en": "Superficial Fibular Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.gastrocnemius",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "腓腸肌",
+      "en": "Gastrocnemius"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.ankle", "joint.knee"],
+    "actions": [
+      {
+        "jointId": "joint.ankle",
+        "action": "plantarflexion"
+      },
+      {
+        "jointId": "joint.knee",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.tibial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.soleus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "比目魚肌",
+      "en": "Soleus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.ankle"],
+    "actions": [
+      {
+        "jointId": "joint.ankle",
+        "action": "plantarflexion"
+      }
+    ],
+    "innervation": ["nerve.tibial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.tibialisAnterior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "脛前肌",
+      "en": "Tibialis Anterior"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.ankle"],
+    "actions": [
+      {
+        "jointId": "joint.ankle",
+        "action": "dorsiflexion"
+      },
+      {
+        "jointId": "joint.ankle",
+        "action": "inversion"
+      }
+    ],
+    "innervation": ["nerve.deepFibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.fibularisLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "腓骨長肌",
+      "en": "Fibularis Longus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.ankle"],
+    "actions": [
+      {
+        "jointId": "joint.ankle",
+        "action": "eversion"
+      },
+      {
+        "jointId": "joint.ankle",
+        "action": "plantarflexion"
+      }
+    ],
+    "innervation": ["nerve.superficialFibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.fibularisBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "腓骨短肌",
+      "en": "Fibularis Brevis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.ankle"],
+    "actions": [
+      {
+        "jointId": "joint.ankle",
+        "action": "eversion"
+      }
+    ],
+    "innervation": ["nerve.superficialFibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.toes",
+    "type": "joint",
+    "name": {
+      "zh-TW": "足趾關節",
+      "en": "Toe Joints"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": -40,
+        "max": 40,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "abductionAdduction",
+        "min": -20,
+        "max": 20,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.tibialisPosterior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "脛後肌",
+      "en": "Tibialis Posterior"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.ankle"],
+    "actions": [
+      {
+        "jointId": "joint.ankle",
+        "action": "inversion"
+      },
+      {
+        "jointId": "joint.ankle",
+        "action": "plantarflexion"
+      }
+    ],
+    "innervation": ["nerve.tibial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorDigitorumLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "屈趾長肌",
+      "en": "Flexor Digitorum Longus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.tibial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorHallucisLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "屈拇長肌",
+      "en": "Flexor Hallucis Longus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.tibial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorDigitorumLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "伸趾長肌",
+      "en": "Extensor Digitorum Longus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes", "joint.ankle"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.ankle",
+        "action": "dorsiflexion"
+      }
+    ],
+    "innervation": ["nerve.deepFibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorHallucisLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "伸拇長肌",
+      "en": "Extensor Hallucis Longus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.deepFibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.medialPlantar",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "內側足底神經",
+      "en": "Medial Plantar Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.lateralPlantar",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "外側足底神經",
+      "en": "Lateral Plantar Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.abductorHallucis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "外展拇肌",
+      "en": "Abductor Hallucis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "abduction"
+      },
+      {
+        "jointId": "joint.toes",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.medialPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorDigitorumBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "屈趾短肌",
+      "en": "Flexor Digitorum Brevis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.medialPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.abductorDigitiMinimiPedis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "外展小趾肌",
+      "en": "Abductor Digiti Minimi (foot)"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "abduction"
+      },
+      {
+        "jointId": "joint.toes",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.lateralPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorDigitorumBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "伸趾短肌",
+      "en": "Extensor Digitorum Brevis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.deepFibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorHallucisBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "伸拇短肌",
+      "en": "Extensor Hallucis Brevis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.deepFibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.quadratusPlantae",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "蹠方肌",
+      "en": "Quadratus Plantae"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.lateralPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.lumbricalsPedis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "足蚓狀肌群",
+      "en": "Lumbricals (foot)"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.medialPlantar", "nerve.lateralPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorHallucisBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "屈拇短肌",
+      "en": "Flexor Hallucis Brevis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.medialPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.adductorHallucis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "內收拇肌",
+      "en": "Adductor Hallucis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "adduction"
+      }
+    ],
+    "innervation": ["nerve.lateralPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.flexorDigitiMinimiPedis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "屈小趾短肌",
+      "en": "Flexor Digiti Minimi (foot)"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.lateralPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.plantarInterossei",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "蹠側骨間肌群",
+      "en": "Plantar Interossei"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "adduction"
+      }
+    ],
+    "innervation": ["nerve.lateralPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.dorsalInterosseiPedis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "足背骨間肌群",
+      "en": "Dorsal Interossei (foot)"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.toes"],
+    "actions": [
+      {
+        "jointId": "joint.toes",
+        "action": "abduction"
+      }
+    ],
+    "innervation": ["nerve.lateralPlantar"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.nerveToPiriformis",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "梨狀肌神經",
+      "en": "Nerve to Piriformis"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.nerveToObturatorInternus",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "閉孔內肌神經",
+      "en": "Nerve to Obturator Internus"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.nerveToQuadratusFemoris",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "股方肌神經",
+      "en": "Nerve to Quadratus Femoris"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.piriformis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "梨狀肌",
+      "en": "Piriformis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "externalRotation"
+      }
+    ],
+    "innervation": ["nerve.nerveToPiriformis"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.obturatorInternus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "閉孔內肌",
+      "en": "Obturator Internus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "externalRotation"
+      }
+    ],
+    "innervation": ["nerve.nerveToObturatorInternus"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.superiorGemellus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "上孖肌",
+      "en": "Superior Gemellus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "externalRotation"
+      }
+    ],
+    "innervation": ["nerve.nerveToObturatorInternus"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.inferiorGemellus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "下孖肌",
+      "en": "Inferior Gemellus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "externalRotation"
+      }
+    ],
+    "innervation": ["nerve.nerveToQuadratusFemoris"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.quadratusFemoris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "股方肌",
+      "en": "Quadratus Femoris"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "externalRotation"
+      }
+    ],
+    "innervation": ["nerve.nerveToQuadratusFemoris"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.obturatorExternus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "閉孔外肌",
+      "en": "Obturator Externus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "externalRotation"
+      }
+    ],
+    "innervation": ["nerve.obturator"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.spine",
+    "type": "joint",
+    "name": {
+      "zh-TW": "脊椎關節",
+      "en": "Spine (Trunk)"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": -30,
+        "max": 80,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "lateralFlexion",
+        "min": -35,
+        "max": 35,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "rotation",
+        "min": -45,
+        "max": 45,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.intercostal",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "肋間神經",
+      "en": "Intercostal Nerves"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.rectusAbdominis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "腹直肌",
+      "en": "Rectus Abdominis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.externalAbdominalOblique",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "腹外斜肌",
+      "en": "External Abdominal Oblique"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "rotation"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.internalAbdominalOblique",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "腹內斜肌",
+      "en": "Internal Abdominal Oblique"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "rotation"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.transversusAbdominis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "腹橫肌",
+      "en": "Transversus Abdominis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "compression"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.dorsalRami",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "脊神經後支",
+      "en": "Dorsal Rami (Spinal Nerves)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.iliocostalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "髂肋肌",
+      "en": "Iliocostalis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.longissimus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "最長肌",
+      "en": "Longissimus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.spinalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "棘肌",
+      "en": "Spinalis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.multifidus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "多裂肌",
+      "en": "Multifidus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "rotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.semispinalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "半棘肌",
+      "en": "Semispinalis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "rotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.rotatores",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "迴旋肌",
+      "en": "Rotatores"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "rotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.scapulothoracic",
+    "type": "joint",
+    "name": {
+      "zh-TW": "肩胛胸廓關節",
+      "en": "Scapulothoracic"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "elevationDepression",
+        "min": -10,
+        "max": 30,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "protractionRetraction",
+        "min": -25,
+        "max": 25,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "upwardDownwardRotation",
+        "min": -10,
+        "max": 60,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.accessory",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "副神經（CN XI）",
+      "en": "Accessory Nerve (CN XI)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.thoracodorsal",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "胸背神經",
+      "en": "Thoracodorsal Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.trapezius",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "斜方肌",
+      "en": "Trapezius"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.scapulothoracic"],
+    "actions": [
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "elevation"
+      },
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "depression"
+      },
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "retraction"
+      },
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "upwardRotation"
+      }
+    ],
+    "innervation": ["nerve.accessory"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.latissimusDorsi",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "闊背肌",
+      "en": "Latissimus Dorsi"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.glenohumeral"],
+    "actions": [
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "adduction"
+      },
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "internalRotation"
+      }
+    ],
+    "innervation": ["nerve.thoracodorsal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.cervicalSpine",
+    "type": "joint",
+    "name": {
+      "zh-TW": "頸椎關節",
+      "en": "Cervical Spine"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "flexionExtension",
+        "min": -60,
+        "max": 50,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "lateralFlexion",
+        "min": -45,
+        "max": 45,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "rotation",
+        "min": -80,
+        "max": 80,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.cervicalVentralRami",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "頸脊神經前支",
+      "en": "Cervical Ventral Rami"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.sternocleidomastoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "胸鎖乳突肌",
+      "en": "Sternocleidomastoid"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "lateralFlexion"
+      },
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "rotation"
+      }
+    ],
+    "innervation": ["nerve.accessory"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.scalenusAnterior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "前斜角肌",
+      "en": "Scalenus Anterior"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "lateralFlexion"
+      },
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.cervicalVentralRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.scalenusMedius",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "中斜角肌",
+      "en": "Scalenus Medius"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.cervicalVentralRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.scalenusPosterior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "後斜角肌",
+      "en": "Scalenus Posterior"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.cervicalVentralRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.dorsalScapular",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "肩胛背神經",
+      "en": "Dorsal Scapular Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.longThoracic",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "胸長神經",
+      "en": "Long Thoracic Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.rhomboidMajor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "菱形大肌",
+      "en": "Rhomboid Major"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.scapulothoracic"],
+    "actions": [
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "retraction"
+      },
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "downwardRotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalScapular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.rhomboidMinor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "菱形小肌",
+      "en": "Rhomboid Minor"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.scapulothoracic"],
+    "actions": [
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "retraction"
+      },
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "downwardRotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalScapular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.serratusAnterior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "前鋸肌",
+      "en": "Serratus Anterior"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.scapulothoracic"],
+    "actions": [
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "protraction"
+      },
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "upwardRotation"
+      }
+    ],
+    "innervation": ["nerve.longThoracic"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.levatorScapulae",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "提肩胛肌",
+      "en": "Levator Scapulae"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.scapulothoracic"],
+    "actions": [
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "elevation"
+      },
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "downwardRotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalScapular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.spleniusCapitis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頭夾肌",
+      "en": "Splenius Capitis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "lateralFlexion"
+      },
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "rotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.spleniusColli",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頸夾肌",
+      "en": "Splenius Colli"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "lateralFlexion"
+      },
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "rotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.longusCapitis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頭長肌",
+      "en": "Longus Capitis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.cervicalVentralRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.longusColli",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頸長肌",
+      "en": "Longus Colli"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.cervicalVentralRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.thorax",
+    "type": "joint",
+    "name": {
+      "zh-TW": "胸廓",
+      "en": "Thorax (Rib Cage)"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "ribElevation",
+        "min": -10,
+        "max": 30,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.phrenic",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "膈神經",
+      "en": "Phrenic Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.diaphragm",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "橫膈膜",
+      "en": "Diaphragm"
+    },
+    "layer": "deep",
+    "symmetry": "midline",
+    "relatedJoints": ["joint.thorax"],
+    "actions": [
+      {
+        "jointId": "joint.thorax",
+        "action": "inspiration"
+      }
+    ],
+    "innervation": ["nerve.phrenic"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.externalIntercostal",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "外肋間肌",
+      "en": "External Intercostal"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thorax"],
+    "actions": [
+      {
+        "jointId": "joint.thorax",
+        "action": "inspiration"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.internalIntercostal",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "內肋間肌",
+      "en": "Internal Intercostal"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thorax"],
+    "actions": [
+      {
+        "jointId": "joint.thorax",
+        "action": "expiration"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.innermostIntercostal",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "最內肋間肌",
+      "en": "Innermost Intercostal"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thorax"],
+    "actions": [
+      {
+        "jointId": "joint.thorax",
+        "action": "expiration"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.sacrum",
+    "type": "bone",
+    "name": {
+      "zh-TW": "薦骨",
+      "en": "Sacrum"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.coccyx",
+    "type": "bone",
+    "name": {
+      "zh-TW": "尾骨",
+      "en": "Coccyx"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.frontal",
+    "type": "bone",
+    "name": {
+      "zh-TW": "額骨",
+      "en": "Frontal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.occipital",
+    "type": "bone",
+    "name": {
+      "zh-TW": "枕骨",
+      "en": "Occipital bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.sphenoid",
+    "type": "bone",
+    "name": {
+      "zh-TW": "蝶骨",
+      "en": "Sphenoid bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.ethmoid",
+    "type": "bone",
+    "name": {
+      "zh-TW": "篩骨",
+      "en": "Ethmoid bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.vomer",
+    "type": "bone",
+    "name": {
+      "zh-TW": "犁骨",
+      "en": "Vomer"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.parietal",
+    "type": "bone",
+    "name": {
+      "zh-TW": "頂骨",
+      "en": "Parietal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.temporal",
+    "type": "bone",
+    "name": {
+      "zh-TW": "顳骨",
+      "en": "Temporal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.maxilla",
+    "type": "bone",
+    "name": {
+      "zh-TW": "上頜骨",
+      "en": "Maxilla"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.zygomatic",
+    "type": "bone",
+    "name": {
+      "zh-TW": "顴骨",
+      "en": "Zygomatic bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.nasal",
+    "type": "bone",
+    "name": {
+      "zh-TW": "鼻骨",
+      "en": "Nasal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.lacrimal",
+    "type": "bone",
+    "name": {
+      "zh-TW": "淚骨",
+      "en": "Lacrimal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.palatine",
+    "type": "bone",
+    "name": {
+      "zh-TW": "腭骨",
+      "en": "Palatine bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.inferiorNasalConcha",
+    "type": "bone",
+    "name": {
+      "zh-TW": "下鼻甲",
+      "en": "Inferior nasal concha"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.mandible",
+    "type": "bone",
+    "name": {
+      "zh-TW": "下頜骨",
+      "en": "Mandible"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.hyoid",
+    "type": "bone",
+    "name": {
+      "zh-TW": "舌骨",
+      "en": "Hyoid Bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.temporomandibular",
+    "type": "joint",
+    "name": {
+      "zh-TW": "顳顎關節",
+      "en": "Temporomandibular Joint"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "depressionElevation",
+        "min": -5,
+        "max": 50,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "protrusionRetrusion",
+        "min": -5,
+        "max": 10,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "lateralDeviation",
+        "min": -10,
+        "max": 10,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.mandibular",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "下頜神經（CN V3）",
+      "en": "Mandibular Nerve (CN V3)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.masseter",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "咬肌",
+      "en": "Masseter"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.temporomandibular"],
+    "actions": [
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "elevation"
+      },
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "protrusion"
+      }
+    ],
+    "innervation": ["nerve.mandibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.temporalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "顳肌",
+      "en": "Temporalis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.temporomandibular"],
+    "actions": [
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "elevation"
+      },
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "retrusion"
+      }
+    ],
+    "innervation": ["nerve.mandibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.medialPterygoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "翼內肌",
+      "en": "Medial Pterygoid"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.temporomandibular"],
+    "actions": [
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "elevation"
+      },
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "protrusion"
+      },
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "lateralDeviation"
+      }
+    ],
+    "innervation": ["nerve.mandibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.lateralPterygoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "翼外肌",
+      "en": "Lateral Pterygoid"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.temporomandibular"],
+    "actions": [
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "depression"
+      },
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "protrusion"
+      },
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "lateralDeviation"
+      }
+    ],
+    "innervation": ["nerve.mandibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "joint.hyoid",
+    "type": "joint",
+    "name": {
+      "zh-TW": "舌骨運動",
+      "en": "Hyoid Movement"
+    },
+    "degreesOfFreedom": [
+      {
+        "axis": "elevationDepression",
+        "min": -10,
+        "max": 20,
+        "neutral": 0,
+        "unit": "deg"
+      },
+      {
+        "axis": "anteroposteriorGlide",
+        "min": -5,
+        "max": 10,
+        "neutral": 0,
+        "unit": "deg"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.facial",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "顏面神經（CN VII）",
+      "en": "Facial Nerve (CN VII)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.hypoglossal",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "舌下神經（CN XII）",
+      "en": "Hypoglossal Nerve (CN XII)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.digastric",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "二腹肌",
+      "en": "Digastric"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hyoid", "joint.temporomandibular"],
+    "actions": [
+      {
+        "jointId": "joint.hyoid",
+        "action": "elevation"
+      },
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "depression"
+      }
+    ],
+    "innervation": ["nerve.mandibular", "nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.mylohyoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "下頜舌骨肌",
+      "en": "Mylohyoid"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hyoid", "joint.temporomandibular"],
+    "actions": [
+      {
+        "jointId": "joint.hyoid",
+        "action": "elevation"
+      },
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "depression"
+      }
+    ],
+    "innervation": ["nerve.mandibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.geniohyoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頦舌骨肌",
+      "en": "Geniohyoid"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hyoid", "joint.temporomandibular"],
+    "actions": [
+      {
+        "jointId": "joint.hyoid",
+        "action": "elevation"
+      },
+      {
+        "jointId": "joint.hyoid",
+        "action": "anteriorGlide"
+      },
+      {
+        "jointId": "joint.temporomandibular",
+        "action": "depression"
+      }
+    ],
+    "innervation": ["nerve.hypoglossal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.stylohyoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "莖突舌骨肌",
+      "en": "Stylohyoid"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hyoid"],
+    "actions": [
+      {
+        "jointId": "joint.hyoid",
+        "action": "elevation"
+      },
+      {
+        "jointId": "joint.hyoid",
+        "action": "retraction"
+      }
+    ],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.ansaCervicalis",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "頸袢（C1–C3）",
+      "en": "Ansa Cervicalis (C1–C3)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.sternohyoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "胸骨舌骨肌",
+      "en": "Sternohyoid"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hyoid"],
+    "actions": [
+      {
+        "jointId": "joint.hyoid",
+        "action": "depression"
+      }
+    ],
+    "innervation": ["nerve.ansaCervicalis"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.sternothyroid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "胸骨甲狀肌",
+      "en": "Sternothyroid"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hyoid"],
+    "actions": [
+      {
+        "jointId": "joint.hyoid",
+        "action": "depression"
+      }
+    ],
+    "innervation": ["nerve.ansaCervicalis"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.thyrohyoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "甲狀舌骨肌",
+      "en": "Thyrohyoid"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hyoid"],
+    "actions": [
+      {
+        "jointId": "joint.hyoid",
+        "action": "depression"
+      }
+    ],
+    "innervation": ["nerve.hypoglossal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.omohyoid",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "肩胛舌骨肌",
+      "en": "Omohyoid"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hyoid"],
+    "actions": [
+      {
+        "jointId": "joint.hyoid",
+        "action": "depression"
+      }
+    ],
+    "innervation": ["nerve.ansaCervicalis"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.occipitofrontalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "枕額肌",
+      "en": "Occipitofrontalis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.temporoparietalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "顳頂肌",
+      "en": "Temporoparietalis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.orbicularisOculi",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "眼輪匝肌",
+      "en": "Orbicularis Oculi"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.corrugatorSupercilii",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "皺眉肌",
+      "en": "Corrugator Supercilii"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.procerus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "鼻錐肌",
+      "en": "Procerus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.orbicularisOris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "口輪匝肌",
+      "en": "Orbicularis Oris"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.zygomaticusMajor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "顴大肌",
+      "en": "Zygomaticus Major"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.zygomaticusMinor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "顴小肌",
+      "en": "Zygomaticus Minor"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.levatorLabiiSuperioris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "提上唇肌",
+      "en": "Levator Labii Superioris"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.levatorAnguliOris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "提口角肌",
+      "en": "Levator Anguli Oris"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.risorius",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "笑肌",
+      "en": "Risorius"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.depressorAnguliOris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "降口角肌",
+      "en": "Depressor Anguli Oris"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.depressorLabiiInferioris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "降下唇肌",
+      "en": "Depressor Labii Inferioris"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.mentalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頦肌",
+      "en": "Mentalis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.nasalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "鼻肌",
+      "en": "Nasalis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.depressorSeptiNasi",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "降鼻中隔肌",
+      "en": "Depressor Septi Nasi"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.platysma",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頸闊肌",
+      "en": "Platysma"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.rectusCapitisPosteriorMajor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頭後大直肌",
+      "en": "Rectus Capitis Posterior Major"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "rotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.rectusCapitisPosteriorMinor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頭後小直肌",
+      "en": "Rectus Capitis Posterior Minor"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.obliquusCapitisSuperior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頭上斜肌",
+      "en": "Obliquus Capitis Superior"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.obliquusCapitisInferior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頭下斜肌",
+      "en": "Obliquus Capitis Inferior"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "rotation"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.rectusCapitisAnterior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頭前直肌",
+      "en": "Rectus Capitis Anterior"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.cervicalVentralRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.rectusCapitisLateralis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頭側直肌",
+      "en": "Rectus Capitis Lateralis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.cervicalSpine"],
+    "actions": [
+      {
+        "jointId": "joint.cervicalSpine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.cervicalVentralRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.lumbarVentralRami",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "腰神經叢前支（T12–L4）",
+      "en": "Lumbar Ventral Rami (T12–L4)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.pudendal",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "陰部神經（S2–S4）",
+      "en": "Pudendal Nerve (S2–S4)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.saphenous",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "隱神經",
+      "en": "Saphenous Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.sural",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "腓腸神經",
+      "en": "Sural Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.lateralFemoralCutaneous",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "股外側皮神經",
+      "en": "Lateral Femoral Cutaneous Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.posteriorFemoralCutaneous",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "股後皮神經",
+      "en": "Posterior Femoral Cutaneous Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.superficialRadial",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "橈神經淺支",
+      "en": "Superficial Branch of Radial Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.ilioinguinal",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "髂腹股溝神經",
+      "en": "Ilio-inguinal Nerve"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.quadratusLumborum",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "腰方肌",
+      "en": "Quadratus Lumborum"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "lateralFlexion"
+      },
+      {
+        "jointId": "joint.spine",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.lumbarVentralRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.pubococcygeus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "恥尾肌",
+      "en": "Pubococcygeus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.pudendal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.iliococcygeus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "髂尾肌",
+      "en": "Iliococcygeus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.pudendal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.coccygeus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "尾骨肌",
+      "en": "Coccygeus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.pudendal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.puboanalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "恥骨肛門肌",
+      "en": "Puboanalis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.pudendal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.externalAnalSphincter",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "肛門外括約肌",
+      "en": "External Anal Sphincter"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.pudendal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.lateralPectoral",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "胸外側神經（C5–C7）",
+      "en": "Lateral Pectoral Nerve (C5–C7)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.medialPectoral",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "胸內側神經（C8–T1）",
+      "en": "Medial Pectoral Nerve (C8–T1)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.nerveToSubclavius",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "鎖骨下肌神經（C5–C6）",
+      "en": "Nerve to Subclavius (C5–C6)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.pectoralisMajor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "胸大肌",
+      "en": "Pectoralis Major"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.glenohumeral"],
+    "actions": [
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "adduction"
+      },
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "internalRotation"
+      }
+    ],
+    "innervation": ["nerve.lateralPectoral", "nerve.medialPectoral"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.pectoralisMinor",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "胸小肌",
+      "en": "Pectoralis Minor"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.scapulothoracic"],
+    "actions": [
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "protraction"
+      },
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "depression"
+      },
+      {
+        "jointId": "joint.scapulothoracic",
+        "action": "downwardRotation"
+      }
+    ],
+    "innervation": ["nerve.medialPectoral"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.subclavius",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "鎖骨下肌",
+      "en": "Subclavius"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.nerveToSubclavius"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.brachioradialis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "肱橈肌",
+      "en": "Brachioradialis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.elbow"],
+    "actions": [
+      {
+        "jointId": "joint.elbow",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorCarpiRadialisBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "橈側伸腕短肌",
+      "en": "Extensor Carpi Radialis Brevis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.wrist"],
+    "actions": [
+      {
+        "jointId": "joint.wrist",
+        "action": "extension"
+      },
+      {
+        "jointId": "joint.wrist",
+        "action": "radialDeviation"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorDigitiMinimi",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "小指伸肌",
+      "en": "Extensor Digiti Minimi"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorIndicis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "示指伸肌",
+      "en": "Extensor Indicis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.fingers"],
+    "actions": [
+      {
+        "jointId": "joint.fingers",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.extensorPollicisBrevis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "拇短伸肌",
+      "en": "Extensor Pollicis Brevis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thumb"],
+    "actions": [
+      {
+        "jointId": "joint.thumb",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.anconeus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "肘肌",
+      "en": "Anconeus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.elbow"],
+    "actions": [
+      {
+        "jointId": "joint.elbow",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.radial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.coracobrachialis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "喙肱肌",
+      "en": "Coracobrachialis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.glenohumeral"],
+    "actions": [
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.glenohumeral",
+        "action": "adduction"
+      }
+    ],
+    "innervation": ["nerve.musculocutaneous"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.palmarisLongus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "掌長肌",
+      "en": "Palmaris Longus"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.wrist"],
+    "actions": [
+      {
+        "jointId": "joint.wrist",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.median"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.pronatorQuadratus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "旋前方肌",
+      "en": "Pronator Quadratus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.radioulnar"],
+    "actions": [
+      {
+        "jointId": "joint.radioulnar",
+        "action": "pronation"
+      }
+    ],
+    "innervation": ["nerve.median"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.sartorius",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "縫匠肌",
+      "en": "Sartorius"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip", "joint.knee"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "flexion"
+      },
+      {
+        "jointId": "joint.hip",
+        "action": "abduction"
+      },
+      {
+        "jointId": "joint.hip",
+        "action": "externalRotation"
+      },
+      {
+        "jointId": "joint.knee",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.femoral"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.popliteus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "膕肌",
+      "en": "Popliteus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.knee"],
+    "actions": [
+      {
+        "jointId": "joint.knee",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.tibial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.plantaris",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "蹠肌",
+      "en": "Plantaris"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.ankle", "joint.knee"],
+    "actions": [
+      {
+        "jointId": "joint.ankle",
+        "action": "plantarflexion"
+      },
+      {
+        "jointId": "joint.knee",
+        "action": "flexion"
+      }
+    ],
+    "innervation": ["nerve.tibial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.fibularisTertius",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "第三腓骨肌",
+      "en": "Fibularis Tertius"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.ankle"],
+    "actions": [
+      {
+        "jointId": "joint.ankle",
+        "action": "dorsiflexion"
+      },
+      {
+        "jointId": "joint.ankle",
+        "action": "eversion"
+      }
+    ],
+    "innervation": ["nerve.deepFibular"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.serratusPosteriorSuperior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "上後鋸肌",
+      "en": "Serratus Posterior Superior"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thorax"],
+    "actions": [
+      {
+        "jointId": "joint.thorax",
+        "action": "inspiration"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.serratusPosteriorInferior",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "下後鋸肌",
+      "en": "Serratus Posterior Inferior"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thorax"],
+    "actions": [
+      {
+        "jointId": "joint.thorax",
+        "action": "expiration"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.buccinator",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "頰肌",
+      "en": "Buccinator"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.facial"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.anteriorCruciateLigament",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "前十字韌帶",
+      "en": "Anterior Cruciate Ligament"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.posteriorCruciateLigament",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "後十字韌帶",
+      "en": "Posterior Cruciate Ligament"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.anteriorLongitudinalLigament",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "前縱韌帶",
+      "en": "Anterior Longitudinal Ligament"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.posteriorLongitudinalLigament",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "後縱韌帶",
+      "en": "Posterior Longitudinal Ligament"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.ligamentaFlava",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "黃韌帶",
+      "en": "Ligamenta Flava"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.c2C3",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 C2–C3",
+      "en": "Intervertebral Disc C2–C3"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.c3C4",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 C3–C4",
+      "en": "Intervertebral Disc C3–C4"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.c4C5",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 C4–C5",
+      "en": "Intervertebral Disc C4–C5"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.c5C6",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 C5–C6",
+      "en": "Intervertebral Disc C5–C6"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.c6C7",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 C6–C7",
+      "en": "Intervertebral Disc C6–C7"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.c7T1",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 C7–T1",
+      "en": "Intervertebral Disc C7–T1"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t1T2",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T1–T2",
+      "en": "Intervertebral Disc T1–T2"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t2T3",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T2–T3",
+      "en": "Intervertebral Disc T2–T3"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t3T4",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T3–T4",
+      "en": "Intervertebral Disc T3–T4"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t4T5",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T4–T5",
+      "en": "Intervertebral Disc T4–T5"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t5T6",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T5–T6",
+      "en": "Intervertebral Disc T5–T6"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t6T7",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T6–T7",
+      "en": "Intervertebral Disc T6–T7"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t7T8",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T7–T8",
+      "en": "Intervertebral Disc T7–T8"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t8T9",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T8–T9",
+      "en": "Intervertebral Disc T8–T9"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t9T10",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T9–T10",
+      "en": "Intervertebral Disc T9–T10"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t10T11",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T10–T11",
+      "en": "Intervertebral Disc T10–T11"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t11T12",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T11–T12",
+      "en": "Intervertebral Disc T11–T12"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.t12L1",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 T12–L1",
+      "en": "Intervertebral Disc T12–L1"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.l1L2",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 L1–L2",
+      "en": "Intervertebral Disc L1–L2"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.l2L3",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 L2–L3",
+      "en": "Intervertebral Disc L2–L3"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.l3L4",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 L3–L4",
+      "en": "Intervertebral Disc L3–L4"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.l4L5",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 L4–L5",
+      "en": "Intervertebral Disc L4–L5"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "disc.l5S1",
+    "type": "disc",
+    "name": {
+      "zh-TW": "椎間盤 L5–S1",
+      "en": "Intervertebral Disc L5–S1"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.knee",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "膝關節囊",
+      "en": "Knee Joint Capsule"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.elbow",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "肘關節囊",
+      "en": "Elbow Joint Capsule"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.glenohumeral",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "盂肱關節囊",
+      "en": "Glenohumeral Joint Capsule"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.hip",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "髖關節囊",
+      "en": "Hip Joint Capsule"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.radiocarpal",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "橈腕關節囊",
+      "en": "Radiocarpal Joint Capsule"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.acromioclavicular",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "肩鎖關節囊",
+      "en": "Acromioclavicular Joint Capsule"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.sternoclavicular",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "胸鎖關節囊",
+      "en": "Sternoclavicular Joint Capsule"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.temporomandibular",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "顳顎關節囊",
+      "en": "Temporomandibular Joint Capsule"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.superiorTibiofibular",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "上脛腓關節囊",
+      "en": "Superior Tibiofibular Joint Capsule"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.metacarpophalangeal",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "掌指關節囊（群）",
+      "en": "Metacarpophalangeal Joint Capsules"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.metatarsophalangeal",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "蹠趾關節囊（群）",
+      "en": "Metatarsophalangeal Joint Capsules"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.proximalInterphalangealHand",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "手近端指間關節囊（群）",
+      "en": "Proximal Interphalangeal Joint Capsules (Hand)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.distalInterphalangealHand",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "手遠端指間關節囊（群）",
+      "en": "Distal Interphalangeal Joint Capsules (Hand)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.proximalInterphalangealFoot",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "足近端趾間關節囊（群）",
+      "en": "Proximal Interphalangeal Joint Capsules (Foot)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.distalInterphalangealFoot",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "足遠端趾間關節囊（群）",
+      "en": "Distal Interphalangeal Joint Capsules (Foot)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "capsule.interphalangealGreatToe",
+    "type": "capsule",
+    "name": {
+      "zh-TW": "拇趾趾間關節囊",
+      "en": "Interphalangeal Joint Capsule of Great Toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "articularDisc.temporomandibular",
+    "type": "articularDisc",
+    "name": {
+      "zh-TW": "顳顎關節盤",
+      "en": "Temporomandibular Articular Disc"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "articularDisc.lateralMeniscus",
+    "type": "articularDisc",
+    "name": {
+      "zh-TW": "外側半月板",
+      "en": "Lateral Meniscus"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "articularDisc.medialMeniscus",
+    "type": "articularDisc",
+    "name": {
+      "zh-TW": "內側半月板",
+      "en": "Medial Meniscus"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "labrum.acetabular",
+    "type": "labrum",
+    "name": {
+      "zh-TW": "髖臼唇",
+      "en": "Acetabular Labrum"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "labrum.glenoid",
+    "type": "labrum",
+    "name": {
+      "zh-TW": "肩盂唇",
+      "en": "Glenoid Labrum"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.epicranialAponeurosis",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "帽狀腱膜",
+      "en": "Epicranial aponeurosis"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.thoracolumbar",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "胸腰筋膜",
+      "en": "Thoracolumbar fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.lata",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "闊筋膜",
+      "en": "Fascia lata"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.crural",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "小腿筋膜",
+      "en": "Crural fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.antebrachial",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "前臂筋膜",
+      "en": "Antebrachial fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.brachial",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "臂筋膜",
+      "en": "Brachial fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.plantarAponeurosis",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "足底腱膜",
+      "en": "Plantar aponeurosis"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.palmarAponeurosis",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "掌腱膜",
+      "en": "Palmar aponeurosis"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.transversalis",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "腹橫筋膜",
+      "en": "Transversalis fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.investingAbdominal",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "腹壁包覆筋膜",
+      "en": "Investing abdominal fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.pectoral",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "胸肌筋膜",
+      "en": "Pectoral fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.clavipectoral",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "鎖胸筋膜",
+      "en": "Clavipectoral fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.cervical",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "頸部封套筋膜",
+      "en": "Investing cervical fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "fascia.iliopsoas",
+    "type": "fascia",
+    "name": {
+      "zh-TW": "髂腰肌筋膜",
+      "en": "Iliopsoas fascia"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.interosseousMembraneForearm",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "前臂骨間膜",
+      "en": "Interosseous membrane of forearm"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.interosseousMembraneLeg",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "小腿骨間膜",
+      "en": "Interosseous membrane of leg"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.longPlantar",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "長足底韌帶",
+      "en": "Long plantar ligament"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.headOfFemur",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "股骨頭韌帶",
+      "en": "Ligament of head of femur"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.posteriorSacroiliac",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "後薦髂韌帶",
+      "en": "Posterior sacro-iliac ligament"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.radiateHeadOfRib",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "肋骨頭放射狀韌帶",
+      "en": "Radiate ligament of head of rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.collateralInterphalangealHand",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "手指間關節側副韌帶",
+      "en": "Collateral interphalangeal ligaments of hand"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "ligament.collateralInterphalangealFoot",
+    "type": "ligament",
+    "name": {
+      "zh-TW": "足趾間關節側副韌帶",
+      "en": "Collateral interphalangeal ligaments of foot"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bursa.subacromial",
+    "type": "bursa",
+    "name": {
+      "zh-TW": "肩峰下滑囊",
+      "en": "Subacromial bursa"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bursa.trochantericGluteusMedius",
+    "type": "bursa",
+    "name": {
+      "zh-TW": "臀中肌轉子滑囊",
+      "en": "Trochanteric bursa of gluteus medius muscle"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bursa.subcutaneousTrochanteric",
+    "type": "bursa",
+    "name": {
+      "zh-TW": "皮下轉子滑囊",
+      "en": "Subcutaneous trochanteric bursa"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bursa.subcutaneousPrepatellar",
+    "type": "bursa",
+    "name": {
+      "zh-TW": "皮下髕前滑囊",
+      "en": "Subcutaneous prepatellar bursa"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bursa.deepInfrapatellar",
+    "type": "bursa",
+    "name": {
+      "zh-TW": "深層髕下滑囊",
+      "en": "Deep infrapatellar bursa"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bursa.subtendinousTricepsBrachii",
+    "type": "bursa",
+    "name": {
+      "zh-TW": "肱三頭肌腱下滑囊",
+      "en": "Subtendinous bursa of triceps brachii muscle"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bursa.anserine",
+    "type": "bursa",
+    "name": {
+      "zh-TW": "鵝足滑囊",
+      "en": "Anserine bursa"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bursa.semimembranosus",
+    "type": "bursa",
+    "name": {
+      "zh-TW": "半膜肌滑囊",
+      "en": "Semimembranosus bursa"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.interspinales",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "棘間肌",
+      "en": "Interspinales"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "extension"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.intertransversarii",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "橫突間肌",
+      "en": "Intertransversarii"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.spine"],
+    "actions": [
+      {
+        "jointId": "joint.spine",
+        "action": "lateralFlexion"
+      }
+    ],
+    "innervation": ["nerve.dorsalRami"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.pyramidalis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "錐狀肌",
+      "en": "Pyramidalis"
+    },
+    "layer": "superficial",
+    "symmetry": "paired",
+    "relatedJoints": [],
+    "actions": [],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.transversusThoracis",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "胸橫肌",
+      "en": "Transversus Thoracis"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.thorax"],
+    "actions": [
+      {
+        "jointId": "joint.thorax",
+        "action": "expiration"
+      }
+    ],
+    "innervation": ["nerve.intercostal"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscle.adductorMinimus",
+    "type": "muscle",
+    "name": {
+      "zh-TW": "內收最小肌",
+      "en": "Adductor Minimus"
+    },
+    "layer": "deep",
+    "symmetry": "paired",
+    "relatedJoints": ["joint.hip"],
+    "actions": [
+      {
+        "jointId": "joint.hip",
+        "action": "adduction"
+      }
+    ],
+    "innervation": ["nerve.obturator"]
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.armFlexor",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "上臂屈肌群",
+      "en": "Arm flexors"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.armExtensor",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "上臂伸肌群",
+      "en": "Arm extensors"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.forearmFlexor",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "前臂屈肌群",
+      "en": "Forearm flexors"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.forearmExtensor",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "前臂伸肌群",
+      "en": "Forearm extensors"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.rotatorCuff",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "旋轉肌袖",
+      "en": "Rotator cuff"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.thenar",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "大魚際肌群",
+      "en": "Thenar muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.hypothenar",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "小魚際肌群",
+      "en": "Hypothenar muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.handInterossei",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "手部骨間肌群",
+      "en": "Hand intrinsic muscles"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.quadriceps",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "股四頭肌",
+      "en": "Quadriceps"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.hamstring",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "大腿後肌群",
+      "en": "Hamstrings"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.hipAdductor",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "髖內收肌群",
+      "en": "Hip adductors"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.gluteal",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "臀肌群",
+      "en": "Gluteal muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.deepHipRotator",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "髖深層外旋肌群",
+      "en": "Deep hip rotators"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.calf",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "小腿三頭肌",
+      "en": "Calf (triceps surae)"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.deepPosteriorLeg",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "小腿後深層肌群",
+      "en": "Deep posterior leg muscles"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.anteriorLeg",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "小腿前肌群",
+      "en": "Anterior leg muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.fibular",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "腓骨肌群",
+      "en": "Fibular (peroneal) muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.footIntrinsic",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "足部內在肌群",
+      "en": "Foot intrinsic muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.abdominal",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "腹部肌群",
+      "en": "Abdominal muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.erectorSpinae",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "豎脊肌群",
+      "en": "Erector spinae"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.transversospinal",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "橫突棘肌群",
+      "en": "Transversospinales"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.rhomboid",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "菱形肌群",
+      "en": "Rhomboids"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.serratusPosterior",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "後鋸肌群",
+      "en": "Serratus posterior"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.intercostal",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "肋間肌群",
+      "en": "Intercostal muscles"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.pelvicFloor",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "骨盆底肌群",
+      "en": "Pelvic floor muscles"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.pectoral",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "胸肌群",
+      "en": "Pectoral muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.splenius",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "夾肌群",
+      "en": "Splenius muscles"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.scalene",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "斜角肌群",
+      "en": "Scalene muscles"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.prevertebral",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "椎前肌群",
+      "en": "Prevertebral muscles"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.suprahyoid",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "舌骨上肌群",
+      "en": "Suprahyoid muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.infrahyoid",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "舌骨下肌群",
+      "en": "Infrahyoid muscles"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.suboccipital",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "枕下肌群",
+      "en": "Suboccipital muscles"
+    },
+    "layer": "deep"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.mastication",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "咀嚼肌群",
+      "en": "Muscles of mastication"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.epicranius",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "顱頂肌",
+      "en": "Epicranius (scalp)"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "muscleGroup.facialExpression",
+    "type": "muscleGroup",
+    "name": {
+      "zh-TW": "顏面表情肌群",
+      "en": "Muscles of facial expression"
+    },
+    "layer": "superficial"
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.c1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "寰椎（第一頸椎）",
+      "en": "Atlas (C1)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.c2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "樞椎（第二頸椎）",
+      "en": "Axis (C2)"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.c3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三頸椎",
+      "en": "C3 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.c4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四頸椎",
+      "en": "C4 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.c5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五頸椎",
+      "en": "C5 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.c6",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第六頸椎",
+      "en": "C6 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.c7",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第七頸椎",
+      "en": "C7 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一胸椎",
+      "en": "T1 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二胸椎",
+      "en": "T2 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三胸椎",
+      "en": "T3 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四胸椎",
+      "en": "T4 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五胸椎",
+      "en": "T5 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t6",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第六胸椎",
+      "en": "T6 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t7",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第七胸椎",
+      "en": "T7 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t8",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第八胸椎",
+      "en": "T8 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t9",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第九胸椎",
+      "en": "T9 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t10",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第十胸椎",
+      "en": "T10 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t11",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第十一胸椎",
+      "en": "T11 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.t12",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第十二胸椎",
+      "en": "T12 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.l1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一腰椎",
+      "en": "L1 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.l2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二腰椎",
+      "en": "L2 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.l3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三腰椎",
+      "en": "L3 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.l4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四腰椎",
+      "en": "L4 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.l5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五腰椎",
+      "en": "L5 vertebra"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一肋骨",
+      "en": "First rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二肋骨",
+      "en": "Second rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三肋骨",
+      "en": "Third rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四肋骨",
+      "en": "Fourth rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五肋骨",
+      "en": "Fifth rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib6",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第六肋骨",
+      "en": "Sixth rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib7",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第七肋骨",
+      "en": "Seventh rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib8",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第八肋骨",
+      "en": "Eighth rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib9",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第九肋骨",
+      "en": "Ninth rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib10",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第十肋骨",
+      "en": "Tenth rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib11",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第十一肋骨",
+      "en": "Eleventh rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.rib12",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第十二肋骨",
+      "en": "Twelfth rib"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一肋軟骨",
+      "en": "First costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二肋軟骨",
+      "en": "Second costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三肋軟骨",
+      "en": "Third costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四肋軟骨",
+      "en": "Fourth costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五肋軟骨",
+      "en": "Fifth costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage6",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第六肋軟骨",
+      "en": "Sixth costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage7",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第七肋軟骨",
+      "en": "Seventh costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage8",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第八肋軟骨",
+      "en": "Eighth costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage9",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第九肋軟骨",
+      "en": "Ninth costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.costalCartilage10",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第十肋軟骨",
+      "en": "Tenth costal cartilage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.manubrium",
+    "type": "bone",
+    "name": {
+      "zh-TW": "胸骨柄",
+      "en": "Manubrium of sternum"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.sternumBody",
+    "type": "bone",
+    "name": {
+      "zh-TW": "胸骨體",
+      "en": "Body of sternum"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.xiphoidProcess",
+    "type": "bone",
+    "name": {
+      "zh-TW": "劍突",
+      "en": "Xiphoid process"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.scaphoid",
+    "type": "bone",
+    "name": {
+      "zh-TW": "舟狀骨",
+      "en": "Scaphoid bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.lunate",
+    "type": "bone",
+    "name": {
+      "zh-TW": "月狀骨",
+      "en": "Lunate bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.triquetrum",
+    "type": "bone",
+    "name": {
+      "zh-TW": "三角骨",
+      "en": "Triquetrum bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.pisiform",
+    "type": "bone",
+    "name": {
+      "zh-TW": "豌豆骨",
+      "en": "Pisiform bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.trapezium",
+    "type": "bone",
+    "name": {
+      "zh-TW": "大多角骨",
+      "en": "Trapezium bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.trapezoid",
+    "type": "bone",
+    "name": {
+      "zh-TW": "小多角骨",
+      "en": "Trapezoid bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.capitate",
+    "type": "bone",
+    "name": {
+      "zh-TW": "頭狀骨",
+      "en": "Capitate bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.hamate",
+    "type": "bone",
+    "name": {
+      "zh-TW": "鉤骨",
+      "en": "Hamate bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metacarpal1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一掌骨",
+      "en": "First metacarpal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metacarpal2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二掌骨",
+      "en": "Second metacarpal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metacarpal3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三掌骨",
+      "en": "Third metacarpal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metacarpal4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四掌骨",
+      "en": "Fourth metacarpal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metacarpal5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五掌骨",
+      "en": "Fifth metacarpal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handProximalPhalanx1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一指近節指骨",
+      "en": "Proximal phalanx of first finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handDistalPhalanx1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一指遠節指骨",
+      "en": "Distal phalanx of first finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handProximalPhalanx2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二指近節指骨",
+      "en": "Proximal phalanx of second finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handMiddlePhalanx2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二指中節指骨",
+      "en": "Middle phalanx of second finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handDistalPhalanx2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二指遠節指骨",
+      "en": "Distal phalanx of second finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handProximalPhalanx3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三指近節指骨",
+      "en": "Proximal phalanx of third finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handMiddlePhalanx3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三指中節指骨",
+      "en": "Middle phalanx of third finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handDistalPhalanx3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三指遠節指骨",
+      "en": "Distal phalanx of third finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handProximalPhalanx4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四指近節指骨",
+      "en": "Proximal phalanx of fourth finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handMiddlePhalanx4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四指中節指骨",
+      "en": "Middle phalanx of fourth finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handDistalPhalanx4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四指遠節指骨",
+      "en": "Distal phalanx of fourth finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handProximalPhalanx5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五指近節指骨",
+      "en": "Proximal phalanx of fifth finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handMiddlePhalanx5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五指中節指骨",
+      "en": "Middle phalanx of fifth finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.handDistalPhalanx5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五指遠節指骨",
+      "en": "Distal phalanx of fifth finger"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.talus",
+    "type": "bone",
+    "name": {
+      "zh-TW": "距骨",
+      "en": "Talus"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.calcaneus",
+    "type": "bone",
+    "name": {
+      "zh-TW": "跟骨",
+      "en": "Calcaneus"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.navicular",
+    "type": "bone",
+    "name": {
+      "zh-TW": "足舟狀骨",
+      "en": "Navicular bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.cuboid",
+    "type": "bone",
+    "name": {
+      "zh-TW": "骰骨",
+      "en": "Cuboid bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.medialCuneiform",
+    "type": "bone",
+    "name": {
+      "zh-TW": "內側楔狀骨",
+      "en": "Medial cuneiform bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.intermediateCuneiform",
+    "type": "bone",
+    "name": {
+      "zh-TW": "中間楔狀骨",
+      "en": "Intermediate cuneiform bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.lateralCuneiform",
+    "type": "bone",
+    "name": {
+      "zh-TW": "外側楔狀骨",
+      "en": "Lateral cuneiform bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metatarsal1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一蹠骨",
+      "en": "First metatarsal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metatarsal2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二蹠骨",
+      "en": "Second metatarsal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metatarsal3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三蹠骨",
+      "en": "Third metatarsal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metatarsal4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四蹠骨",
+      "en": "Fourth metatarsal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.metatarsal5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五蹠骨",
+      "en": "Fifth metatarsal bone"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footProximalPhalanx1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一趾近節趾骨",
+      "en": "Proximal phalanx of first toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footDistalPhalanx1",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第一趾遠節趾骨",
+      "en": "Distal phalanx of first toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footProximalPhalanx2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二趾近節趾骨",
+      "en": "Proximal phalanx of second toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footMiddlePhalanx2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二趾中節趾骨",
+      "en": "Middle phalanx of second toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footDistalPhalanx2",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第二趾遠節趾骨",
+      "en": "Distal phalanx of second toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footProximalPhalanx3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三趾近節趾骨",
+      "en": "Proximal phalanx of third toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footMiddlePhalanx3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三趾中節趾骨",
+      "en": "Middle phalanx of third toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footDistalPhalanx3",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第三趾遠節趾骨",
+      "en": "Distal phalanx of third toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footProximalPhalanx4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四趾近節趾骨",
+      "en": "Proximal phalanx of fourth toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footMiddlePhalanx4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四趾中節趾骨",
+      "en": "Middle phalanx of fourth toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footDistalPhalanx4",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第四趾遠節趾骨",
+      "en": "Distal phalanx of fourth toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footProximalPhalanx5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五趾近節趾骨",
+      "en": "Proximal phalanx of fifth toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footMiddlePhalanx5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五趾中節趾骨",
+      "en": "Middle phalanx of fifth toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.footDistalPhalanx5",
+    "type": "bone",
+    "name": {
+      "zh-TW": "第五趾遠節趾骨",
+      "en": "Distal phalanx of fifth toe"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.upperLimb",
+    "type": "bone",
+    "name": {
+      "zh-TW": "上肢骨",
+      "en": "Upper limb bones"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.lowerLimb",
+    "type": "bone",
+    "name": {
+      "zh-TW": "下肢骨",
+      "en": "Lower limb bones"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.thoracicCage",
+    "type": "bone",
+    "name": {
+      "zh-TW": "胸廓",
+      "en": "Thoracic cage"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.vertebralColumn",
+    "type": "bone",
+    "name": {
+      "zh-TW": "脊柱",
+      "en": "Vertebral column"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "bone.skull",
+    "type": "bone",
+    "name": {
+      "zh-TW": "顱骨",
+      "en": "Skull"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.brachialPlexus",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "臂神經叢",
+      "en": "Brachial plexus"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.lumbarPlexus",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "腰神經叢",
+      "en": "Lumbar plexus"
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "anatomyId": "nerve.sacralPlexus",
+    "type": "nerve",
+    "name": {
+      "zh-TW": "薦神經叢",
+      "en": "Sacral plexus"
+    }
+  }
+]

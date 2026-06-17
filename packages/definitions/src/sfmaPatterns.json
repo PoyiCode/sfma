@@ -1,0 +1,244 @@
+[
+  {
+    "patternKey": "cervicalFlexion",
+    "name": { "zh-TW": "頸椎屈曲", "en": "Cervical Flexion" },
+    "side": "single",
+    "criteria": [
+      {
+        "code": "cannotTouchSternumToChin",
+        "label": { "zh-TW": "下巴無法觸及胸骨", "en": "Can't touch sternum to chin" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／動作控制不足",
+          "en": "Excessive effort and/or lack of motor control"
+        }
+      }
+    ]
+  },
+  {
+    "patternKey": "cervicalExtension",
+    "name": { "zh-TW": "頸椎伸展", "en": "Cervical Extension" },
+    "side": "single",
+    "criteria": [
+      {
+        "code": "notWithin10DegreesOfParallel",
+        "label": { "zh-TW": "未達與水平面 10 度內", "en": "Not within 10 degrees of parallel" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／動作控制不足",
+          "en": "Excessive effort and/or lack of motor control"
+        }
+      }
+    ]
+  },
+  {
+    "patternKey": "cervicalRotation",
+    "name": { "zh-TW": "頸椎旋轉", "en": "Cervical Rotation" },
+    "side": "bilateral",
+    "criteria": [
+      {
+        "code": "noseNotAlignedMidClavicle",
+        "label": { "zh-TW": "鼻尖未對齊鎖骨中線", "en": "Nose not in line with mid-clavicle" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／明顯不對稱／動作控制不足",
+          "en": "Excessive effort and/or appreciable asymmetry or lack of motor control"
+        }
+      }
+    ]
+  },
+  {
+    "patternKey": "upperExtremityPattern1Mre",
+    "name": { "zh-TW": "上肢模式一（MRE）", "en": "Upper Extremity Pattern 1 (MRE)" },
+    "side": "bilateral",
+    "criteria": [
+      {
+        "code": "notReachInferiorAngleOfScapula",
+        "label": { "zh-TW": "未達肩胛骨下角", "en": "Does not reach inferior angle of scapula" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／明顯不對稱／動作控制不足",
+          "en": "Excessive effort and/or appreciable asymmetry or lack of motor control"
+        }
+      }
+    ]
+  },
+  {
+    "patternKey": "upperExtremityPattern2Lrf",
+    "name": { "zh-TW": "上肢模式二（LRF）", "en": "Upper Extremity Pattern 2 (LRF)" },
+    "side": "bilateral",
+    "criteria": [
+      {
+        "code": "notReachSpineOfScapula",
+        "label": { "zh-TW": "未達肩胛棘", "en": "Does not reach spine of scapula" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／明顯不對稱／動作控制不足",
+          "en": "Excessive effort and/or appreciable asymmetry or lack of motor control"
+        }
+      }
+    ]
+  },
+  {
+    "patternKey": "multiSegmentalFlexion",
+    "name": { "zh-TW": "多節段屈曲", "en": "Multi-Segmental Flexion" },
+    "side": "single",
+    "criteria": [
+      {
+        "code": "cannotTouchToes",
+        "label": { "zh-TW": "無法觸及腳趾", "en": "Cannot touch toes" }
+      },
+      {
+        "code": "sacralAngleUnder70",
+        "label": { "zh-TW": "薦椎角度 < 70 度", "en": "Sacral angle < 70°" }
+      },
+      {
+        "code": "nonUniformSpinalCurve",
+        "label": { "zh-TW": "脊柱曲線不均勻", "en": "Non-uniform spinal curve" }
+      },
+      {
+        "code": "lackPosteriorWeightShift",
+        "label": { "zh-TW": "缺乏後方重心轉移", "en": "Lack of posterior weight shift" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／明顯不對稱／動作控制不足",
+          "en": "Excessive effort and/or appreciable asymmetry or lack of motor control"
+        }
+      }
+    ]
+  },
+  {
+    "patternKey": "multiSegmentalExtension",
+    "name": { "zh-TW": "多節段伸展", "en": "Multi-Segmental Extension" },
+    "side": "single",
+    "criteria": [
+      {
+        "code": "ueNotMaintain170",
+        "label": {
+          "zh-TW": "上肢未達或無法維持 170 度",
+          "en": "UE does not achieve or maintain 170°"
+        }
+      },
+      {
+        "code": "asisNotClearToes",
+        "label": { "zh-TW": "髂前上棘未超過腳趾", "en": "ASIS does not clear toes" }
+      },
+      {
+        "code": "scapulaSpineNotClearHeels",
+        "label": { "zh-TW": "肩胛棘未超過腳跟", "en": "Spine of scapula does not clear heels" }
+      },
+      {
+        "code": "nonUniformExtensionCurve",
+        "label": { "zh-TW": "脊柱伸展曲線不均勻", "en": "Non-uniform spinal curve" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／動作控制不足",
+          "en": "Excessive effort and/or lack of motor control"
+        }
+      }
+    ]
+  },
+  {
+    "patternKey": "multiSegmentalRotation",
+    "name": { "zh-TW": "多節段旋轉", "en": "Multi-Segmental Rotation" },
+    "side": "bilateral",
+    "criteria": [
+      {
+        "code": "pelvisRotationUnder50",
+        "label": { "zh-TW": "骨盆旋轉 < 50 度", "en": "Pelvis rotation < 50°" }
+      },
+      {
+        "code": "shoulderRotationUnder50",
+        "label": { "zh-TW": "肩部旋轉 < 50 度", "en": "Shoulders rotation < 50°" }
+      },
+      {
+        "code": "spinePelvicDeviation",
+        "label": { "zh-TW": "脊柱／骨盆偏移", "en": "Spine/pelvic deviation" }
+      },
+      {
+        "code": "excessiveKneeFlexion",
+        "label": { "zh-TW": "膝過度屈曲", "en": "Excessive knee flexion" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／不對稱／動作控制不足",
+          "en": "Excessive effort and/or lack of symmetry or motor control"
+        }
+      }
+    ]
+  },
+  {
+    "patternKey": "singleLegStance",
+    "name": { "zh-TW": "單腳站立", "en": "Single-Leg Stance" },
+    "side": "bilateral",
+    "criteria": [
+      {
+        "code": "eyesOpenUnder10s",
+        "label": { "zh-TW": "睜眼 < 10 秒", "en": "Eyes open < 10 seconds" }
+      },
+      {
+        "code": "eyesClosedUnder10s",
+        "label": { "zh-TW": "閉眼 < 10 秒", "en": "Eyes closed < 10 seconds" }
+      },
+      {
+        "code": "lossOfHeight",
+        "label": { "zh-TW": "失去高度", "en": "Loss of height" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／不對稱／動作控制不足",
+          "en": "Excessive effort or lack of symmetry or motor control"
+        }
+      }
+    ]
+  },
+  {
+    "patternKey": "overheadDeepSquat",
+    "name": { "zh-TW": "過頭深蹲", "en": "Overhead Deep Squat" },
+    "side": "single",
+    "criteria": [
+      {
+        "code": "lossOfUeStartPosition",
+        "label": { "zh-TW": "上肢失去起始位置", "en": "Loss of UE start position" }
+      },
+      {
+        "code": "tibiaTorsoNotParallel",
+        "label": {
+          "zh-TW": "脛骨與軀幹未達平行或更佳",
+          "en": "Tibia and torso are not parallel or better"
+        }
+      },
+      {
+        "code": "thighsNotBreakParallel",
+        "label": { "zh-TW": "大腿未低於水平", "en": "Thighs do not break parallel" }
+      },
+      {
+        "code": "lossOfSagittalAlignment",
+        "label": { "zh-TW": "失去矢狀面對位", "en": "Loss of sagittal plane alignment" }
+      },
+      {
+        "code": "excessiveEffortOrControl",
+        "label": {
+          "zh-TW": "過度用力／重心偏移／動作控制不足",
+          "en": "Excessive effort, weight shift, or motor control"
+        }
+      }
+    ]
+  }
+]

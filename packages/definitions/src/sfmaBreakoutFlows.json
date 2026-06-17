@@ -1,0 +1,3252 @@
+[
+  {
+    "flowKey": "cervicalFlexionBreakout",
+    "name": { "zh-TW": "頸椎屈曲受限 Breakout", "en": "Limited Cervical Flexion Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.1.1",
+    "startNodeKey": "activeSupineCervicalFlexion",
+    "nodes": [
+      {
+        "nodeKey": "activeSupineCervicalFlexion",
+        "name": { "zh-TW": "主動仰臥頸屈", "en": "Active Supine Cervical Flexion" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "posturalSmcdCervicalFlexion",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "姿勢性 SMCD 影響頸屈",
+                  "en": "Postural SMCD affecting Cervical Flexion"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveSupineCervicalFlexion" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveSupineCervicalFlexion",
+        "name": { "zh-TW": "被動仰臥頸屈", "en": "Passive Supine Cervical Flexion" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "activeCervicalSpineFlexionSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "主動頸椎屈曲 SMCD",
+                  "en": "Active Cervical Spine Flexion SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeSupineOaCervicalFlexion" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeSupineOaCervicalFlexion",
+        "name": { "zh-TW": "主動仰臥枕寰屈曲（20°）", "en": "Active Supine OA Cervical Flexion" },
+        "mode": "active",
+        "resultOptions": ["fnBilateral", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["fnBilateral"],
+              "priorResult": { "nodeKey": "passiveSupineCervicalFlexion", "resultIn": ["DN", "DP"] }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "cervicalSpineFlexionJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "頸椎屈曲 JMD/TED",
+                  "en": "Cervical Spine Flexion JMD &/or TED"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["fnBilateral"],
+              "priorResult": { "nodeKey": "passiveSupineCervicalFlexion", "resultIn": ["FP"] }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "cervicalSpineFlexionJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "頸椎屈曲 JMD/TED",
+                  "en": "Cervical Spine Flexion JMD &/or TED"
+                }
+              },
+              {
+                "kind": "finding",
+                "findingKey": "cervicalFlexionPossibleSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "頸屈亦可能 SMCD（節段與軟組織評估）",
+                  "en": "Possible Cervical Flexion SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "oaFlexionJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "枕寰屈曲 JMD/TED（可能合併頸椎屈曲 JMD/TED）",
+                  "en": "OA Flexion JMD &/or TED"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "cervicalFlexionPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "頸屈疼痛端點", "en": "Cervical Flexion Pain" }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "cervicalRotationBreakout",
+    "name": { "zh-TW": "頸椎旋轉受限 Breakout", "en": "Limited Cervical Rotation Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.1.2",
+    "startNodeKey": "activeSupineCervicalRotation",
+    "nodes": [
+      {
+        "nodeKey": "activeSupineCervicalRotation",
+        "name": { "zh-TW": "主動仰臥頸旋轉（80°）", "en": "Active Supine Cervical Rotation" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "posturalSmcdCervicalRotation",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "姿勢性 SMCD 影響頸旋轉",
+                  "en": "Postural SMCD affecting Cervical Rotation"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveSupineCervicalRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveSupineCervicalRotation",
+        "name": { "zh-TW": "被動仰臥頸旋轉（80°）", "en": "Passive Supine Cervical Rotation" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "activeCervicalSpineRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "主動頸椎旋轉 SMCD",
+                  "en": "Active Cervical Spine Rotation SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "c1C2CervicalRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "c1C2CervicalRotation",
+        "name": { "zh-TW": "C1–C2 頸旋轉（40°）", "en": "C1–C2 Cervical Rotation" },
+        "mode": "active",
+        "resultOptions": ["FN", "FP", "DP", "DN"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN", "FP", "DP"],
+              "priorResult": {
+                "nodeKey": "passiveSupineCervicalRotation",
+                "resultIn": ["DN", "DP"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "lowerCervicalRotationalJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "下頸椎旋轉 JMD/TED",
+                  "en": "Lower Cervical Rotational JMD &/or TED"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN", "FP", "DP"],
+              "priorResult": { "nodeKey": "passiveSupineCervicalRotation", "resultIn": ["FP"] }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "lowerCervicalRotationalJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "下頸椎旋轉 JMD/TED",
+                  "en": "Lower Cervical Rotational JMD &/or TED"
+                }
+              },
+              {
+                "kind": "finding",
+                "findingKey": "cervicalRotationPossibleSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "頸旋轉亦可能 SMCD（節段與軟組織評估）",
+                  "en": "Possible Cervical Rotation SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "c1C2JmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "C1–C2 JMD/TED（可能合併下頸椎 JMD/TED）",
+                  "en": "C1–C2 JMD &/or TED"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "cervicalExtensionBreakout",
+    "name": { "zh-TW": "頸椎伸展受限 Breakout", "en": "Limited Cervical Extension Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.1.3",
+    "startNodeKey": "supineCervicalExtension",
+    "nodes": [
+      {
+        "nodeKey": "supineCervicalExtension",
+        "name": { "zh-TW": "仰臥頸伸展", "en": "Supine Cervical Extension" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "cervicalExtensionJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "頸椎伸展 JMD/TED", "en": "Cervical Extension JMD &/or TED" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN", "FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "posturalSmcdCervicalExtension",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "姿勢性及/或 SMCD 影響頸伸展",
+                  "en": "Postural &/or SMCD affecting Cervical Extension"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "upperExtremityPattern1Breakout",
+    "name": {
+      "zh-TW": "上肢模式一受限 Breakout（MRE）",
+      "en": "Limited Upper Extremity Pattern One Breakout"
+    },
+    "sourceRef": "doc/ref/SFMA_form.md §3.2",
+    "startNodeKey": "activeProneUePattern1Ir",
+    "nodes": [
+      {
+        "nodeKey": "activeProneUePattern1Ir",
+        "name": { "zh-TW": "主動俯臥上肢模式一（IR）", "en": "Active Prone UE Pattern One (IR)" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneElbowFlexionExt" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneUePattern1Ir" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneUePattern1Ir",
+        "name": { "zh-TW": "被動俯臥上肢模式一（IR）", "en": "Passive Prone UE Pattern One (IR)" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneElbowFlexionExt" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneShoulder9090Ir" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeProneShoulder9090Ir",
+        "name": {
+          "zh-TW": "主動俯臥肩 90/90 內旋（60°/弧150°）",
+          "en": "Active Prone Shoulder 90/90 IR"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneShoulderExtension" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneShoulderIr" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneShoulderIr",
+        "name": { "zh-TW": "被動俯臥肩內旋（60°/弧150°）", "en": "Passive Prone Shoulder IR" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderIrSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "肩內旋 SMCD", "en": "Shoulder IR SMCD" }
+              },
+              { "kind": "next", "nodeKey": "activeProneShoulderExtension" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderIrJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "肩內旋 JMD/TED", "en": "Shoulder IR JMD or TED" }
+              },
+              { "kind": "next", "nodeKey": "activeProneShoulderExtension" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderIrChemicalPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理化學性疼痛（肩內旋）", "en": "Treat Chemical Pain" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeProneShoulderExtension",
+        "name": { "zh-TW": "主動俯臥肩伸展（50°）", "en": "Active Prone Shoulder Extension" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneShoulderExtension" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneShoulderExtension",
+        "name": { "zh-TW": "被動俯臥肩伸展（50°）", "en": "Passive Prone Shoulder Extension" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderExtensionSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "肩伸展 SMCD", "en": "Shoulder Extension SMCD" }
+              },
+              { "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderExtensionJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "肩伸展 JMD/TED", "en": "Shoulder Extension JMD or TED" }
+              },
+              { "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderExtensionChemicalPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理化學性疼痛（肩伸展）", "en": "Treat Chemical Pain" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeProneElbowFlexionExt",
+        "name": { "zh-TW": "主動俯臥屈肘（肩伸展位）", "en": "Active Prone Elbow Flexion (Ext.)" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneElbowFlexionExt" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneElbowFlexionExt",
+        "name": { "zh-TW": "被動俯臥屈肘（肩伸展位）", "en": "Passive Prone Elbow Flexion (Ext.)" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "elbowFlexionSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "屈肘 SMCD", "en": "Elbow Flexion SMCD" }
+              },
+              { "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "elbowFlexionJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "屈肘 JMD/TED", "en": "Elbow Flexion JMD or TED" }
+              },
+              { "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "elbowFlexionPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛（屈肘）", "en": "Treat Pain" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeLumbarLockedChExtensionRotation",
+        "name": {
+          "zh-TW": "主動腰椎鎖定（CH）伸展/旋轉（50°）",
+          "en": "Active Lumbar Locked (CH) Extension/Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"], "hasFindings": { "has": false } },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "posturalShoulderGirdleSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "姿勢性及/或肩帶 SMCD",
+                  "en": "Postural &/or Shoulder Girdle SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"], "hasFindings": { "has": true } },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": { "zh-TW": "先處理先前橘色框發現", "en": "Treat orange boxes first" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveLumbarLockedChExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveLumbarLockedChExtensionRotation",
+        "name": {
+          "zh-TW": "被動腰椎鎖定（CH）伸展/旋轉（50°）",
+          "en": "Passive Lumbar Locked (CH) Extension/Rotation"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxShoulderGirdleSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "胸廓及/或肩帶 SMCD", "en": "Thorax &/or Shoulder Girdle SMCD" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxExtensionRotationPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛（胸廓伸展/旋轉）", "en": "Treat Pain" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxExtensionRotationJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "胸廓伸展/旋轉 JMD/TED",
+                  "en": "Thorax Extension/Rotation JMD or TED"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "upperExtremityPattern2Breakout",
+    "name": {
+      "zh-TW": "上肢模式二受限 Breakout（LRF）",
+      "en": "Limited Upper Extremity Pattern Two Breakout"
+    },
+    "sourceRef": "doc/ref/SFMA_form.md §3.3",
+    "startNodeKey": "activeProneUePattern2Er",
+    "nodes": [
+      {
+        "nodeKey": "activeProneUePattern2Er",
+        "name": { "zh-TW": "主動俯臥上肢模式二（ER）", "en": "Active Prone UE Pattern Two (ER)" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneElbowFlexionFlex" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneUePattern2Er" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneUePattern2Er",
+        "name": { "zh-TW": "被動俯臥上肢模式二（ER）", "en": "Passive Prone UE Pattern Two (ER)" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneElbowFlexionFlex" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "proneShoulder9090Er" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "proneShoulder9090Er",
+        "name": { "zh-TW": "俯臥肩 90/90 外旋（90°/弧150°）", "en": "Prone Shoulder 90/90 ER" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneShoulderFlexionAbduction" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneShoulderEr" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneShoulderEr",
+        "name": { "zh-TW": "被動俯臥肩外旋（90°/弧150°）", "en": "Passive Prone Shoulder ER" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderErSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "肩外旋 SMCD", "en": "Shoulder ER SMCD" }
+              },
+              { "kind": "next", "nodeKey": "activeProneShoulderFlexionAbduction" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderErJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "肩外旋 JMD/TED", "en": "Shoulder ER JMD or TED" }
+              },
+              { "kind": "next", "nodeKey": "activeProneShoulderFlexionAbduction" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderErChemicalPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理化學性疼痛（肩外旋）", "en": "Treat Chemical Pain" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeProneShoulderFlexionAbduction",
+        "name": {
+          "zh-TW": "主動俯臥肩屈曲/外展（170°）",
+          "en": "Active Prone Shoulder Flexion/Abduction"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneShoulderFlexionAbduction" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneShoulderFlexionAbduction",
+        "name": {
+          "zh-TW": "被動俯臥肩屈曲/外展（170°）",
+          "en": "Passive Prone Shoulder Flexion/Abduction"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderFlexionAbductionSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "肩屈曲/外展 SMCD", "en": "Shoulder Flexion/Abduction SMCD" }
+              },
+              { "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderFlexionAbductionJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "肩屈曲/外展 JMD/TED",
+                  "en": "Shoulder Flexion/Abduction JMD or TED"
+                }
+              },
+              { "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderFlexionAbductionChemicalPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理化學性疼痛（肩屈曲/外展）", "en": "Treat Chemical Pain" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeProneElbowFlexionFlex",
+        "name": { "zh-TW": "主動俯臥屈肘（肩屈曲位）", "en": "Active Prone Elbow Flexion (Flex)" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneElbowFlexionFlex" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneElbowFlexionFlex",
+        "name": { "zh-TW": "被動俯臥屈肘（肩屈曲位）", "en": "Passive Prone Elbow Flexion (Flex)" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "elbowFlexionSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "屈肘 SMCD", "en": "Elbow Flexion SMCD" }
+              },
+              { "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "elbowFlexionJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "屈肘 JMD/TED", "en": "Elbow Flexion JMD or TED" }
+              },
+              { "kind": "next", "nodeKey": "activeLumbarLockedChExtensionRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "elbowFlexionPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛（屈肘）", "en": "Treat Pain" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeLumbarLockedChExtensionRotation",
+        "name": {
+          "zh-TW": "主動腰椎鎖定（CH）伸展/旋轉（50°）",
+          "en": "Active Lumbar Locked (CH) Extension/Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"], "hasFindings": { "has": false } },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "posturalShoulderGirdleSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "姿勢性及/或肩帶 SMCD",
+                  "en": "Postural &/or Shoulder Girdle SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"], "hasFindings": { "has": true } },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": { "zh-TW": "先處理先前橘色框發現", "en": "Treat orange boxes first" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveLumbarLockedChExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveLumbarLockedChExtensionRotation",
+        "name": {
+          "zh-TW": "被動腰椎鎖定（CH）伸展/旋轉（50°）",
+          "en": "Passive Lumbar Locked (CH) Extension/Rotation"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxShoulderGirdleSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "胸廓及/或肩帶 SMCD", "en": "Thorax &/or Shoulder Girdle SMCD" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxExtensionRotationPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛（胸廓伸展/旋轉）", "en": "Treat Pain" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxExtensionRotationJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "胸廓伸展/旋轉 JMD/TED",
+                  "en": "Thorax Extension/Rotation JMD or TED"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "multiSegmentalFlexionBreakout",
+    "name": {
+      "zh-TW": "多節段屈曲受限 Breakout",
+      "en": "Limited Multi-Segmental Flexion Breakout"
+    },
+    "sourceRef": "doc/ref/SFMA_form.md §3.4",
+    "startNodeKey": "singleLegForwardBend",
+    "nodes": [
+      {
+        "nodeKey": "singleLegForwardBend",
+        "name": { "zh-TW": "單腳前彎", "en": "Single Leg Forward Bend" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN", "DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "longSitting" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "longSitting",
+        "name": { "zh-TW": "長坐測試（薦椎角 80°）", "en": "Long Sitting Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingHipFlexionSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重髖屈曲模式 SMCD",
+                  "en": "Weight-Bearing Hip Flexion Pattern SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeSlr" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeSlr",
+        "name": { "zh-TW": "主動直膝抬腿（70°）", "en": "Active SLR Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "proneRocking" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveSlr" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveSlr",
+        "name": { "zh-TW": "被動直膝抬腿（80°）", "en": "Passive SLR Test" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "coreActiveHipFlexionSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "核心及/或主動髖屈曲 SMCD",
+                  "en": "Core SMCD &/or Active Hip Flexion SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "supineKneeToChest" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "proneRocking",
+        "name": { "zh-TW": "俯臥後坐測試", "en": "Prone Rocking Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": { "has": false, "findingTypeIn": ["JMD", "TED"] }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingSpineHipSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重脊椎及/或髖 SMCD",
+                  "en": "Weight-bearing Spine &/or Hip SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": { "has": true, "findingTypeIn": ["JMD", "TED"] }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "先處理先前活動度（橘色框）發現",
+                  "en": "Treat orange boxes first"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "proneRockingPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "俯臥後坐疼痛端點", "en": "Prone Rocking Pain" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "spinalFlexionJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "脊椎屈曲 JMD/TED", "en": "Spinal Flexion JMD &/or TED" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "supineKneeToChest",
+        "name": { "zh-TW": "仰臥抱膝至胸測試", "en": "Supine Knee to Chest Test" },
+        "mode": "passive",
+        "resultOptions": ["FN", "FP", "DP", "DN"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "priorResult": { "nodeKey": "passiveSlr", "resultIn": ["FP"] }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "slrHipFlexionTed",
+                "findingType": "TED",
+                "label": { "zh-TW": "SLR 髖屈曲 TED", "en": "SLR Hip Flexion TED" }
+              },
+              {
+                "kind": "finding",
+                "findingKey": "supineKneeToChestPossibleSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "亦可能主動髖屈曲 SMCD",
+                  "en": "Possible Active Hip Flexion SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "priorResult": { "nodeKey": "passiveSlr", "resultIn": ["DN", "DP"] }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "slrHipFlexionTed",
+                "findingType": "TED",
+                "label": { "zh-TW": "SLR 髖屈曲 TED", "en": "SLR Hip Flexion TED" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "supineKneeToChestHipPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理髖部化學性疼痛", "en": "Treat Chemical Pain in Hip" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipJmdPosteriorChainTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "髖 JMD 及/或後鏈 TED",
+                  "en": "Hip JMD &/or Posterior Chain TED"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "spineExtensionBreakout",
+    "name": { "zh-TW": "脊椎伸展 Breakout", "en": "Spine Extension Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.5.1",
+    "startNodeKey": "backwardBendWithoutUe",
+    "nodes": [
+      {
+        "nodeKey": "backwardBendWithoutUe",
+        "name": { "zh-TW": "不用上肢之後彎", "en": "Backward Bend w/o UE" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "goToFlow", "flowKey": "upperBodyExtensionBreakout" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "singleLegBackwardBend" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "singleLegBackwardBend",
+        "name": { "zh-TW": "單腳後彎", "en": "Single Leg BB" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "symmetricalStanceCoreSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "對稱站姿核心 SMCD 或前軀幹 TED",
+                  "en": "Symmetrical Stance Core SMCD or Anterior Torso TED"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "upperBodyExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "pressUp" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "pressUp",
+        "name": { "zh-TW": "俯臥撐起", "en": "Press Up" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingSpineExtensionSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重脊椎伸展 SMCD",
+                  "en": "Weight-bearing Spine Extension SMCD"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" },
+              { "kind": "goToFlow", "flowKey": "upperBodyExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeLumbarLockedIrExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeLumbarLockedIrExtensionRotation",
+        "name": {
+          "zh-TW": "主動腰椎鎖定（IR）伸展/旋轉（50°）",
+          "en": "Active Lumbar Locked (IR) Extension/Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneOnElbowExtensionRotation" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveLumbarLockedIrExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveLumbarLockedIrExtensionRotation",
+        "name": {
+          "zh-TW": "被動腰椎鎖定（IR）伸展/旋轉（50°）",
+          "en": "Passive Lumbar Locked (IR) Extension/Rotation"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "lumbarLockedPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛", "en": "Treat Pain" }
+              },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxExtensionRotationSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "胸廓伸展/旋轉 SMCD", "en": "Thorax Extension/Rotation SMCD" }
+              },
+              { "kind": "next", "nodeKey": "activeProneOnElbowExtensionRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxExtensionRotationJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "胸廓伸展/旋轉 JMD/TED",
+                  "en": "Thorax Extension/Rotation JMD &/or TED"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeProneOnElbowExtensionRotation",
+        "name": {
+          "zh-TW": "主動肘撐伸展/旋轉（30°）",
+          "en": "Active Prone on Elbow Extension/Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "若胸廓有 SMCD，視腰椎為正常",
+                  "en": "If Thorax SMCD present, L-Spine is normal"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneOnElbowExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneOnElbowExtensionRotation",
+        "name": {
+          "zh-TW": "被動肘撐伸展/旋轉（30°）",
+          "en": "Passive Prone on Elbow Extension/Rotation"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "proneOnElbowPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛", "en": "Treat Pain" }
+              },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" },
+              { "kind": "goToFlow", "flowKey": "upperBodyExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "lumbarExtensionRotationJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "腰椎伸展/旋轉 JMD/TED",
+                  "en": "Lumbar Extension/Rotation JMD &/or TED"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" },
+              { "kind": "goToFlow", "flowKey": "upperBodyExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "lumbarSpineExtensionRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "腰椎伸展/旋轉 SMCD 或前軀幹 TED",
+                  "en": "Lumbar Spine Extension/Rotation SMCD or Anterior Torso TED"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" },
+              { "kind": "goToFlow", "flowKey": "upperBodyExtensionBreakout" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "lowerBodyExtensionBreakout",
+    "name": { "zh-TW": "下半身伸展 Breakout", "en": "Lower Body Extension Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.5.2",
+    "startNodeKey": "faber",
+    "nodes": [
+      {
+        "nodeKey": "faber",
+        "name": { "zh-TW": "FABER 測試", "en": "FABER Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "modifiedThomas" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "stabilizedFaber" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "stabilizedFaber",
+        "name": { "zh-TW": "穩定化 FABER 測試", "en": "Stabilized FABER Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipCoreSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "髖/核心 SMCD", "en": "Hip/Core SMCD" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipSiJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "髖/薦髂 JMD/TED（局部生物力學測試）",
+                  "en": "Hip/SI JMD &/or TED"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "modifiedThomas",
+        "name": { "zh-TW": "改良式湯瑪斯測試", "en": "Modified Thomas Test" },
+        "mode": "active",
+        "resultOptions": [
+          "FN",
+          "fnKneeStraight",
+          "fnHipAbducted",
+          "fnHipAbductedKneeStraight",
+          "DN",
+          "DP",
+          "FP"
+        ],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "priorResult": { "nodeKey": "faber", "resultIn": ["FN"] }
+            },
+            "outcomes": [{ "kind": "next", "nodeKey": "proneActiveHipExtension" }]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "priorResult": { "nodeKey": "faber", "resultIn": ["DN", "DP", "FP"] }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": { "zh-TW": "停止並先處理 FABER", "en": "Stop and treat FABER first" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["fnKneeStraight"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "lowerAnteriorChainTed",
+                "findingType": "TED",
+                "label": { "zh-TW": "下前鏈 TED", "en": "Lower Anterior Chain TED" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["fnHipAbducted"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "lowerLateralChainTed",
+                "findingType": "TED",
+                "label": { "zh-TW": "下外側鏈 TED", "en": "Lower Lateral Chain TED" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["fnHipAbductedKneeStraight"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "lowerAnteriorLateralChainTed",
+                "findingType": "TED",
+                "label": {
+                  "zh-TW": "下前及外側鏈 TED",
+                  "en": "Lower Anterior and Lateral Chain TED"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipExtensionJmdCoreSmcd",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "髖伸展 JMD/TED 及/或核心 SMCD",
+                  "en": "Hip Extension JMD &/or TED and/or Core SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "modifiedThomasPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "改良式湯瑪斯疼痛端點", "en": "Modified Thomas Pain" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "proneActiveHipExtension",
+        "name": { "zh-TW": "俯臥主動髖伸展（10°）", "en": "Prone Active Hip Extension Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": true,
+                "inFlow": "spineExtensionBreakout",
+                "findingTypeIn": ["JMD", "TED"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "脊椎伸展異常時視髖為正常",
+                  "en": "If Spine Extension abnormal, Hip is normal"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": false,
+                "inFlow": "spineExtensionBreakout",
+                "findingTypeIn": ["JMD", "TED"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingHipExtensionSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重髖伸展 SMCD（及/或踝背屈受限）",
+                  "en": "Weight-bearing Hip Extension SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "pronePassiveHipExtension" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "pronePassiveHipExtension",
+        "name": { "zh-TW": "俯臥被動髖伸展（10°）", "en": "Prone Passive Hip Extension Test" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipExtensionJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "髖伸展 JMD/TED", "en": "Hip Extension JMD &/or TED" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "pronePassiveHipExtensionPain",
+                "findingType": "PAIN",
+                "label": {
+                  "zh-TW": "俯臥被動髖伸展疼痛端點",
+                  "en": "Prone Passive Hip Extension Pain"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "coreActiveHipExtensionSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "核心及/或主動髖伸展 SMCD",
+                  "en": "Core SMCD &/or Active Hip Extension SMCD"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "upperBodyExtensionBreakout",
+    "name": { "zh-TW": "上半身伸展 Breakout", "en": "Upper Body Extension Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.5.3",
+    "startNodeKey": "unilateralShoulderBackwardBend",
+    "nodes": [
+      {
+        "nodeKey": "unilateralShoulderBackwardBend",
+        "name": { "zh-TW": "單側肩後彎", "en": "Unilateral Shoulder Backward Bend" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "anteriorTorsoTedCervical",
+                "findingType": "TED",
+                "label": {
+                  "zh-TW": "潛在前軀幹 TED 或頸椎牽涉",
+                  "en": "Potential Anterior Torso TED or Cervical involvement"
+                }
+              },
+              {
+                "kind": "instruction",
+                "label": { "zh-TW": "再次確認頸椎模式", "en": "Double Check Cervical Patterns" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "supineLatStretchHipsFlexed" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "supineLatStretchHipsFlexed",
+        "name": { "zh-TW": "仰臥闊背肌伸展—屈髖位", "en": "Supine Lat Stretch Hips Flexed" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": { "has": false, "findingTypeIn": ["JMD", "TED"] }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingUpperQuarterExtensionSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重上象限伸展 SMCD",
+                  "en": "Weight-bearing Upper Quarter Extension SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": { "has": true, "findingTypeIn": ["JMD", "TED"] }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": { "zh-TW": "先處理髖與脊椎伸展發現", "en": "Treat Hip and Spine first" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "supineLatStretchHipsExtended" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "supineLatStretchHipsExtended",
+        "name": { "zh-TW": "仰臥闊背肌伸展—伸髖位", "en": "Supine Lat Stretch Hips Extended" },
+        "mode": "passive",
+        "resultOptions": ["FN", "shoulderFlexionImproves", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "posteriorLateralChainTed",
+                "findingType": "TED",
+                "label": {
+                  "zh-TW": "後/外側鏈 TED（及/或髖伸展功能障礙）",
+                  "en": "Posterior/Lateral Chain TED"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["shoulderFlexionImproves"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "posteriorLateralChainTed",
+                "findingType": "TED",
+                "label": {
+                  "zh-TW": "後/外側鏈 TED（及/或髖伸展功能障礙）",
+                  "en": "Posterior/Lateral Chain TED"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" },
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "務必同時執行下半身伸展流程",
+                  "en": "Must also run Lower Body Extension Flowchart"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeLumbarLockedErExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeLumbarLockedErExtensionRotation",
+        "name": {
+          "zh-TW": "主動腰椎鎖定（ER）伸展/旋轉（50°）",
+          "en": "Active Lumbar Locked (ER) Extension/Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderGirdleSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "肩帶 SMCD", "en": "Shoulder Girdle SMCD" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeLumbarLockedIrExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeLumbarLockedIrExtensionRotation",
+        "name": {
+          "zh-TW": "主動腰椎鎖定（IR）伸展/旋轉（50°）",
+          "en": "Active Lumbar Locked (IR) Extension/Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderGirdleJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "肩帶 JMD/TED", "en": "Shoulder Girdle JMD &/or TED" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveLumbarLockedIrExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveLumbarLockedIrExtensionRotation",
+        "name": {
+          "zh-TW": "被動腰椎鎖定（IR）伸展/旋轉（50°）",
+          "en": "Passive Lumbar Locked (IR) Extension/Rotation"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxExtensionRotationJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "胸廓伸展/旋轉 JMD/TED（可能合併肩帶 JMD/TED）",
+                  "en": "Thorax Extension/Rotation JMD &/or TED"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "passiveLumbarLockedPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "疼痛端點", "en": "Pain endpoint" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxExtensionRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "胸廓伸展/旋轉 SMCD（及/或肩帶功能障礙）",
+                  "en": "Thorax Extension/Rotation SMCD"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "multiSegmentalRotationBreakout",
+    "name": {
+      "zh-TW": "多節段旋轉受限 Breakout",
+      "en": "Limited Multi-Segmental Rotation Breakout"
+    },
+    "sourceRef": "doc/ref/SFMA_form.md §3.6.1",
+    "startNodeKey": "seatedRotation",
+    "nodes": [
+      {
+        "nodeKey": "seatedRotation",
+        "name": { "zh-TW": "坐姿旋轉（50°）", "en": "Seated Rotation Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "goToFlow", "flowKey": "hipExternalRotationBreakout" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeLumbarLockedErExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeLumbarLockedErExtensionRotation",
+        "name": {
+          "zh-TW": "主動腰椎鎖定（ER）伸展/旋轉（50°）",
+          "en": "Active Lumbar Locked (ER) Extension/Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP", "switchesSides"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneOnElbowExtensionRotation" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeLumbarLockedIrExtensionRotation" }]
+          },
+          {
+            "when": { "resultIn": ["switchesSides"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "胸廓旋轉 SMCD（換邊代償）",
+                  "en": "Thorax Rotation SMCD (switches sides)"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeLumbarLockedIrExtensionRotation",
+        "name": {
+          "zh-TW": "主動腰椎鎖定（IR）伸展/旋轉（50°）",
+          "en": "Active Lumbar Locked (IR) Extension/Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "shoulderGirdleRotationJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "肩帶旋轉 JMD/TED",
+                  "en": "Shoulder Girdle Rotation JMD &/or TED"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveLumbarLockedIrExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveLumbarLockedIrExtensionRotation",
+        "name": {
+          "zh-TW": "被動腰椎鎖定（IR）伸展/旋轉（50°）",
+          "en": "Passive Lumbar Locked (IR) Extension/Rotation"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxExtensionRotationJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "胸廓伸展/旋轉 JMD/TED",
+                  "en": "Thorax Extension/Rotation JMD &/or TED"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "hipExternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "passiveLumbarLockedPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛", "en": "Treat Pain" }
+              },
+              { "kind": "goToFlow", "flowKey": "hipExternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "thoraxRotationSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "胸廓旋轉 SMCD", "en": "Thorax Rotation SMCD" }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeProneOnElbowExtensionRotation",
+        "name": {
+          "zh-TW": "主動肘撐伸展/旋轉（30°）",
+          "en": "Active Prone on Elbow Extension/Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": true,
+                "inFlow": "multiSegmentalRotationBreakout",
+                "findingTypeIn": ["SMCD"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "已有胸廓旋轉 SMCD，視腰椎為正常",
+                  "en": "Thorax Rotation SMCD present, L-Spine normal"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "hipExternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": false,
+                "inFlow": "multiSegmentalRotationBreakout",
+                "findingTypeIn": ["SMCD"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingSpineShoulderGirdleRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重脊椎或肩帶旋轉 SMCD",
+                  "en": "Weight-bearing Spine or Shoulder Girdle Rotation SMCD"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "hipExternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneOnElbowExtensionRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneOnElbowExtensionRotation",
+        "name": {
+          "zh-TW": "被動肘撐伸展/旋轉（30°）",
+          "en": "Passive Prone on Elbow Extension/Rotation"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "proneOnElbowPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛", "en": "Treat Pain" }
+              },
+              { "kind": "goToFlow", "flowKey": "hipExternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "lumbarSpineExtensionRotationJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "腰椎伸展/旋轉 JMD/TED",
+                  "en": "Lumbar Spine Extension/Rotation JMD &/or TED"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "hipExternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": true,
+                "inFlow": "multiSegmentalRotationBreakout",
+                "findingTypeIn": ["SMCD"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "已有胸廓旋轉 SMCD，視腰椎為正常",
+                  "en": "Thorax Rotation SMCD present, L-Spine normal"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "hipExternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": false,
+                "inFlow": "multiSegmentalRotationBreakout",
+                "findingTypeIn": ["SMCD"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingSpineShoulderGirdleRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重脊椎或肩帶旋轉 SMCD",
+                  "en": "Weight-bearing Spine or Shoulder Girdle Rotation SMCD"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "hipExternalRotationBreakout" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "hipExternalRotationBreakout",
+    "name": { "zh-TW": "髖外轉 Breakout", "en": "Hip External Rotation Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.6.2",
+    "startNodeKey": "activeSeatedExternalHipRotation",
+    "nodes": [
+      {
+        "nodeKey": "activeSeatedExternalHipRotation",
+        "name": { "zh-TW": "主動坐姿髖外轉（40°）", "en": "Active Seated External Hip Rotation" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneExternalHipRotation" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveSeatedExternalHipRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveSeatedExternalHipRotation",
+        "name": { "zh-TW": "被動坐姿髖外轉（40°）", "en": "Passive Seated External Hip Rotation" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipExternalRotationFlexedJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "屈髖位外轉之髖 JMD/TED",
+                  "en": "Hip JMD &/or TED for ER with Hip Flexed"
+                }
+              },
+              { "kind": "next", "nodeKey": "activeProneExternalHipRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "passiveSeatedExternalHipRotationPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛", "en": "Treat Pain" }
+              },
+              { "kind": "goToFlow", "flowKey": "hipInternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneExternalHipRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeProneExternalHipRotation",
+        "name": { "zh-TW": "主動俯臥髖外轉（40°）", "en": "Active Prone External Hip Rotation" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": true,
+                "inFlow": "hipExternalRotationBreakout",
+                "findingTypeIn": ["JMD", "TED"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "停止並先處理坐姿被動外轉 DN",
+                  "en": "Stop and treat Seated Passive ER DN first"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "priorResult": { "nodeKey": "activeSeatedExternalHipRotation", "resultIn": ["FN"] }
+            },
+            "outcomes": [{ "kind": "goToFlow", "flowKey": "tibialRotationBreakout" }]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "priorResult": {
+                "nodeKey": "activeSeatedExternalHipRotation",
+                "resultIn": ["DN", "DP", "FP"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingActiveExternalHipRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重或主動髖外轉 SMCD",
+                  "en": "Weight-bearing or Active External Hip Rotation SMCD"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "hipInternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneExternalHipRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneExternalHipRotation",
+        "name": { "zh-TW": "被動俯臥髖外轉（40°）", "en": "Passive Prone External Hip Rotation" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipExternalRotationExtendedJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "伸髖位外轉之髖 JMD/TED",
+                  "en": "Hip JMD &/or TED for ER with Hip Extended"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "hipInternalRotationBreakout" },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "passiveProneExternalHipRotationPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛", "en": "Treat Pain" }
+              },
+              { "kind": "goToFlow", "flowKey": "hipInternalRotationBreakout" }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": true,
+                "inFlow": "hipExternalRotationBreakout",
+                "findingTypeIn": ["JMD", "TED"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "停止並先處理坐姿被動外轉 DN",
+                  "en": "Stop and treat Seated Passive ER DN first"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": false,
+                "inFlow": "hipExternalRotationBreakout",
+                "findingTypeIn": ["JMD", "TED"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingActiveExternalHipRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重或主動髖外轉 SMCD",
+                  "en": "Weight-bearing or Active External Hip Rotation SMCD"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "hipInternalRotationBreakout" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "hipInternalRotationBreakout",
+    "name": { "zh-TW": "髖內轉 Breakout", "en": "Hip Internal Rotation Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.6.3",
+    "startNodeKey": "activeSeatedInternalHipRotation",
+    "nodes": [
+      {
+        "nodeKey": "activeSeatedInternalHipRotation",
+        "name": { "zh-TW": "主動坐姿髖內轉（30°）", "en": "Active Seated Internal Hip Rotation" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneInternalHipRotation" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveSeatedInternalHipRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveSeatedInternalHipRotation",
+        "name": { "zh-TW": "被動坐姿髖內轉（30°）", "en": "Passive Seated Internal Hip Rotation" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipInternalRotationFlexedJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "屈髖位內轉之髖 JMD/TED",
+                  "en": "Hip JMD &/or TED for IR with Hip Flexed"
+                }
+              },
+              { "kind": "next", "nodeKey": "activeProneInternalHipRotation" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "passiveSeatedInternalHipRotationPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛", "en": "Treat Pain" }
+              },
+              { "kind": "goToFlow", "flowKey": "tibialRotationBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeProneInternalHipRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeProneInternalHipRotation",
+        "name": { "zh-TW": "主動俯臥髖內轉（30°）", "en": "Active Prone Internal Hip Rotation" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": true,
+                "inFlow": "hipInternalRotationBreakout",
+                "findingTypeIn": ["JMD", "TED"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "停止並先處理坐姿被動內轉 DN",
+                  "en": "Stop and treat Seated Passive IR DN first"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": true,
+                "inFlow": "hipExternalRotationBreakout",
+                "findingTypeIn": ["JMD", "TED"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingActiveInternalHipRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重或主動髖內轉 SMCD",
+                  "en": "Weight-bearing or Active Internal Hip Rotation SMCD"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "tibialRotationBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "goToFlow", "flowKey": "tibialRotationBreakout" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneInternalHipRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneInternalHipRotation",
+        "name": { "zh-TW": "被動俯臥髖內轉（30°）", "en": "Passive Prone Internal Hip Rotation" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipInternalRotationExtendedJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "伸髖位內轉之髖 JMD/TED",
+                  "en": "Hip JMD &/or TED for IR with Hip Extended"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "tibialRotationBreakout" },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "passiveProneInternalHipRotationPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛", "en": "Treat Pain" }
+              },
+              { "kind": "goToFlow", "flowKey": "tibialRotationBreakout" }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": true,
+                "inFlow": "hipInternalRotationBreakout",
+                "findingTypeIn": ["JMD", "TED"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "停止並先處理坐姿被動內轉 DN",
+                  "en": "Stop and treat Seated Passive IR DN first"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingActiveInternalHipRotationSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重或主動髖內轉 SMCD",
+                  "en": "Weight-bearing or Active Internal Hip Rotation SMCD"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "tibialRotationBreakout" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "tibialRotationBreakout",
+    "name": { "zh-TW": "脛骨旋轉 Breakout", "en": "Tibial Rotation Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.6.4",
+    "startNodeKey": "activeSeatedInternalTibialRotation",
+    "nodes": [
+      {
+        "nodeKey": "activeSeatedInternalTibialRotation",
+        "name": {
+          "zh-TW": "主動坐姿脛骨內轉（20°）",
+          "en": "Active Seated Internal Tibial Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeSeatedExternalTibialRotation" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveSeatedInternalTibialRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveSeatedInternalTibialRotation",
+        "name": {
+          "zh-TW": "被動坐姿脛骨內轉（20°）",
+          "en": "Passive Seated Internal Tibial Rotation"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "passiveSeatedInternalTibialRotationPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "脛骨內轉疼痛端點", "en": "Tibial Internal Rotation Pain" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "tibialInternalRotationSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "脛骨內轉 SMCD", "en": "Tibial Internal Rotation SMCD" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "tibialInternalRotationTedJmd",
+                "findingType": "TED",
+                "label": {
+                  "zh-TW": "脛骨內轉 TED/JMD",
+                  "en": "Tibial Internal Rotation TED &/or JMD"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeSeatedExternalTibialRotation",
+        "name": {
+          "zh-TW": "主動坐姿脛骨外轉（20°）",
+          "en": "Active Seated External Tibial Rotation"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"], "hasFindings": { "has": false } },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "脛骨外轉活動度正常",
+                  "en": "Tibial External Rotation mobility normal"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "lowerBodyExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"], "hasFindings": { "has": true } },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "脛骨外轉活動度正常",
+                  "en": "Tibial External Rotation mobility normal"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveSeatedExternalTibialRotation" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveSeatedExternalTibialRotation",
+        "name": {
+          "zh-TW": "被動坐姿脛骨外轉（20°）",
+          "en": "Passive Seated External Tibial Rotation"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "tibialExternalRotationSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "脛骨外轉 SMCD", "en": "Tibial External Rotation SMCD" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "passiveSeatedExternalTibialRotationPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "脛骨外轉疼痛端點", "en": "Tibial External Rotation Pain" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "tibialExternalRotationTedJmd",
+                "findingType": "TED",
+                "label": {
+                  "zh-TW": "脛骨外轉 TED/JMD",
+                  "en": "Tibial External Rotation TED &/or JMD"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "vestibularCoreBreakout",
+    "name": { "zh-TW": "前庭與核心 Breakout", "en": "Vestibular & Core Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.7.1",
+    "startNodeKey": "vestibularCtsibStaticHead",
+    "nodes": [
+      {
+        "nodeKey": "vestibularCtsibStaticHead",
+        "name": { "zh-TW": "前庭 CTSIB（靜態頭位）", "en": "Vestibular CTSIB (Static Head)" },
+        "mode": "active",
+        "sideIndependent": true,
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "staticVestibularDysfunction",
+                "findingType": "OTHER",
+                "label": {
+                  "zh-TW": "潛在靜態前庭功能障礙",
+                  "en": "Potential Static Vestibular Dysfunction"
+                }
+              },
+              { "kind": "next", "nodeKey": "halfKneelingNarrowBase" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "ctsibDynamicHead" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "ctsibDynamicHead",
+        "name": { "zh-TW": "CTSIB（動態頭部動作）", "en": "CTSIB (Dynamic Head Movement)" },
+        "mode": "active",
+        "sideIndependent": true,
+        "resultOptions": ["FN", "dysfunctional"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "halfKneelingNarrowBase" }]
+          },
+          {
+            "when": { "resultIn": ["dysfunctional"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "dynamicVestibularDysfunction",
+                "findingType": "OTHER",
+                "label": { "zh-TW": "動態前庭功能障礙", "en": "Dynamic Vestibular Dysfunction" }
+              },
+              { "kind": "next", "nodeKey": "halfKneelingNarrowBase" }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "halfKneelingNarrowBase",
+        "name": { "zh-TW": "半跪窄底面積測試", "en": "Half-Kneeling Narrow Base Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "goToFlow", "flowKey": "ankleBreakout" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "quadrupedDiagonals" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "quadrupedDiagonals",
+        "name": { "zh-TW": "四足跪姿對角線測試", "en": "Quadruped Diagonals Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingSpineCoreSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重脊椎及/或核心 SMCD",
+                  "en": "Weight-bearing Spine &/or Core SMCD"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "ankleBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "quadrupedDiagonalsPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛", "en": "Treat Pain" }
+              },
+              { "kind": "goToFlow", "flowKey": "ankleBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingHipCoreSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重髖及/或核心 SMCD",
+                  "en": "Weight-bearing Hip &/or Core SMCD"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "ankleBreakout" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "ankleBreakout",
+    "name": { "zh-TW": "踝 Breakout", "en": "Ankle Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.7.2",
+    "startNodeKey": "heelWalk",
+    "nodes": [
+      {
+        "nodeKey": "heelWalk",
+        "name": { "zh-TW": "腳跟走路測試", "en": "Heel Walk Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "toeWalk" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveProneDorsiflexion" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveProneDorsiflexion",
+        "name": { "zh-TW": "被動俯臥踝背屈", "en": "Passive Prone Dorsiflexion Test" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "dorsiflexionPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛（背屈）", "en": "Treat Pain" }
+              },
+              { "kind": "next", "nodeKey": "toeWalk" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "dorsiflexionSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "背屈 SMCD", "en": "Dorsiflexion SMCD" }
+              },
+              { "kind": "next", "nodeKey": "toeWalk" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "dorsiflexionTedJmd",
+                "findingType": "TED",
+                "label": { "zh-TW": "背屈 TED/JMD", "en": "Dorsiflexion TED &/or JMD" }
+              },
+              { "kind": "next", "nodeKey": "toeWalk" }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "toeWalk",
+        "name": { "zh-TW": "踮腳尖走路測試", "en": "Toe Walk Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "activeSeatedAnkleInversionEversion" }]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passivePronePlantarflexion" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passivePronePlantarflexion",
+        "name": { "zh-TW": "被動俯臥踝蹠屈", "en": "Passive Prone Plantarflexion Test" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "plantarflexionSmcd",
+                "findingType": "SMCD",
+                "label": { "zh-TW": "蹠屈 SMCD", "en": "Plantarflexion SMCD" }
+              },
+              { "kind": "next", "nodeKey": "activeSeatedAnkleInversionEversion" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "plantarflexionTedJmd",
+                "findingType": "TED",
+                "label": { "zh-TW": "蹠屈 TED/JMD", "en": "Plantarflexion TED &/or JMD" }
+              },
+              { "kind": "next", "nodeKey": "activeSeatedAnkleInversionEversion" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "plantarflexionPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛（蹠屈）", "en": "Treat Pain" }
+              },
+              { "kind": "next", "nodeKey": "activeSeatedAnkleInversionEversion" }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "activeSeatedAnkleInversionEversion",
+        "name": {
+          "zh-TW": "主動坐姿踝內翻/外翻",
+          "en": "Active Seated Ankle Inversion/Eversion Test"
+        },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "hasFindings": {
+                "has": false,
+                "findingTypeIn": ["SMCD", "JMD", "TED", "PAIN", "OTHER"]
+              }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "proprioceptiveDeficit",
+                "findingType": "OTHER",
+                "label": { "zh-TW": "本體感覺缺損", "en": "Proprioceptive Deficit" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": []
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "passiveAnkleInversionEversion" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "passiveAnkleInversionEversion",
+        "name": { "zh-TW": "被動踝內翻/外翻", "en": "Passive Ankle Inversion/Eversion Test" },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "ankleJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "踝（外翻或內翻）JMD/TED（足踝局部檢查）",
+                  "en": "Ankle (Eversion or Inversion) JMD, TED"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "ankleInversionEversionPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "踝內翻/外翻疼痛端點", "en": "Ankle Inversion/Eversion Pain" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "ankleSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "踝（外翻或內翻）SMCD（足踝局部檢查）",
+                  "en": "Ankle (Eversion or Inversion) SMCD"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "flowKey": "overheadDeepSquatBreakout",
+    "name": { "zh-TW": "過頭深蹲受限 Breakout", "en": "Limited Overhead Deep Squat Breakout" },
+    "sourceRef": "doc/ref/SFMA_form.md §3.8",
+    "startNodeKey": "deepSquat",
+    "nodes": [
+      {
+        "nodeKey": "deepSquat",
+        "name": { "zh-TW": "深蹲（去除過頭要素）", "en": "Deep Squat" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "受限來自過頭/伸展要素",
+                  "en": "Limitation from overhead/extension component"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "spineExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "halfKneelingDorsiflexion" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "halfKneelingDorsiflexion",
+        "name": { "zh-TW": "半跪踝背屈測試", "en": "Half-Kneeling Dorsiflexion Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "halfKneelingDorsiflexionPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理疼痛（背屈）", "en": "Treat Pain" }
+              },
+              { "kind": "next", "nodeKey": "supineKneesToChestShins" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "supineKneesToChestShins" }]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "dorsiflexionTedAnkleJmd",
+                "findingType": "TED",
+                "label": {
+                  "zh-TW": "背屈 TED 及/或踝 JMD",
+                  "en": "Dorsiflexion TED &/or Ankle JMD"
+                }
+              },
+              { "kind": "next", "nodeKey": "supineKneesToChestShins" }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "supineKneesToChestShins",
+        "name": {
+          "zh-TW": "仰臥雙膝抱胸—抱脛骨",
+          "en": "Supine Knees to Chest Holding Shins Test"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["DN", "DP", "FP"] },
+            "outcomes": [{ "kind": "next", "nodeKey": "supineKneesToChestThighs" }]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "priorResult": { "nodeKey": "halfKneelingDorsiflexion", "resultIn": ["DP", "FP"] }
+            },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "dorsiflexionChemicalPain",
+                "findingType": "PAIN",
+                "label": {
+                  "zh-TW": "處理踝背屈化學性疼痛",
+                  "en": "Treat Dorsiflexion Chemical Pain"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "priorResult": { "nodeKey": "halfKneelingDorsiflexion", "resultIn": ["DN"] }
+            },
+            "outcomes": [
+              {
+                "kind": "instruction",
+                "label": {
+                  "zh-TW": "處理踝背屈，視膝與髖屈曲為正常",
+                  "en": "Treat Dorsiflexion; Knee and Hip Flexion normal"
+                }
+              }
+            ]
+          },
+          {
+            "when": {
+              "resultIn": ["FN"],
+              "priorResult": { "nodeKey": "halfKneelingDorsiflexion", "resultIn": ["FN"] }
+            },
+            "outcomes": [{ "kind": "next", "nodeKey": "assistedSquat" }]
+          }
+        ]
+      },
+      {
+        "nodeKey": "supineKneesToChestThighs",
+        "name": {
+          "zh-TW": "仰臥雙膝抱胸—抱大腿",
+          "en": "Supine Knees to Chest Holding Thighs Test"
+        },
+        "mode": "passive",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "kneeFlexionJmdTed",
+                "findingType": "JMD",
+                "label": { "zh-TW": "膝屈曲 JMD/TED", "en": "Knee Flexion JMD &/or TED" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["FP", "DP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "supineKneesToChestThighsPain",
+                "findingType": "PAIN",
+                "label": { "zh-TW": "處理化學性疼痛", "en": "Treat Chemical Pain" }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "hipFlexionJmdTed",
+                "findingType": "JMD",
+                "label": {
+                  "zh-TW": "髖屈曲 JMD/TED（可能合併膝屈曲 JMD）",
+                  "en": "Hip Flexion JMD &/or TED"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nodeKey": "assistedSquat",
+        "name": { "zh-TW": "輔助深蹲測試", "en": "Assisted Squat Test" },
+        "mode": "active",
+        "resultOptions": ["FN", "DN", "DP", "FP"],
+        "branches": [
+          {
+            "when": { "resultIn": ["FN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingFlexionSmcd",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重踝、膝及/或髖/核心屈曲 SMCD",
+                  "en": "Weight-bearing Ankle, Knee and/or Hip/Core Flexion SMCD"
+                }
+              }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DN"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "weightBearingFlexionSmcdOrAnatomicalVariant",
+                "findingType": "SMCD",
+                "label": {
+                  "zh-TW": "負重屈曲 SMCD 及/或正常解剖變異",
+                  "en": "Weight-bearing Flexion SMCD and/or anatomical variant"
+                }
+              },
+              { "kind": "goToFlow", "flowKey": "spineExtensionBreakout" }
+            ]
+          },
+          {
+            "when": { "resultIn": ["DP", "FP"] },
+            "outcomes": [
+              {
+                "kind": "finding",
+                "findingKey": "assistedSquatPain",
+                "findingType": "PAIN",
+                "label": {
+                  "zh-TW": "處理髖、膝或踝化學性疼痛",
+                  "en": "Treat Chemical Pain in Hip, Knee or Ankle"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
