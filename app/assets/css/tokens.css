@@ -1,0 +1,205 @@
+/* 設計系統 token（03 §3.7）。兩層：primitive（原始值，僅供參照）＋ semantic（意圖，元件唯一可用）。
+   CSS custom properties 依 CSS 慣例用 kebab-case（不違反 JS/TS 嚴禁 snake_case）。 */
+
+:root {
+  /* —— primitive：中性階（slate）—— */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  /* —— primitive：accent（teal/cyan，jolly-health 健康基調）—— */
+  --teal-50: #ecfeff;
+  --teal-100: #cffafe;
+  --teal-200: #a5f3fc;
+  --teal-300: #67e8f9;
+  --teal-400: #22d3ee;
+  --teal-500: #06b6d4;
+  --teal-600: #0891b2;
+  --teal-700: #0e7490;
+  --teal-800: #155e75;
+
+  /* —— primitive：臨床／語意原色 —— */
+  --red-clinical: #c0392b;
+  --blue-clinical: #2e73b8;
+  --yellow-clinical: #e8b400;
+  --orange-clinical: #e67e22;
+  --green-clinical: #2e7d32;
+  --amber-clinical: #b26a00;
+
+  /* —— primitive：字體 —— */
+  --font-sans:
+    -apple-system, 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', 'Noto Sans TC', system-ui,
+    sans-serif;
+  --font-mono: 'SF Mono', 'Cascadia Code', Consolas, 'Noto Sans Mono', monospace;
+
+  /* —— primitive：字級階（模組化 ~1.2，rem@16px）—— */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --line-height-body: 1.65;
+  --line-height-heading: 1.3;
+
+  /* —— primitive：間距階（4px base）—— */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* —— primitive：點按目標、控制項高度 —— */
+  --target-min: 44px;
+  --control-height: 44px;
+
+  /* —— primitive：圓角 —— */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* —— primitive：陰影層級（克制）—— */
+  --shadow-1: 0 1px 2px rgb(15 23 42 / 8%);
+  --shadow-2: 0 4px 12px rgb(15 23 42 / 12%);
+  --shadow-3: 0 12px 32px rgb(15 23 42 / 20%);
+
+  /* —— primitive：動效 —— */
+  --motion-fast: 120ms;
+  --motion-base: 200ms;
+  --motion-slow: 320ms;
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* —— semantic：light（預設）—— */
+  --color-bg: var(--slate-50);
+  --color-surface: #ffffff;
+  --color-text: var(--slate-900);
+  --color-text-muted: var(--slate-500);
+  --color-border: var(--slate-200);
+  --color-accent: var(--teal-700);
+  --color-accent-hover: var(--teal-800);
+  --color-focus: var(--teal-600);
+  --color-danger: var(--red-clinical);
+  --color-warning: var(--amber-clinical);
+  --color-success: var(--green-clinical);
+
+  /* 前景安全變體（作文字／狀態標記時用）：填色 token（--color-accent／--color-danger）保留給
+     白字底色；前景變體於暗色另覆寫淺色以達 WCAG AA 4.5:1（§3.7.2、§3.7.5）。 */
+  --color-accent-fg: var(--teal-700);
+  --color-danger-fg: var(--red-clinical);
+
+  /* 臨床保留色亦為 semantic（唯一真相源；DOM 圖例與 Babylon GUI 疊層共用）。 */
+  --clinical-contraction: var(--red-clinical);
+  --clinical-stretch: var(--blue-clinical);
+  --clinical-nerve: var(--yellow-clinical);
+  --clinical-finding: var(--orange-clinical);
+}
+
+/* —— semantic：dark（系統偏好自動跟隨；無顯式覆寫時生效）—— */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: var(--slate-900);
+    --color-surface: var(--slate-800);
+    --color-text: #e2e8f0;
+    --color-text-muted: var(--slate-400);
+    --color-border: var(--slate-700);
+    --color-focus: var(--teal-400);
+    --color-accent-fg: var(--teal-400);
+    --color-danger-fg: #f87171;
+    --shadow-1: 0 0 0 1px rgb(148 163 184 / 12%);
+    --shadow-2: 0 4px 12px rgb(0 0 0 / 40%);
+    --shadow-3: 0 12px 32px rgb(0 0 0 / 56%);
+  }
+}
+
+/* —— 顯式覆寫（AppSettings.theme = 'light' | 'dark'）勝過系統偏好 —— */
+:root[data-theme='light'] {
+  --color-bg: var(--slate-50);
+  --color-surface: #ffffff;
+  --color-text: var(--slate-900);
+  --color-text-muted: var(--slate-500);
+  --color-border: var(--slate-400);
+  --color-focus: var(--teal-600);
+  --shadow-1: 0 1px 2px rgb(15 23 42 / 8%);
+  --shadow-2: 0 4px 12px rgb(15 23 42 / 12%);
+  --shadow-3: 0 12px 32px rgb(15 23 42 / 20%);
+}
+
+:root[data-theme='dark'] {
+  --color-bg: var(--slate-900);
+  --color-surface: var(--slate-800);
+  --color-text: #e2e8f0;
+  --color-text-muted: var(--slate-400);
+  --color-border: var(--slate-700);
+  --color-focus: var(--teal-400);
+  --color-accent-fg: var(--teal-400);
+  --color-danger-fg: #f87171;
+  --shadow-1: 0 0 0 1px rgb(148 163 184 / 12%);
+  --shadow-2: 0 4px 12px rgb(0 0 0 / 40%);
+  --shadow-3: 0 12px 32px rgb(0 0 0 / 56%);
+}
+
+/* —— 密度模式：compact 縮控制高度與間距（平板／PC 三欄診間）—— */
+[data-density='compact'] {
+  --control-height: 36px;
+  --space-4: 12px;
+  --space-6: 18px;
+}
+
+/* —— 全域基底 reset（消費 semantic token）—— */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+  /* 防文件層過捲串聯至瀏覽器（iOS 誤觸下拉重整／橡皮筋）；不影響巢狀捲動區 */
+  overscroll-behavior-y: contain;
+  /* 恆預留捲軸槽：桌面捲軸出現/消失時版面不位移（issue 1） */
+  scrollbar-gutter: stable;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-body);
+  /* 去除 iOS 點按灰色閃光（已具 :focus-visible 與元件自有 active/hover 樣式） */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* —— 系統級無障礙（03 §3.7.5）—— */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline-color: Highlight;
+  }
+}
