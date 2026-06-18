@@ -1153,8 +1153,8 @@ Create `app/components/humanModel/MotionControls.vue`:
 // ＋觸界提示（非色彩通道：文字 role="status"）＋回中立。受控、狀態由父持（pose／selectedJoint）。
 import { computed } from 'vue';
 import { anatomyEntityById } from '@ptapp/definitions';
-import UiSegmentedControl, { type SegmentedOption } from '../ui/SegmentedControl.vue';
-import UiButton from '../ui/Button.vue';
+import UiSegmentedControl, { type SegmentedOption } from '../base/SegmentedControl.vue';
+import UiButton from '../base/Button.vue';
 import { localizeText } from '../../utils/i18n/localizeText';
 import { clampAngle } from '../../utils/humanModel/motion/romClamp';
 import { type MotionPose, jointAngle } from '../../utils/humanModel/motion/motionPose';
