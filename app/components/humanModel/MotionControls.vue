@@ -49,7 +49,6 @@ interface SliderModel {
   label: string;
   min: number;
   max: number;
-  neutral: number;
   value: number;
   atLimit: boolean;
 }
@@ -68,7 +67,6 @@ const sliders = computed<SliderModel[]>(() => {
       label: t(AXIS_LABEL_KEYS[m.axis] ?? m.axis),
       min,
       max,
-      neutral,
       value,
       atLimit: value <= min || value >= max,
     };
@@ -96,11 +94,12 @@ function onSlider(axis: string, raw: string | number): void {
       @update:model-value="onJoint"
     />
     <div v-for="s in sliders" :key="s.axis" class="motionDof">
-      <label class="motionDofLabel">
+      <label :for="`motionSlider-${s.axis}`" class="motionDofLabel">
         <span>{{ s.label }}</span>
         <span class="motionDofValue">{{ Math.round(s.value) }}°</span>
       </label>
       <input
+        :id="`motionSlider-${s.axis}`"
         type="range"
         :aria-label="s.label"
         :min="s.min"
