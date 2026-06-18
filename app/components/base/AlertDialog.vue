@@ -2,7 +2,7 @@
 // 破壞性確認對話框：包裝 Nuxt UI UModal 為確認型（行為由底層 Reka UI Dialog 提供）。
 // 受控（v-model:open）、領域中性——標題／說明／鈕字由 props 傳入。Action 點按發 confirm 並關閉；Cancel 僅關閉。
 // 對外維持原元件 API（cancelLabel/actionLabel/confirm/destructive）供日後模組沿用（03 §3.7.4）。
-import UiButton from './Button.vue';
+import BaseButton from './Button.vue';
 
 const open = defineModel<boolean>('open', { required: true });
 
@@ -44,10 +44,10 @@ function confirm(): void {
   >
     <template #footer>
       <div class="alertDialogActions">
-        <UiButton variant="secondary" @click="cancel">{{ cancelLabel }}</UiButton>
-        <UiButton :variant="destructive ? 'danger' : 'primary'" @click="confirm">
+        <BaseButton variant="secondary" @click="cancel">{{ cancelLabel }}</BaseButton>
+        <BaseButton :variant="destructive ? 'danger' : 'primary'" @click="confirm">
           {{ actionLabel }}
-        </UiButton>
+        </BaseButton>
       </div>
     </template>
   </UModal>

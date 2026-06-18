@@ -2,8 +2,8 @@
 // 人體模型分層開關（2D／3D 共用，主要操作；04 §4.1）。純展示受控；狀態由 useLayerVisibility 管理。
 // 可收合分層面板（03 §3.5）：legend 內 disclosure 按鈕（WAI-ARIA Disclosure 模式），收合時隱藏 body。
 import { ref, useId } from 'vue';
-import UiButton from '../base/Button.vue';
-import UiCheckbox from '../base/Checkbox.vue';
+import BaseButton from '../base/Button.vue';
+import BaseCheckbox from '../base/Checkbox.vue';
 import {
   ANATOMY_LAYER_KEYS,
   type AnatomyLayerKey,
@@ -62,16 +62,16 @@ const layerKeys = ANATOMY_LAYER_KEYS;
       </button>
     </legend>
     <div :id="bodyId" class="layerControlsBody" :hidden="collapsed">
-      <UiCheckbox
+      <BaseCheckbox
         v-for="key in layerKeys"
         :key="key"
         :label="t(LAYER_LABEL_KEYS[key])"
         :model-value="visibility[key]"
         @update:model-value="emit('setVisible', key, $event === true)"
       />
-      <UiButton v-if="canReset" variant="secondary" @click="emit('reset')">
+      <BaseButton v-if="canReset" variant="secondary" @click="emit('reset')">
         {{ t('modelLayersReset') }}
-      </UiButton>
+      </BaseButton>
     </div>
   </fieldset>
 </template>

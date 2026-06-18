@@ -4,8 +4,8 @@
 // 由容器經 useAssessmentSession.updateRecord 落盤（樂觀更新→saveAssessment 重算 summary）。
 import { computed } from 'vue';
 import type { AssessmentSession, PatternRecord, Side, SfmaPatternKey } from '@ptapp/shared';
-import UiAccordion, { type AccordionItemData } from '../base/Accordion.vue';
-import UiStatusChip from '../base/StatusChip.vue';
+import BaseAccordion, { type AccordionItemData } from '../base/Accordion.vue';
+import BaseStatusChip from '../base/StatusChip.vue';
 import AssessmentEntryCard from './AssessmentEntryCard.vue';
 import {
   emptyRecord,
@@ -76,7 +76,7 @@ function summaryFor(entry: AssessmentEntry) {
 </script>
 
 <template>
-  <UiAccordion :items="items" class="assessmentSessionView" :default-value="defaultValue">
+  <BaseAccordion :items="items" class="assessmentSessionView" :default-value="defaultValue">
     <template
       v-for="group in groups"
       #[`trigger-${group.patternKey}`]
@@ -86,7 +86,7 @@ function summaryFor(entry: AssessmentEntry) {
         <span class="assessmentRowName">{{ localizeText(group.definition.name) }}</span>
         <span class="assessmentRowChips">
           <template v-for="entry in group.entries" :key="entryId(entry.patternKey, entry.side)">
-            <UiStatusChip
+            <BaseStatusChip
               v-if="chipRecord(entry)"
               :status="entryClassification(chipRecord(entry)!)"
             />
@@ -109,7 +109,7 @@ function summaryFor(entry: AssessmentEntry) {
         />
       </div>
     </template>
-  </UiAccordion>
+  </BaseAccordion>
 </template>
 
 <style scoped>

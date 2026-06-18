@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue';
 import { createUuid, toIsoDateTime } from '@ptapp/shared';
 import { localStore } from '../../../../utils/data/localStore';
 import { newAssessmentSession } from '../../../../utils/assessment/assessmentSession';
-import UiButton from '../../../../components/base/Button.vue';
+import BaseButton from '../../../../components/base/Button.vue';
 import PageSkeleton from '../../../../components/base/PageSkeleton.vue';
 
 definePageMeta({ titleKey: 'titleAssessmentNew' });
@@ -51,7 +51,7 @@ onMounted(() => {
 <template>
   <p v-if="failed" role="alert">
     {{ t('assessmentCreateError') }}
-    <UiButton @click="retry">{{ t('retry') }}</UiButton>
+    <BaseButton @click="retry">{{ t('retry') }}</BaseButton>
   </p>
   <PageSkeleton v-else :label="t('loading')" />
 </template>

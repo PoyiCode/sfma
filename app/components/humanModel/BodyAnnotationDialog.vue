@@ -3,7 +3,7 @@
 // 標題＝「加入評估標註 — {部位名}」；× 關閉／表單取消／送出後皆收合。
 // 受控 open（v-model）、純展示；容器（model 頁）持有 open 狀態與寫回（upsertAnnotation）。
 import type { Side, SfmaPatternDefinition, SfmaPatternKey } from '@ptapp/shared';
-import UiDialog from '../base/Dialog.vue';
+import BaseDialog from '../base/Dialog.vue';
 import BodyAnnotationForm, { type BodyAnnotationDraft } from './BodyAnnotationForm.vue';
 
 const open = defineModel<boolean>('open', { required: true });
@@ -40,7 +40,7 @@ function close(): void {
 </script>
 
 <template>
-  <UiDialog
+  <BaseDialog
     v-model:open="open"
     :title="`${t('anatomyAnnotate')} — ${partName}`"
     :close-label="t('bodyAnnotationClose')"
@@ -56,5 +56,5 @@ function close(): void {
       @cancel="close"
       @remove="emit('remove')"
     />
-  </UiDialog>
+  </BaseDialog>
 </template>

@@ -3,10 +3,10 @@
 // 功能軸以 SegmentedControl（二態）呈現（偏離設計「下拉」，見 §3.3.9 實作註）。
 import { computed } from 'vue';
 import type { PatternRecord } from '@ptapp/shared';
-import UiButton from '../base/Button.vue';
-import UiCheckbox from '../base/Checkbox.vue';
-import UiSegmentedControl from '../base/SegmentedControl.vue';
-import UiStatusChip from '../base/StatusChip.vue';
+import BaseButton from '../base/Button.vue';
+import BaseCheckbox from '../base/Checkbox.vue';
+import BaseSegmentedControl from '../base/SegmentedControl.vue';
+import BaseStatusChip from '../base/StatusChip.vue';
 import {
   entryClassification,
   isManualOverride,
@@ -77,16 +77,16 @@ const functionalOptions = computed(() => [
   <div class="assessmentEntryCard">
     <div class="assessmentEntryCardHead">
       <span v-if="sideLabel" class="assessmentEntryCardSide">{{ sideLabel }}</span>
-      <UiStatusChip :status="classification" />
+      <BaseStatusChip :status="classification" />
     </div>
-    <UiCheckbox
+    <BaseCheckbox
       :label="t('assessmentPainful')"
       :model-value="record.painful"
       @update:model-value="emit('change', setPainful(record, Boolean($event)))"
     />
     <fieldset class="assessmentEntryCardCriteria">
       <legend>{{ t('assessmentCriteria') }}</legend>
-      <UiCheckbox
+      <BaseCheckbox
         v-for="criterion in entry.definition.criteria"
         :key="criterion.code"
         :label="localizeText(criterion.label)"
@@ -95,7 +95,7 @@ const functionalOptions = computed(() => [
       />
     </fieldset>
     <div class="assessmentEntryCardFunction">
-      <UiSegmentedControl
+      <BaseSegmentedControl
         v-bind="{ ariaLabel: t('assessmentFunctionalAxis') }"
         :model-value="functionalValue"
         :options="functionalOptions"
@@ -106,9 +106,9 @@ const functionalOptions = computed(() => [
       </span>
     </div>
     <div v-if="showBreakoutEntry" class="assessmentEntryCardBreakout">
-      <UiButton variant="secondary" @click="emit('openBreakout')">
+      <BaseButton variant="secondary" @click="emit('openBreakout')">
         {{ breakoutButtonLabel }}
-      </UiButton>
+      </BaseButton>
       <span v-if="breakoutSummary?.status === 'complete'" class="assessmentEntryCardBreakoutTypes">
         <span
           v-for="type in breakoutSummary.findingTypes"

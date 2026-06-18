@@ -3,7 +3,7 @@
 // 點按上拋結果碼，引擎前進由上層（疊層）負責。
 import { computed } from 'vue';
 import type { BreakoutNode } from '@ptapp/shared';
-import UiButton from '../base/Button.vue';
+import BaseButton from '../base/Button.vue';
 import { localizeText } from '../../utils/i18n/localizeText';
 
 interface Props {
@@ -69,12 +69,12 @@ const priorLabel = computed(() =>
     <p v-if="criterion" class="breakoutStepCardCriterion">{{ criterion }}</p>
     <div v-if="priorResult !== undefined" class="breakoutStepCardPrior">
       <span class="breakoutStepCardPriorLabel">{{ t('breakoutPriorOtherSide') }}</span>
-      <UiButton variant="secondary" @click="emit('result', priorResult)">
+      <BaseButton variant="secondary" @click="emit('result', priorResult)">
         {{ `${t('breakoutUsePriorValue')}（${priorLabel}）` }}
-      </UiButton>
+      </BaseButton>
     </div>
     <div class="breakoutStepCardCore">
-      <UiButton
+      <BaseButton
         v-for="code in coreResults"
         :key="code"
         variant="secondary"
@@ -82,17 +82,17 @@ const priorLabel = computed(() =>
         @click="emit('result', code)"
       >
         {{ code }}
-      </UiButton>
+      </BaseButton>
     </div>
     <div v-if="specialResults.length > 0" class="breakoutStepCardSpecial">
-      <UiButton
+      <BaseButton
         v-for="code in specialResults"
         :key="code"
         variant="ghost"
         @click="emit('result', code)"
       >
         {{ specialResultLabel(code) }}
-      </UiButton>
+      </BaseButton>
     </div>
   </div>
 </template>

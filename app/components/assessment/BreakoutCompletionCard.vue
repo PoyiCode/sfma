@@ -3,7 +3,7 @@
 // 顯「已手動」別於自動）＋本次 findings[] 摘要。純展示：覆寫經 classificationChange 上拋落盤。
 import { computed } from 'vue';
 import { breakoutFindingTypeSchema, type BreakoutFindingType } from '@ptapp/shared';
-import UiSelect, { type SelectOption } from '../base/Select.vue';
+import BaseSelect, { type SelectOption } from '../base/Select.vue';
 import type { BreakoutFindingView } from '../../utils/assessment/breakoutPresentation';
 import { localizeText } from '../../utils/i18n/localizeText';
 
@@ -45,7 +45,7 @@ function onChange(value: string | undefined): void {
     <p class="breakoutCompletionTitle">{{ t('breakoutCompleteTitle') }}</p>
     <div class="breakoutCompletionClassification">
       <span class="breakoutCompletionLabel">{{ t('breakoutClassificationLabel') }}</span>
-      <UiSelect
+      <BaseSelect
         class="breakoutCompletionSelect"
         v-bind="{ ariaLabel: t('breakoutClassificationLabel') }"
         :options="options"

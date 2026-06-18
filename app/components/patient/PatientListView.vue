@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // 個案清單展示元件（03 §3.3.8）：純展示——搜尋框＋新增 CTA＋清單列；query 由父層受控（v-model）。
 // useI18n／NuxtLink 由 Nuxt 自動 import。
-import UiInput from '../base/Input.vue';
-import UiStatusChip from '../base/StatusChip.vue';
+import BaseInput from '../base/Input.vue';
+import BaseStatusChip from '../base/StatusChip.vue';
 import type { PatientListItemData } from '../../utils/patient/patientListItems';
 
 interface Props {
@@ -28,7 +28,7 @@ const { t } = useI18n();
   </div>
   <div v-else class="patientList">
     <div class="patientListHeader">
-      <UiInput
+      <BaseInput
         v-model="query"
         type="search"
         class="patientSearch"
@@ -53,11 +53,11 @@ const { t } = useI18n();
           </span>
           <span v-else class="patientSummaryFlags">
             <span v-if="item.summary.dp > 0" class="patientSummaryFlag">
-              <UiStatusChip status="DP" />
+              <BaseStatusChip status="DP" />
               <span class="patientSummaryCount">×{{ item.summary.dp }}</span>
             </span>
             <span v-if="item.summary.dn > 0" class="patientSummaryFlag">
-              <UiStatusChip status="DN" />
+              <BaseStatusChip status="DN" />
               <span class="patientSummaryCount">×{{ item.summary.dn }}</span>
             </span>
           </span>

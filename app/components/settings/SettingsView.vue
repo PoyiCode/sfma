@@ -3,12 +3,12 @@
 // 治療師資料／顯示偏好／資料管理（匯出＋拖放/點選匯入）／關於·授權＋資料安全指引。
 import { computed, ref } from 'vue';
 import type { AppSettings } from '@ptapp/shared';
-import UiButton from '../base/Button.vue';
-import UiInput from '../base/Input.vue';
-import UiCheckbox from '../base/Checkbox.vue';
-import UiSegmentedControl from '../base/SegmentedControl.vue';
-import UiAccordion from '../base/Accordion.vue';
-import UiAlertDialog from '../base/AlertDialog.vue';
+import BaseButton from '../base/Button.vue';
+import BaseInput from '../base/Input.vue';
+import BaseCheckbox from '../base/Checkbox.vue';
+import BaseSegmentedControl from '../base/SegmentedControl.vue';
+import BaseAccordion from '../base/Accordion.vue';
+import BaseAlertDialog from '../base/AlertDialog.vue';
 import { useFileDrop } from '../../composables/app/useFileDrop';
 import { useFullLodConfirm } from '../../composables/humanModel/useFullLodConfirm';
 import FullLodConfirmDialog from '../humanModel/FullLodConfirmDialog.vue';
@@ -115,7 +115,7 @@ function onImportInputChange(event: Event): void {
       <h2 class="settingsBlockTitle">{{ t('settingsTherapistTitle') }}</h2>
       <label class="settingsField">
         <span class="settingsFieldLabel">{{ t('settingsTherapistName') }}</span>
-        <UiInput
+        <BaseInput
           :model-value="settings.therapistProfile.name"
           :placeholder="t('settingsTherapistNamePlaceholder')"
           @update:model-value="onName"
@@ -128,7 +128,7 @@ function onImportInputChange(event: Event): void {
 
       <div class="settingsField">
         <span class="settingsFieldLabel">{{ t('settingsLocale') }}</span>
-        <UiSegmentedControl
+        <BaseSegmentedControl
           v-bind="{ ariaLabel: t('settingsLocale') }"
           :model-value="settings.locale"
           :options="localeOptions"
@@ -138,7 +138,7 @@ function onImportInputChange(event: Event): void {
 
       <div class="settingsField">
         <span class="settingsFieldLabel">{{ t('settingsTheme') }}</span>
-        <UiSegmentedControl
+        <BaseSegmentedControl
           v-bind="{ ariaLabel: t('settingsTheme') }"
           :model-value="settings.theme"
           :options="themeOptions"
@@ -148,7 +148,7 @@ function onImportInputChange(event: Event): void {
 
       <div class="settingsField">
         <span class="settingsFieldLabel">{{ t('settingsLod') }}</span>
-        <UiSegmentedControl
+        <BaseSegmentedControl
           v-bind="{ ariaLabel: t('settingsLod') }"
           :model-value="settings.lodMode"
           :options="lodOptions"
@@ -158,7 +158,7 @@ function onImportInputChange(event: Event): void {
 
       <div class="settingsField">
         <span class="settingsFieldLabel">{{ t('settingsOrientation') }}</span>
-        <UiSegmentedControl
+        <BaseSegmentedControl
           v-bind="{ ariaLabel: t('settingsOrientation') }"
           :model-value="settings.orientationPreference"
           :options="orientationOptions"
@@ -172,7 +172,7 @@ function onImportInputChange(event: Event): void {
 
       <fieldset class="settingsLayers">
         <legend class="settingsFieldLabel">{{ t('settingsDefaultLayers') }}</legend>
-        <UiCheckbox
+        <BaseCheckbox
           v-for="row in layerRows"
           :key="row.key"
           :label="t(row.labelKey)"
@@ -189,13 +189,13 @@ function onImportInputChange(event: Event): void {
       <h2 class="settingsBlockTitle">{{ t('settingsDataTitle') }}</h2>
       <p class="settingsAboutLine">{{ t('settingsDataReminder') }}</p>
       <div class="settingsDataActions">
-        <UiButton
+        <BaseButton
           variant="secondary"
           :disabled="dataExport.exporting"
           @click="exportConfirmOpen = true"
         >
           {{ t('settingsExportAll') }}
-        </UiButton>
+        </BaseButton>
         <div
           v-if="importEnabled"
           class="settingsImportDropzone"
@@ -220,7 +220,7 @@ function onImportInputChange(event: Event): void {
         {{ t('settingsExportAllError') }}
       </p>
       <!-- 匯出時提示：匯出檔為明文 JSON 且含個資、存放注意（08 §8.7、todo 09 line 9） -->
-      <UiAlertDialog
+      <BaseAlertDialog
         v-model:open="exportConfirmOpen"
         :title="t('settingsExportConfirmTitle')"
         :description="t('settingsExportConfirmBody')"
@@ -236,7 +236,7 @@ function onImportInputChange(event: Event): void {
       <p class="settingsAboutLine">{{ t('settingsAboutAnatomy') }}</p>
       <p class="settingsAboutLine">{{ t('settingsAboutPrivacy') }}</p>
       <!-- 資料安全指引：裝置保護＋匯出檔處理守則就地呈現（08 §8.7、todo 09 line 21-22） -->
-      <UiAccordion type="single" :items="securityGuideItems">
+      <BaseAccordion type="single" :items="securityGuideItems">
         <template #securityGuide>
           <div class="settingsSecurityGuide">
             <h3 class="settingsSecurityGuideHeading">
@@ -256,7 +256,7 @@ function onImportInputChange(event: Event): void {
             </ul>
           </div>
         </template>
-      </UiAccordion>
+      </BaseAccordion>
     </section>
   </div>
 </template>

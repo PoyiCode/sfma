@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // 個案表單展示元件（03 §3.3.8）：純展示——值由父層受控，變更以 change(patch) 上拋（React onChange(patch) 對等）。
 // useI18n 由 Nuxt 自動 import。
-import UiButton from '../base/Button.vue';
-import UiCheckbox from '../base/Checkbox.vue';
-import UiInput from '../base/Input.vue';
+import BaseButton from '../base/Button.vue';
+import BaseCheckbox from '../base/Checkbox.vue';
+import BaseInput from '../base/Input.vue';
 import type { PatientFormErrors, PatientFormValues } from '../../utils/patient/patientForm';
 
 interface Props {
@@ -30,7 +30,7 @@ const { t } = useI18n();
   <form class="patientForm" @submit.prevent="emit('submit')">
     <label class="patientFormField">
       <span class="patientFormLabel">{{ t('patientFormName') }}</span>
-      <UiInput
+      <BaseInput
         :model-value="values.name"
         :placeholder="t('patientFormNamePlaceholder')"
         :aria-invalid="errors.name === 'required' ? true : undefined"
@@ -49,7 +49,7 @@ const { t } = useI18n();
 
     <label class="patientFormField">
       <span class="patientFormLabel">{{ t('patientFormCode') }}</span>
-      <UiInput
+      <BaseInput
         :model-value="values.displayCode"
         :placeholder="t('patientFormCodePlaceholder')"
         @update:model-value="emit('change', { displayCode: String($event) })"
@@ -68,7 +68,7 @@ const { t } = useI18n();
             <li>{{ t('patientFormConsentRights') }}</li>
           </ul>
         </details>
-        <UiCheckbox
+        <BaseCheckbox
           :label="t('patientFormConsentCheckbox')"
           :model-value="values.consentChecked"
           @update:model-value="emit('change', { consentChecked: Boolean($event) })"
@@ -84,12 +84,12 @@ const { t } = useI18n();
     </p>
 
     <div class="patientFormActions">
-      <UiButton type="button" variant="ghost" @click="emit('cancel')">
+      <BaseButton type="button" variant="ghost" @click="emit('cancel')">
         {{ t('patientFormCancel') }}
-      </UiButton>
-      <UiButton type="submit" :disabled="!canSave || saving">
+      </BaseButton>
+      <BaseButton type="submit" :disabled="!canSave || saving">
         {{ t('patientFormSave') }}
-      </UiButton>
+      </BaseButton>
     </div>
   </form>
 </template>

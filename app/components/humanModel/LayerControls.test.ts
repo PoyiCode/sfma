@@ -12,7 +12,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-// UiCheckbox 包裝 UCheckbox（Nuxt UI）；以契約替身驗證映射。
+// BaseCheckbox 包裝 UCheckbox（Nuxt UI）；以契約替身驗證映射。
 const UCheckboxStub = defineComponent({
   name: 'UCheckbox',
   props: { modelValue: { type: Boolean, default: false }, label: { type: String, default: '' } },
@@ -41,7 +41,9 @@ describe('LayerControls（分層開關；04 §4.1）', () => {
       props: { visibility: { ...DEFAULT_LAYER_VISIBILITY } },
       ...mountOpts,
     });
-    const nerve = wrapper.findAll('[role="checkbox"]').find((b) => b.text() === 'settingsLayerNerve')!;
+    const nerve = wrapper
+      .findAll('[role="checkbox"]')
+      .find((b) => b.text() === 'settingsLayerNerve')!;
     await nerve.trigger('click');
     expect(wrapper.emitted('setVisible')?.at(-1)).toEqual(['nerve', true]);
   });

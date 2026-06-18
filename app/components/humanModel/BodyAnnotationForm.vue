@@ -3,10 +3,10 @@
 // 部位本身（anatomyId/side）與 annotationId 由容器補入。
 import { ref } from 'vue';
 import type { BodyAnnotation, Side, SfmaPatternDefinition, SfmaPatternKey } from '@ptapp/shared';
-import UiButton from '../base/Button.vue';
-import UiInput from '../base/Input.vue';
-import UiSegmentedControl, { type SegmentedOption } from '../base/SegmentedControl.vue';
-import UiSelect, { type SelectOption } from '../base/Select.vue';
+import BaseButton from '../base/Button.vue';
+import BaseInput from '../base/Input.vue';
+import BaseSegmentedControl, { type SegmentedOption } from '../base/SegmentedControl.vue';
+import BaseSelect, { type SelectOption } from '../base/Select.vue';
 import type { BodyAnnotationFindingType } from '../../utils/assessment/bodyAnnotationForm';
 import {
   FINDING_TYPES,
@@ -97,7 +97,7 @@ function handleSubmit(): void {
   <form class="bodyAnnotationForm" @submit.prevent="handleSubmit">
     <div class="bodyAnnotationField">
       <span class="bodyAnnotationFieldLabel">{{ t('bodyAnnotationFindingTypeLabel') }}</span>
-      <UiSegmentedControl
+      <BaseSegmentedControl
         v-bind="{ ariaLabel: t('bodyAnnotationFindingTypeLabel') }"
         :model-value="String(findingType)"
         :options="findingOptions"
@@ -106,7 +106,7 @@ function handleSubmit(): void {
     </div>
     <div v-if="sided" class="bodyAnnotationField">
       <span class="bodyAnnotationFieldLabel">{{ t('assessmentSide') }}</span>
-      <UiSegmentedControl
+      <BaseSegmentedControl
         v-bind="{ ariaLabel: t('assessmentSide') }"
         :model-value="String(side ?? 'left')"
         :options="sideOptions"
@@ -115,7 +115,7 @@ function handleSubmit(): void {
     </div>
     <div class="bodyAnnotationField">
       <span class="bodyAnnotationFieldLabel">{{ t('bodyAnnotationPatternLabel') }}</span>
-      <UiSelect
+      <BaseSelect
         v-bind="{ ariaLabel: t('bodyAnnotationPatternLabel') }"
         :model-value="String(linkedPatternKey)"
         :options="patternOptions"
@@ -124,14 +124,14 @@ function handleSubmit(): void {
     </div>
     <div class="bodyAnnotationField">
       <span class="bodyAnnotationFieldLabel">{{ t('bodyAnnotationNoteLabel') }}</span>
-      <UiInput
+      <BaseInput
         v-model="note"
         :aria-label="t('bodyAnnotationNoteLabel')"
         :placeholder="t('bodyAnnotationNotePlaceholder')"
       />
     </div>
     <div class="bodyAnnotationActions">
-      <UiButton
+      <BaseButton
         v-if="canRemove"
         type="button"
         variant="danger"
@@ -139,13 +139,13 @@ function handleSubmit(): void {
         @click="emit('remove')"
       >
         {{ t('bodyAnnotationRemove') }}
-      </UiButton>
-      <UiButton type="button" variant="secondary" @click="emit('cancel')">
+      </BaseButton>
+      <BaseButton type="button" variant="secondary" @click="emit('cancel')">
         {{ t('bodyAnnotationCancel') }}
-      </UiButton>
-      <UiButton type="submit" variant="primary">
+      </BaseButton>
+      <BaseButton type="submit" variant="primary">
         {{ initial ? t('bodyAnnotationSave') : t('bodyAnnotationSubmit') }}
-      </UiButton>
+      </BaseButton>
     </div>
   </form>
 </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 路由邊界／資料層錯誤畫面（03 §3.3.7「資料層錯誤＋重試」）。
 // 無障礙：role=alert 使錯誤訊息於出現時即被輔助技術宣讀（WCAG 2.1 §4.1.3 Status Messages）。
-import UiButton from './Button.vue';
+import BaseButton from './Button.vue';
 
 interface Props {
   // SR 宣讀之錯誤訊息（呼叫端傳 t('…Error')，保持原件 i18n 中性）。
@@ -20,7 +20,7 @@ const emit = defineEmits<{ retry: [] }>();
 <template>
   <div class="pageError" role="alert">
     <p class="pageErrorMessage">{{ message }}</p>
-    <UiButton v-if="retryLabel !== undefined" @click="emit('retry')">{{ retryLabel }}</UiButton>
+    <BaseButton v-if="retryLabel !== undefined" @click="emit('retry')">{{ retryLabel }}</BaseButton>
   </div>
 </template>
 

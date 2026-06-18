@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 提示橫幅（§3.7.4 Callout；§3.3.3 暫態層）。領域中性、純展示：role=status 非阻擋宣告，
 // 左色條依 tone 取臨床／語意 token。自建（比照 StatusChip）。
-import UiButton from './Button.vue';
+import BaseButton from './Button.vue';
 
 export type CalloutTone = 'info' | 'warning' | 'success' | 'danger';
 
@@ -27,14 +27,14 @@ const emit = defineEmits<{ dismiss: [] }>();
       <p v-if="title !== undefined" class="calloutTitle">{{ title }}</p>
       <div class="calloutContent"><slot /></div>
     </div>
-    <UiButton
+    <BaseButton
       v-if="dismissLabel !== undefined"
       variant="ghost"
       :aria-label="dismissLabel"
       @click="emit('dismiss')"
     >
       {{ dismissLabel }}
-    </UiButton>
+    </BaseButton>
   </aside>
 </template>
 

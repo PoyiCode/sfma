@@ -13,20 +13,20 @@ afterEach(() => {
 });
 
 // 以契約替身替換包裝元件（避免 jsdom 拉入 Nuxt UI 執行期）；滑桿為原生 input、不需 stub。
-const UiButtonStub = defineComponent({
-  name: 'UiButton',
+const BaseButtonStub = defineComponent({
+  name: 'BaseButton',
   inheritAttrs: false,
   template: `<button v-bind="$attrs" @click="$emit('click')"><slot /></button>`,
 });
-const UiSegmentedControlStub = defineComponent({
-  name: 'UiSegmentedControl',
+const BaseSegmentedControlStub = defineComponent({
+  name: 'BaseSegmentedControl',
   props: { modelValue: { type: String, default: '' }, options: { type: Array, default: () => [] } },
   emits: ['update:modelValue'],
   template: `<div class="segStub" />`,
 });
 const mountOpts = {
   props: { pose: NEUTRAL_POSE, selectedJoint: 'joint.knee' },
-  global: { stubs: { UiButton: UiButtonStub, UiSegmentedControl: UiSegmentedControlStub } },
+  global: { stubs: { BaseButton: BaseButtonStub, BaseSegmentedControl: BaseSegmentedControlStub } },
 };
 
 describe('MotionControls（運動控制面板；04 §4.3.3）', () => {

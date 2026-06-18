@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 評估紀錄清單展示（03 §3.3.8）：純展示——空狀態引導＋新增 CTA；有資料則列各次評估（日期·概況·評估者）。
 // useI18n／NuxtLink 由 Nuxt 自動 import。
-import UiStatusChip from '../base/StatusChip.vue';
+import BaseStatusChip from '../base/StatusChip.vue';
 import type { AssessmentRowData } from '../../utils/assessment/assessmentHistory';
 
 interface Props {
@@ -44,11 +44,11 @@ const { t } = useI18n();
           </span>
           <span v-else class="assessmentRowFlags">
             <span v-if="row.dp > 0" class="assessmentRowFlag">
-              <UiStatusChip status="DP" />
+              <BaseStatusChip status="DP" />
               <span class="assessmentRowCount">×{{ row.dp }}</span>
             </span>
             <span v-if="row.dn > 0" class="assessmentRowFlag">
-              <UiStatusChip status="DN" />
+              <BaseStatusChip status="DN" />
               <span class="assessmentRowCount">×{{ row.dn }}</span>
             </span>
           </span>

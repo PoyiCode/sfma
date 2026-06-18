@@ -6,7 +6,7 @@ import { computed } from 'vue';
 import type { Repository } from '../../utils/data/repository';
 import { localStore } from '../../utils/data/localStore';
 import { useSettings } from '../../composables/settings/useSettings';
-import UiCallout from '../base/Callout.vue';
+import BaseCallout from '../base/Callout.vue';
 
 interface Props {
   repo?: Pick<Repository, 'getSettings' | 'saveSettings'>;
@@ -32,14 +32,14 @@ function dismiss(): void {
 
 <template>
   <div v-if="visible" class="firstLaunchNotice">
-    <UiCallout
+    <BaseCallout
       tone="info"
       :title="t('firstLaunchNoticeTitle')"
       :dismiss-label="t('firstLaunchNoticeDismiss')"
       @dismiss="dismiss"
     >
       {{ t('firstLaunchNoticeBody') }}
-    </UiCallout>
+    </BaseCallout>
   </div>
 </template>
 

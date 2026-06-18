@@ -3,10 +3,10 @@
 // open＝phase 非 idle；× 與取消皆走 close（=hook reset）。純展示、邏輯在 useDataImport（容器接線）。
 import { computed } from 'vue';
 import type { ImportConflictStrategy } from '../../utils/data/repository';
-import UiButton from '../base/Button.vue';
-import UiCheckbox from '../base/Checkbox.vue';
-import UiDialog from '../base/Dialog.vue';
-import UiSegmentedControl from '../base/SegmentedControl.vue';
+import BaseButton from '../base/Button.vue';
+import BaseCheckbox from '../base/Checkbox.vue';
+import BaseDialog from '../base/Dialog.vue';
+import BaseSegmentedControl from '../base/SegmentedControl.vue';
 import type { DataImportPhase } from '../../composables/settings/useDataImport';
 import { importErrorMessageKey } from '../../utils/settings/importErrorMessage';
 
@@ -62,7 +62,7 @@ const strategyOptions = computed(() => [
 </script>
 
 <template>
-  <UiDialog
+  <BaseDialog
     v-model:open="open"
     :title="t('settingsImport')"
     :close-label="t('settingsImportClose')"
@@ -72,7 +72,7 @@ const strategyOptions = computed(() => [
         <p class="importDialogText">{{ conflictMessage }}</p>
         <div class="importDialogField">
           <span class="importDialogLabel">{{ t('settingsImportStrategy') }}</span>
-          <UiSegmentedControl
+          <BaseSegmentedControl
             v-bind="{ ariaLabel: t('settingsImportStrategy') }"
             :model-value="conflictStrategy"
             :options="strategyOptions"
@@ -83,19 +83,19 @@ const strategyOptions = computed(() => [
         </div>
       </template>
       <p v-else class="importDialogText">{{ t('settingsImportReady') }}</p>
-      <UiCheckbox
+      <BaseCheckbox
         v-if="planned.plan.hasSettings"
         :label="t('settingsImportApplySettings')"
         :model-value="applySettings"
         @update:model-value="emit('applySettingsChange', $event === true)"
       />
       <div class="importDialogActions">
-        <UiButton variant="secondary" @click="emit('close')">
+        <BaseButton variant="secondary" @click="emit('close')">
           {{ t('settingsImportCancel') }}
-        </UiButton>
-        <UiButton variant="primary" @click="emit('confirm')">
+        </BaseButton>
+        <BaseButton variant="primary" @click="emit('confirm')">
           {{ t('settingsImportConfirm') }}
-        </UiButton>
+        </BaseButton>
       </div>
     </template>
 
@@ -110,16 +110,16 @@ const strategyOptions = computed(() => [
         {{ t('settingsImportSettingsApplied') }}
       </p>
       <div class="importDialogActions">
-        <UiButton variant="primary" @click="emit('close')">
+        <BaseButton variant="primary" @click="emit('close')">
           {{ t('settingsImportDoneAction') }}
-        </UiButton>
+        </BaseButton>
       </div>
     </template>
 
     <p v-else-if="phase.status === 'error'" role="alert" class="importDialogError">
       {{ t(importErrorMessageKey(phase.code)) }}
     </p>
-  </UiDialog>
+  </BaseDialog>
 </template>
 
 <style scoped>

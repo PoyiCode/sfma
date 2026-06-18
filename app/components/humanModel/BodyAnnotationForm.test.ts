@@ -12,7 +12,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-// UiSelect 包裝 USelect（Nuxt UI，非 Nuxt 環境不可載入）；以契約替身驗證映射。
+// BaseSelect 包裝 USelect（Nuxt UI，非 Nuxt 環境不可載入）；以契約替身驗證映射。
 const USelectStub = defineComponent({
   name: 'USelect',
   props: {

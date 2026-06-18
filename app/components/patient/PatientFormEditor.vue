@@ -17,7 +17,7 @@ import {
 } from '../../utils/patient/patientForm';
 import { useUnsavedChangesGuard } from '../../composables/patient/useUnsavedChangesGuard';
 import PatientFormView from './PatientFormView.vue';
-import UiAlertDialog from '../base/AlertDialog.vue';
+import BaseAlertDialog from '../base/AlertDialog.vue';
 
 interface Props {
   // 編輯模式須帶既有 patient；建立模式 patient 省略。
@@ -93,7 +93,7 @@ function handleDialogOpenChange(open: boolean): void {
       @submit="handleSubmit"
       @cancel="router.back()"
     />
-    <UiAlertDialog
+    <BaseAlertDialog
       :open="guard.blocked.value"
       :title="t('unsavedGuardTitle')"
       :description="t('unsavedGuardDescription')"

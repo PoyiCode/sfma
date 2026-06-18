@@ -3,7 +3,7 @@
 // 資料取自資料層衍生快取 session.summary（patterns 變更即重算）與 session.breakouts；UI 不自行計算。
 import { computed } from 'vue';
 import type { AssessmentSession, PatternClassification } from '@ptapp/shared';
-import UiStatusChip from '../base/StatusChip.vue';
+import BaseStatusChip from '../base/StatusChip.vue';
 import type { AssessmentEntry } from '../../utils/assessment/assessmentForm';
 import {
   breakoutFindingsOverview,
@@ -47,7 +47,7 @@ const findings = computed(() => breakoutFindingsOverview(props.session.breakouts
       <h3 class="assessmentSummaryHeading">{{ t('assessmentSummaryCounts') }}</h3>
       <ul class="assessmentSummaryCountList">
         <li v-for="code in CLASS_ORDER" :key="code" class="assessmentSummaryCount">
-          <UiStatusChip :status="code" />
+          <BaseStatusChip :status="code" />
           <span class="assessmentSummaryCountValue">{{ counts[code] }}</span>
         </li>
       </ul>

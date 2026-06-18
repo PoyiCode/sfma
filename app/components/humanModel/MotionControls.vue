@@ -3,8 +3,8 @@
 // ＋觸界提示（非色彩通道：文字 role="status"）＋回中立。受控、狀態由父持（pose／selectedJoint）。
 import { computed } from 'vue';
 import { anatomyEntityById } from '@ptapp/definitions';
-import UiSegmentedControl, { type SegmentedOption } from '../base/SegmentedControl.vue';
-import UiButton from '../base/Button.vue';
+import BaseSegmentedControl, { type SegmentedOption } from '../base/SegmentedControl.vue';
+import BaseButton from '../base/Button.vue';
 import { localizeText } from '../../utils/i18n/localizeText';
 import { clampAngle } from '../../utils/humanModel/motion/romClamp';
 import { type MotionPose, jointAngle } from '../../utils/humanModel/motion/motionPose';
@@ -87,7 +87,7 @@ function onSlider(axis: string, raw: string | number): void {
 
 <template>
   <div class="motionControls">
-    <UiSegmentedControl
+    <BaseSegmentedControl
       v-bind="{ ariaLabel: t('modelMotionJoint') }"
       :model-value="selectedJoint"
       :options="jointOptions"
@@ -110,9 +110,9 @@ function onSlider(axis: string, raw: string | number): void {
       />
       <p v-if="s.atLimit" class="motionAtLimit" role="status">{{ t('modelMotionAtLimit') }}</p>
     </div>
-    <UiButton variant="secondary" data-testid="motion-reset" @click="emit('resetPose')">
+    <BaseButton variant="secondary" data-testid="motion-reset" @click="emit('resetPose')">
       {{ t('modelMotionReset') }}
-    </UiButton>
+    </BaseButton>
   </div>
 </template>
 

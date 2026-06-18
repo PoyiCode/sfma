@@ -8,8 +8,8 @@ import { localStore } from '../../utils/data/localStore';
 import { useSettings } from '../../composables/settings/useSettings';
 import { useInstallPrompt } from '../../composables/app/useInstallPrompt';
 import { resolveInstallMode } from '../../utils/app/installPrompt';
-import UiButton from '../base/Button.vue';
-import UiCallout from '../base/Callout.vue';
+import BaseButton from '../base/Button.vue';
+import BaseCallout from '../base/Callout.vue';
 
 // 已安裝 PWA 偵測：display-mode standalone（Chromium/Android）或 navigator.standalone（iOS）。
 interface NavigatorStandalone {
@@ -82,7 +82,7 @@ function handleInstall(): void {
 
 <template>
   <div v-if="visible" class="installGuide">
-    <UiCallout
+    <BaseCallout
       tone="info"
       :title="t('installGuideTitle')"
       :dismiss-label="t('installGuideDismiss')"
@@ -90,10 +90,10 @@ function handleInstall(): void {
     >
       <template v-if="mode === 'prompt'">
         <p class="installGuideBody">{{ t('installGuideBody') }}</p>
-        <UiButton @click="handleInstall">{{ t('installGuideAction') }}</UiButton>
+        <BaseButton @click="handleInstall">{{ t('installGuideAction') }}</BaseButton>
       </template>
       <p v-else class="installGuideBody">{{ t('installGuideIosBody') }}</p>
-    </UiCallout>
+    </BaseCallout>
   </div>
 </template>
 

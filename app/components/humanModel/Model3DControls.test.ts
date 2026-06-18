@@ -11,8 +11,8 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-// UiSwitch 包裝 USwitch（Nuxt UI）；以契約替身驗證映射。
-// v-bind="$attrs" 讓 data-testid 等屬性透傳（UiSwitch 根元素即 USwitch，fallthrough attrs）。
+// BaseSwitch 包裝 USwitch（Nuxt UI）；以契約替身驗證映射。
+// v-bind="$attrs" 讓 data-testid 等屬性透傳（BaseSwitch 根元素即 USwitch，fallthrough attrs）。
 const USwitchStub = defineComponent({
   name: 'USwitch',
   inheritAttrs: false,

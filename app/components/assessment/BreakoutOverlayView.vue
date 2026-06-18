@@ -3,9 +3,9 @@
 // （發現·待測流程）。純展示——結果上拋 result、收合上拋 close；自動前進與引擎呼叫由上層 composable 負責。
 import { computed, ref } from 'vue';
 import type { BreakoutFindingType, BreakoutNode, LocalizedText, SfmaFlowKey } from '@ptapp/shared';
-import UiAlertDialog from '../base/AlertDialog.vue';
-import UiButton from '../base/Button.vue';
-import UiIconButton from '../base/IconButton.vue';
+import BaseAlertDialog from '../base/AlertDialog.vue';
+import BaseButton from '../base/Button.vue';
+import BaseIconButton from '../base/IconButton.vue';
 import BreakoutStepCard from './BreakoutStepCard.vue';
 import BreakoutStepList from './BreakoutStepList.vue';
 import BreakoutCompletionCard from './BreakoutCompletionCard.vue';
@@ -106,20 +106,20 @@ function confirmRewind(): void {
         </button>
       </div>
       <div class="breakoutOverlayTopActions">
-        <UiButton
+        <BaseButton
           variant="ghost"
           class="breakoutFreeformToggle"
           :aria-pressed="freeform.active"
           @click="emit('toggleFreeform', !freeform.active)"
         >
           {{ t('breakoutFreeform') }}
-        </UiButton>
-        <UiIconButton :label="t('breakoutClose')" icon="×" @click="emit('close')" />
+        </BaseButton>
+        <BaseIconButton :label="t('breakoutClose')" icon="×" @click="emit('close')" />
       </div>
     </header>
     <div v-if="stepsExpanded" class="breakoutStepListPanel">
       <BreakoutStepList :steps="stepViews" rewindable @rewind-step="pendingRewind = $event" />
-      <UiButton
+      <BaseButton
         v-if="stepCount > 0"
         variant="ghost"
         class="breakoutStepBack"
@@ -127,7 +127,7 @@ function confirmRewind(): void {
       >
         <span aria-hidden="true">⤺ </span>
         {{ t('breakoutStepBack') }}
-      </UiButton>
+      </BaseButton>
     </div>
     <div class="breakoutOverlayBody">
       <div v-if="resultCards.length > 0" class="breakoutOverlayResults">
@@ -169,7 +169,7 @@ function confirmRewind(): void {
       />
     </div>
     <BreakoutFindingsBar :findings="findings" :queued-flow-names="queuedFlowNames" />
-    <UiAlertDialog
+    <BaseAlertDialog
       v-model:open="rewindDialogOpen"
       :title="t('breakoutRewindTitle')"
       :description="rewindMessage"

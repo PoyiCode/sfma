@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 路由邊界載入畫面（03 §3.3.7「路由邊界顯示 skeleton」）。
 // 無障礙：role=status + aria-busy 宣告載入中；視覺骨架 aria-hidden，SR 僅聽見 label。
-import UiSkeleton from './Skeleton.vue';
+import BaseSkeleton from './Skeleton.vue';
 
 interface Props {
   // SR 宣讀之載入文字（呼叫端傳 t('loading')，保持原件 i18n 中性）。
@@ -18,8 +18,8 @@ withDefaults(defineProps<Props>(), {
 <template>
   <div class="pageSkeleton" role="status" aria-busy="true">
     <span class="pageSkeletonLabel">{{ label }}</span>
-    <UiSkeleton variant="rect" class="pageSkeletonTitle" />
-    <UiSkeleton v-for="index in lines" :key="index" class="pageSkeletonLine" />
+    <BaseSkeleton variant="rect" class="pageSkeletonTitle" />
+    <BaseSkeleton v-for="index in lines" :key="index" class="pageSkeletonLine" />
   </div>
 </template>
 

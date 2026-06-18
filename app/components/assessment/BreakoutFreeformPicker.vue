@@ -3,7 +3,7 @@
 // 純展示：挑選與結果經回呼上拋。未挑流程時流程下拉首列為空值佔位。
 import { computed } from 'vue';
 import type { BreakoutNode, SfmaFlowKey } from '@ptapp/shared';
-import UiSelect, { type SelectOption } from '../base/Select.vue';
+import BaseSelect, { type SelectOption } from '../base/Select.vue';
 import BreakoutStepCard from './BreakoutStepCard.vue';
 import type {
   BreakoutFlowOption,
@@ -60,7 +60,7 @@ function onNodeChange(value: string | undefined): void {
     <div class="breakoutFreeformPickers">
       <label class="breakoutFreeformField">
         <span class="breakoutFreeformLabel">{{ t('breakoutFreeformFlow') }}</span>
-        <UiSelect
+        <BaseSelect
           v-bind="{ ariaLabel: t('breakoutFreeformFlow') }"
           :options="flowSelectOptions"
           :model-value="pickedFlowKey ?? ''"
@@ -69,7 +69,7 @@ function onNodeChange(value: string | undefined): void {
       </label>
       <label v-if="nodeOptions.length > 0" class="breakoutFreeformField">
         <span class="breakoutFreeformLabel">{{ t('breakoutFreeformNode') }}</span>
-        <UiSelect
+        <BaseSelect
           v-bind="{ ariaLabel: t('breakoutFreeformNode') }"
           :options="nodeSelectOptions"
           :model-value="pickedNodeKey ?? ''"
