@@ -149,6 +149,7 @@ export function buildArticulationRig(scene: Scene): ArticulationRig {
   function dispose(): void {
     applyPose({}); // 歸零旋轉→世界變換回中立
     // 強制更新所有樞紐世界矩陣（從根到葉），確保 setParent 取到正確世界位置。
+    // 注意：pivots 依樹前序插入＝root→leaf 順序；子樞紐世界矩陣依賴父樞紐，故此重算須 root 先行（若改變 visit 順序須重新檢視）。
     for (const pivot of pivots.values()) pivot.computeWorldMatrix(true);
     for (const { mesh, originalParent } of moved) {
       mesh.computeWorldMatrix(true);
