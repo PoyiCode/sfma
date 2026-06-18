@@ -13,7 +13,7 @@ import {
   type TransformNode,
   Vector3,
 } from '@babylonjs/core';
-import { JOINT_KINEMATICS, movableJointDof } from './jointKinematics';
+import { JOINT_KINEMATICS, jointDofForSide, poseKey } from './jointKinematics';
 import { type MotionPose, jointAngle } from './motionPose';
 import { clampAngle } from './romClamp';
 import { type Vec3, dragToAngle, planeBasis, pointerAngleInPlane } from './dragRotation';
@@ -31,10 +31,10 @@ function toVec3(p: Vector3): Vec3 {
 }
 
 export interface JointGizmoCallbacks {
-  onAngle(jointId: string, axis: string, deg: number): void;
+  onAngle(jointId: string, side: string | null, axis: string, deg: number): void;
   onDragStart(): void;
   onDragEnd(): void;
-  getPoseAngle(jointId: string, axis: string): number;
+  getPoseAngle(jointId: string, side: string | null, axis: string): number;
 }
 
 export interface JointGizmo {
@@ -55,6 +55,7 @@ export function createJointGizmo(
   scene: Scene,
   pivot: TransformNode,
   jointId: string,
+  side: string | null,
   cb: JointGizmoCallbacks,
 ): JointGizmo {
   const kin = JOINT_KINEMATICS[jointId];
@@ -140,7 +141,7 @@ export function createJointGizmo(
         normal,
         ref,
         grabAngle: grab,
-        startDeg: cb.getPoseAngle(jointId, entry.axis),
+        startDeg: cb.getPoseAngle(jointId, side, entry.axis),
         sign: entry.sign,
       };
       cb.onDragStart();
@@ -148,10 +149,11 @@ export function createJointGizmo(
       const r = ray();
       const cur = pointerAngleInPlane(r.origin, r.dir, drag.pivotPos, drag.normal, drag.ref);
       if (cur === null) return;
-      const dof = movableJointDof(jointId, drag.axis);
+      const dof = jointDofForSide(jointId, drag.axis, side);
       if (!dof) return;
       cb.onAngle(
         jointId,
+        side,
         drag.axis,
         dragToAngle(drag.startDeg, drag.grabAngle, cur, dof, drag.sign).value,
       );
@@ -162,10 +164,11 @@ export function createJointGizmo(
   });
 
   function update(pose: MotionPose): void {
+    const pk = poseKey(jointId, side);
     for (const entry of arcs) {
-      const dof = movableJointDof(jointId, entry.axis);
+      const dof = jointDofForSide(jointId, entry.axis, side);
       if (!dof) continue;
-      const { atLimit } = clampAngle(dof, jointAngle(pose, jointId, entry.axis, dof.neutral));
+      const { atLimit } = clampAngle(dof, jointAngle(pose, pk, entry.axis, dof.neutral));
       entry.material.emissiveColor = Color3.FromHexString(atLimit ? COLOR_LIMIT : COLOR_ACCENT);
     }
   }

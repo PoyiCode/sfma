@@ -29,7 +29,7 @@ export function createGizmoController(
       gizmo?.dispose();
       gizmo = null;
       currentKey = key;
-      if (pivot && jointId) gizmo = createJointGizmo(scene, pivot, jointId, cb);
+      if (pivot && jointId) gizmo = createJointGizmo(scene, pivot, jointId, side, cb);
     }
     gizmo?.update(pose);
   }

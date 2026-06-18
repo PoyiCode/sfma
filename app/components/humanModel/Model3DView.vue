@@ -63,7 +63,7 @@ import {
 } from '../../utils/humanModel/motion/gizmoController';
 import { jointForMesh, sideOfMesh } from '../../utils/humanModel/motion/meshToJoint';
 import { jointAngle } from '../../utils/humanModel/motion/motionPose';
-import { movableJointDof } from '../../utils/humanModel/motion/jointKinematics';
+import { movableJointDof, poseKey } from '../../utils/humanModel/motion/jointKinematics';
 
 // 標籤層工廠（§4.4）：預設真 Babylon GUI 綁定；測試注入假層脫鉤（GUI 需 canvas）。
 type LabelLayerFactory = (scene: Scene) => LabelLayer;
@@ -91,6 +91,8 @@ interface Props {
   motionMode?: boolean;
   pose?: MotionPose;
   motionJoint?: string;
+  // 選取側別（左右獨立，§4.3.3）：雙側關節為 '#L'/'#R'、單側關節為 null。決定手柄置放側與 setJointAngle 之側。
+  motionSide?: string | null;
   class?: string;
 }
 
@@ -110,6 +112,7 @@ const props = withDefaults(defineProps<Props>(), {
   motionMode: false,
   pose: undefined,
   motionJoint: undefined,
+  motionSide: '#R',
   class: undefined,
 });
 
@@ -122,8 +125,8 @@ const emit = defineEmits<{
   fps: [fps: number];
   // 場景填充載入態回報（§4.6.4）：建場景起 true、填充 settle 後 false。
   loadingChange: [loading: boolean];
-  setJointAngle: [jointId: string, axis: string, deg: number];
-  selectMotionJoint: [jointId: string];
+  setJointAngle: [jointId: string, side: string | null, axis: string, deg: number];
+  selectMotionJoint: [jointId: string, side: string | null];
 }>();
 
 const canvasRef = ref<HTMLCanvasElement>();
@@ -140,8 +143,6 @@ let labelLayer: LabelLayer | null = null;
 let rigController: RigController | null = null;
 let gizmoController: GizmoController | null = null;
 let gizmoDragging = false;
-// 拖曳/面板選關節時手柄置放側（由點選側決定；面板選取之雙側關節預設 #R）。
-let motionSide: string | null = '#R';
 
 // 自適應框取（§4.3.2／需求 3 部位視角）：由模型包圍盒＋實機畫布比例＋部位 yBand 推算
 // target/radius/半徑上下限/近裁面。無有效包圍盒或畫布尺寸未定時回 undefined → applyCameraView 沿用 preset。
@@ -256,8 +257,8 @@ onMounted(() => {
         if (!name) return;
         const joint = jointForMesh(name);
         if (joint !== null) {
-          motionSide = sideOfMesh(name) ?? '#R';
-          emit('selectMotionJoint', joint);
+          // 點選側別上拋（左右獨立，§4.3.3）；頁面以 normalizeSide 正規化後回傳 motionSide prop。
+          emit('selectMotionJoint', joint, sideOfMesh(name));
         }
         return;
       }
@@ -296,7 +297,7 @@ onMounted(() => {
           builtScene,
           (j, s) => rigController?.getPivot(j, s) ?? null,
           {
-            onAngle: (j, a, d) => emit('setJointAngle', j, a, d),
+            onAngle: (j, s, a, d) => emit('setJointAngle', j, s, a, d),
             onDragStart: () => {
               gizmoDragging = true;
               builtCamera.detachControl();
@@ -305,14 +306,14 @@ onMounted(() => {
               gizmoDragging = false;
               builtCamera.attachControl(canvas, true);
             },
-            getPoseAngle: (j, a) =>
-              jointAngle(props.pose ?? {}, j, a, movableJointDof(j, a)?.neutral ?? 0),
+            getPoseAngle: (j, s, a) =>
+              jointAngle(props.pose ?? {}, poseKey(j, s), a, movableJointDof(j, a)?.neutral ?? 0),
           },
         );
         gizmoController.sync(
           props.motionMode,
           props.motionJoint ?? null,
-          motionSide,
+          props.motionSide ?? null,
           props.pose ?? {},
         );
       })
@@ -422,14 +423,14 @@ watch(
 
 // 運動模式（§4.3.3）：motionMode／motionJoint／pose 變更即冪等建/套/拆 rig＋手柄（填充完成後 controllers 方存在）。
 watch(
-  () => [props.motionMode, props.motionJoint, props.pose] as const,
+  () => [props.motionMode, props.motionJoint, props.motionSide, props.pose] as const,
   () => {
     if (rigController) rigController.sync(props.motionMode, props.pose ?? {});
     if (gizmoController) {
       gizmoController.sync(
         props.motionMode,
         props.motionJoint ?? null,
-        motionSide,
+        props.motionSide ?? null,
         props.pose ?? {},
       );
     }

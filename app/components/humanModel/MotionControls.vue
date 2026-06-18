@@ -11,7 +11,8 @@ import { type MotionPose, jointAngle } from '../../utils/humanModel/motion/motio
 import {
   JOINT_KINEMATICS,
   MOVABLE_JOINT_IDS,
-  movableJointDof,
+  jointDofForSide,
+  poseKey,
 } from '../../utils/humanModel/motion/jointKinematics';
 
 const AXIS_LABEL_KEYS: Record<string, string> = {
@@ -27,12 +28,15 @@ const AXIS_LABEL_KEYS: Record<string, string> = {
 interface Props {
   pose: MotionPose;
   selectedJoint: string;
+  // 選取側別（左右獨立，§4.3.3）：雙側關節為 '#L'/'#R'、單側關節為 null。
+  selectedSide: string | null;
 }
 const props = defineProps<Props>();
 const emit = defineEmits<{
-  setJointAngle: [jointId: string, axis: string, deg: number];
+  setJointAngle: [jointId: string, side: string | null, axis: string, deg: number];
   resetPose: [];
   'update:selectedJoint': [jointId: string];
+  'update:selectedSide': [side: string | null];
 }>();
 
 const { t } = useI18n();
@@ -43,6 +47,15 @@ const jointOptions = computed<SegmentedOption[]>(() =>
     label: localizeText(anatomyEntityById.get(id)?.name ?? { 'zh-TW': id, en: id }),
   })),
 );
+
+// 雙側關節才顯左/右切換（單側關節脊椎／頸椎無側別）。
+const isBilateral = computed<boolean>(
+  () => JOINT_KINEMATICS[props.selectedJoint]?.bilateral === true,
+);
+const sideOptions: SegmentedOption[] = [
+  { value: '#L', label: t('motionSideLeft') },
+  { value: '#R', label: t('motionSideRight') },
+];
 
 interface SliderModel {
   axis: string;
@@ -56,12 +69,15 @@ interface SliderModel {
 const sliders = computed<SliderModel[]>(() => {
   const kin = JOINT_KINEMATICS[props.selectedJoint];
   if (!kin) return [];
+  // 左右獨立（§4.3.3）：以選取側別之姿態鍵讀值（雙側 jointId#L/#R、單側裸 jointId）。
+  const pk = poseKey(props.selectedJoint, props.selectedSide);
   return kin.dofs.map((m) => {
-    const dof = movableJointDof(props.selectedJoint, m.axis);
+    // 側別感知 ROM（左側鏡像軸取 [-max,-min]，§4.3.3）。
+    const dof = jointDofForSide(props.selectedJoint, m.axis, props.selectedSide);
     const min = dof?.min ?? 0;
     const max = dof?.max ?? 0;
     const neutral = dof?.neutral ?? 0;
-    const value = jointAngle(props.pose, props.selectedJoint, m.axis, neutral);
+    const value = jointAngle(props.pose, pk, m.axis, neutral);
     return {
       axis: m.axis,
       label: t(AXIS_LABEL_KEYS[m.axis] ?? m.axis),
@@ -77,11 +93,15 @@ function onJoint(value: string): void {
   if (MOVABLE_JOINT_IDS.includes(value)) emit('update:selectedJoint', value);
 }
 
+function onSide(value: string): void {
+  if (value === '#L' || value === '#R') emit('update:selectedSide', value);
+}
+
 function onSlider(axis: string, raw: string | number): void {
-  const dof = movableJointDof(props.selectedJoint, axis);
+  const dof = jointDofForSide(props.selectedJoint, axis, props.selectedSide);
   if (!dof) return;
   const { value } = clampAngle(dof, Number(raw));
-  emit('setJointAngle', props.selectedJoint, axis, value);
+  emit('setJointAngle', props.selectedJoint, props.selectedSide, axis, value);
 }
 </script>
 
@@ -92,6 +112,14 @@ function onSlider(axis: string, raw: string | number): void {
       :model-value="selectedJoint"
       :options="jointOptions"
       @update:model-value="onJoint"
+    />
+    <BaseSegmentedControl
+      v-if="isBilateral"
+      data-testid="motion-side"
+      v-bind="{ ariaLabel: t('modelMotionSide') }"
+      :model-value="selectedSide ?? '#R'"
+      :options="sideOptions"
+      @update:model-value="onSide"
     />
     <div v-for="s in sliders" :key="s.axis" class="motionDof">
       <label :for="`motionSlider-${s.axis}`" class="motionDofLabel">

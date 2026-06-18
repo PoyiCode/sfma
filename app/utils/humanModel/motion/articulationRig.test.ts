@@ -46,10 +46,23 @@ describe('articulationRig（剛性節段 rig；NullEngine）', () => {
     const tibia = scene.getMeshByName('bone.tibia')!;
     const rig = buildArticulationRig(scene);
     const before = tibia.getAbsolutePosition().clone();
-    rig.applyPose(setJointAngle(NEUTRAL_POSE, 'joint.knee', 'flexionExtension', 90));
+    // 佔位身體無 #L/#R，雙側成員 fallback 掛於先訪之 #L 樞紐 → 以 'joint.knee#L' 驅動。
+    rig.applyPose(setJointAngle(NEUTRAL_POSE, 'joint.knee#L', 'flexionExtension', 90));
     tibia.computeWorldMatrix(true);
     // 脛骨為膝樞紐之 anchor（樞紐在其上端）：屈曲後其下半旋走、絕對中心應位移
     expect(tibia.getAbsolutePosition().subtract(before).length()).toBeGreaterThan(0.01);
+    rig.dispose();
+  });
+
+  it('左右獨立：以他側鍵（#R）驅動不動本側成員（脛骨掛於 #L）', () => {
+    const scene = freshScene();
+    const tibia = scene.getMeshByName('bone.tibia')!;
+    const rig = buildArticulationRig(scene);
+    const before = tibia.getAbsolutePosition().clone();
+    // 脛骨掛於 #L 樞紐；以 'joint.knee#R' 驅動不應移動它（每側獨立姿態鍵）。
+    rig.applyPose(setJointAngle(NEUTRAL_POSE, 'joint.knee#R', 'flexionExtension', 90));
+    tibia.computeWorldMatrix(true);
+    expect(tibia.getAbsolutePosition().subtract(before).length()).toBeLessThan(1e-4);
     rig.dispose();
   });
 
@@ -58,7 +71,7 @@ describe('articulationRig（剛性節段 rig；NullEngine）', () => {
     const tibia = scene.getMeshByName('bone.tibia')!;
     const before = tibia.getAbsolutePosition().clone();
     const rig = buildArticulationRig(scene);
-    rig.applyPose(setJointAngle(NEUTRAL_POSE, 'joint.knee', 'flexionExtension', 90));
+    rig.applyPose(setJointAngle(NEUTRAL_POSE, 'joint.knee#L', 'flexionExtension', 90));
     rig.dispose();
     tibia.computeWorldMatrix(true);
     expect(tibia.parent instanceof TransformNode && tibia.parent.name.startsWith('pivot:')).toBe(

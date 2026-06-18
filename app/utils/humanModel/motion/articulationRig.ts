@@ -14,6 +14,7 @@ import {
   type JointKinematics,
   JOINT_KINEMATICS,
   movableJointDof,
+  poseKey,
   SEGMENT_TREE,
   type SegmentTreeNode,
   segmentMembershipAll,
@@ -131,14 +132,16 @@ export function buildArticulationRig(scene: Scene): ArticulationRig {
   visit(SEGMENT_TREE, () => null);
 
   function applyPose(pose: MotionPose): void {
-    for (const [key, { kin }] of pivotMeta) {
+    for (const [key, { kin, side }] of pivotMeta) {
       const pivot = pivots.get(key);
       if (!pivot) continue;
+      // 左右獨立（§4.3.3）：每側讀各自姿態鍵（雙側 jointId#L/#R、單側裸 jointId）。
+      const pk = poseKey(kin.jointId, side);
       let q = Quaternion.Identity();
       for (const m of kin.dofs) {
         const dof = movableJointDof(kin.jointId, m.axis);
         const neutral = dof?.neutral ?? 0;
-        const deg = jointAngle(pose, kin.jointId, m.axis, neutral) - neutral;
+        const deg = jointAngle(pose, pk, m.axis, neutral) - neutral;
         if (deg === 0) continue;
         const axis = new Vector3(m.worldAxis[0], m.worldAxis[1], m.worldAxis[2]);
         q = q.multiply(Quaternion.RotationAxis(axis, deg * m.sign * DEG2RAD));

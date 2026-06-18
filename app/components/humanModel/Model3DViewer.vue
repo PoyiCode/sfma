@@ -70,11 +70,13 @@ interface Props {
   layoutMode?: ViewerLayoutMode;
   // 一鍵重置檢視（03 §3.6）：canResetView 提供＝顯「重置檢視」鈕。
   canResetView?: boolean;
-  // 運動模式（§4.3.3）：canToggleMotion＝控制列顯開關；motionMode/pose/motionJoint 為當前狀態。
+  // 運動模式（§4.3.3）：canToggleMotion＝控制列顯開關；motionMode/pose/motionJoint/motionSide 為當前狀態。
   motionMode?: boolean;
   canToggleMotion?: boolean;
   pose?: MotionPose;
   motionJoint?: string;
+  // 選取側別（左右獨立，§4.3.3）：雙側 '#L'/'#R'、單側 null。透傳至 Model3DView（手柄側）與 MotionControls（滑桿側）。
+  motionSide?: string | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -105,6 +107,7 @@ const props = withDefaults(defineProps<Props>(), {
   canToggleMotion: false,
   pose: undefined,
   motionJoint: 'joint.knee',
+  motionSide: '#R',
 });
 
 const emit = defineEmits<{
@@ -125,9 +128,12 @@ const emit = defineEmits<{
   resetView: [];
   fps: [fps: number];
   motionModeChange: [on: boolean];
-  setJointAngle: [jointId: string, axis: string, deg: number];
+  setJointAngle: [jointId: string, side: string | null, axis: string, deg: number];
   resetPose: [];
   motionJointChange: [jointId: string];
+  // 點 3D 肢體選關節＋側別（左右獨立，§4.3.3）；面板左/右切換則發 motionSideChange。
+  selectMotionJoint: [jointId: string, side: string | null];
+  motionSideChange: [side: string | null];
 }>();
 
 const { t } = useI18n();
@@ -195,12 +201,13 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
             :motion-mode="motionMode"
             :pose="pose"
             :motion-joint="motionJoint"
+            :motion-side="motionSide"
             @select="emit('selectPart', $event)"
             @background-click="emit('backgroundClick')"
             @fps="emit('fps', $event)"
             @loading-change="isModelLoading = $event"
-            @set-joint-angle="(j, a, d) => emit('setJointAngle', j, a, d)"
-            @select-motion-joint="emit('motionJointChange', $event)"
+            @set-joint-angle="(j, s, a, d) => emit('setJointAngle', j, s, a, d)"
+            @select-motion-joint="(j, s) => emit('selectMotionJoint', j, s)"
           />
         </ClientOnly>
         <p v-if="isModelLoading" class="model3dLoading" role="status">
@@ -213,9 +220,11 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
           v-if="motionMode"
           :pose="pose ?? {}"
           :selected-joint="motionJoint"
-          @set-joint-angle="(j, a, d) => emit('setJointAngle', j, a, d)"
+          :selected-side="motionSide"
+          @set-joint-angle="(j, s, a, d) => emit('setJointAngle', j, s, a, d)"
           @reset-pose="emit('resetPose')"
           @update:selected-joint="emit('motionJointChange', $event)"
+          @update:selected-side="emit('motionSideChange', $event)"
         />
         <AnatomyInfoCard
           v-else-if="selected"

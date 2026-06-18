@@ -338,6 +338,42 @@ export function movableJointDof(jointId: string, axis: string): DegreeOfFreedom 
   return entity.degreesOfFreedom.find((d) => d.axis === axis);
 }
 
+// 側別正規化（左右獨立，§4.3.3）：雙側關節→保證 '#L'/'#R'（缺則預設 '#R'）；單側關節→null。
+// 供 poseKey 與 rig getPivot 之側別一致（雙側 pivot 鍵帶後綴、單側不帶）。
+export function normalizeSide(jointId: string, side: string | null): string | null {
+  return JOINT_KINEMATICS[jointId]?.bilateral === true ? (side ?? '#R') : null;
+}
+
+// 姿態鍵（左右獨立，§4.3.3）：雙側關節附 #L/#R 後綴、單側關節用裸 jointId。與 rig pivotKey 同規則，
+// 使 pose 每側獨立。idempotent：poseKey(j, poseKey 已正規化之 side) 不變。
+export function poseKey(jointId: string, side: string | null): string {
+  const s = normalizeSide(jointId, side);
+  return s === null ? jointId : `${jointId}${s}`;
+}
+
+// 額狀／橫狀面動作於身體中線左右鏡像（外展/內收、內翻/外翻、內旋/外旋）；
+// 矢狀面（屈伸／蹠背屈）左右同向、不鏡像。單一世界 sign 驅動雙側，故左側 ROM＝右側鏡像。
+const MIRRORED_AXES: ReadonlySet<string> = new Set([
+  'abductionAdduction',
+  'inversionEversion',
+  'internalExternalRotation',
+]);
+
+// 側別感知 ROM（左右鏡像，§4.3.3）：definitions 存右側值。雙側關節之鏡像軸左側取 [-max, -min]；
+// 右側、矢狀面軸、單側關節皆原值。對稱範圍（如 [-45,45]）鏡像為無作用，故與右側相同。
+export function jointDofForSide(
+  jointId: string,
+  axis: string,
+  side: string | null,
+): DegreeOfFreedom | undefined {
+  const dof = movableJointDof(jointId, axis);
+  if (dof === undefined) return undefined;
+  if (side === '#L' && MIRRORED_AXES.has(axis) && JOINT_KINEMATICS[jointId]?.bilateral === true) {
+    return { ...dof, min: -dof.max, max: -dof.min };
+  }
+  return dof;
+}
+
 // 便利：全部成員一次解析（rig 用）。
 export const segmentMembershipAll = (): Map<string, string[]> =>
   resolveSegmentMembership(ALL_ENTITIES);

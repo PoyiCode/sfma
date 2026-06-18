@@ -3,7 +3,10 @@ import { anatomyEntities, anatomyEntityById } from '@ptapp/definitions';
 import {
   JOINT_KINEMATICS,
   MOVABLE_JOINT_IDS,
+  jointDofForSide,
   movableJointDof,
+  normalizeSide,
+  poseKey,
   resolveSegmentMembership,
   segmentForMuscle,
   SEGMENT_BONES,
@@ -89,5 +92,51 @@ describe('jointKinematics（運動學表不變式）', () => {
   it('movableJointDof 讀 definitions ROM', () => {
     expect(movableJointDof('joint.knee', 'flexionExtension')?.max).toBe(140);
     expect(movableJointDof('joint.knee', 'bogus')).toBeUndefined();
+  });
+
+  it('normalizeSide：雙側保證 #L/#R（缺則 #R）、單側為 null', () => {
+    expect(normalizeSide('joint.knee', '#L')).toBe('#L');
+    expect(normalizeSide('joint.knee', '#R')).toBe('#R');
+    expect(normalizeSide('joint.knee', null)).toBe('#R'); // 雙側缺側別→預設 #R
+    expect(normalizeSide('joint.spine', '#L')).toBeNull(); // 單側忽略側別
+    expect(normalizeSide('joint.cervicalSpine', null)).toBeNull();
+    expect(normalizeSide('joint.nope', '#L')).toBeNull(); // 未知關節
+  });
+
+  it('poseKey：雙側附 #L/#R 後綴、單側裸 jointId、idempotent', () => {
+    expect(poseKey('joint.knee', '#L')).toBe('joint.knee#L');
+    expect(poseKey('joint.knee', '#R')).toBe('joint.knee#R');
+    expect(poseKey('joint.knee', null)).toBe('joint.knee#R'); // 雙側缺側別→ #R
+    expect(poseKey('joint.spine', '#L')).toBe('joint.spine'); // 單側裸鍵
+    expect(poseKey('joint.spine', null)).toBe('joint.spine');
+    // 先 normalizeSide 再組鍵與直接組鍵結果一致（正規化後 side 為合法值）
+    expect(poseKey('joint.knee', normalizeSide('joint.knee', '#L'))).toBe('joint.knee#L');
+  });
+
+  it('jointDofForSide：左側鏡像軸取 [-max,-min]、右側與矢狀面原值', () => {
+    const range = (jointId: string, axis: string, side: string | null) => {
+      const d = jointDofForSide(jointId, axis, side);
+      return d ? [d.min, d.max] : undefined;
+    };
+    // 髖 外展/內收：右 [-30,45]、左鏡像 [-45,30]
+    expect(range('joint.hip', 'abductionAdduction', '#R')).toEqual([-30, 45]);
+    expect(range('joint.hip', 'abductionAdduction', '#L')).toEqual([-45, 30]);
+    // 髖 屈伸（矢狀面）：左右皆原值 [-20,120]
+    expect(range('joint.hip', 'flexionExtension', '#L')).toEqual([-20, 120]);
+    expect(range('joint.hip', 'flexionExtension', '#R')).toEqual([-20, 120]);
+    // 髖 內外旋：右 [-45,45]、左鏡像仍 [-45,45]（對稱→無作用）
+    expect(range('joint.hip', 'internalExternalRotation', '#L')).toEqual([-45, 45]);
+    // 踝 內翻/外翻：右 [-35,15]、左鏡像 [-15,35]
+    expect(range('joint.ankle', 'inversionEversion', '#R')).toEqual([-35, 15]);
+    expect(range('joint.ankle', 'inversionEversion', '#L')).toEqual([-15, 35]);
+    // 肩 外展/內收：右 [-50,180]、左鏡像 [-180,50]
+    expect(range('joint.glenohumeral', 'abductionAdduction', '#L')).toEqual([-180, 50]);
+    // 肩 內外旋：右 [-70,90]、左鏡像 [-90,70]
+    expect(range('joint.glenohumeral', 'internalExternalRotation', '#L')).toEqual([-90, 70]);
+    // 單側關節（脊椎）即使傳 #L 亦不鏡像
+    expect(range('joint.spine', 'lateralFlexion', '#L')).toEqual(
+      range('joint.spine', 'lateralFlexion', '#R'),
+    );
+    expect(jointDofForSide('joint.hip', 'bogus', '#L')).toBeUndefined();
   });
 });

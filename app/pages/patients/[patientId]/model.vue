@@ -54,6 +54,7 @@ import {
   setJointAngle,
   type MotionPose,
 } from '../../../utils/humanModel/motion/motionPose';
+import { normalizeSide, poseKey } from '../../../utils/humanModel/motion/jointKinematics';
 import type { BodyAnnotationDraft } from '../../../components/humanModel/BodyAnnotationForm.vue';
 import Model3DViewer from '../../../components/humanModel/Model3DViewer.vue';
 import BodyAnnotationDialog from '../../../components/humanModel/BodyAnnotationDialog.vue';
@@ -209,9 +210,11 @@ const showLabels = ref(false);
 const labelMode = ref<LabelMode>(DEFAULT_LABEL_MODE);
 const annotating = ref(false);
 
-// 運動模式（§4.3.3）：開關、當前選擇關節、姿態。進運動模式暫停評估標註（獨立模式）。
+// 運動模式（§4.3.3）：開關、當前選擇關節、側別、姿態。進運動模式暫停評估標註（獨立模式）。
+// 左右獨立：motionSide 為雙側關節之 '#L'/'#R'（單側關節為 null）；正規化由 normalizeSide 統一。
 const motionMode = ref(false);
 const motionJoint = ref('joint.knee');
+const motionSide = ref<string | null>(normalizeSide('joint.knee', '#R'));
 const pose = ref<MotionPose>(NEUTRAL_POSE);
 
 function handleMotionModeChange(on: boolean): void {
@@ -221,8 +224,27 @@ function handleMotionModeChange(on: boolean): void {
     pose.value = resetMotionPose();
   }
 }
-function handleSetJointAngle(jointId: string, axis: string, deg: number): void {
-  pose.value = setJointAngle(pose.value, jointId, axis, deg);
+// 點 3D 肢體：同時設關節與側別（側別經 normalizeSide：雙側→'#L'/'#R'、單側→null）。
+function handleSelectMotionJoint(jointId: string, side: string | null): void {
+  motionJoint.value = jointId;
+  motionSide.value = normalizeSide(jointId, side);
+}
+// 面板關節選擇：換關節後以現側別重新正規化（換到單側關節則歸 null）。
+function handleMotionJointChange(jointId: string): void {
+  motionJoint.value = jointId;
+  motionSide.value = normalizeSide(jointId, motionSide.value);
+}
+// 面板左/右切換（僅雙側關節顯示）。
+function handleMotionSideChange(side: string | null): void {
+  motionSide.value = normalizeSide(motionJoint.value, side);
+}
+function handleSetJointAngle(
+  jointId: string,
+  side: string | null,
+  axis: string,
+  deg: number,
+): void {
+  pose.value = setJointAngle(pose.value, poseKey(jointId, side), axis, deg);
 }
 function handleResetPose(): void {
   pose.value = resetMotionPose();
@@ -420,6 +442,7 @@ function retryBoundary(): void {
         :motion-mode="motionMode"
         :pose="pose"
         :motion-joint="motionJoint"
+        :motion-side="motionSide"
         @set-visible="layers.setVisible"
         @reset-layers="layers.reset"
         @select-part="selection.toggle"
@@ -437,7 +460,9 @@ function retryBoundary(): void {
         @motion-mode-change="handleMotionModeChange"
         @set-joint-angle="handleSetJointAngle"
         @reset-pose="handleResetPose"
-        @motion-joint-change="motionJoint = $event"
+        @motion-joint-change="handleMotionJointChange"
+        @select-motion-joint="handleSelectMotionJoint"
+        @motion-side-change="handleMotionSideChange"
         @fps="sampleFps"
       />
     </ErrorBoundary>
