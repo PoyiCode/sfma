@@ -3,7 +3,7 @@
 // ＋內容區＋暫態層（FirstLaunchNotice／InstallGuide）。data-breakpoint 供 CSS／master-detail，
 // data-orientation 供同斷點內依方向重排（CSS／狀態訊號、不觸發資料重載），data-locale 供語系相依樣式。
 // skip link（§3.7.5 Bypass Blocks）＝殼層首焦點，鍵盤略過 App Bar 跳至 main#appMain。
-import { computed } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useBreakpoint } from '../composables/app/useBreakpoint';
 import { useOrientation } from '../composables/app/useOrientation';
 import UiIconButton from '../components/ui/IconButton.vue';
@@ -31,6 +31,16 @@ const titleKey = computed<string>(() => {
 // 非根路徑顯返回鍵（瀏覽器 back）。
 const isRoot = computed(() => route.path === '/');
 
+// 內容捲動容器（取代文件捲動，使 App Bar 全寬填滿）：路由切換時手動回頂，
+// 取代瀏覽器文件捲動原有的「換頁回到頂端」行為。
+const appMainRef = ref<HTMLElement>();
+watch(
+  () => route.path,
+  () => {
+    appMainRef.value?.scrollTo({ top: 0 });
+  },
+);
+
 function goBack(): void {
   router.back();
 }
@@ -50,23 +60,14 @@ function goSettings(): void {
     <a class="skipLink" href="#appMain">{{ t('skipToContent') }}</a>
     <header class="appBar">
       <span v-if="isRoot" class="appBarLead" aria-hidden="true" />
-      <UiIconButton
-        v-else
-        class="appBarBack"
-        :label="t('navBack')"
-        icon="‹"
-        @click="goBack"
-      />
+      <UiIconButton v-else class="appBarBack" :label="t('navBack')" icon="‹" @click="goBack" />
       <h1 class="appBarTitle">{{ t(titleKey) }}</h1>
-      <UiIconButton
-        class="appBarSettings"
-        :label="t('navSettings')"
-        icon="⚙"
-        @click="goSettings"
-      />
+      <UiIconButton class="appBarSettings" :label="t('navSettings')" icon="⚙" @click="goSettings" />
     </header>
-    <main id="appMain" class="appContent" tabindex="-1">
-      <slot />
+    <main id="appMain" ref="appMainRef" class="appScroll" tabindex="-1">
+      <div class="appContent">
+        <slot />
+      </div>
     </main>
     <FirstLaunchNotice />
     <InstallGuide />
@@ -79,8 +80,11 @@ function goSettings(): void {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* 後備：不支援 dvh 之瀏覽器 */
-  min-height: 100dvh; /* 動態視口高：iOS 動態工具列顯隱時內容高度正確 */
+  height: 100vh; /* 後備：不支援 dvh 之瀏覽器 */
+  height: 100dvh; /* 動態視口高：iOS 動態工具列顯隱時內容高度正確 */
+  /* 殼層本身不捲動；捲動移至內容區（.appScroll），使 App Bar 在捲動容器之外、恆全寬填滿
+     （捲軸出現/消失皆不影響、無捲軸槽空隙；issue 1）。 */
+  overflow: hidden;
   background: var(--color-bg);
   color: var(--color-text);
 }
@@ -120,8 +124,18 @@ function goSettings(): void {
   justify-self: end;
 }
 
-.appContent {
+/* 內容捲動容器（取代文件捲動）：全寬，捲軸落在視口右緣；捲軸槽 stable 預留於此（背景色區、
+   空槽不顯），故 App Bar 在其外恆全寬填滿、版面不因捲軸顯隱位移。 */
+.appScroll {
   flex: 1;
+  min-height: 0; /* 允許 flex 子項收縮以內部捲動，而非撐高殼層 */
+  width: 100%;
+  overflow-y: auto;
+  scrollbar-gutter: stable; /* 原 html 之「捲軸出現/消失不位移」保證移至此 */
+  overscroll-behavior-y: contain; /* 防過捲串聯（原於 html） */
+}
+
+.appContent {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
