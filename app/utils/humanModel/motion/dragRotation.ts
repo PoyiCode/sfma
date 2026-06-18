@@ -72,13 +72,15 @@ export function pointerAngleInPlane(
   return Math.atan2(dot(w, vv), dot(w, u));
 }
 
-// 掃掠角→鉗制角度：自抓取點之角度差（正規化防繞圈）加至起始角、鉗制於 ROM。
+// 掃掠角→鉗制角度：自抓取點之角度差（正規化防繞圈）乘 sign 加至起始角、鉗制於 ROM。
+// sign 對應 DofAxisMapping.sign（預設 +1）；sign=-1 時正掃掠對應角度遞減（反向 DOF）。
 export function dragToAngle(
   startDeg: number,
   grabAngleRad: number,
   currentAngleRad: number,
   dof: Pick<DegreeOfFreedom, 'min' | 'max'>,
+  sign: 1 | -1 = 1,
 ): ClampResult {
   const deltaDeg = normalizeDeg((currentAngleRad - grabAngleRad) * RAD2DEG);
-  return clampAngle(dof, startDeg + deltaDeg);
+  return clampAngle(dof, startDeg + deltaDeg * sign);
 }

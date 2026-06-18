@@ -70,4 +70,13 @@ describe('dragToAngle', () => {
     const cur = (-170 * Math.PI) / 180;
     expect(dragToAngle(0, grab, cur, KNEE).value).toBeCloseTo(20, 6);
   });
+  it('sign=-1 反向：正掃掠對應角度遞減', () => {
+    // grab=0、current=+90°、start=50、sign=-1 → 50 + (90 × −1) = −40 → 夾於膝 min −5
+    const r = dragToAngle(50, 0, Math.PI / 2, KNEE, -1);
+    expect(r.value).toBe(-5);
+    expect(r.atLimit).toBe(true);
+  });
+  it('sign=+1 預設與顯式一致', () => {
+    expect(dragToAngle(0, 0, Math.PI / 2, KNEE)).toEqual(dragToAngle(0, 0, Math.PI / 2, KNEE, 1));
+  });
 });

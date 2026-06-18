@@ -48,6 +48,7 @@ interface ArcEntry {
   material: StandardMaterial;
   localAxis: Vec3;
   localRef: Vec3; // planeBasis(localAxis).u
+  sign: 1 | -1;
 }
 
 export function createJointGizmo(
@@ -88,7 +89,7 @@ export function createJointGizmo(
       mesh.parent = pivot;
       mesh.isPickable = true;
       mesh.metadata = { gizmoAxis: dof.axis, gizmoJointId: jointId };
-      arcs.push({ axis: dof.axis, mesh, material, localAxis, localRef: u });
+      arcs.push({ axis: dof.axis, mesh, material, localAxis, localRef: u, sign: dof.sign });
     }
   }
 
@@ -100,6 +101,7 @@ export function createJointGizmo(
     ref: Vec3;
     grabAngle: number;
     startDeg: number;
+    sign: 1 | -1;
   } | null = null;
 
   function worldDir(local: Vec3): Vec3 {
@@ -139,6 +141,7 @@ export function createJointGizmo(
         ref,
         grabAngle: grab,
         startDeg: cb.getPoseAngle(jointId, entry.axis),
+        sign: entry.sign,
       };
       cb.onDragStart();
     } else if (info.type === PointerEventTypes.POINTERMOVE && drag) {
@@ -147,7 +150,11 @@ export function createJointGizmo(
       if (cur === null) return;
       const dof = movableJointDof(jointId, drag.axis);
       if (!dof) return;
-      cb.onAngle(jointId, drag.axis, dragToAngle(drag.startDeg, drag.grabAngle, cur, dof).value);
+      cb.onAngle(
+        jointId,
+        drag.axis,
+        dragToAngle(drag.startDeg, drag.grabAngle, cur, dof, drag.sign).value,
+      );
     } else if (info.type === PointerEventTypes.POINTERUP && drag) {
       drag = null;
       cb.onDragEnd();
