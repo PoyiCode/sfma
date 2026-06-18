@@ -1391,7 +1391,7 @@ git commit -m "feat(motion): Model3DControls 運動模式切換鈕"
 
 ## Task 8: Model3DView 接線 rig 生命週期
 
-加 `motionMode`／`pose` props 與 `setJointAngle` emit（透傳）；於 motionMode 開→填充完成後 `buildArticulationRig`、pose 變→`applyPose`、關閉/卸載→`dispose`。
+加 `motionMode`／`pose` props（Model3DView 為 canvas、無滑桿故無 `setJointAngle` emit——該 emit 屬 Task 9 Model3DViewer，MotionControls 掛於彼）；於 motionMode 開→填充完成後 `buildArticulationRig`、pose 變→`applyPose`、關閉/卸載→`dispose`。
 
 **Files:**
 - Create: `app/utils/humanModel/motion/rigController.ts`
