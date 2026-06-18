@@ -3,7 +3,10 @@
 // 預設 type="multiple"（評估表可同時展開多列填寫）；type="single" 則 collapsible（可全收合）。
 // 對外維持原元件 API（items: {value, trigger, content}）；trigger→label、content→以同名具名 slot 渲染，
 // 使呼叫端可放置任意富內容（對等 ptApp ReactNode），亦支援純字串 content（03 §3.7.4）。
-import { computed } from 'vue';
+// 富列頭（trigger）以 #trigger-<value> 具名 slot 注入（如評估表列頭含 StatusChip 概況），無提供則退回字串 trigger。
+import { computed, useSlots } from 'vue';
+
+const slots = useSlots();
 
 export interface AccordionItemData {
   value: string;
@@ -41,6 +44,10 @@ const uiItems = computed(() =>
     :default-value="defaultValue"
     class="accordion"
   >
+    <template #default="{ item }">
+      <slot v-if="slots[`trigger-${item.value}`]" :name="`trigger-${item.value}`" :item="item" />
+      <template v-else>{{ item.label }}</template>
+    </template>
     <template v-for="item in items" #[`${item.value}`] :key="item.value">
       <slot :name="item.value">{{ item.content }}</slot>
     </template>
