@@ -59,9 +59,9 @@ import Model3DViewer from '../../../components/humanModel/Model3DViewer.vue';
 import BodyAnnotationDialog from '../../../components/humanModel/BodyAnnotationDialog.vue';
 import BodyAnnotationList from '../../../components/humanModel/BodyAnnotationList.vue';
 import FullLodConfirmDialog from '../../../components/humanModel/FullLodConfirmDialog.vue';
-import PageError from '../../../components/ui/PageError.vue';
-import PageSkeleton from '../../../components/ui/PageSkeleton.vue';
-import ErrorBoundary from '../../../components/ui/ErrorBoundary.vue';
+import PageError from '../../../components/base/PageError.vue';
+import PageSkeleton from '../../../components/base/PageSkeleton.vue';
+import ErrorBoundary from '../../../components/base/ErrorBoundary.vue';
 
 // AppSettings 之 lodMode 聯集（auto/simplified/full）；@ptapp/shared 未另 export 別名，於此取。
 type LodMode = AppSettings['lodMode'];

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 評估紀錄清單展示（03 §3.3.8）：純展示——空狀態引導＋新增 CTA；有資料則列各次評估（日期·概況·評估者）。
 // useI18n／NuxtLink 由 Nuxt 自動 import。
-import UiStatusChip from '../ui/StatusChip.vue';
+import UiStatusChip from '../base/StatusChip.vue';
 import type { AssessmentRowData } from '../../utils/assessment/assessmentHistory';
 
 interface Props {
@@ -18,11 +18,7 @@ const { t } = useI18n();
   <div v-if="rows.length === 0" class="assessmentHistoryEmpty">
     <p class="assessmentHistoryEmptyTitle">{{ t('patientNoAssessments') }}</p>
     <p class="assessmentHistoryEmptyHint">{{ t('assessmentHistoryEmptyHint') }}</p>
-    <NuxtLink
-      class="button"
-      data-variant="primary"
-      :to="`/patients/${patientId}/assessments/new`"
-    >
+    <NuxtLink class="button" data-variant="primary" :to="`/patients/${patientId}/assessments/new`">
       {{ t('titleAssessmentNew') }}
     </NuxtLink>
   </div>

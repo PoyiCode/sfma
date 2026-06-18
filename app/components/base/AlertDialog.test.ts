@@ -7,7 +7,11 @@ import AlertDialog from './AlertDialog.vue';
 // UModal 替身（確認型）：open 時渲染 title/description 與 footer slot；對等 Reka UI Dialog 行為。
 const UModalStub = defineComponent({
   name: 'UModal',
-  props: { open: { type: Boolean, default: false }, title: { type: String, default: '' }, description: { type: String, default: undefined } },
+  props: {
+    open: { type: Boolean, default: false },
+    title: { type: String, default: '' },
+    description: { type: String, default: undefined },
+  },
   emits: ['update:open'],
   template: `<div v-if="open" role="alertdialog" :aria-label="title">
               <p v-if="description !== undefined">{{ description }}</p>

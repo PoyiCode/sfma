@@ -6,7 +6,7 @@
 import { computed, ref, watch } from 'vue';
 import { useBreakpoint } from '../composables/app/useBreakpoint';
 import { useOrientation } from '../composables/app/useOrientation';
-import UiIconButton from '../components/ui/IconButton.vue';
+import UiIconButton from '../components/base/IconButton.vue';
 import FirstLaunchNotice from '../components/app/FirstLaunchNotice.vue';
 import InstallGuide from '../components/app/InstallGuide.vue';
 

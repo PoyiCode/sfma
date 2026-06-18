@@ -7,7 +7,10 @@ import { computed, ref } from 'vue';
 import { sfmaPatterns } from '@ptapp/definitions';
 import type { Side, SfmaPatternKey } from '@ptapp/shared';
 import { useAssessmentSession } from '../../../../composables/assessment/useAssessmentSession';
-import { assessmentProgress, buildAssessmentEntries } from '../../../../utils/assessment/assessmentForm';
+import {
+  assessmentProgress,
+  buildAssessmentEntries,
+} from '../../../../utils/assessment/assessmentForm';
 import {
   findBreakout,
   newBreakoutRecord,
@@ -16,8 +19,8 @@ import {
 import AssessmentSessionView from '../../../../components/assessment/AssessmentSessionView.vue';
 import AssessmentSummaryView from '../../../../components/assessment/AssessmentSummaryView.vue';
 import BreakoutOverlay from '../../../../components/assessment/BreakoutOverlay.vue';
-import PageError from '../../../../components/ui/PageError.vue';
-import PageSkeleton from '../../../../components/ui/PageSkeleton.vue';
+import PageError from '../../../../components/base/PageError.vue';
+import PageSkeleton from '../../../../components/base/PageSkeleton.vue';
 
 interface BreakoutTarget {
   patternKey: SfmaPatternKey;
@@ -98,11 +101,7 @@ function buildModelHref(patternKey: SfmaPatternKey): string {
   />
   <div v-else-if="state.status === 'notFound'" class="assessmentSessionStatus">
     <p>{{ t('assessmentNotFound') }}</p>
-    <NuxtLink
-      class="button"
-      data-variant="secondary"
-      :to="`/patients/${patientId}/assessments`"
-    >
+    <NuxtLink class="button" data-variant="secondary" :to="`/patients/${patientId}/assessments`">
       {{ t('backToAssessments') }}
     </NuxtLink>
   </div>

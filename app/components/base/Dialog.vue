@@ -17,16 +17,13 @@ interface Props {
 const props = defineProps<Props>();
 
 // UModal 之 close 接受 ButtonProps；aria-label 為原生屬性（不在型別介面內，故以 ButtonProps 物件附帶）。
-const closeButton = computed<ButtonProps>(() => ({ 'aria-label': props.closeLabel }) as ButtonProps);
+const closeButton = computed<ButtonProps>(
+  () => ({ 'aria-label': props.closeLabel }) as ButtonProps,
+);
 </script>
 
 <template>
-  <UModal
-    v-model:open="open"
-    :title="title"
-    :description="description"
-    :close="closeButton"
-  >
+  <UModal v-model:open="open" :title="title" :description="description" :close="closeButton">
     <template #body>
       <div class="dialogBody">
         <slot />

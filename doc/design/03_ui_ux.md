@@ -129,7 +129,7 @@ Compact <600        Medium 600–1024       Expanded >1024
 - `*` 未知路由 → shell 內「找不到」頁 ＋ 回 `/`。
 - **無效 `:patientId`／`:sessionId`**（已刪除，或深連結到本機不存在者）→「找不到此個案／評估」空狀態 ＋ 回清單。**此即裝置本地深連結情境**（某裝置有效 URL 在另一裝置不存在），須優雅處理。
 - **空狀態**：個案清單／評估清單無資料 → 引導式空狀態 ＋ 新增 CTA。
-- **載入／錯誤**：路由邊界顯示 skeleton；資料層錯誤 → 錯誤狀態 ＋ 重試（接 actionLogger，[07_dev_conventions.md](07_dev_conventions.md) §7.6）。頁面層「資料層錯誤＋重試」統一為原件 `ui/PageError`（鏡像 `PageSkeleton`，各頁容器共用），容器 `role="alert"` 使錯誤於非同步失敗後出現時即被輔助技術宣讀（WCAG 2.1 §4.1.3 Status Messages，§3.7.5）。
+- **載入／錯誤**：路由邊界顯示 skeleton；資料層錯誤 → 錯誤狀態 ＋ 重試（接 actionLogger，[07_dev_conventions.md](07_dev_conventions.md) §7.6）。頁面層「資料層錯誤＋重試」統一為原件 `base/PageError`（鏡像 `PageSkeleton`，各頁容器共用），容器 `role="alert"` 使錯誤於非同步失敗後出現時即被輔助技術宣讀（WCAG 2.1 §4.1.3 Status Messages，§3.7.5）。
 
 ### 3.3.8 主要畫面版面（wireframe 決策）
 
@@ -299,7 +299,7 @@ Compact <600        Medium 600–1024       Expanded >1024
 - **不僅依賴顏色**（§3.6）升為系統規則：狀態／意義一律配文字或圖示。
 - 點按目標 ≥44px；遵 `prefers-reduced-motion`；`forced-colors`／高對比模式下 token 優雅退化。
 - 語意 HTML＋Reka UI（Nuxt UI 底層）ARIA；icon-only 按鈕配 VisuallyHidden 文字。根 `<html lang>` 隨目前語系動態同步（WCAG 3.1.1 Language of Page；以 `@nuxtjs/i18n` 套用、`nuxt.config` 靜態 `zh-TW` 為無 JS 後備），切英文時報讀器以英語朗讀。
-- **狀態訊息宣讀**（WCAG 4.1.3 Status Messages）：動態錯誤路徑全覆蓋——頁面層資料錯誤（`ui/PageError`）、表單欄位錯誤、inline 操作錯誤（匯出／匯入）皆加 `role="alert"`，出現時即被宣讀、無需取得焦點。
+- **狀態訊息宣讀**（WCAG 4.1.3 Status Messages）：動態錯誤路徑全覆蓋——頁面層資料錯誤（`base/PageError`）、表單欄位錯誤、inline 操作錯誤（匯出／匯入）皆加 `role="alert"`，出現時即被宣讀、無需取得焦點。
 - **表單欄位錯誤無障礙**：受驗證輸入失效態以 `aria-invalid='true'` 紅框（`--color-danger-fg`）＋錯誤訊息 `role="alert"` ＋ `aria-describedby` 關聯（WCAG 1.3.1／3.3.1／4.1.3）；紅框＋文字＋aria-invalid 三者並存，不僅依賴顏色（§3.6）。
 
 ### 3.7.6 檔案結構（供後續實作）

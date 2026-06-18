@@ -7,7 +7,11 @@ import Switch from './Switch.vue';
 // USwitch 於非 Nuxt 環境不可載入；以契約一致替身驗證本包裝之 prop 映射與 v-model 接線。
 const USwitchStub = defineComponent({
   name: 'USwitch',
-  props: { modelValue: { type: Boolean, default: false }, label: { type: String, default: '' }, disabled: Boolean },
+  props: {
+    modelValue: { type: Boolean, default: false },
+    label: { type: String, default: '' },
+    disabled: Boolean,
+  },
   emits: ['update:modelValue'],
   template: `<button role="switch" :aria-checked="modelValue" :disabled="disabled"
               @click="$emit('update:modelValue', !modelValue)">{{ label }}</button>`,
@@ -24,7 +28,10 @@ describe('Switch（03 §3.7.4 基礎開關，包裝 USwitch）', () => {
   });
 
   it('v-model：點擊切換並發 update:modelValue', async () => {
-    const wrapper = mount(Switch, { props: { label: '開發者模式', modelValue: false }, ...mountOpts });
+    const wrapper = mount(Switch, {
+      props: { label: '開發者模式', modelValue: false },
+      ...mountOpts,
+    });
     await wrapper.get('[role="switch"]').trigger('click');
     expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([true]);
   });

@@ -10,8 +10,8 @@ import { useSettings } from '../composables/settings/useSettings';
 import { useDataImport } from '../composables/settings/useDataImport';
 import SettingsView from '../components/settings/SettingsView.vue';
 import ImportDialogView from '../components/settings/ImportDialogView.vue';
-import PageSkeleton from '../components/ui/PageSkeleton.vue';
-import PageError from '../components/ui/PageError.vue';
+import PageSkeleton from '../components/base/PageSkeleton.vue';
+import PageError from '../components/base/PageError.vue';
 
 definePageMeta({ titleKey: 'titleSettings' });
 

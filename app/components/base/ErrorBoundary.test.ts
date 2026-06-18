@@ -28,7 +28,10 @@ describe('ErrorBoundary（一般用途錯誤邊界，02 §2.5 後備）', () => 
     const spy = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const wrapper = mount(ErrorBoundary, {
-      slots: { default: () => h(Boom, { message: '3D 載入失敗' }), fallback: () => h('div', '後備') },
+      slots: {
+        default: () => h(Boom, { message: '3D 載入失敗' }),
+        fallback: () => h('div', '後備'),
+      },
     });
     await nextTick();
     expect(wrapper.text()).toContain('後備');

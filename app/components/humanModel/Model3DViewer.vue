@@ -4,7 +4,7 @@
 // 視角／標籤以 3D 控制列快捷；反向高亮（§4.5）以 highlights→mesh overlay 著色（選取優先）。
 import { computed, ref } from 'vue';
 import type { AnatomyEntity } from '@ptapp/shared';
-import UiButton from '../ui/Button.vue';
+import UiButton from '../base/Button.vue';
 import type {
   AnatomyLayerKey,
   LayerVisibility,

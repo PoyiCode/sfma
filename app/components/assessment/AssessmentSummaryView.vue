@@ -3,7 +3,7 @@
 // 資料取自資料層衍生快取 session.summary（patterns 變更即重算）與 session.breakouts；UI 不自行計算。
 import { computed } from 'vue';
 import type { AssessmentSession, PatternClassification } from '@ptapp/shared';
-import UiStatusChip from '../ui/StatusChip.vue';
+import UiStatusChip from '../base/StatusChip.vue';
 import type { AssessmentEntry } from '../../utils/assessment/assessmentForm';
 import {
   breakoutFindingsOverview,
@@ -36,9 +36,7 @@ const painful = computed(() =>
 const dysfunctional = computed(() =>
   summaryPatternViews(props.session.summary.dysfunctionalPatterns, props.entries),
 );
-const findings = computed(() =>
-  breakoutFindingsOverview(props.session.breakouts, props.entries),
-);
+const findings = computed(() => breakoutFindingsOverview(props.session.breakouts, props.entries));
 </script>
 
 <template>

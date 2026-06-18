@@ -3,7 +3,7 @@
 // 點按上拋結果碼，引擎前進由上層（疊層）負責。
 import { computed } from 'vue';
 import type { BreakoutNode } from '@ptapp/shared';
-import UiButton from '../ui/Button.vue';
+import UiButton from '../base/Button.vue';
 import { localizeText } from '../../utils/i18n/localizeText';
 
 interface Props {

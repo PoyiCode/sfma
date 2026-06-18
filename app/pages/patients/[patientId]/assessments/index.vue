@@ -3,8 +3,8 @@
 import { computed } from 'vue';
 import { useAssessmentHistory } from '../../../../composables/assessment/useAssessmentHistory';
 import AssessmentHistoryView from '../../../../components/assessment/AssessmentHistoryView.vue';
-import PageError from '../../../../components/ui/PageError.vue';
-import PageSkeleton from '../../../../components/ui/PageSkeleton.vue';
+import PageError from '../../../../components/base/PageError.vue';
+import PageSkeleton from '../../../../components/base/PageSkeleton.vue';
 
 definePageMeta({ titleKey: 'titleAssessments' });
 

@@ -3,10 +3,10 @@
 // 功能軸以 SegmentedControl（二態）呈現（偏離設計「下拉」，見 §3.3.9 實作註）。
 import { computed } from 'vue';
 import type { PatternRecord } from '@ptapp/shared';
-import UiButton from '../ui/Button.vue';
-import UiCheckbox from '../ui/Checkbox.vue';
-import UiSegmentedControl from '../ui/SegmentedControl.vue';
-import UiStatusChip from '../ui/StatusChip.vue';
+import UiButton from '../base/Button.vue';
+import UiCheckbox from '../base/Checkbox.vue';
+import UiSegmentedControl from '../base/SegmentedControl.vue';
+import UiStatusChip from '../base/StatusChip.vue';
 import {
   entryClassification,
   isManualOverride,
@@ -64,7 +64,9 @@ const breakoutButtonLabel = computed(() => {
   return t('breakoutEntry');
 });
 
-const functionalValue = computed(() => (props.record.dysfunctional ? 'dysfunctional' : 'functional'));
+const functionalValue = computed(() =>
+  props.record.dysfunctional ? 'dysfunctional' : 'functional',
+);
 const functionalOptions = computed(() => [
   { value: 'functional', label: t('assessmentFunctional') },
   { value: 'dysfunctional', label: t('assessmentDysfunctional') },
@@ -107,10 +109,7 @@ const functionalOptions = computed(() => [
       <UiButton variant="secondary" @click="emit('openBreakout')">
         {{ breakoutButtonLabel }}
       </UiButton>
-      <span
-        v-if="breakoutSummary?.status === 'complete'"
-        class="assessmentEntryCardBreakoutTypes"
-      >
+      <span v-if="breakoutSummary?.status === 'complete'" class="assessmentEntryCardBreakoutTypes">
         <span
           v-for="type in breakoutSummary.findingTypes"
           :key="type"

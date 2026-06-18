@@ -3,8 +3,8 @@
 import { computed } from 'vue';
 import { usePatient } from '../../../composables/patient/usePatient';
 import PatientFormEditor from '../../../components/patient/PatientFormEditor.vue';
-import PageSkeleton from '../../../components/ui/PageSkeleton.vue';
-import PageError from '../../../components/ui/PageError.vue';
+import PageSkeleton from '../../../components/base/PageSkeleton.vue';
+import PageError from '../../../components/base/PageError.vue';
 
 definePageMeta({ titleKey: 'titlePatientEdit' });
 
@@ -17,11 +17,7 @@ const { state, reload } = usePatient(patientId);
 </script>
 
 <template>
-  <PageSkeleton
-    v-if="state.status === 'loading'"
-    :label="t('loading')"
-    class="patientFormStatus"
-  />
+  <PageSkeleton v-if="state.status === 'loading'" :label="t('loading')" class="patientFormStatus" />
   <PageError
     v-else-if="state.status === 'error'"
     class="patientFormStatus"

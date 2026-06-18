@@ -8,7 +8,11 @@ import Checkbox from './Checkbox.vue';
 // 以契約一致的測試替身驗證「本包裝」之 prop 映射與 v-model 接線（行為交予 Nuxt UI／Reka UI）。
 const UCheckboxStub = defineComponent({
   name: 'UCheckbox',
-  props: { modelValue: { type: Boolean, default: false }, label: { type: String, default: '' }, disabled: Boolean },
+  props: {
+    modelValue: { type: Boolean, default: false },
+    label: { type: String, default: '' },
+    disabled: Boolean,
+  },
   emits: ['update:modelValue'],
   template: `<button role="checkbox" :aria-checked="modelValue" :disabled="disabled"
               @click="$emit('update:modelValue', !modelValue)">{{ label }}</button>`,
@@ -18,7 +22,10 @@ const mountOpts = { global: { stubs: { UCheckbox: UCheckboxStub } } };
 
 describe('Checkbox（03 §3.7.4 基礎勾選，包裝 UCheckbox）', () => {
   it('label 傳入、disabled 透傳', () => {
-    const wrapper = mount(Checkbox, { props: { label: '已取得同意', disabled: true }, ...mountOpts });
+    const wrapper = mount(Checkbox, {
+      props: { label: '已取得同意', disabled: true },
+      ...mountOpts,
+    });
     const box = wrapper.get('[role="checkbox"]');
     expect(box.text()).toBe('已取得同意');
     expect(box.attributes('disabled')).toBeDefined();

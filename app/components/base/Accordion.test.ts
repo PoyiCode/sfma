@@ -8,7 +8,10 @@ import Accordion from './Accordion.vue';
 const UAccordionStub = defineComponent({
   name: 'UAccordion',
   props: {
-    items: { type: Array as () => { label: string; value: string; content?: string; slot?: string }[], default: () => [] },
+    items: {
+      type: Array as () => { label: string; value: string; content?: string; slot?: string }[],
+      default: () => [],
+    },
     type: { type: String, default: 'multiple' },
   },
   template: `<div data-accordion :data-type="type">

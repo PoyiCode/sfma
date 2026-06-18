@@ -2,8 +2,8 @@
 // 3D 檢視器控制列（04 §4.3.2／§4.4／§3.5）：前/後/左/右預設視角切換＋部位視角＋標籤開關＋LOD。
 // 純展示受控，狀態由容器管理。各分段以對應 can* 旗標休眠（對應 ptApp onXChange 是否提供）。
 import { computed } from 'vue';
-import UiSegmentedControl, { type SegmentedOption } from '../ui/SegmentedControl.vue';
-import UiSwitch from '../ui/Switch.vue';
+import UiSegmentedControl, { type SegmentedOption } from '../base/SegmentedControl.vue';
+import UiSwitch from '../base/Switch.vue';
 import { CAMERA_VIEW_KEYS, type CameraViewKey } from '../../utils/humanModel/render/sceneCamera';
 import {
   CAMERA_REGION_KEYS,

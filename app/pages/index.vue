@@ -3,8 +3,8 @@
 import { computed, ref } from 'vue';
 import { usePatientList } from '../composables/patient/usePatientList';
 import { filterPatientItems } from '../utils/patient/patientListItems';
-import PageSkeleton from '../components/ui/PageSkeleton.vue';
-import PageError from '../components/ui/PageError.vue';
+import PageSkeleton from '../components/base/PageSkeleton.vue';
+import PageError from '../components/base/PageError.vue';
 import PatientListView from '../components/patient/PatientListView.vue';
 
 definePageMeta({ titleKey: 'titlePatients' });
@@ -15,18 +15,12 @@ useHead({ title: () => t('titlePatients') });
 const query = ref('');
 const { state, reload } = usePatientList();
 
-const items = computed(() =>
-  state.value.status === 'ready' ? state.value.items : [],
-);
+const items = computed(() => (state.value.status === 'ready' ? state.value.items : []));
 const filteredItems = computed(() => filterPatientItems(items.value, query.value));
 </script>
 
 <template>
-  <PageSkeleton
-    v-if="state.status === 'loading'"
-    :label="t('loading')"
-    class="patientListStatus"
-  />
+  <PageSkeleton v-if="state.status === 'loading'" :label="t('loading')" class="patientListStatus" />
   <PageError
     v-else-if="state.status === 'error'"
     class="patientListStatus"

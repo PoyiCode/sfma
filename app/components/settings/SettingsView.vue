@@ -3,12 +3,12 @@
 // 治療師資料／顯示偏好／資料管理（匯出＋拖放/點選匯入）／關於·授權＋資料安全指引。
 import { computed, ref } from 'vue';
 import type { AppSettings } from '@ptapp/shared';
-import UiButton from '../ui/Button.vue';
-import UiInput from '../ui/Input.vue';
-import UiCheckbox from '../ui/Checkbox.vue';
-import UiSegmentedControl from '../ui/SegmentedControl.vue';
-import UiAccordion from '../ui/Accordion.vue';
-import UiAlertDialog from '../ui/AlertDialog.vue';
+import UiButton from '../base/Button.vue';
+import UiInput from '../base/Input.vue';
+import UiCheckbox from '../base/Checkbox.vue';
+import UiSegmentedControl from '../base/SegmentedControl.vue';
+import UiAccordion from '../base/Accordion.vue';
+import UiAlertDialog from '../base/AlertDialog.vue';
 import { useFileDrop } from '../../composables/app/useFileDrop';
 import { useFullLodConfirm } from '../../composables/humanModel/useFullLodConfirm';
 import FullLodConfirmDialog from '../humanModel/FullLodConfirmDialog.vue';
@@ -211,7 +211,7 @@ function onImportInputChange(event: Event): void {
               :aria-label="t('settingsImport')"
               class="settingsImportInput"
               @change="onImportInputChange"
-            >
+            />
           </label>
           <p class="settingsImportDropHint">{{ t('settingsImportDropHint') }}</p>
         </div>

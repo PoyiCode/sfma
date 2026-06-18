@@ -3,7 +3,7 @@
 // 關聯動作名以 patternKey→本地化名 Map 解析（definitions 無 byKey map，於此就地建）。
 import { computed } from 'vue';
 import type { BodyAnnotation, SfmaPatternDefinition, SfmaPatternKey } from '@ptapp/shared';
-import UiButton from '../ui/Button.vue';
+import UiButton from '../base/Button.vue';
 import { anatomyDisplayName } from '../../utils/humanModel/anatomy/anatomyInfo';
 import { partKey } from '../../utils/humanModel/anatomy/partKey';
 import { FINDING_TYPE_LABEL_KEY } from '../../utils/humanModel/interact/findingTypeLabel';

@@ -3,12 +3,15 @@
 // 部位本身（anatomyId/side）與 annotationId 由容器補入。
 import { ref } from 'vue';
 import type { BodyAnnotation, Side, SfmaPatternDefinition, SfmaPatternKey } from '@ptapp/shared';
-import UiButton from '../ui/Button.vue';
-import UiInput from '../ui/Input.vue';
-import UiSegmentedControl, { type SegmentedOption } from '../ui/SegmentedControl.vue';
-import UiSelect, { type SelectOption } from '../ui/Select.vue';
+import UiButton from '../base/Button.vue';
+import UiInput from '../base/Input.vue';
+import UiSegmentedControl, { type SegmentedOption } from '../base/SegmentedControl.vue';
+import UiSelect, { type SelectOption } from '../base/Select.vue';
 import type { BodyAnnotationFindingType } from '../../utils/assessment/bodyAnnotationForm';
-import { FINDING_TYPES, FINDING_TYPE_LABEL_KEY } from '../../utils/humanModel/interact/findingTypeLabel';
+import {
+  FINDING_TYPES,
+  FINDING_TYPE_LABEL_KEY,
+} from '../../utils/humanModel/interact/findingTypeLabel';
 import { localizeText } from '../../utils/i18n/localizeText';
 
 // 表單回傳草稿：部位 anatomyId／annotationId 由容器補入；side 由表單（成對部位可改、預填點選側）。
@@ -52,9 +55,7 @@ const findingType = ref<BodyAnnotationFindingType>(props.initial?.findingType ??
 // 側別（成對部位）：預填點選之側（編輯時用既有 initial.side）、可改；中線 sided=false 不顯。
 const side = ref<Side>(props.initial?.side ?? props.defaultSide ?? null);
 const linkedPatternKey = ref<SfmaPatternKey>(
-  props.initial?.linkedPatternKey ??
-    props.defaultLinkedPatternKey ??
-    props.patterns[0]!.patternKey,
+  props.initial?.linkedPatternKey ?? props.defaultLinkedPatternKey ?? props.patterns[0]!.patternKey,
 );
 const note = ref(props.initial?.note ?? '');
 
