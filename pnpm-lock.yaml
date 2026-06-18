@@ -8,6 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@babylonjs/core':
+        specifier: ^9.12.1
+        version: 9.12.1
+      '@babylonjs/gui':
+        specifier: ^9.12.1
+        version: 9.12.1(@babylonjs/core@9.12.1)
+      '@babylonjs/loaders':
+        specifier: ^9.12.1
+        version: 9.12.1(@babylonjs/core@9.12.1)(babylonjs-gltf2interface@9.12.1)
       '@nuxt/fonts':
         specifier: ^0.14.0
         version: 0.14.0(db0@0.3.4)(ioredis@5.11.1)(magicast@0.5.3)(vite@7.3.5(@types/node@25.9.3)(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.48.0)(yaml@2.9.0))
@@ -692,6 +701,20 @@ packages:
   '@babel/types@8.0.0':
     resolution: {integrity: sha512-K8ponJDxBwDHigkeFqaqT5wLGl4bTlwMafR8k7b5CPxr6Ww+UG9ls8Yx6Tcpboxu97eeGVEEyKcHmEyOwN1vSw==}
     engines: {node: ^22.18.0 || >=24.11.0}
+
+  '@babylonjs/core@9.12.1':
+    resolution: {integrity: sha512-QDL5KabYoOPeVwe10lr7neKjVNLiankur06HvavBv3Vgtzd5jXSoFSWsUCPmQ0X3k5PLukwTeA/skxWGkwSTbw==}
+
+  '@babylonjs/gui@9.12.1':
+    resolution: {integrity: sha512-3YLPsfOjFPc0vOBLkF+xiH9OMazr9UfgqSoj7ENl91bU5rfEouUJjJjXqFp8TJrbqcsz+Lrfq5PqywX4HKUiBQ==}
+    peerDependencies:
+      '@babylonjs/core': ^9.0.0
+
+  '@babylonjs/loaders@9.12.1':
+    resolution: {integrity: sha512-MABW2Ovk5ddMmTikIuMLctA3aoNirTwMNlGLrswKEcxUAlPjISemQCTilSVjxl3/I899K1+/78hCsF2KO9AbSQ==}
+    peerDependencies:
+      '@babylonjs/core': ^9.0.0
+      babylonjs-gltf2interface: ^9.0.0
 
   '@bomb.sh/tab@0.0.15':
     resolution: {integrity: sha512-Y90ub44TAvbdO9P8mcD/XPyQjFhiR5xmd4Fk7JErmWmEWEUimNnjWiBrVZ16Tj3GA1rLZ+uvCN2V/pzLawv31g==}
@@ -3818,6 +3841,9 @@ packages:
     resolution: {integrity: sha512-M762rNHfSF1EV3SLtnCJXFoQbbIIz0OyRwnCmV0KPC7qosSfCO0QLTSuJX3ayAebubhE6oYBAYPrBA5ljowaZg==}
     peerDependencies:
       '@babel/core': ^7.4.0 || ^8.0.0-0 <8.0.0
+
+  babylonjs-gltf2interface@9.12.1:
+    resolution: {integrity: sha512-OWDJYW/zK63d7s2Yz+zoPlQqzTYFKmZ9aiSRc49nlX7p6RWhwscCXPn4pmkUSUZ6NvmasD7kxTLMFfrdW0E0Jg==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -8214,6 +8240,17 @@ snapshots:
       '@babel/helper-string-parser': 8.0.0
       '@babel/helper-validator-identifier': 8.0.0
 
+  '@babylonjs/core@9.12.1': {}
+
+  '@babylonjs/gui@9.12.1(@babylonjs/core@9.12.1)':
+    dependencies:
+      '@babylonjs/core': 9.12.1
+
+  '@babylonjs/loaders@9.12.1(@babylonjs/core@9.12.1)(babylonjs-gltf2interface@9.12.1)':
+    dependencies:
+      '@babylonjs/core': 9.12.1
+      babylonjs-gltf2interface: 9.12.1
+
   '@bomb.sh/tab@0.0.15(cac@6.7.14)(citty@0.2.2)':
     optionalDependencies:
       cac: 6.7.14
@@ -11139,6 +11176,8 @@ snapshots:
       '@babel/helper-define-polyfill-provider': 0.6.8(@babel/core@7.29.7)
     transitivePeerDependencies:
       - supports-color
+
+  babylonjs-gltf2interface@9.12.1: {}
 
   balanced-match@1.0.2: {}
 
