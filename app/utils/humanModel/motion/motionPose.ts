@@ -19,5 +19,5 @@ export function jointAngle(pose: MotionPose, jointId: string, axis: string, fall
 }
 
 export function resetPose(): MotionPose {
-  return NEUTRAL_POSE;
+  return {};
 }
