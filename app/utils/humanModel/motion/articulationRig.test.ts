@@ -66,4 +66,14 @@ describe('articulationRig（剛性節段 rig；NullEngine）', () => {
     );
     expect(tibia.getAbsolutePosition().subtract(before).length()).toBeLessThan(1e-3);
   });
+
+  it('getPivot 取既有樞紐節點、未知回 null、dispose 後清空', () => {
+    const scene = freshScene();
+    const rig = buildArticulationRig(scene);
+    expect(rig.getPivot('joint.knee', '#L')).not.toBeNull();
+    expect(rig.getPivot('joint.spine')).not.toBeNull(); // 中線（side 預設 null）
+    expect(rig.getPivot('joint.nope')).toBeNull();
+    rig.dispose();
+    expect(rig.getPivot('joint.knee', '#L')).toBeNull();
+  });
 });

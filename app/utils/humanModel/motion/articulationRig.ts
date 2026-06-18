@@ -26,6 +26,7 @@ export interface ArticulationRig {
   applyPose(pose: MotionPose): void;
   dispose(): void;
   pivotKeys: readonly string[];
+  getPivot(jointId: string, side?: string | null): TransformNode | null;
 }
 
 interface MovedMesh {
@@ -161,5 +162,9 @@ export function buildArticulationRig(scene: Scene): ArticulationRig {
     moved.length = 0;
   }
 
-  return { applyPose, dispose, pivotKeys: [...pivots.keys()] };
+  function getPivot(jointId: string, side: string | null = null): TransformNode | null {
+    return pivots.get(pivotKey(jointId, side)) ?? null;
+  }
+
+  return { applyPose, dispose, pivotKeys: [...pivots.keys()], getPivot };
 }
