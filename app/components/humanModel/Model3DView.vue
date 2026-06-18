@@ -29,7 +29,10 @@ import {
   type MeshBounds,
   REGION_Y_BANDS,
 } from '../../utils/humanModel/render/sceneCameraFraming';
-import { defaultEngineFactory, type EngineFactory } from '../../utils/humanModel/render/engineFactory';
+import {
+  defaultEngineFactory,
+  type EngineFactory,
+} from '../../utils/humanModel/render/engineFactory';
 import {
   addDefaultCamera,
   addDefaultLight,
@@ -49,6 +52,11 @@ import {
 } from '../../utils/humanModel/render/sceneLabels';
 import { createLabelLayer, type LabelLayer } from '../../utils/humanModel/render/labelLayer';
 import type { AnnotationHighlights } from '../../utils/humanModel/anatomy/anatomyHighlight';
+import {
+  createRigController,
+  type RigController,
+} from '../../utils/humanModel/motion/rigController';
+import type { MotionPose } from '../../utils/humanModel/motion/motionPose';
 
 // 標籤層工廠（§4.4）：預設真 Babylon GUI 綁定；測試注入假層脫鉤（GUI 需 canvas）。
 type LabelLayerFactory = (scene: Scene) => LabelLayer;
@@ -72,6 +80,9 @@ interface Props {
   labelMode?: LabelMode;
   // 標籤層工廠（測試脫鉤）：預設真 Babylon GUI 綁定 createLabelLayer。
   labelLayerFactory?: LabelLayerFactory;
+  // 運動模式（§4.3.3）：motionMode 開即建 rig；pose 變即套用。
+  motionMode?: boolean;
+  pose?: MotionPose;
   class?: string;
 }
 
@@ -88,6 +99,8 @@ const props = withDefaults(defineProps<Props>(), {
   showLabels: true,
   labelMode: DEFAULT_LABEL_MODE,
   labelLayerFactory: createLabelLayer,
+  motionMode: false,
+  pose: undefined,
   class: undefined,
 });
 
@@ -113,6 +126,7 @@ let extents: Extents | null = null;
 // 各 mesh 世界 AABB（部位框取精修）：填充後存、供算部位段水平範圍；靜態模型故算一次。
 let meshBounds: readonly MeshBounds[] = [];
 let labelLayer: LabelLayer | null = null;
+let rigController: RigController | null = null;
 
 // 自適應框取（§4.3.2／需求 3 部位視角）：由模型包圍盒＋實機畫布比例＋部位 yBand 推算
 // target/radius/半徑上下限/近裁面。無有效包圍盒或畫布尺寸未定時回 undefined → applyCameraView 沿用 preset。
@@ -249,6 +263,8 @@ onMounted(() => {
         applyHighlights(builtScene, props.selectedId ?? null, props.highlights);
         // 標籤補套（§4.4）：標籤須連結載入後之 mesh，故於填充完成後以最新值再同步（惰性建層）。
         syncLabels();
+        rigController = createRigController(builtScene);
+        rigController.sync(props.motionMode, props.pose ?? {});
       })
       .finally(() => {
         // 成功與失敗（withFallback 退佔位亦 resolve）皆視為載入結束；守衛卸載／場景已換。
@@ -294,6 +310,8 @@ onMounted(() => {
     if (handleResize) window.removeEventListener('resize', handleResize);
     labelLayer?.dispose();
     labelLayer = null;
+    rigController?.dispose();
+    rigController = null;
     const builtScene = scene;
     scene = null;
     camera = null;
@@ -339,8 +357,23 @@ watch(
 
 // 標籤同步（§4.4）：標籤相關 prop 任一變更時，以 resolveVisibleLabels 算集合→labelLayer.sync。
 watch(
-  () => [props.showLabels, props.labelMode, props.visibility, props.hiddenIds, props.selectedId] as const,
+  () =>
+    [
+      props.showLabels,
+      props.labelMode,
+      props.visibility,
+      props.hiddenIds,
+      props.selectedId,
+    ] as const,
   () => syncLabels(),
+);
+
+// 運動模式（§4.3.3）：motionMode／pose 變更即冪等建/套/拆 rig（填充完成後 rigController 方存在）。
+watch(
+  () => [props.motionMode, props.pose] as const,
+  () => {
+    if (rigController) rigController.sync(props.motionMode, props.pose ?? {});
+  },
 );
 </script>
 
