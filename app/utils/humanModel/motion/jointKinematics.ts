@@ -90,7 +90,7 @@ export const JOINT_KINEMATICS: Readonly<Record<string, JointKinematics>> = {
   },
   'joint.cervicalSpine': {
     jointId: 'joint.cervicalSpine',
-    pivot: { bone: 'bone.t1', face: 'maxY' }, // 頸胸交界（T1 上端）
+    pivot: { bone: 'bone.t1', face: 'maxY' }, // 頸胸交界（T1 上端）；註：bone.t1 屬 spine 節段，此處僅讀其位置定樞紐、不移動之
     bilateral: false,
     dofs: [
       { axis: 'flexionExtension', worldAxis: X, sign: 1 },
@@ -178,7 +178,7 @@ export const JOINT_TO_SEGMENT: Readonly<Record<string, string>> = {
 };
 
 // 各節段之骨骼成員（側別無關 anatomyId）。基座（骨盆／薦椎／中軸殘餘）不列＝不動。
-export const SEGMENT_BONES: Readonly<Record<string, readonly string[]>> = {
+export const SEGMENT_BONES: Readonly<Partial<Record<string, readonly string[]>>> = {
   'joint.hip': ['bone.femur'],
   'joint.knee': ['bone.tibia', 'bone.fibula', 'bone.patella'],
   'joint.ankle': [
