@@ -39,12 +39,21 @@ import {
 import { degradeLodTier, type LodTier } from '../../../utils/humanModel/lod/lodTier';
 import { detectDeviceCapability } from '../../../utils/humanModel/lod/deviceCapability';
 import { viewerLayoutMode } from '../../../utils/humanModel/render/viewerLayoutMode';
-import { DEFAULT_CAMERA_VIEW, type CameraViewKey } from '../../../utils/humanModel/render/sceneCamera';
+import {
+  DEFAULT_CAMERA_VIEW,
+  type CameraViewKey,
+} from '../../../utils/humanModel/render/sceneCamera';
 import {
   DEFAULT_CAMERA_REGION,
   type CameraRegionKey,
 } from '../../../utils/humanModel/render/sceneCameraFraming';
 import { DEFAULT_LABEL_MODE, type LabelMode } from '../../../utils/humanModel/render/sceneLabels';
+import {
+  NEUTRAL_POSE,
+  resetPose as resetMotionPose,
+  setJointAngle,
+  type MotionPose,
+} from '../../../utils/humanModel/motion/motionPose';
 import type { BodyAnnotationDraft } from '../../../components/humanModel/BodyAnnotationForm.vue';
 import Model3DViewer from '../../../components/humanModel/Model3DViewer.vue';
 import BodyAnnotationDialog from '../../../components/humanModel/BodyAnnotationDialog.vue';
@@ -120,7 +129,9 @@ async function persistLodMode(mode: LodMode): Promise<void> {
 
 // ── 評估 session（選填 ?session=）：反向高亮＋正向標註 ──
 const session = useAssessmentSession(() => sessionId.value ?? '');
-const sessionReady = computed(() => sessionId.value !== null && session.state.value.status === 'ready');
+const sessionReady = computed(
+  () => sessionId.value !== null && session.state.value.status === 'ready',
+);
 const annotations = computed<readonly BodyAnnotation[] | undefined>(() =>
   session.state.value.status === 'ready' ? session.state.value.session.bodyAnnotations : undefined,
 );
@@ -198,6 +209,25 @@ const showLabels = ref(false);
 const labelMode = ref<LabelMode>(DEFAULT_LABEL_MODE);
 const annotating = ref(false);
 
+// 運動模式（§4.3.3）：開關、當前選擇關節、姿態。進運動模式暫停評估標註（獨立模式）。
+const motionMode = ref(false);
+const motionJoint = ref('joint.knee');
+const pose = ref<MotionPose>(NEUTRAL_POSE);
+
+function handleMotionModeChange(on: boolean): void {
+  motionMode.value = on;
+  if (on) {
+    selection.clear();
+    pose.value = resetMotionPose();
+  }
+}
+function handleSetJointAngle(jointId: string, axis: string, deg: number): void {
+  pose.value = setJointAngle(pose.value, jointId, axis, deg);
+}
+function handleResetPose(): void {
+  pose.value = resetMotionPose();
+}
+
 // 裝置能力偵測（建 canvas 探測 WebGL）：canRender3D 為 App 唯一渲染閘（僅 3D）。
 const capability = ref(detectDeviceCapability());
 const canRender3D = computed(() => capability.value.webglSupported);
@@ -232,7 +262,9 @@ const sampleFps = useFpsAutoDegrade({ enabled: canRender3D, onDegrade: handleFps
 
 const selected = computed(() => selection.selected.value);
 const selectedSide = computed(() => selection.selectedSide.value);
-const canAnnotate = computed(() => canAnnotateSession.value && selected.value !== null);
+const canAnnotate = computed(
+  () => !motionMode.value && canAnnotateSession.value && selected.value !== null,
+);
 // 既有標註（同 anatomyId＋同側別）→ 編輯模式（左右各自獨立）。
 const existing = computed<BodyAnnotation | undefined>(() =>
   selected.value !== null
@@ -300,6 +332,8 @@ function handleResetView(): void {
   labelMode.value = DEFAULT_LABEL_MODE;
   hidden.restoreAll();
   selection.clear();
+  motionMode.value = false;
+  pose.value = resetMotionPose();
 }
 
 // LOD 切換寫回設定單一真相（§3.5／§3.6）；經 useFullLodConfirm（目標 full 才跳確認）。
@@ -382,6 +416,10 @@ function retryBoundary(): void {
         :lod-mode="lodMode"
         :can-change-lod="true"
         :can-reset-view="true"
+        :can-toggle-motion="true"
+        :motion-mode="motionMode"
+        :pose="pose"
+        :motion-joint="motionJoint"
         @set-visible="layers.setVisible"
         @reset-layers="layers.reset"
         @select-part="selection.toggle"
@@ -396,6 +434,10 @@ function retryBoundary(): void {
         @label-mode-change="labelMode = $event"
         @lod-mode-change="handleLodModeChange"
         @reset-view="handleResetView"
+        @motion-mode-change="handleMotionModeChange"
+        @set-joint-angle="handleSetJointAngle"
+        @reset-pose="handleResetPose"
+        @motion-joint-change="motionJoint = $event"
         @fps="sampleFps"
       />
     </ErrorBoundary>
