@@ -4,8 +4,8 @@
 #
 # 用法：
 #   blender.exe -b "<anatomy.blend>" -P exportGltf.py -- "<manifestV1.json>" "<out_dir>" [profile]
-#   profile（選填）＝ detailed（預設）｜simplified；擇 manifest.decimation 對應 cap 與輸出檔名
-#   （detailed→anatomyV1.glb、simplified→anatomyV1.simplified.glb；§4.3.6 分級資產）。
+#   profile（選填）＝ standard（預設、現役單一資產 anatomyV1.glb）｜full（無損 anatomyV1.full.glb）。
+#   細節版/精簡版雙 profile 已收斂為單一資產；standard 套 manifest.decimation.maxTrianglesPerMesh、full 不減面。
 #
 # entity 來源支援兩式（擇一，§4.6.2）：
 #   - sourceObject（單一字串）：單一來源 mesh → 單一 node（原行為）。
@@ -91,14 +91,13 @@ def main():
         print("EXPORT_ERR 需要 <manifestV1.json> <out_dir> [profile] 引數")
         return
     manifest_path, out_dir = args[0], args[1]
-    # 分級資產 profile（§4.3.6）：detailed（預設）｜simplified；擇對應 cap 與輸出檔名。
-    profile = args[2] if len(args) >= 3 else "detailed"
-    if profile not in ("detailed", "simplified", "full"):
-        print("EXPORT_ERR 未知 profile：%s（detailed｜simplified｜full）" % profile)
+    # 資產 profile（§4.3.6）：standard（預設）｜full（無損）。細節版/精簡版雙 profile 已收斂為單一資產。
+    profile = args[2] if len(args) >= 3 else "standard"
+    if profile not in ("standard", "full"):
+        print("EXPORT_ERR 未知 profile：%s（standard｜full）" % profile)
         return
-    # full（無損，解3d資產「完整」級別）：取 detailed 同一批實體，但**無減面**（cap=None）、
+    # full（無損，解3d資產「完整」級別）：同一批實體但**無減面**（cap=None）、
     # **無 Draco**（見匯出旗標 useDraco）——載入端得未壓縮、未量化之原始幾何，無視預算。
-    filterProfile = "detailed" if profile == "full" else profile
     os.makedirs(out_dir, exist_ok=True)
 
     with open(manifest_path, "r", encoding="utf-8") as fh:
@@ -121,9 +120,9 @@ def main():
     missing = []
     for ent in entities:
         anatomy_id = ent["anatomyId"]
-        # 分級資產 profile 過濾（解3d資產 58、共用 pipelineCommon.entityInProfile）：
-        # 不含當前 profile 者整件跳過——供「僅細節版」補充被動結構（如筋膜）排除於精簡版、維持輕量。
-        if not entityInProfile(ent, filterProfile):
+        # profiles 過濾（共用 pipelineCommon.entityInProfile）：雙 profile 收斂後實體皆無 profiles 旗標、
+        # 一律納入；保留呼叫以相容未來重新分版（屆時於 manifest 加 profiles 旗標即生效）。
+        if not entityInProfile(ent, profile):
             continue
         srcNames = resolveSourceNames(ent)
         bevel = ent.get("curveBevel")
@@ -164,8 +163,8 @@ def main():
         print("EXPORT_ERR 無可匯出物件")
         return
 
-    # 步驟 5 減面（04 §4.3.6 細節版 ≤600k 三角面、§4.6.3「減面為必經」）：
-    # manifest.decimation.detailedMaxTrianglesPerMesh＝每-mesh 三角面全域上限；
+    # 步驟 5 減面（04 §4.3.6 標準資產三角面預算、§4.6.3「減面為必經」）：
+    # manifest.decimation.maxTrianglesPerMesh＝每-mesh 三角面全域上限；
     # 缺省／0 → 跳過（向後相容）。逐物件加 DECIMATE COLLAPSE、匯出時 bake。
     # per-layer 上限（decimation.layerMaxTriangles：layer→cap）：對該 layer 物件取
     # min(layerCap, 全域 cap)，使簡單被動結構（如椎間盤）以較緊 cap 省預算、不動肌肉品質
@@ -176,8 +175,7 @@ def main():
     if profile == "full":
         cap = None
     else:
-        capKey = "simplifiedMaxTrianglesPerMesh" if profile == "simplified" else "detailedMaxTrianglesPerMesh"
-        cap = decimation.get(capKey)
+        cap = decimation.get("maxTrianglesPerMesh")
     layerCaps = decimation.get("layerMaxTriangles", {})
     decimated = 0
     if cap:
@@ -200,7 +198,6 @@ def main():
     bpy.context.view_layer.objects.active = resultObjects[0]
 
     out_name = {
-        "simplified": "anatomyV1.simplified.glb",
         "full": "anatomyV1.full.glb",
     }.get(profile, "anatomyV1.glb")
     out_path = os.path.join(out_dir, out_name)

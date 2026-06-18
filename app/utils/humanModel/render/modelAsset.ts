@@ -6,13 +6,13 @@ import { createGltfScenePopulatorWithFallback, type ScenePopulator } from './sce
 import { createGltfMeshLoader } from './gltfMeshLoader';
 
 // 託管 glb 之執行期 url（§4.3.6 分級資產）：
-//   simplified＝現役 anatomyV1.glb（全身減面細節版，≤900k 三角面；**精細〔detailed〕LOD 階層移除後
-//     唯一 3D 分級資產**）。原過度簡化版（肌群合併＋cap 300 激進減面）失逐肌選取與臨床可辨識度
+//   simplified＝現役 anatomyV1.glb（全身減面標準資產、≤900k 三角面；細節版/精簡版雙 export profile
+//     收斂後之單一標準資產）。原過度簡化版（肌群合併＋cap 300 激進減面）失逐肌選取與臨床可辨識度
 //     〔使用者回報〕已刪、現以此 glb 為基線。
 //   full＝完整無損版（未壓縮〔無 Draco〕、未減面、無視預算；解3d資產「完整」級別）——
 //     獨立檔 anatomyV1.full.glb（~38 MB，遠大於現役版 3.3 MB），手動 opt-in、首載大流量。
-// 註：匯出／manifest 之「detailed」描繪 profile（逐件 vs simplified 合併群組）為資產管線概念、
-//     與此執行期 LOD 階層正交、保留不動；現役 anatomyV1.glb 即由 detailed profile 匯出。
+// 註：simplified／full 為執行期 LOD 階層（與資產 export profile 正交）；export profile 已收斂為單一
+//     標準 profile（standard），現役 anatomyV1.glb 即由標準 profile 匯出。
 export const MODEL_ASSET_URLS = {
   full: '/models/anatomyV1.full.glb',
   simplified: '/models/anatomyV1.glb',

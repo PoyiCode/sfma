@@ -50,15 +50,13 @@ export type ArticularDisc = z.infer<typeof articularDiscSchema>;
 
 // 筋膜（06 §6.5）：包覆肌肉之纖維結締組織鞘膜（含腱膜 aponeurosis，如帽狀腱膜/足底腱膜/掌腱膜）。
 // 同 ligament/capsule 屬被動結構、歸 passiveStructure 層。minimal＝base＋type，比照 ligament/disc/
-// capsule/articularDisc。開殼鞘膜減面 floor 偏高且遮蔽其下肌肉、simplified 預算已滿→manifest 標
-// profiles:["detailed"] 僅納細節版、預設隱藏（解3d資產 58）。
+// capsule/articularDisc。開殼鞘膜減面 floor 偏高且遮蔽其下肌肉→預設隱藏（解3d資產 58）。
 export const fasciaSchema = z.object({ ...anatomyBase, type: z.literal('fascia') });
 export type Fascia = z.infer<typeof fasciaSchema>;
 
 // 滑囊（06 §6.5）：充液之纖維囊、降肌腱/骨摩擦（肩峰下/大轉子/髕前等＝滑囊炎 bursitis 常見病灶）。
 // 同 ligament/capsule/fascia 屬被動結構、歸 passiveStructure 層。minimal＝base＋type，比照
-// ligament/disc/capsule/articularDisc/fascia。預設隱藏、manifest 標 profiles:["detailed"] 僅納
-// 細節版（simplified 預算已滿、低階裝置不需；解3d資產 60）。
+// ligament/disc/capsule/articularDisc/fascia。預設隱藏（解3d資產 60）。
 export const bursaSchema = z.object({ ...anatomyBase, type: z.literal('bursa') });
 export type Bursa = z.infer<typeof bursaSchema>;
 
@@ -69,11 +67,10 @@ export type Bursa = z.infer<typeof bursaSchema>;
 export const labrumSchema = z.object({ ...anatomyBase, type: z.literal('labrum') });
 export type Labrum = z.infer<typeof labrumSchema>;
 
-// 肌群（06 §6.5）：精簡版「肌群合併 mesh」之選取單位（§4.3.5／§4.3.6 終態——精簡版逐肌群、
-// 細節版逐肌肉）。base＋type＋layer（superficial/deep，比照 muscle 用以歸 deep/superficialMuscle
-// 顯示層）；群組為粗化代表、不帶 muscle 之 relatedJoints/actions/innervation 以避懸空參考。
-// 匯出管線以成員肌 profiles:["detailed"]＋群組件 profiles:["simplified"]＋sourceObjects join
-// 純資料表達合併、零管線/App 邏輯改動（解3d資產 61）。
+// 肌群（06 §6.5）：原為精簡版「肌群合併 mesh」之選取單位。細節版/精簡版雙 profile 已收斂為單一
+// 資產，肌群合併退役、種子已無 muscleGroup instance；型別保留於 schema 供未來重新分版（屆時以
+// sourceObjects join 合併＋manifest profiles 旗標即生效）。base＋type＋layer（superficial/deep，
+// 比照 muscle 歸 deep/superficialMuscle 顯示層）；群組為粗化代表、不帶 relatedJoints/actions/innervation。
 export const muscleGroupSchema = z.object({
   ...anatomyBase,
   type: z.literal('muscleGroup'),

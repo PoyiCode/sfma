@@ -33,7 +33,7 @@
 
 單一部位隱藏屬**檢視狀態**，不寫入資料；隱藏清單顯示於檢視器控制項（`HiddenPartsControls`），可逐一或一鍵全部恢復。檢視狀態以 `anatomy/useHiddenParts.ts` 管理（保加入序、`hide`／`restore`／`restoreAll`／`isHidden`）。隱藏目前選取部位後即清除選取（浮動資訊卡關閉、不再貼附已隱藏部位）。
 
-選取／隱藏的粒度：細節版（細節 export profile）為**單一肌肉**（逐肌肉 node），精簡版（精簡 export profile）為**肌群**（mesh 合併 node，見 §4.3.6）。
+選取／隱藏的粒度為**單一肌肉**（逐肌肉 node）。
 
 **左右側獨立選取**：臨床評估為單側，成對部位左右獨立選取／高亮／標註／隱藏，沿 `side` 軸分流（FN/FP/標註本帶 `side`，06 §6.5）。anatomyId 仍側別無關；選取鍵為 **partKey**（`anatomy/partKey.ts`：成對部位＝`anatomyId@side`、中線即 anatomyId）。`useSelectedPart` 以 partKey 為鍵；`scenePicking`／`sceneHighlight`／`sceneLayers`／`anatomyHighlight` 皆以 partKey 比對（選左只亮左、單側隱藏、反向高亮側別敏感）。可靠側別來源為 `manifestV1.json` 之成對分組明確 `side` 欄（臨床左右不可互換）；`exportGltf.py` 依 `side` 出 `#L/#R` 節點，`gltfBinding` 解析還原 anatomyId＋side。標註點選自動帶入 `selectedSide`，對話框成對部位顯左／右分段可改。
 
@@ -49,7 +49,7 @@
   1. 無 WebGL → `model3dUnsupported`＋重試（重新偵測）；
   2. FPS 降級到底＝精簡（不再退 2D）；
   3. 3D 子樹 `ui/ErrorBoundary`（chunk 載入失敗／Babylon render 拋錯）→ `model3dLoadError`＋重試（bump key remount）。`ErrorBoundary` 為可重用原件。
-- **個別骨拆分供細節**：原以 `sourceObjects` join 聚合之骨（顱骨、脊椎、肋骨、肋軟骨、胸骨、手、足）於細節 profile 拆為個別骨（每骨各得三角面預算→細節大增），可獨立選取／標註／分側（沿用 partKey）；複合肌頭 join 維持（一肌一實體＝臨床正確）。拆分後左右同名個別骨之鏡像幾何經 glTF 匯出器去重為共用 mesh，故載入以 `createInstances:false`（`GLTF_IMPORT_OPTIONS`）令每 node 為獨立 `Mesh`（還原「每部位一 Mesh」假設，使 overlay 高亮／單側可見性一致）。
+- **個別骨拆分供細節**：原以 `sourceObjects` join 聚合之骨（顱骨、脊椎、肋骨、肋軟骨、胸骨、手、足）拆為個別骨（每骨各得三角面預算→細節大增），可獨立選取／標註／分側（沿用 partKey）；複合肌頭 join 維持（一肌一實體＝臨床正確）。拆分後左右同名個別骨之鏡像幾何經 glTF 匯出器去重為共用 mesh，故載入以 `createInstances:false`（`GLTF_IMPORT_OPTIONS`）令每 node 為獨立 `Mesh`（還原「每部位一 Mesh」假設，使 overlay 高亮／單側可見性一致）。
 
 **SVG 抽取管線**（`export2dSvg.py`／`assets2d/`、§4.6.3 步驟 7）保留為**資產產生器**，與執行期檢視器分立。
 
@@ -108,7 +108,7 @@ ROM 以資料定義，每個關節一筆（範例見 [06_data_model.md](06_data_
 
 | 版本 | 內容 | 適用 |
 | --- | --- | --- |
-| 精簡（simplified） | 現役主要呈現；目前載入細節 export profile 之 glb | 預設、低階裝置／弱網路 |
+| 精簡（simplified） | 現役主要呈現；載入標準資產 glb（`anatomyV1.glb`） | 預設、低階裝置／弱網路 |
 | 完整（full） | **未壓縮（無 Draco）、未減面之原始模型（無損）** | **手動 opt-in**：最高畫質、**無視預算**；首載大流量故切換時跳流量確認 |
 
 - **切換機制**：
@@ -117,10 +117,10 @@ ROM 以資料定義，每個關節一筆（範例見 [06_data_model.md](06_data_
   - 使用者可於設定中**手動覆寫**（自動／精簡／完整）。
 - **GPU 分級啟發式**（`lod/gpuTier.ts` `classifyGpuTier`）：軟體算繪 renderer→0；明確旗艦→3；明確入門→1；否則以記憶體＋核心數推估；信號不足→undefined（保守預設精簡）。`deviceCapability` 以 `WEBGL_debug_renderer_info`／`hardwareConcurrency` 三信號呼之填 `gpuTier`。準確度待實機校正，§4.3.6 FPS 自動降級為執行期校正網。
 - **完整版（手動 opt-in、無視預算）**：載入未壓縮、未減面之原始模型（無損）；**`auto` 絕不自動選**（體積巨大，實測 37.7 MB），僅使用者明選且 WebGL 可用時解析至 `full`。切換至完整前以**確認對話框**（`useFullLodConfirm`／`FullLodConfirmDialog`，設定頁與檢視器內兩切換點皆攔截）警示大型下載／行動數據（可取消）；FPS 過低時自動降級退至精簡（`full → 精簡`）。
-- **資產對應**（`render/modelAsset.ts`）：`resolveModelAssetUrl(tier)`——`full` → `/models/anatomyV1.full.glb`（無損）、其餘 → `/models/anatomyV1.glb`（現役 detailed glb）。`anatomyScenePopulatorFor(url)` 每-url memo（同 url 回穩定相同參考、相異 url 回相異填充器）。
+- **資產對應**（`render/modelAsset.ts`）：`resolveModelAssetUrl(tier)`——`full` → `/models/anatomyV1.full.glb`（無損）、其餘 → `/models/anatomyV1.glb`（標準資產）。`anatomyScenePopulatorFor(url)` 每-url memo（同 url 回穩定相同參考、相異 url 回相異填充器）。
 - **實作**：精簡與完整共用同一骨架與解剖實體 ID，僅 mesh／材質不同。LOD 架構（`lodTier`／`resolveLodTier`／`degradeLodTier`、設定 `lodMode`、`Model3DControls` LOD 三段）完整保留。
 
-> **精簡版資產現況**：使用者回報「過度簡化失功能」後，`simplified` tier 改載細節 glb（`MODEL_ASSET_URLS.simplified`＝detailed 值、`anatomyV1.simplified.glb` 已刪）；§4.3.6 表精簡版欄之 mesh 合併／減面為終態雙版意圖（暫非現役）。未來補真精細版時改 `MODEL_ASSET_URLS.detailed` 指向新檔即自動分流。
+> **單一資產現況**：細節版/精簡版雙 export profile 已收斂為單一標準資產（`anatomyV1.glb`）；原過度簡化之精簡版資產（肌群合併＋激進減面）失逐肌選取與臨床可辨識度〔使用者回報〕已刪。`simplified` 執行期 tier 載此標準資產。未來如需再分版，於 manifest 加 `profiles` 旗標＋新增 `MODEL_ASSET_URLS` 條目即可。
 
 > **離線快取**：SW 精快取（`pwa/precacheGlobs.ts`）**只收 App 殼層**（進入點 `index-*.js`、`workbox-window*.js`、`css/html/svg/png/woff2`），不以 `**/*.js` 廣納，使 Babylon chunk 於切 3D 時才 on-demand 載入（單檔 >2 MiB 超 workbox precache 上限）。全離線 3D 由 **runtime 快取**（`pwa/runtimeCaching.ts`，三條 CacheFirst：`/models/*.glb`、`/draco/*`、`assets/*.js` lazy chunk，皆 expiration＋`cacheableResponse {0,200}`）補：使用者開過一次 3D 後其資產入快取、之後可離線重看。runtime 快取僅比對靜態資產、不快取個資（隱私不變，§8.7）。runtime 快取由 SW 實作，於 iOS http 區網非安全環境失效（見 [[ios-lan-nonsecure-context]]），實際離線行為待 production https／localhost 端到端驗。
 
@@ -131,23 +131,23 @@ ROM 以資料定義，每個關節一筆（範例見 [06_data_model.md](06_data_
 - **目標幀率：30 fps**（所有支援裝置的底線；桌面與高階行動裝置以 60 fps 為理想值）。
 - 量測基準裝置（建議）：低階＝約 3–4 年前中階 Android／iPhone SE 等級；高階＝近兩年旗艦手機或桌面獨立顯卡。
 
-下表之「精簡版／細節版」為**資產 export profile**（與執行期 LOD 階層分立）：
+下表為**標準資產 export profile** 之預算（與執行期 LOD 階層分立；細節版/精簡版雙 profile 已收斂為單一標準 profile）：
 
-| 預算項目 | 精簡版 profile |
-| --- | --- | --- |
+| 預算項目 | 標準資產 |
+| --- | --- |
 | 總三角形數 | ≤ 150k |
 | Draw calls | ≤ 60 |
 | 紋理解析度 | ≤ 1024²（KTX2） |
 | 資產下載量（壓縮後） | ≤ 15 MB |
 | GPU 記憶體佔用 | ≤ 256 MB |
-| 骨架 | 兩版共用同一骨架（≤ 120 bones） |
+| 骨架 | 共用同一骨架（≤ 120 bones） |
 
-- **製作面**：細節版逐肌肉獨立 mesh（支援單一肌肉選取、隱藏與著色）；精簡版以肌群合併 mesh 降低 draw calls（選取粒度為肌群）。per-entity 減面上限（`entity.maxTriangles`，cap 取 `min(全域, layerCap, entity.maxTriangles)`）為可重用機制，粗聚合件單件壓緊、不傷同 layer 他件。
+- **製作面**：標準資產逐肌肉獨立 mesh（支援單一肌肉選取、隱藏與著色；選取粒度為肌肉）。per-entity 減面上限（`entity.maxTriangles`，cap 取 `min(全域, layerCap, entity.maxTriangles)`）為可重用機制，粗聚合件單件壓緊、不傷同 layer 他件。
 - **降級規則**：FPS 低於 25 持續 5 秒 → 自動降一級（**完整 → 精簡**；精簡為最低、不再退 2D），介面提示目前等級（`role="status"`，i18n `modelLodAutoDegraded`）；使用者可於設定覆寫。FPS 取樣 `lod/useFpsAutoDegrade.ts` 以 `scene.onAfterRenderObservable` 回報 `engine.getFps()`。門檻 25fps/5000ms 為工程啟發值，待實機校正。
 - **完整版（無損）豁免預算**：`full` 為手動 opt-in 之未壓縮未減面原始模型，**不受上表預算約束**（「無視預算」即其定義）；`verifyModelBudget.mjs` 不對其稽核。
 - **預算稽核**：`infra/asset-pipeline/verifyModelBudget.mjs`（純 node 解析 GLB JSON chunk→逐 mesh-node 累計三角面、依 manifest 彙整 per-layer、核對本表）於匯出後執行＋自核。
 
-> **待（軟體軌）**：draw-call ≤60 仍待肌群合併（簡化版 mesh 數）；現役細節 glb 之 draw-call（逐件 node）大於 ≤200，屬逐肌選取粒度之固有張力，倚 FPS 自動降級退為安全網。
+> **待（軟體軌）**：現役標準 glb 之 draw-call（逐件 node）大於 ≤200，屬逐肌選取粒度之固有張力，倚 FPS 自動降級退為安全網。
 
 ## 4.4 標籤系統
 
@@ -216,7 +216,7 @@ ROM 以資料定義，每個關節一筆（範例見 [06_data_model.md](06_data_
 | 2 | 命名正規化：來源英文解剖名（去 `.l/.r/.j` 等後綴）→語意式 `anatomyId`、抽名稱表 → crosswalk＋`anatomyId↔名稱↔分層` manifest（分層由頂層 collection 推定） | 腳本 |
 | 3 | 綁骨：匯入 MakeHuman 骨架（≤120 bones）對位中立姿態 | 人工＋AI |
 | 4 | 混合綁定：預設逐 mesh 剛性綁主骨；跨關節肌做 skin weights（見 §4.3.3） | 人工＋AI |
-| 5 | LOD 建置：細節版逐肌肉、精簡版肌群合併＋decimate；**減面為必經** | 腳本 |
+| 5 | 減面：逐肌肉 mesh ＋ decimate（標準資產 export profile）；**減面為必經** | 腳本 |
 | 6 | 匯出：glTF／GLB，Draco＋（必要時）KTX2；node 名＝`anatomyId` | 腳本 |
 | 7 | 2D 抽取：固定正交視角（正／側／背）逐層輸出輪廓→SVG；圖層 id＝`anatomyId`（**資產產生器，與執行期檢視器分立**） | 腳本 |
 | 8 | manifest→definitions：ID／名稱／分層 ＋ 關節 ROM ＋ 肌肉 `relatedJoints`／`actions` 組為 definitions JSON（見 [06_data_model.md](06_data_model.md) 6.5） | 腳本 |
@@ -225,20 +225,18 @@ ROM 以資料定義，每個關節一筆（範例見 [06_data_model.md](06_data_
 
 **來源實況**：來源 Z-Anatomy 4.0 約 7184 物件（MESH 4569／CURVE 951〔神經・血管・支氣管以曲線表示〕／FONT 1660〔`.t` 標籤〕…），總面數約 366 萬多邊形（遠超預算 → **減面為必經**，約 6×）、**無骨架**（rig 須另由 MakeHuman 匯入，步驟 3 目前尚未提供）。頂層 collection 即分層系統：`Skeletal system`（→bone）、`Muscular system`＋`Muscular insertions`（→muscle）、`Joints`（→joint）、`Nervous system & Sense organs`（→nerve）、`Cardiovascular system`（→vessel）、`Visceral systems`（→organ）等。FONT 標籤不入 glTF mesh；CURVE 之神經・血管轉 mesh（管狀）。
 
-**共用解析**（`infra/asset-pipeline/pipelineCommon.py`，2D／3D 軌同 import 之同源同步根本保證）：`resolveSourceNames`（`sourceObjects` 優先）／`entityInProfile`（`profiles` 過濾）／`deselectAll`（確定性 deselect、迭代 `view_layer.objects` 全集）／`joinObjects`（headless `temp_override` join）／`curveToMesh`（CURVE→管狀 mesh）。色彩材質、減面、匯出編排留在 `exportGltf.py`。
+**共用解析**（`infra/asset-pipeline/pipelineCommon.py`，2D／3D 軌同 import 之同源同步根本保證）：`resolveSourceNames`（`sourceObjects` 優先）／`entityInProfile`（`profiles` 過濾；雙 profile 收斂後實體無 profiles 旗標、一律納入）／`deselectAll`（確定性 deselect、迭代 `view_layer.objects` 全集）／`joinObjects`（headless `temp_override` join）／`curveToMesh`（CURVE→管狀 mesh）。色彩材質、減面、匯出編排留在 `exportGltf.py`。
 
 **步驟 5／6 機制**（`infra/asset-pipeline/exportGltf.py`）：
 
 - **複合肌聚合 join**：多頭肌以多子頭分件存在，manifest entity 來源欄支援 `sourceObject`（單字串）或 `sourceObjects`（字串陣列，子頭群）；後者 join 聚合為單一物件後改名 anatomyId（一邏輯肌＝一可選 mesh）。headless `-b` 模式須 `temp_override` 顯式提供 context（否則 `bpy.ops.object.join` 靜默 no-op）。
 - **神經 CURVE→管狀 mesh**：來源若 `type=='CURVE'`，套 manifest 選填 `curveBevel:{depth,resolution}` 後 `convert(target='MESH')` 轉實心管 mesh。
 - **解剖分層基底著色**：manifest top-level `layerColors`（layer→sRGB hex）為每 layer 建扁平霧面材質（Principled BSDF、`srgbToLinear`），匯出前取代各物件材質槽（單材質／物件）。基底色＝**解剖辨識**（靜態、隨資產）；收縮／伸展與選取／標註高亮＝**狀態色**（執行期 overlay 疊加，§4.3.4／§4.5）。
-- **減面（decimation）**：資料驅動每-mesh 三角面上限——manifest `decimation`（`detailedMaxTrianglesPerMesh`、`simplifiedMaxTrianglesPerMesh`、`layerMaxTriangles`〔per-layer〕），逐物件取 `min` 諸 cap，超標者加 Blender `DECIMATE`（`COLLAPSE`、`ratio=cap/tris`）modifier、匯出時 bake；per-entity `maxTriangles` 為粗聚合件單件壓緊機制。開殼／多島嶼結構（肋軟骨、開殼關節囊、聚合韌帶）受 COLLAPSE 邊界保留限制有減面 floor、可能無法降至 cap。
-- **profile 多版輸出**：`exportGltf.py` 選填第 3 引數 `profile`（`detailed`〔預設〕｜`simplified`｜`full`）擇 cap 與輸出檔名（`anatomyV1.glb`／`anatomyV1.simplified.glb`／`anatomyV1.full.glb`）。entity 選填 `profiles`（字串陣列，缺省＝兩 profile；不含當前 profile 者整件跳過）——開殼被動結構（筋膜／韌帶／滑囊等）多標 `profiles:["detailed"]` 僅入細節版。
+- **減面（decimation）**：資料驅動每-mesh 三角面上限——manifest `decimation`（`maxTrianglesPerMesh`、`layerMaxTriangles`〔per-layer〕），逐物件取 `min` 諸 cap，超標者加 Blender `DECIMATE`（`COLLAPSE`、`ratio=cap/tris`）modifier、匯出時 bake；per-entity `maxTriangles` 為粗聚合件單件壓緊機制。開殼／多島嶼結構（肋軟骨、開殼關節囊、聚合韌帶）受 COLLAPSE 邊界保留限制有減面 floor、可能無法降至 cap。
+- **profile 輸出**：`exportGltf.py` 選填第 3 引數 `profile`（`standard`〔預設〕｜`full`）擇輸出檔名（`anatomyV1.glb`／`anatomyV1.full.glb`）；`standard` 套 `decimation.maxTrianglesPerMesh`、`full` 無損不減面。細節版/精簡版雙 profile 已收斂為單一標準資產，實體不再帶 `profiles` 旗標、一律納入。
 - **GLB Draco 壓縮**：`export_scene.gltf` 套 `export_draco_mesh_compression_enable`（level 6、position 14-bit 量化，解剖尺度視覺無損）。載入端 `render/dracoConfig.ts` `configureDracoDecoder()` 將 `DracoDecoder.DefaultConfiguration` 改指**自帶** `public/draco/`（`draco_decoder_gltf.wasm`＋`draco_wasm_wrapper_gltf.js`，同源 runtime 取用、離線可行），`gltfMeshLoader` 於載入前呼之。
 
-**肌群合併**（軟體軌，`infra/asset-pipeline/buildMuscleGroups.mjs`／`buildBoneNerveGroups.mjs`，宣告式產生器、冪等、可重跑）：純以資料表達合併——成員肌標 `profiles:["detailed"]`（細節版逐肌）、群組件標 `profiles:["simplified"]`＋`sourceObjects`＝成員來源（精簡版 join 為單一 node）；`muscleGroup` 為第 11 實體類型（映射既有 deep/superficial 顯示層）。骨骼按區域（`bone.upperLimb`／`lowerLimb`／`thoracicCage`／`vertebralColumn`／`bone.skull`…）、神經按神經叢（`nerve.brachialPlexus`／`lumbarPlexus`／`sacralPlexus`）以同機制重用既有 `bone`／`nerve` 型合併。
-
-> **精簡版產生器現況**：使用者「過度簡化失功能」決策下，精簡 export profile 與 `buildMuscleGroups`／`buildBoneNerveGroups` 合併產生器**停用、不產出貨用資產**（機制／腳本／manifest 保留供前瞻重新調校）；現役 `simplified` tier 載細節 glb（§4.3.5）。
+**肌群合併（已退役）**：細節版/精簡版雙 profile 收斂為單一標準資產後，原精簡版肌群合併產生器（`buildMuscleGroups.mjs`／`buildBoneNerveGroups.mjs`）與其 `muscleGroup`／骨區域（`bone.upperLimb`…）／神經叢（`nerve.brachialPlexus`…）合併實體已自 manifest／definitions 移除、產生器腳本已刪。`muscleGroup` 型別保留於 schema 供未來重新分版；屆時以 `sourceObjects` join ＋ manifest `profiles` 旗標重新引入即可。
 
 **2D 抽取**（步驟 7，`infra/asset-pipeline/export2dSvg.py`，**資產產生器**）：因本機 Blender 建置未含 Freestyle，改用**幾何輪廓投影**（zero GL/addon、headless 必成）——三方位正交相機（front −Y／side +X／back −Y、共用 ortho_scale 與 viewBox→疊合對齊）；逐 anatomyId 孤立，以 `world→camera` 投影＋掃描線柵格化覆蓋遮罩＋Moore-neighbor 邊界追蹤＋Douglas–Peucker 簡化，組裝 per-orientation SVG（`<g data-anatomy-id><path d>`、共用 viewBox、**色彩無關**）＋`anatomy2dManifest.json`（provenance：來源 manifest SHA-256）。共用 `pipelineCommon`，2D 不漂移出 3D。資產託管 `apps/web/public/assets2d/`（gitignored）。headless 眉角：設相機 `location`／`rotation_euler` 後須 `view_layer.update()` 才能讀正確 `matrix_world`。輸出為封閉填色剪影輪廓（忽略內孔、像素級精緻度待 QA）。
 

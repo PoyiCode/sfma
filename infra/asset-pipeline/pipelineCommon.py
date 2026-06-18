@@ -22,10 +22,9 @@ def resolveSourceNames(ent):
 
 
 def entityInProfile(ent, profile):
-    """此 entity 是否納入指定 profile（detailed｜simplified）。
-    entity.profiles（選填字串陣列）列納入之 profile；缺省＝兩 profile 皆納（向後相容）。
-    供「僅細節版」補充被動結構（如筋膜：開殼鞘膜減面 floor 高、低階裝置不需、且 simplified
-    預算已滿）排除於精簡版、維持輕量（解3d資產 58）。"""
+    """此 entity 是否納入指定 profile。細節版/精簡版雙 profile 已收斂為單一資產，
+    現役實體皆無 profiles 旗標→一律納入；保留此函式以相容未來重新分版
+    （屆時於 manifest 加 entity.profiles 旗標即生效）。"""
     profiles = ent.get("profiles")
     return profiles is None or profile in profiles
 

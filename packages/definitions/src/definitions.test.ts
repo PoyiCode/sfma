@@ -429,55 +429,10 @@ describe('anatomy 種子資料（03 §6.5 解剖實體；placeholder）', () => 
     expect(anatomyEntityById.get('fascia.thoracolumbar')?.name['zh-TW']).toBe('胸腰筋膜');
   });
 
-  it('curated 35 肌群（muscleGroup 第11型）皆定義、型別與顯示層正確（精簡版肌群合併之選取單位；§4.3.5/§4.3.6；解3d資產 61）', () => {
-    // [anatomyId, 預設顯示層 superficial|deep]——layer 決定歸 superficial/deepMuscle 顯示層
-    const groups: ReadonlyArray<readonly [string, 'superficial' | 'deep']> = [
-      ['muscleGroup.armFlexor', 'superficial'],
-      ['muscleGroup.armExtensor', 'superficial'],
-      ['muscleGroup.forearmFlexor', 'superficial'],
-      ['muscleGroup.forearmExtensor', 'superficial'],
-      ['muscleGroup.rotatorCuff', 'deep'],
-      ['muscleGroup.thenar', 'superficial'],
-      ['muscleGroup.hypothenar', 'superficial'],
-      ['muscleGroup.handInterossei', 'deep'],
-      ['muscleGroup.quadriceps', 'superficial'],
-      ['muscleGroup.hamstring', 'superficial'],
-      ['muscleGroup.hipAdductor', 'superficial'],
-      ['muscleGroup.gluteal', 'superficial'],
-      ['muscleGroup.deepHipRotator', 'deep'],
-      ['muscleGroup.calf', 'superficial'],
-      ['muscleGroup.deepPosteriorLeg', 'deep'],
-      ['muscleGroup.anteriorLeg', 'superficial'],
-      ['muscleGroup.fibular', 'superficial'],
-      ['muscleGroup.footIntrinsic', 'superficial'],
-      ['muscleGroup.abdominal', 'superficial'],
-      ['muscleGroup.erectorSpinae', 'deep'],
-      ['muscleGroup.transversospinal', 'deep'],
-      ['muscleGroup.rhomboid', 'deep'],
-      ['muscleGroup.serratusPosterior', 'deep'],
-      ['muscleGroup.intercostal', 'deep'],
-      ['muscleGroup.pelvicFloor', 'deep'],
-      ['muscleGroup.pectoral', 'superficial'],
-      ['muscleGroup.splenius', 'deep'],
-      ['muscleGroup.scalene', 'deep'],
-      ['muscleGroup.prevertebral', 'deep'],
-      ['muscleGroup.suprahyoid', 'superficial'],
-      ['muscleGroup.infrahyoid', 'superficial'],
-      ['muscleGroup.suboccipital', 'deep'],
-      ['muscleGroup.mastication', 'superficial'],
-      ['muscleGroup.epicranius', 'superficial'],
-      ['muscleGroup.facialExpression', 'superficial'],
-    ];
-    expect(groups).toHaveLength(35);
-    for (const [id, layer] of groups) {
-      const entity = anatomyEntityById.get(id);
-      expect(entity?.type).toBe('muscleGroup');
-      if (entity?.type === 'muscleGroup') expect(entity.layer).toBe(layer);
-    }
-    // 抽驗 zh-TW 名稱（股四頭肌＝膝伸；旋轉肌袖＝肩；豎脊肌群＝下背）
-    expect(anatomyEntityById.get('muscleGroup.quadriceps')?.name['zh-TW']).toBe('股四頭肌');
-    expect(anatomyEntityById.get('muscleGroup.rotatorCuff')?.name['zh-TW']).toBe('旋轉肌袖');
-    expect(anatomyEntityById.get('muscleGroup.erectorSpinae')?.name['zh-TW']).toBe('豎脊肌群');
+  it('細節版/精簡版雙 profile 收斂：muscleGroup 合併群組已自種子移除（保留 type、無 instance；§4.3.5/§4.3.6）', () => {
+    // 雙 profile 收斂為單一資產 profile 後，精簡版肌群合併之選取單位（muscleGroup）已退役。
+    // muscleGroup 型別仍保留於 schema（供未來重新分版），但種子不含任何 instance。
+    expect(anatomyEntities.filter((e) => e.type === 'muscleGroup')).toHaveLength(0);
   });
 
   it('深層小肌補齊（5 件：interspinales/intertransversarii/pyramidalis/transversusThoracis/adductorMinimus）皆定義、型 muscle、層正確（57 暫緩肌、61/62 騰空間後 enrich content；解3d資產 63）', () => {
@@ -497,25 +452,21 @@ describe('anatomy 種子資料（03 §6.5 解剖實體；placeholder）', () => 
     expect(anatomyEntityById.get('muscle.adductorMinimus')?.name['zh-TW']).toBe('內收最小肌');
   });
 
-  it('骨骼區域群（5 件）＋神經叢群（3 件）皆定義、重用 bone/nerve 型（精簡版區域/神經叢合併單位；解3d資產 62）', () => {
-    // [anatomyId, 型別]——重用既有 bone/nerve minimal 型（區域即骨、神經叢即神經、prefix===type）
-    const groups: ReadonlyArray<readonly [string, 'bone' | 'nerve']> = [
-      ['bone.upperLimb', 'bone'],
-      ['bone.lowerLimb', 'bone'],
-      ['bone.thoracicCage', 'bone'],
-      ['bone.vertebralColumn', 'bone'],
-      ['bone.skull', 'bone'],
-      ['nerve.brachialPlexus', 'nerve'],
-      ['nerve.lumbarPlexus', 'nerve'],
-      ['nerve.sacralPlexus', 'nerve'],
-    ];
-    expect(groups).toHaveLength(8);
-    for (const [id, type] of groups) {
-      expect(anatomyEntityById.get(id)?.type).toBe(type);
+  it('細節版/精簡版雙 profile 收斂：骨骼區域群／神經叢合併單位已自種子移除（解3d資產 62）', () => {
+    // 精簡版合併用之骨區域（bone.upperLimb…）與神經叢（nerve.brachialPlexus…）已退役；
+    // 個別骨／神經實體不受影響（仍逐件定義）。
+    for (const id of [
+      'bone.upperLimb',
+      'bone.lowerLimb',
+      'bone.thoracicCage',
+      'bone.vertebralColumn',
+      'bone.skull',
+      'nerve.brachialPlexus',
+      'nerve.lumbarPlexus',
+      'nerve.sacralPlexus',
+    ]) {
+      expect(anatomyEntityById.has(id)).toBe(false);
     }
-    // 抽驗 zh-TW 名稱
-    expect(anatomyEntityById.get('bone.vertebralColumn')?.name['zh-TW']).toBe('脊柱');
-    expect(anatomyEntityById.get('nerve.brachialPlexus')?.name['zh-TW']).toBe('臂神經叢');
   });
 
   it('上肢主要神經三幹（radial／ulnar／musculocutaneous）皆於資料集定義（供 3D 神經層渲染）', () => {

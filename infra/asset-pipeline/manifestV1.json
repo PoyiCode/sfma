@@ -13,8 +13,6 @@
     "labrum": "#D98C5F"
   },
   "decimation": {
-    "detailedMaxTrianglesPerMesh": 2500,
-    "simplifiedMaxTrianglesPerMesh": 300,
     "layerMaxTriangles": {
       "disc": 600,
       "capsule": 500,
@@ -22,7 +20,8 @@
       "fascia": 1500,
       "bursa": 500,
       "labrum": 500
-    }
+    },
+    "maxTrianglesPerMesh": 2500
   },
   "deferred": {
     "functionalJoint": "joint.elbow 為運動學功能關節、無來源 mesh（§4.6.2）。",
@@ -38,7 +37,6 @@
       "sourceObject": "Humerus.r",
       "layer": "bone",
       "name": "Humerus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -46,7 +44,6 @@
       "sourceObject": "Radius.r",
       "layer": "bone",
       "name": "Radius",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -54,7 +51,6 @@
       "sourceObject": "Ulna.r",
       "layer": "bone",
       "name": "Ulna",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -62,7 +58,6 @@
       "sourceObject": "Brachialis muscle.r",
       "layer": "muscle",
       "name": "Brachialis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -70,7 +65,6 @@
       "sourceObjects": ["Long head of biceps brachii.r", "Short head of biceps brachii.r"],
       "layer": "muscle",
       "name": "Biceps brachii",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -82,7 +76,6 @@
       ],
       "layer": "muscle",
       "name": "Triceps brachii",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -90,7 +83,6 @@
       "sourceObject": "Flexor carpi radialis.r",
       "layer": "muscle",
       "name": "Flexor carpi radialis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -101,7 +93,6 @@
       ],
       "layer": "muscle",
       "name": "Flexor carpi ulnaris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -109,7 +100,6 @@
       "sourceObject": "Extensor carpi radialis longus.r",
       "layer": "muscle",
       "name": "Extensor carpi radialis longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -120,7 +110,6 @@
       ],
       "layer": "muscle",
       "name": "Extensor carpi ulnaris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -128,7 +117,6 @@
       "sourceObjects": ["Deep head of pronator teres.r", "Superficial head of pronator teres.r"],
       "layer": "muscle",
       "name": "Pronator teres",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -136,7 +124,6 @@
       "sourceObject": "Supinator.r",
       "layer": "muscle",
       "name": "Supinator",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -148,7 +135,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -160,7 +146,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -172,7 +157,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -184,7 +168,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -192,7 +175,6 @@
       "sourceObject": "Scapula.r",
       "layer": "bone",
       "name": "Scapula",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -200,7 +182,6 @@
       "sourceObject": "Clavicle.r",
       "layer": "bone",
       "name": "Clavicle",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -219,7 +200,6 @@
       "sourceObject": "Supraspinatus muscle.r",
       "layer": "muscle",
       "name": "Supraspinatus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -227,7 +207,6 @@
       "sourceObject": "Infraspinatus muscle.r",
       "layer": "muscle",
       "name": "Infraspinatus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -235,7 +214,6 @@
       "sourceObject": "Teres minor muscle.r",
       "layer": "muscle",
       "name": "Teres minor",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -243,7 +221,6 @@
       "sourceObject": "Subscapularis muscle.r",
       "layer": "muscle",
       "name": "Subscapularis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -262,7 +239,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -274,7 +250,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -286,7 +261,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -297,7 +271,6 @@
       ],
       "layer": "muscle",
       "name": "Flexor digitorum superficialis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -305,7 +278,6 @@
       "sourceObject": "Flexor digitorum profundus.r",
       "layer": "muscle",
       "name": "Flexor digitorum profundus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -313,7 +285,6 @@
       "sourceObject": "Flexor pollicis longus.r",
       "layer": "muscle",
       "name": "Flexor pollicis longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -321,7 +292,6 @@
       "sourceObject": "Extensor digitorum.r",
       "layer": "muscle",
       "name": "Extensor digitorum",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -329,7 +299,6 @@
       "sourceObject": "Extensor pollicis longus.r",
       "layer": "muscle",
       "name": "Extensor pollicis longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -337,7 +306,6 @@
       "sourceObject": "Abductor pollicis longus.r",
       "layer": "muscle",
       "name": "Abductor pollicis longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -345,7 +313,6 @@
       "sourceObject": "Abductor pollicis brevis.r",
       "layer": "muscle",
       "name": "Abductor pollicis brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -356,7 +323,6 @@
       ],
       "layer": "muscle",
       "name": "Flexor pollicis brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -364,7 +330,6 @@
       "sourceObject": "Opponens pollicis muscle.r",
       "layer": "muscle",
       "name": "Opponens pollicis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -375,7 +340,6 @@
       ],
       "layer": "muscle",
       "name": "Adductor pollicis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -383,7 +347,6 @@
       "sourceObject": "Abductor digiti minimi of hand.r",
       "layer": "muscle",
       "name": "Abductor digiti minimi",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -391,7 +354,6 @@
       "sourceObject": "Flexor digiti minimi of hand.r",
       "layer": "muscle",
       "name": "Flexor digiti minimi brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -399,7 +361,6 @@
       "sourceObject": "Opponens digiti minimi muscle of hand.r",
       "layer": "muscle",
       "name": "Opponens digiti minimi",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -407,7 +368,6 @@
       "sourceObject": "Dorsal interossei muscles of hand.r",
       "layer": "muscle",
       "name": "Dorsal interossei",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -415,7 +375,6 @@
       "sourceObject": "Palmar interossei muscles.r",
       "layer": "muscle",
       "name": "Palmar interossei",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -423,7 +382,6 @@
       "sourceObject": "Lumbrical muscles of hand.r",
       "layer": "muscle",
       "name": "Lumbricals",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -431,7 +389,6 @@
       "sourceObject": "Femur.r",
       "layer": "bone",
       "name": "Femur",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -439,7 +396,6 @@
       "sourceObject": "Tibia.r",
       "layer": "bone",
       "name": "Tibia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -447,7 +403,6 @@
       "sourceObject": "Fibula.r",
       "layer": "bone",
       "name": "Fibula",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -455,7 +410,6 @@
       "sourceObject": "Patella.r",
       "layer": "bone",
       "name": "Patella",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -467,7 +421,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -479,7 +432,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -487,7 +439,6 @@
       "sourceObject": "Rectus femoris muscle.r",
       "layer": "muscle",
       "name": "Rectus femoris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -495,7 +446,6 @@
       "sourceObject": "Vastus lateralis muscle.r",
       "layer": "muscle",
       "name": "Vastus lateralis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -503,7 +453,6 @@
       "sourceObject": "Vastus medialis muscle.r",
       "layer": "muscle",
       "name": "Vastus medialis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -511,7 +460,6 @@
       "sourceObject": "Vastus intermedius muscle.r",
       "layer": "muscle",
       "name": "Vastus intermedius",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -519,7 +467,6 @@
       "sourceObjects": ["Long head of biceps femoris.r", "Short head of biceps femoris.r"],
       "layer": "muscle",
       "name": "Biceps femoris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -527,7 +474,6 @@
       "sourceObject": "Semitendinosus muscle.r",
       "layer": "muscle",
       "name": "Semitendinosus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -535,7 +481,6 @@
       "sourceObject": "Semimembranosus muscle.r",
       "layer": "muscle",
       "name": "Semimembranosus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -543,7 +488,6 @@
       "sourceObject": "Hip bone.r",
       "layer": "bone",
       "name": "Hip bone",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -555,7 +499,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -563,7 +506,6 @@
       "sourceObject": "Gluteus maximus muscle.r",
       "layer": "muscle",
       "name": "Gluteus maximus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -571,7 +513,6 @@
       "sourceObject": "Gluteus medius muscle.r",
       "layer": "muscle",
       "name": "Gluteus medius",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -579,7 +520,6 @@
       "sourceObject": "Gluteus minimus muscle.r",
       "layer": "muscle",
       "name": "Gluteus minimus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -605,7 +545,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -613,7 +552,6 @@
       "sourceObject": "Adductor longus.r",
       "layer": "muscle",
       "name": "Adductor longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -621,7 +559,6 @@
       "sourceObject": "Adductor brevis.r",
       "layer": "muscle",
       "name": "Adductor brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -629,7 +566,6 @@
       "sourceObject": "Adductor magnus.r",
       "layer": "muscle",
       "name": "Adductor magnus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -637,7 +573,6 @@
       "sourceObject": "Gracilis muscle.r",
       "layer": "muscle",
       "name": "Gracilis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -645,7 +580,6 @@
       "sourceObject": "Pectineus muscle.r",
       "layer": "muscle",
       "name": "Pectineus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -657,7 +591,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -669,7 +602,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -681,7 +613,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -689,7 +620,6 @@
       "sourceObjects": ["Lateral head of gastrocnemius.r", "Medial head of gastrocnemius.r"],
       "layer": "muscle",
       "name": "Gastrocnemius",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -697,7 +627,6 @@
       "sourceObject": "Soleus muscle.r",
       "layer": "muscle",
       "name": "Soleus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -705,7 +634,6 @@
       "sourceObject": "Tibialis anterior muscle.r",
       "layer": "muscle",
       "name": "Tibialis anterior",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -713,7 +641,6 @@
       "sourceObject": "Fibularis longus muscle.r",
       "layer": "muscle",
       "name": "Fibularis longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -721,7 +648,6 @@
       "sourceObject": "Fibularis brevis muscle.r",
       "layer": "muscle",
       "name": "Fibularis brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -729,7 +655,6 @@
       "sourceObject": "Tibialis posterior muscle.r",
       "layer": "muscle",
       "name": "Tibialis posterior",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -737,7 +662,6 @@
       "sourceObject": "Flexor digitorum longus.r",
       "layer": "muscle",
       "name": "Flexor digitorum longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -745,7 +669,6 @@
       "sourceObject": "Flexor hallucis longus.r",
       "layer": "muscle",
       "name": "Flexor hallucis longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -753,7 +676,6 @@
       "sourceObject": "Extensor digitorum longus.r",
       "layer": "muscle",
       "name": "Extensor digitorum longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -761,7 +683,6 @@
       "sourceObject": "Extensor hallucis longus.r",
       "layer": "muscle",
       "name": "Extensor hallucis longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -769,7 +690,6 @@
       "sourceObject": "Abductor hallucis.r",
       "layer": "muscle",
       "name": "Abductor hallucis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -777,7 +697,6 @@
       "sourceObject": "Flexor digitorum brevis.r",
       "layer": "muscle",
       "name": "Flexor digitorum brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -785,7 +704,6 @@
       "sourceObject": "Abductor digiti minimi of foot.r",
       "layer": "muscle",
       "name": "Abductor digiti minimi of foot",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -793,7 +711,6 @@
       "sourceObject": "Extensor digitorum brevis.r",
       "layer": "muscle",
       "name": "Extensor digitorum brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -801,7 +718,6 @@
       "sourceObject": "Extensor hallucis brevis.r",
       "layer": "muscle",
       "name": "Extensor hallucis brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -809,7 +725,6 @@
       "sourceObject": "Quadratus plantae muscle.r",
       "layer": "muscle",
       "name": "Quadratus plantae",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -817,7 +732,6 @@
       "sourceObject": "Lumbrical muscles of foot.r",
       "layer": "muscle",
       "name": "Lumbricals of foot",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -828,7 +742,6 @@
       ],
       "layer": "muscle",
       "name": "Flexor hallucis brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -839,7 +752,6 @@
       ],
       "layer": "muscle",
       "name": "Adductor hallucis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -847,7 +759,6 @@
       "sourceObject": "Flexor digiti minimi of foot.r",
       "layer": "muscle",
       "name": "Flexor digiti minimi of foot",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -855,7 +766,6 @@
       "sourceObject": "Plantar interossei muscles.r",
       "layer": "muscle",
       "name": "Plantar interossei",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -863,7 +773,6 @@
       "sourceObject": "Dorsal interossei muscles of foot.r",
       "layer": "muscle",
       "name": "Dorsal interossei of foot",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -871,7 +780,6 @@
       "sourceObject": "Piriformis muscle.r",
       "layer": "muscle",
       "name": "Piriformis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -879,7 +787,6 @@
       "sourceObject": "Obturator internus.r",
       "layer": "muscle",
       "name": "Obturator internus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -887,7 +794,6 @@
       "sourceObject": "Superior gemellus muscle.r",
       "layer": "muscle",
       "name": "Superior gemellus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -895,7 +801,6 @@
       "sourceObject": "Inferior gemellus muscle.r",
       "layer": "muscle",
       "name": "Inferior gemellus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -903,7 +808,6 @@
       "sourceObject": "Quadratus femoris muscle.r",
       "layer": "muscle",
       "name": "Quadratus femoris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -911,7 +815,6 @@
       "sourceObject": "Obturator externus.r",
       "layer": "muscle",
       "name": "Obturator externus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -919,7 +822,6 @@
       "sourceObject": "Rectus abdominis muscle.r",
       "layer": "muscle",
       "name": "Rectus abdominis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -927,7 +829,6 @@
       "sourceObject": "External abdominal oblique muscle.r",
       "layer": "muscle",
       "name": "External abdominal oblique",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -935,7 +836,6 @@
       "sourceObject": "Internal abdominal oblique muscle.r",
       "layer": "muscle",
       "name": "Internal abdominal oblique",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -943,7 +843,6 @@
       "sourceObject": "Transversus abdominis muscle.r",
       "layer": "muscle",
       "name": "Transversus abdominis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -955,7 +854,6 @@
       ],
       "layer": "muscle",
       "name": "Iliocostalis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -967,7 +865,6 @@
       ],
       "layer": "muscle",
       "name": "Longissimus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -979,7 +876,6 @@
       ],
       "layer": "muscle",
       "name": "Spinalis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -991,7 +887,6 @@
       ],
       "layer": "muscle",
       "name": "Multifidus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -999,7 +894,6 @@
       "sourceObjects": ["Semispinalis colli muscle.r", "Semispinalis thoracis muscle.r"],
       "layer": "muscle",
       "name": "Semispinalis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1007,7 +901,6 @@
       "sourceObject": "Rotatores.r",
       "layer": "muscle",
       "name": "Rotatores",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1040,7 +933,6 @@
       "sourceObject": "Scalenus anterior muscle.r",
       "layer": "muscle",
       "name": "Scalenus anterior",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1048,7 +940,6 @@
       "sourceObject": "Scalenus medius muscle.r",
       "layer": "muscle",
       "name": "Scalenus medius",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1056,7 +947,6 @@
       "sourceObject": "Scalenus posterior muscle.r",
       "layer": "muscle",
       "name": "Scalenus posterior",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1064,7 +954,6 @@
       "sourceObject": "Rhomboid major muscle.r",
       "layer": "muscle",
       "name": "Rhomboid major",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1072,7 +961,6 @@
       "sourceObject": "Rhomboid minor muscle.r",
       "layer": "muscle",
       "name": "Rhomboid minor",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1094,7 +982,6 @@
       "sourceObject": "Splenius capitis muscle.r",
       "layer": "muscle",
       "name": "Splenius capitis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1102,7 +989,6 @@
       "sourceObject": "Splenius colli muscle.r",
       "layer": "muscle",
       "name": "Splenius colli",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1110,7 +996,6 @@
       "sourceObject": "Longus capitis muscle.r",
       "layer": "muscle",
       "name": "Longus capitis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1118,7 +1003,6 @@
       "sourceObject": "Longus colli muscle.r",
       "layer": "muscle",
       "name": "Longus colli",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1132,7 +1016,6 @@
       "sourceObject": "External intercostal muscles.r",
       "layer": "muscle",
       "name": "External intercostal muscles",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1140,7 +1023,6 @@
       "sourceObject": "Internal intercostal muscles.r",
       "layer": "muscle",
       "name": "Internal intercostal muscles",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1148,571 +1030,495 @@
       "sourceObject": "Innermost intercostal muscles.r",
       "layer": "muscle",
       "name": "Innermost intercostal muscles",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
       "anatomyId": "bone.c1",
       "sourceObject": "Atlas (C1)",
       "layer": "bone",
-      "name": "Atlas (C1)",
-      "profiles": ["detailed"]
+      "name": "Atlas (C1)"
     },
     {
       "anatomyId": "bone.c2",
       "sourceObject": "Axis (C2)",
       "layer": "bone",
-      "name": "Axis (C2)",
-      "profiles": ["detailed"]
+      "name": "Axis (C2)"
     },
     {
       "anatomyId": "bone.c3",
       "sourceObject": "Vertebra C3",
       "layer": "bone",
-      "name": "C3 vertebra",
-      "profiles": ["detailed"]
+      "name": "C3 vertebra"
     },
     {
       "anatomyId": "bone.c4",
       "sourceObject": "Vertebra C4",
       "layer": "bone",
-      "name": "C4 vertebra",
-      "profiles": ["detailed"]
+      "name": "C4 vertebra"
     },
     {
       "anatomyId": "bone.c5",
       "sourceObject": "Vertebra C5",
       "layer": "bone",
-      "name": "C5 vertebra",
-      "profiles": ["detailed"]
+      "name": "C5 vertebra"
     },
     {
       "anatomyId": "bone.c6",
       "sourceObject": "Vertebra C6",
       "layer": "bone",
-      "name": "C6 vertebra",
-      "profiles": ["detailed"]
+      "name": "C6 vertebra"
     },
     {
       "anatomyId": "bone.c7",
       "sourceObject": "Vertebra C7",
       "layer": "bone",
-      "name": "C7 vertebra",
-      "profiles": ["detailed"]
+      "name": "C7 vertebra"
     },
     {
       "anatomyId": "bone.t1",
       "sourceObject": "Vertebra T1",
       "layer": "bone",
-      "name": "T1 vertebra",
-      "profiles": ["detailed"]
+      "name": "T1 vertebra"
     },
     {
       "anatomyId": "bone.t2",
       "sourceObject": "Vertebra T2",
       "layer": "bone",
-      "name": "T2 vertebra",
-      "profiles": ["detailed"]
+      "name": "T2 vertebra"
     },
     {
       "anatomyId": "bone.t3",
       "sourceObject": "Vertebra T3",
       "layer": "bone",
-      "name": "T3 vertebra",
-      "profiles": ["detailed"]
+      "name": "T3 vertebra"
     },
     {
       "anatomyId": "bone.t4",
       "sourceObject": "Vertebra T4",
       "layer": "bone",
-      "name": "T4 vertebra",
-      "profiles": ["detailed"]
+      "name": "T4 vertebra"
     },
     {
       "anatomyId": "bone.t5",
       "sourceObject": "Vertebra T5",
       "layer": "bone",
-      "name": "T5 vertebra",
-      "profiles": ["detailed"]
+      "name": "T5 vertebra"
     },
     {
       "anatomyId": "bone.t6",
       "sourceObject": "Vertebra T6",
       "layer": "bone",
-      "name": "T6 vertebra",
-      "profiles": ["detailed"]
+      "name": "T6 vertebra"
     },
     {
       "anatomyId": "bone.t7",
       "sourceObject": "Vertebra T7",
       "layer": "bone",
-      "name": "T7 vertebra",
-      "profiles": ["detailed"]
+      "name": "T7 vertebra"
     },
     {
       "anatomyId": "bone.t8",
       "sourceObject": "Vertebra T8",
       "layer": "bone",
-      "name": "T8 vertebra",
-      "profiles": ["detailed"]
+      "name": "T8 vertebra"
     },
     {
       "anatomyId": "bone.t9",
       "sourceObject": "Vertebra T9",
       "layer": "bone",
-      "name": "T9 vertebra",
-      "profiles": ["detailed"]
+      "name": "T9 vertebra"
     },
     {
       "anatomyId": "bone.t10",
       "sourceObject": "Vertebra T10",
       "layer": "bone",
-      "name": "T10 vertebra",
-      "profiles": ["detailed"]
+      "name": "T10 vertebra"
     },
     {
       "anatomyId": "bone.t11",
       "sourceObject": "Vertebra T11",
       "layer": "bone",
-      "name": "T11 vertebra",
-      "profiles": ["detailed"]
+      "name": "T11 vertebra"
     },
     {
       "anatomyId": "bone.t12",
       "sourceObject": "Vertebra T12",
       "layer": "bone",
-      "name": "T12 vertebra",
-      "profiles": ["detailed"]
+      "name": "T12 vertebra"
     },
     {
       "anatomyId": "bone.l1",
       "sourceObject": "Vertebra L1",
       "layer": "bone",
-      "name": "L1 vertebra",
-      "profiles": ["detailed"]
+      "name": "L1 vertebra"
     },
     {
       "anatomyId": "bone.l2",
       "sourceObject": "Vertebra L2",
       "layer": "bone",
-      "name": "L2 vertebra",
-      "profiles": ["detailed"]
+      "name": "L2 vertebra"
     },
     {
       "anatomyId": "bone.l3",
       "sourceObject": "Vertebra L3",
       "layer": "bone",
-      "name": "L3 vertebra",
-      "profiles": ["detailed"]
+      "name": "L3 vertebra"
     },
     {
       "anatomyId": "bone.l4",
       "sourceObject": "Vertebra L4",
       "layer": "bone",
-      "name": "L4 vertebra",
-      "profiles": ["detailed"]
+      "name": "L4 vertebra"
     },
     {
       "anatomyId": "bone.l5",
       "sourceObject": "Vertebra L5",
       "layer": "bone",
-      "name": "L5 vertebra",
-      "profiles": ["detailed"]
+      "name": "L5 vertebra"
     },
     {
       "anatomyId": "bone.sacrum",
       "sourceObject": "Sacrum",
       "layer": "bone",
-      "name": "Sacrum",
-      "profiles": ["detailed"]
+      "name": "Sacrum"
     },
     {
       "anatomyId": "bone.coccyx",
       "sourceObject": "Coccyx",
       "layer": "bone",
-      "name": "Coccyx",
-      "profiles": ["detailed"]
+      "name": "Coccyx"
     },
     {
       "anatomyId": "bone.rib1",
       "sourceObject": "First rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "First rib",
-      "profiles": ["detailed"]
+      "name": "First rib"
     },
     {
       "anatomyId": "bone.rib2",
       "sourceObject": "Second rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Second rib",
-      "profiles": ["detailed"]
+      "name": "Second rib"
     },
     {
       "anatomyId": "bone.rib3",
       "sourceObject": "Third rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Third rib",
-      "profiles": ["detailed"]
+      "name": "Third rib"
     },
     {
       "anatomyId": "bone.rib4",
       "sourceObject": "Fourth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Fourth rib",
-      "profiles": ["detailed"]
+      "name": "Fourth rib"
     },
     {
       "anatomyId": "bone.rib5",
       "sourceObject": "Fifth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Fifth rib",
-      "profiles": ["detailed"]
+      "name": "Fifth rib"
     },
     {
       "anatomyId": "bone.rib6",
       "sourceObject": "Sixth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Sixth rib",
-      "profiles": ["detailed"]
+      "name": "Sixth rib"
     },
     {
       "anatomyId": "bone.rib7",
       "sourceObject": "Seventh rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Seventh rib",
-      "profiles": ["detailed"]
+      "name": "Seventh rib"
     },
     {
       "anatomyId": "bone.rib8",
       "sourceObject": "Eighth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Eighth rib",
-      "profiles": ["detailed"]
+      "name": "Eighth rib"
     },
     {
       "anatomyId": "bone.rib9",
       "sourceObject": "Ninth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Ninth rib",
-      "profiles": ["detailed"]
+      "name": "Ninth rib"
     },
     {
       "anatomyId": "bone.rib10",
       "sourceObject": "Tenth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Tenth rib",
-      "profiles": ["detailed"]
+      "name": "Tenth rib"
     },
     {
       "anatomyId": "bone.rib11",
       "sourceObject": "Eleventh rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Eleventh rib",
-      "profiles": ["detailed"]
+      "name": "Eleventh rib"
     },
     {
       "anatomyId": "bone.rib12",
       "sourceObject": "Twelfth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Twelfth rib",
-      "profiles": ["detailed"]
+      "name": "Twelfth rib"
     },
     {
       "anatomyId": "bone.costalCartilage1",
       "sourceObject": "Costal cartilage of first rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "First costal cartilage",
-      "profiles": ["detailed"]
+      "name": "First costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage2",
       "sourceObject": "Costal cartilage of second rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Second costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Second costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage3",
       "sourceObject": "Costal cartilage of third rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Third costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Third costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage4",
       "sourceObject": "Costal cartilage of fourth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Fourth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Fourth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage5",
       "sourceObject": "Costal cartilage of fifth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Fifth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Fifth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage6",
       "sourceObject": "Costal cartilage of sixth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Sixth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Sixth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage7",
       "sourceObject": "Costal cartilage of seventh rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Seventh costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Seventh costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage8",
       "sourceObject": "Costal cartilage of eighth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Eighth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Eighth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage9",
       "sourceObject": "Costal cartilage of ninth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Ninth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Ninth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage10",
       "sourceObject": "Costal cartilage of tenth rib.r",
       "side": "right",
       "layer": "bone",
-      "name": "Tenth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Tenth costal cartilage"
     },
     {
       "anatomyId": "bone.manubrium",
       "sourceObject": "Manubrium of sternum",
       "layer": "bone",
-      "name": "Manubrium of sternum",
-      "profiles": ["detailed"]
+      "name": "Manubrium of sternum"
     },
     {
       "anatomyId": "bone.sternumBody",
       "sourceObject": "Body of sternum",
       "layer": "bone",
-      "name": "Body of sternum",
-      "profiles": ["detailed"]
+      "name": "Body of sternum"
     },
     {
       "anatomyId": "bone.xiphoidProcess",
       "sourceObject": "Xiphoid process",
       "layer": "bone",
-      "name": "Xiphoid process",
-      "profiles": ["detailed"]
+      "name": "Xiphoid process"
     },
     {
       "anatomyId": "bone.frontal",
       "sourceObject": "Frontal bone",
       "layer": "bone",
-      "name": "Frontal bone",
-      "profiles": ["detailed"]
+      "name": "Frontal bone"
     },
     {
       "anatomyId": "bone.occipital",
       "sourceObject": "Occipital bone",
       "layer": "bone",
-      "name": "Occipital bone",
-      "profiles": ["detailed"]
+      "name": "Occipital bone"
     },
     {
       "anatomyId": "bone.sphenoid",
       "sourceObject": "Sphenoid bone",
       "layer": "bone",
-      "name": "Sphenoid bone",
-      "profiles": ["detailed"]
+      "name": "Sphenoid bone"
     },
     {
       "anatomyId": "bone.ethmoid",
       "sourceObject": "Ethmoid bone",
       "layer": "bone",
-      "name": "Ethmoid bone",
-      "profiles": ["detailed"]
+      "name": "Ethmoid bone"
     },
     {
       "anatomyId": "bone.vomer",
       "sourceObject": "Vomer",
       "layer": "bone",
-      "name": "Vomer",
-      "profiles": ["detailed"]
+      "name": "Vomer"
     },
     {
       "anatomyId": "bone.parietal",
       "sourceObject": "Parietal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Parietal bone",
-      "profiles": ["detailed"]
+      "name": "Parietal bone"
     },
     {
       "anatomyId": "bone.parietal",
       "sourceObject": "Parietal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Parietal bone",
-      "profiles": ["detailed"]
+      "name": "Parietal bone"
     },
     {
       "anatomyId": "bone.temporal",
       "sourceObject": "Temporal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Temporal bone",
-      "profiles": ["detailed"]
+      "name": "Temporal bone"
     },
     {
       "anatomyId": "bone.temporal",
       "sourceObject": "Temporal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Temporal bone",
-      "profiles": ["detailed"]
+      "name": "Temporal bone"
     },
     {
       "anatomyId": "bone.maxilla",
       "sourceObject": "Maxilla.r",
       "side": "right",
       "layer": "bone",
-      "name": "Maxilla",
-      "profiles": ["detailed"]
+      "name": "Maxilla"
     },
     {
       "anatomyId": "bone.maxilla",
       "sourceObject": "Maxilla.l",
       "side": "left",
       "layer": "bone",
-      "name": "Maxilla",
-      "profiles": ["detailed"]
+      "name": "Maxilla"
     },
     {
       "anatomyId": "bone.zygomatic",
       "sourceObject": "Zygomatic bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Zygomatic bone",
-      "profiles": ["detailed"]
+      "name": "Zygomatic bone"
     },
     {
       "anatomyId": "bone.zygomatic",
       "sourceObject": "Zygomatic bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Zygomatic bone",
-      "profiles": ["detailed"]
+      "name": "Zygomatic bone"
     },
     {
       "anatomyId": "bone.nasal",
       "sourceObject": "Nasal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Nasal bone",
-      "profiles": ["detailed"]
+      "name": "Nasal bone"
     },
     {
       "anatomyId": "bone.nasal",
       "sourceObject": "Nasal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Nasal bone",
-      "profiles": ["detailed"]
+      "name": "Nasal bone"
     },
     {
       "anatomyId": "bone.lacrimal",
       "sourceObject": "Lacrimal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Lacrimal bone",
-      "profiles": ["detailed"]
+      "name": "Lacrimal bone"
     },
     {
       "anatomyId": "bone.lacrimal",
       "sourceObject": "Lacrimal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Lacrimal bone",
-      "profiles": ["detailed"]
+      "name": "Lacrimal bone"
     },
     {
       "anatomyId": "bone.palatine",
       "sourceObject": "Palatine bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Palatine bone",
-      "profiles": ["detailed"]
+      "name": "Palatine bone"
     },
     {
       "anatomyId": "bone.palatine",
       "sourceObject": "Palatine bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Palatine bone",
-      "profiles": ["detailed"]
+      "name": "Palatine bone"
     },
     {
       "anatomyId": "bone.inferiorNasalConcha",
       "sourceObject": "Inferior nasal concha bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Inferior nasal concha",
-      "profiles": ["detailed"]
+      "name": "Inferior nasal concha"
     },
     {
       "anatomyId": "bone.inferiorNasalConcha",
       "sourceObject": "Inferior nasal concha bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Inferior nasal concha",
-      "profiles": ["detailed"]
+      "name": "Inferior nasal concha"
     },
     {
       "anatomyId": "bone.mandible",
       "sourceObject": "Mandible",
       "layer": "bone",
-      "name": "Mandible",
-      "profiles": ["detailed"]
+      "name": "Mandible"
     },
     {
       "anatomyId": "bone.hyoid",
       "sourceObject": "Hyoid bone",
       "layer": "bone",
-      "name": "Hyoid bone",
-      "profiles": ["detailed"]
+      "name": "Hyoid bone"
     },
     {
       "anatomyId": "muscle.masseter",
       "sourceObjects": ["Superficial part of masseter.r", "Deep part of masseter.r"],
       "layer": "muscle",
       "name": "Masseter",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1720,7 +1526,6 @@
       "sourceObject": "Temporalis muscle.r",
       "layer": "muscle",
       "name": "Temporalis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1728,7 +1533,6 @@
       "sourceObject": "Medial pterygoid muscle.r",
       "layer": "muscle",
       "name": "Medial pterygoid",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1739,7 +1543,6 @@
       ],
       "layer": "muscle",
       "name": "Lateral pterygoid",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1751,7 +1554,6 @@
       ],
       "layer": "muscle",
       "name": "Digastric",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1759,7 +1561,6 @@
       "sourceObject": "Mylohyoid muscle.r",
       "layer": "muscle",
       "name": "Mylohyoid",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1767,7 +1568,6 @@
       "sourceObject": "Geniohyoid muscle.r",
       "layer": "muscle",
       "name": "Geniohyoid",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1775,7 +1575,6 @@
       "sourceObject": "Stylohyoid muscle.r",
       "layer": "muscle",
       "name": "Stylohyoid",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1783,7 +1582,6 @@
       "sourceObject": "Sternohyoid muscle.r",
       "layer": "muscle",
       "name": "Sternohyoid",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1791,7 +1589,6 @@
       "sourceObject": "Sternothyroid muscle.r",
       "layer": "muscle",
       "name": "Sternothyroid",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1799,7 +1596,6 @@
       "sourceObject": "Thyrohyoid muscle.r",
       "layer": "muscle",
       "name": "Thyrohyoid",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1807,7 +1603,6 @@
       "sourceObject": "Omohyoid muscle.r",
       "layer": "muscle",
       "name": "Omohyoid",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1815,7 +1610,6 @@
       "sourceObjects": ["Frontalis muscle.r", "Occipitalis muscle.r"],
       "layer": "muscle",
       "name": "Occipitofrontalis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1823,7 +1617,6 @@
       "sourceObject": "Temporoparietalis muscle.r",
       "layer": "muscle",
       "name": "Temporoparietalis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1834,7 +1627,6 @@
       ],
       "layer": "muscle",
       "name": "Orbicularis oculi",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1842,7 +1634,6 @@
       "sourceObject": "Corrugator supercilii.r",
       "layer": "muscle",
       "name": "Corrugator supercilii",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1850,7 +1641,6 @@
       "sourceObject": "Procerus muscle.r",
       "layer": "muscle",
       "name": "Procerus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1858,7 +1648,6 @@
       "sourceObject": "Orbicularis oris muscle.r",
       "layer": "muscle",
       "name": "Orbicularis oris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1866,7 +1655,6 @@
       "sourceObject": "Zygomaticus major muscle.r",
       "layer": "muscle",
       "name": "Zygomaticus major",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1874,7 +1662,6 @@
       "sourceObject": "Zygomaticus minor muscle.r",
       "layer": "muscle",
       "name": "Zygomaticus minor",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1882,7 +1669,6 @@
       "sourceObject": "Levator labii superioris.r",
       "layer": "muscle",
       "name": "Levator labii superioris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1890,7 +1676,6 @@
       "sourceObject": "Levator anguli oris.r",
       "layer": "muscle",
       "name": "Levator anguli oris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1898,7 +1683,6 @@
       "sourceObject": "Risorius muscle.r",
       "layer": "muscle",
       "name": "Risorius",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1906,7 +1690,6 @@
       "sourceObject": "Depressor anguli oris.r",
       "layer": "muscle",
       "name": "Depressor anguli oris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1914,7 +1697,6 @@
       "sourceObject": "Depressor labii inferioris.r",
       "layer": "muscle",
       "name": "Depressor labii inferioris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1922,7 +1704,6 @@
       "sourceObject": "Mentalis muscle.r",
       "layer": "muscle",
       "name": "Mentalis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1930,7 +1711,6 @@
       "sourceObject": "Nasalis muscle.r",
       "layer": "muscle",
       "name": "Nasalis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1938,7 +1718,6 @@
       "sourceObject": "Depressor septi nasi.r",
       "layer": "muscle",
       "name": "Depressor septi nasi",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1953,7 +1732,6 @@
       "sourceObject": "Rectus posterior major capitis muscle.r",
       "layer": "muscle",
       "name": "Rectus capitis posterior major",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1961,7 +1739,6 @@
       "sourceObject": "Rectus posterior minor capitis muscle.r",
       "layer": "muscle",
       "name": "Rectus capitis posterior minor",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1969,7 +1746,6 @@
       "sourceObject": "Obliquus superior capitis muscle.r",
       "layer": "muscle",
       "name": "Obliquus capitis superior",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1977,7 +1753,6 @@
       "sourceObject": "Obliquus inferior capitis muscle.r",
       "layer": "muscle",
       "name": "Obliquus capitis inferior",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1985,7 +1760,6 @@
       "sourceObject": "Rectus anterior capitis muscle.r",
       "layer": "muscle",
       "name": "Rectus capitis anterior",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -1993,7 +1767,6 @@
       "sourceObject": "Rectus lateralis capitis muscle.r",
       "layer": "muscle",
       "name": "Rectus capitis lateralis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2008,7 +1781,6 @@
       "sourceObject": "Pubococcygeus muscle.r",
       "layer": "muscle",
       "name": "Pubococcygeus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2016,7 +1788,6 @@
       "sourceObject": "Iliococcygeus muscle.r",
       "layer": "muscle",
       "name": "Iliococcygeus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2024,7 +1795,6 @@
       "sourceObject": "Coccygeus muscle.r",
       "layer": "muscle",
       "name": "Coccygeus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2032,7 +1802,6 @@
       "sourceObject": "Pubo-analis muscle.r",
       "layer": "muscle",
       "name": "Puboanalis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2040,7 +1809,6 @@
       "sourceObject": "External anal sphincter.r",
       "layer": "muscle",
       "name": "External Anal Sphincter",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2052,7 +1820,6 @@
       ],
       "layer": "muscle",
       "name": "Pectoralis major",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2060,7 +1827,6 @@
       "sourceObject": "Pectoralis minor muscle.r",
       "layer": "muscle",
       "name": "Pectoralis minor",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2075,7 +1841,6 @@
       "sourceObject": "Brachioradialis muscle.r",
       "layer": "muscle",
       "name": "Brachioradialis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2083,7 +1848,6 @@
       "sourceObject": "Extensor carpi radialis brevis.r",
       "layer": "muscle",
       "name": "Extensor carpi radialis brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2091,7 +1855,6 @@
       "sourceObject": "Extensor digiti minimi.r",
       "layer": "muscle",
       "name": "Extensor digiti minimi",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2099,7 +1862,6 @@
       "sourceObject": "Extensor indicis.r",
       "layer": "muscle",
       "name": "Extensor indicis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2107,7 +1869,6 @@
       "sourceObject": "Extensor pollicis brevis.r",
       "layer": "muscle",
       "name": "Extensor pollicis brevis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2115,7 +1876,6 @@
       "sourceObject": "Anconeus muscle.r",
       "layer": "muscle",
       "name": "Anconeus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2123,7 +1883,6 @@
       "sourceObject": "Coracobrachialis muscle.r",
       "layer": "muscle",
       "name": "Coracobrachialis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2131,7 +1890,6 @@
       "sourceObject": "Palmaris longus muscle.r",
       "layer": "muscle",
       "name": "Palmaris longus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2139,7 +1897,6 @@
       "sourceObject": "Pronator quadratus.r",
       "layer": "muscle",
       "name": "Pronator quadratus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2154,7 +1911,6 @@
       "sourceObject": "Popliteus muscle.r",
       "layer": "muscle",
       "name": "Popliteus",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2162,7 +1918,6 @@
       "sourceObject": "Plantaris muscle.r",
       "layer": "muscle",
       "name": "Plantaris",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2170,7 +1925,6 @@
       "sourceObject": "Fibularis tertius muscle.r",
       "layer": "muscle",
       "name": "Fibularis tertius",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2178,7 +1932,6 @@
       "sourceObject": "Serratus posterior superior muscle.r",
       "layer": "muscle",
       "name": "Serratus posterior superior",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2186,7 +1939,6 @@
       "sourceObject": "Serratus posterior inferior muscle.r",
       "layer": "muscle",
       "name": "Serratus posterior inferior",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2194,7 +1946,6 @@
       "sourceObject": "Bucinator.r",
       "layer": "muscle",
       "name": "Buccinator",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -2763,7 +2514,6 @@
       "sourceObject": "Humerus.l",
       "layer": "bone",
       "name": "Humerus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2771,7 +2521,6 @@
       "sourceObject": "Radius.l",
       "layer": "bone",
       "name": "Radius",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2779,7 +2528,6 @@
       "sourceObject": "Ulna.l",
       "layer": "bone",
       "name": "Ulna",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2787,7 +2535,6 @@
       "sourceObject": "Brachialis muscle.l",
       "layer": "muscle",
       "name": "Brachialis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2795,7 +2542,6 @@
       "sourceObjects": ["Long head of biceps brachii.l", "Short head of biceps brachii.l"],
       "layer": "muscle",
       "name": "Biceps brachii",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2807,7 +2553,6 @@
       ],
       "layer": "muscle",
       "name": "Triceps brachii",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2815,7 +2560,6 @@
       "sourceObject": "Flexor carpi radialis.l",
       "layer": "muscle",
       "name": "Flexor carpi radialis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2826,7 +2570,6 @@
       ],
       "layer": "muscle",
       "name": "Flexor carpi ulnaris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2834,7 +2577,6 @@
       "sourceObject": "Extensor carpi radialis longus.l",
       "layer": "muscle",
       "name": "Extensor carpi radialis longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2845,7 +2587,6 @@
       ],
       "layer": "muscle",
       "name": "Extensor carpi ulnaris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2853,7 +2594,6 @@
       "sourceObjects": ["Deep head of pronator teres.l", "Superficial head of pronator teres.l"],
       "layer": "muscle",
       "name": "Pronator teres",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2861,7 +2601,6 @@
       "sourceObject": "Supinator.l",
       "layer": "muscle",
       "name": "Supinator",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2873,7 +2612,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2885,7 +2623,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2897,7 +2634,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2909,7 +2645,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2917,7 +2652,6 @@
       "sourceObject": "Scapula.l",
       "layer": "bone",
       "name": "Scapula",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2925,7 +2659,6 @@
       "sourceObject": "Clavicle.l",
       "layer": "bone",
       "name": "Clavicle",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2944,7 +2677,6 @@
       "sourceObject": "Supraspinatus muscle.l",
       "layer": "muscle",
       "name": "Supraspinatus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2952,7 +2684,6 @@
       "sourceObject": "Infraspinatus muscle.l",
       "layer": "muscle",
       "name": "Infraspinatus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2960,7 +2691,6 @@
       "sourceObject": "Teres minor muscle.l",
       "layer": "muscle",
       "name": "Teres minor",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2968,7 +2698,6 @@
       "sourceObject": "Subscapularis muscle.l",
       "layer": "muscle",
       "name": "Subscapularis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2987,7 +2716,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -2999,7 +2727,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3011,7 +2738,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3022,7 +2748,6 @@
       ],
       "layer": "muscle",
       "name": "Flexor digitorum superficialis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3030,7 +2755,6 @@
       "sourceObject": "Flexor digitorum profundus.l",
       "layer": "muscle",
       "name": "Flexor digitorum profundus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3038,7 +2762,6 @@
       "sourceObject": "Flexor pollicis longus.l",
       "layer": "muscle",
       "name": "Flexor pollicis longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3046,7 +2769,6 @@
       "sourceObject": "Extensor digitorum.l",
       "layer": "muscle",
       "name": "Extensor digitorum",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3054,7 +2776,6 @@
       "sourceObject": "Extensor pollicis longus.l",
       "layer": "muscle",
       "name": "Extensor pollicis longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3062,7 +2783,6 @@
       "sourceObject": "Abductor pollicis longus.l",
       "layer": "muscle",
       "name": "Abductor pollicis longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3070,7 +2790,6 @@
       "sourceObject": "Abductor pollicis brevis.l",
       "layer": "muscle",
       "name": "Abductor pollicis brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3081,7 +2800,6 @@
       ],
       "layer": "muscle",
       "name": "Flexor pollicis brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3089,7 +2807,6 @@
       "sourceObject": "Opponens pollicis muscle.l",
       "layer": "muscle",
       "name": "Opponens pollicis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3100,7 +2817,6 @@
       ],
       "layer": "muscle",
       "name": "Adductor pollicis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3108,7 +2824,6 @@
       "sourceObject": "Abductor digiti minimi of hand.l",
       "layer": "muscle",
       "name": "Abductor digiti minimi",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3116,7 +2831,6 @@
       "sourceObject": "Flexor digiti minimi of hand.l",
       "layer": "muscle",
       "name": "Flexor digiti minimi brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3124,7 +2838,6 @@
       "sourceObject": "Opponens digiti minimi muscle of hand.l",
       "layer": "muscle",
       "name": "Opponens digiti minimi",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3132,7 +2845,6 @@
       "sourceObject": "Dorsal interossei muscles of hand.l",
       "layer": "muscle",
       "name": "Dorsal interossei",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3140,7 +2852,6 @@
       "sourceObject": "Palmar interossei muscles.l",
       "layer": "muscle",
       "name": "Palmar interossei",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3148,7 +2859,6 @@
       "sourceObject": "Lumbrical muscles of hand.l",
       "layer": "muscle",
       "name": "Lumbricals",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3156,7 +2866,6 @@
       "sourceObject": "Femur.l",
       "layer": "bone",
       "name": "Femur",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3164,7 +2873,6 @@
       "sourceObject": "Tibia.l",
       "layer": "bone",
       "name": "Tibia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3172,7 +2880,6 @@
       "sourceObject": "Fibula.l",
       "layer": "bone",
       "name": "Fibula",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3180,7 +2887,6 @@
       "sourceObject": "Patella.l",
       "layer": "bone",
       "name": "Patella",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3192,7 +2898,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3204,7 +2909,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3212,7 +2916,6 @@
       "sourceObject": "Rectus femoris muscle.l",
       "layer": "muscle",
       "name": "Rectus femoris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3220,7 +2923,6 @@
       "sourceObject": "Vastus lateralis muscle.l",
       "layer": "muscle",
       "name": "Vastus lateralis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3228,7 +2930,6 @@
       "sourceObject": "Vastus medialis muscle.l",
       "layer": "muscle",
       "name": "Vastus medialis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3236,7 +2937,6 @@
       "sourceObject": "Vastus intermedius muscle.l",
       "layer": "muscle",
       "name": "Vastus intermedius",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3244,7 +2944,6 @@
       "sourceObjects": ["Long head of biceps femoris.l", "Short head of biceps femoris.l"],
       "layer": "muscle",
       "name": "Biceps femoris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3252,7 +2951,6 @@
       "sourceObject": "Semitendinosus muscle.l",
       "layer": "muscle",
       "name": "Semitendinosus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3260,7 +2958,6 @@
       "sourceObject": "Semimembranosus muscle.l",
       "layer": "muscle",
       "name": "Semimembranosus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3268,7 +2965,6 @@
       "sourceObject": "Hip bone.l",
       "layer": "bone",
       "name": "Hip bone",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3280,7 +2976,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3288,7 +2983,6 @@
       "sourceObject": "Gluteus maximus muscle.l",
       "layer": "muscle",
       "name": "Gluteus maximus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3296,7 +2990,6 @@
       "sourceObject": "Gluteus medius muscle.l",
       "layer": "muscle",
       "name": "Gluteus medius",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3304,7 +2997,6 @@
       "sourceObject": "Gluteus minimus muscle.l",
       "layer": "muscle",
       "name": "Gluteus minimus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3330,7 +3022,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3338,7 +3029,6 @@
       "sourceObject": "Adductor longus.l",
       "layer": "muscle",
       "name": "Adductor longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3346,7 +3036,6 @@
       "sourceObject": "Adductor brevis.l",
       "layer": "muscle",
       "name": "Adductor brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3354,7 +3043,6 @@
       "sourceObject": "Adductor magnus.l",
       "layer": "muscle",
       "name": "Adductor magnus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3362,7 +3050,6 @@
       "sourceObject": "Gracilis muscle.l",
       "layer": "muscle",
       "name": "Gracilis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3370,7 +3057,6 @@
       "sourceObject": "Pectineus muscle.l",
       "layer": "muscle",
       "name": "Pectineus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3382,7 +3068,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3394,7 +3079,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3406,7 +3090,6 @@
         "depth": 0.0015,
         "resolution": 2
       },
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3414,7 +3097,6 @@
       "sourceObjects": ["Lateral head of gastrocnemius.l", "Medial head of gastrocnemius.l"],
       "layer": "muscle",
       "name": "Gastrocnemius",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3422,7 +3104,6 @@
       "sourceObject": "Soleus muscle.l",
       "layer": "muscle",
       "name": "Soleus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3430,7 +3111,6 @@
       "sourceObject": "Tibialis anterior muscle.l",
       "layer": "muscle",
       "name": "Tibialis anterior",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3438,7 +3118,6 @@
       "sourceObject": "Fibularis longus muscle.l",
       "layer": "muscle",
       "name": "Fibularis longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3446,7 +3125,6 @@
       "sourceObject": "Fibularis brevis muscle.l",
       "layer": "muscle",
       "name": "Fibularis brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3454,7 +3132,6 @@
       "sourceObject": "Tibialis posterior muscle.l",
       "layer": "muscle",
       "name": "Tibialis posterior",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3462,7 +3139,6 @@
       "sourceObject": "Flexor digitorum longus.l",
       "layer": "muscle",
       "name": "Flexor digitorum longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3470,7 +3146,6 @@
       "sourceObject": "Flexor hallucis longus.l",
       "layer": "muscle",
       "name": "Flexor hallucis longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3478,7 +3153,6 @@
       "sourceObject": "Extensor digitorum longus.l",
       "layer": "muscle",
       "name": "Extensor digitorum longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3486,7 +3160,6 @@
       "sourceObject": "Extensor hallucis longus.l",
       "layer": "muscle",
       "name": "Extensor hallucis longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3494,7 +3167,6 @@
       "sourceObject": "Abductor hallucis.l",
       "layer": "muscle",
       "name": "Abductor hallucis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3502,7 +3174,6 @@
       "sourceObject": "Flexor digitorum brevis.l",
       "layer": "muscle",
       "name": "Flexor digitorum brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3510,7 +3181,6 @@
       "sourceObject": "Abductor digiti minimi of foot.l",
       "layer": "muscle",
       "name": "Abductor digiti minimi of foot",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3518,7 +3188,6 @@
       "sourceObject": "Extensor digitorum brevis.l",
       "layer": "muscle",
       "name": "Extensor digitorum brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3526,7 +3195,6 @@
       "sourceObject": "Extensor hallucis brevis.l",
       "layer": "muscle",
       "name": "Extensor hallucis brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3534,7 +3202,6 @@
       "sourceObject": "Quadratus plantae muscle.l",
       "layer": "muscle",
       "name": "Quadratus plantae",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3542,7 +3209,6 @@
       "sourceObject": "Lumbrical muscles of foot.l",
       "layer": "muscle",
       "name": "Lumbricals of foot",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3553,7 +3219,6 @@
       ],
       "layer": "muscle",
       "name": "Flexor hallucis brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3564,7 +3229,6 @@
       ],
       "layer": "muscle",
       "name": "Adductor hallucis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3572,7 +3236,6 @@
       "sourceObject": "Flexor digiti minimi of foot.l",
       "layer": "muscle",
       "name": "Flexor digiti minimi of foot",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3580,7 +3243,6 @@
       "sourceObject": "Plantar interossei muscles.l",
       "layer": "muscle",
       "name": "Plantar interossei",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3588,7 +3250,6 @@
       "sourceObject": "Dorsal interossei muscles of foot.l",
       "layer": "muscle",
       "name": "Dorsal interossei of foot",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3596,7 +3257,6 @@
       "sourceObject": "Piriformis muscle.l",
       "layer": "muscle",
       "name": "Piriformis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3604,7 +3264,6 @@
       "sourceObject": "Obturator internus.l",
       "layer": "muscle",
       "name": "Obturator internus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3612,7 +3271,6 @@
       "sourceObject": "Superior gemellus muscle.l",
       "layer": "muscle",
       "name": "Superior gemellus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3620,7 +3278,6 @@
       "sourceObject": "Inferior gemellus muscle.l",
       "layer": "muscle",
       "name": "Inferior gemellus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3628,7 +3285,6 @@
       "sourceObject": "Quadratus femoris muscle.l",
       "layer": "muscle",
       "name": "Quadratus femoris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3636,7 +3292,6 @@
       "sourceObject": "Obturator externus.l",
       "layer": "muscle",
       "name": "Obturator externus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3644,7 +3299,6 @@
       "sourceObject": "Rectus abdominis muscle.l",
       "layer": "muscle",
       "name": "Rectus abdominis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3652,7 +3306,6 @@
       "sourceObject": "External abdominal oblique muscle.l",
       "layer": "muscle",
       "name": "External abdominal oblique",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3660,7 +3313,6 @@
       "sourceObject": "Internal abdominal oblique muscle.l",
       "layer": "muscle",
       "name": "Internal abdominal oblique",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3668,7 +3320,6 @@
       "sourceObject": "Transversus abdominis muscle.l",
       "layer": "muscle",
       "name": "Transversus abdominis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3680,7 +3331,6 @@
       ],
       "layer": "muscle",
       "name": "Iliocostalis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3692,7 +3342,6 @@
       ],
       "layer": "muscle",
       "name": "Longissimus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3704,7 +3353,6 @@
       ],
       "layer": "muscle",
       "name": "Spinalis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3716,7 +3364,6 @@
       ],
       "layer": "muscle",
       "name": "Multifidus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3724,7 +3371,6 @@
       "sourceObjects": ["Semispinalis colli muscle.l", "Semispinalis thoracis muscle.l"],
       "layer": "muscle",
       "name": "Semispinalis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3732,7 +3378,6 @@
       "sourceObject": "Rotatores.l",
       "layer": "muscle",
       "name": "Rotatores",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3765,7 +3410,6 @@
       "sourceObject": "Scalenus anterior muscle.l",
       "layer": "muscle",
       "name": "Scalenus anterior",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3773,7 +3417,6 @@
       "sourceObject": "Scalenus medius muscle.l",
       "layer": "muscle",
       "name": "Scalenus medius",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3781,7 +3424,6 @@
       "sourceObject": "Scalenus posterior muscle.l",
       "layer": "muscle",
       "name": "Scalenus posterior",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3789,7 +3431,6 @@
       "sourceObject": "Rhomboid major muscle.l",
       "layer": "muscle",
       "name": "Rhomboid major",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3797,7 +3438,6 @@
       "sourceObject": "Rhomboid minor muscle.l",
       "layer": "muscle",
       "name": "Rhomboid minor",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3819,7 +3459,6 @@
       "sourceObject": "Splenius capitis muscle.l",
       "layer": "muscle",
       "name": "Splenius capitis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3827,7 +3466,6 @@
       "sourceObject": "Splenius colli muscle.l",
       "layer": "muscle",
       "name": "Splenius colli",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3835,7 +3473,6 @@
       "sourceObject": "Longus capitis muscle.l",
       "layer": "muscle",
       "name": "Longus capitis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3843,7 +3480,6 @@
       "sourceObject": "Longus colli muscle.l",
       "layer": "muscle",
       "name": "Longus colli",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3851,7 +3487,6 @@
       "sourceObject": "External intercostal muscles.l",
       "layer": "muscle",
       "name": "External intercostal muscles",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3859,7 +3494,6 @@
       "sourceObject": "Internal intercostal muscles.l",
       "layer": "muscle",
       "name": "Internal intercostal muscles",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3867,7 +3501,6 @@
       "sourceObject": "Innermost intercostal muscles.l",
       "layer": "muscle",
       "name": "Innermost intercostal muscles",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -3875,183 +3508,160 @@
       "sourceObject": "First rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "First rib",
-      "profiles": ["detailed"]
+      "name": "First rib"
     },
     {
       "anatomyId": "bone.rib2",
       "sourceObject": "Second rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Second rib",
-      "profiles": ["detailed"]
+      "name": "Second rib"
     },
     {
       "anatomyId": "bone.rib3",
       "sourceObject": "Third rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Third rib",
-      "profiles": ["detailed"]
+      "name": "Third rib"
     },
     {
       "anatomyId": "bone.rib4",
       "sourceObject": "Fourth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Fourth rib",
-      "profiles": ["detailed"]
+      "name": "Fourth rib"
     },
     {
       "anatomyId": "bone.rib5",
       "sourceObject": "Fifth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Fifth rib",
-      "profiles": ["detailed"]
+      "name": "Fifth rib"
     },
     {
       "anatomyId": "bone.rib6",
       "sourceObject": "Sixth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Sixth rib",
-      "profiles": ["detailed"]
+      "name": "Sixth rib"
     },
     {
       "anatomyId": "bone.rib7",
       "sourceObject": "Seventh rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Seventh rib",
-      "profiles": ["detailed"]
+      "name": "Seventh rib"
     },
     {
       "anatomyId": "bone.rib8",
       "sourceObject": "Eighth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Eighth rib",
-      "profiles": ["detailed"]
+      "name": "Eighth rib"
     },
     {
       "anatomyId": "bone.rib9",
       "sourceObject": "Ninth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Ninth rib",
-      "profiles": ["detailed"]
+      "name": "Ninth rib"
     },
     {
       "anatomyId": "bone.rib10",
       "sourceObject": "Tenth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Tenth rib",
-      "profiles": ["detailed"]
+      "name": "Tenth rib"
     },
     {
       "anatomyId": "bone.rib11",
       "sourceObject": "Eleventh rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Eleventh rib",
-      "profiles": ["detailed"]
+      "name": "Eleventh rib"
     },
     {
       "anatomyId": "bone.rib12",
       "sourceObject": "Twelfth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Twelfth rib",
-      "profiles": ["detailed"]
+      "name": "Twelfth rib"
     },
     {
       "anatomyId": "bone.costalCartilage1",
       "sourceObject": "Costal cartilage of first rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "First costal cartilage",
-      "profiles": ["detailed"]
+      "name": "First costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage2",
       "sourceObject": "Costal cartilage of second rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Second costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Second costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage3",
       "sourceObject": "Costal cartilage of third rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Third costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Third costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage4",
       "sourceObject": "Costal cartilage of fourth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Fourth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Fourth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage5",
       "sourceObject": "Costal cartilage of fifth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Fifth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Fifth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage6",
       "sourceObject": "Costal cartilage of sixth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Sixth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Sixth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage7",
       "sourceObject": "Costal cartilage of seventh rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Seventh costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Seventh costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage8",
       "sourceObject": "Costal cartilage of eighth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Eighth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Eighth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage9",
       "sourceObject": "Costal cartilage of ninth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Ninth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Ninth costal cartilage"
     },
     {
       "anatomyId": "bone.costalCartilage10",
       "sourceObject": "Costal cartilage of tenth rib.l",
       "side": "left",
       "layer": "bone",
-      "name": "Tenth costal cartilage",
-      "profiles": ["detailed"]
+      "name": "Tenth costal cartilage"
     },
     {
       "anatomyId": "muscle.masseter",
       "sourceObjects": ["Superficial part of masseter.l", "Deep part of masseter.l"],
       "layer": "muscle",
       "name": "Masseter",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4059,7 +3669,6 @@
       "sourceObject": "Temporalis muscle.l",
       "layer": "muscle",
       "name": "Temporalis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4067,7 +3676,6 @@
       "sourceObject": "Medial pterygoid muscle.l",
       "layer": "muscle",
       "name": "Medial pterygoid",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4078,7 +3686,6 @@
       ],
       "layer": "muscle",
       "name": "Lateral pterygoid",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4090,7 +3697,6 @@
       ],
       "layer": "muscle",
       "name": "Digastric",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4098,7 +3704,6 @@
       "sourceObject": "Mylohyoid muscle.l",
       "layer": "muscle",
       "name": "Mylohyoid",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4106,7 +3711,6 @@
       "sourceObject": "Geniohyoid muscle.l",
       "layer": "muscle",
       "name": "Geniohyoid",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4114,7 +3718,6 @@
       "sourceObject": "Stylohyoid muscle.l",
       "layer": "muscle",
       "name": "Stylohyoid",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4122,7 +3725,6 @@
       "sourceObject": "Sternohyoid muscle.l",
       "layer": "muscle",
       "name": "Sternohyoid",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4130,7 +3732,6 @@
       "sourceObject": "Sternothyroid muscle.l",
       "layer": "muscle",
       "name": "Sternothyroid",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4138,7 +3739,6 @@
       "sourceObject": "Thyrohyoid muscle.l",
       "layer": "muscle",
       "name": "Thyrohyoid",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4146,7 +3746,6 @@
       "sourceObject": "Omohyoid muscle.l",
       "layer": "muscle",
       "name": "Omohyoid",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4154,7 +3753,6 @@
       "sourceObjects": ["Frontalis muscle.l", "Occipitalis muscle.l"],
       "layer": "muscle",
       "name": "Occipitofrontalis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4162,7 +3760,6 @@
       "sourceObject": "Temporoparietalis muscle.l",
       "layer": "muscle",
       "name": "Temporoparietalis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4173,7 +3770,6 @@
       ],
       "layer": "muscle",
       "name": "Orbicularis oculi",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4181,7 +3777,6 @@
       "sourceObject": "Corrugator supercilii.l",
       "layer": "muscle",
       "name": "Corrugator supercilii",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4189,7 +3784,6 @@
       "sourceObject": "Procerus muscle.l",
       "layer": "muscle",
       "name": "Procerus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4197,7 +3791,6 @@
       "sourceObject": "Orbicularis oris muscle.l",
       "layer": "muscle",
       "name": "Orbicularis oris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4205,7 +3798,6 @@
       "sourceObject": "Zygomaticus major muscle.l",
       "layer": "muscle",
       "name": "Zygomaticus major",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4213,7 +3805,6 @@
       "sourceObject": "Zygomaticus minor muscle.l",
       "layer": "muscle",
       "name": "Zygomaticus minor",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4221,7 +3812,6 @@
       "sourceObject": "Levator labii superioris.l",
       "layer": "muscle",
       "name": "Levator labii superioris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4229,7 +3819,6 @@
       "sourceObject": "Levator anguli oris.l",
       "layer": "muscle",
       "name": "Levator anguli oris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4237,7 +3826,6 @@
       "sourceObject": "Risorius muscle.l",
       "layer": "muscle",
       "name": "Risorius",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4245,7 +3833,6 @@
       "sourceObject": "Depressor anguli oris.l",
       "layer": "muscle",
       "name": "Depressor anguli oris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4253,7 +3840,6 @@
       "sourceObject": "Depressor labii inferioris.l",
       "layer": "muscle",
       "name": "Depressor labii inferioris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4261,7 +3847,6 @@
       "sourceObject": "Mentalis muscle.l",
       "layer": "muscle",
       "name": "Mentalis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4269,7 +3854,6 @@
       "sourceObject": "Nasalis muscle.l",
       "layer": "muscle",
       "name": "Nasalis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4277,7 +3861,6 @@
       "sourceObject": "Depressor septi nasi.l",
       "layer": "muscle",
       "name": "Depressor septi nasi",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4292,7 +3875,6 @@
       "sourceObject": "Rectus posterior major capitis muscle.l",
       "layer": "muscle",
       "name": "Rectus capitis posterior major",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4300,7 +3882,6 @@
       "sourceObject": "Rectus posterior minor capitis muscle.l",
       "layer": "muscle",
       "name": "Rectus capitis posterior minor",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4308,7 +3889,6 @@
       "sourceObject": "Obliquus superior capitis muscle.l",
       "layer": "muscle",
       "name": "Obliquus capitis superior",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4316,7 +3896,6 @@
       "sourceObject": "Obliquus inferior capitis muscle.l",
       "layer": "muscle",
       "name": "Obliquus capitis inferior",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4324,7 +3903,6 @@
       "sourceObject": "Rectus anterior capitis muscle.l",
       "layer": "muscle",
       "name": "Rectus capitis anterior",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4332,7 +3910,6 @@
       "sourceObject": "Rectus lateralis capitis muscle.l",
       "layer": "muscle",
       "name": "Rectus capitis lateralis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4347,7 +3924,6 @@
       "sourceObject": "Pubococcygeus muscle.l",
       "layer": "muscle",
       "name": "Pubococcygeus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4355,7 +3931,6 @@
       "sourceObject": "Iliococcygeus muscle.l",
       "layer": "muscle",
       "name": "Iliococcygeus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4363,7 +3938,6 @@
       "sourceObject": "Coccygeus muscle.l",
       "layer": "muscle",
       "name": "Coccygeus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4371,7 +3945,6 @@
       "sourceObject": "Pubo-analis muscle.l",
       "layer": "muscle",
       "name": "Puboanalis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4379,7 +3952,6 @@
       "sourceObject": "External anal sphincter.l",
       "layer": "muscle",
       "name": "External Anal Sphincter",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4391,7 +3963,6 @@
       ],
       "layer": "muscle",
       "name": "Pectoralis major",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4399,7 +3970,6 @@
       "sourceObject": "Pectoralis minor muscle.l",
       "layer": "muscle",
       "name": "Pectoralis minor",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4414,7 +3984,6 @@
       "sourceObject": "Brachioradialis muscle.l",
       "layer": "muscle",
       "name": "Brachioradialis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4422,7 +3991,6 @@
       "sourceObject": "Extensor carpi radialis brevis.l",
       "layer": "muscle",
       "name": "Extensor carpi radialis brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4430,7 +3998,6 @@
       "sourceObject": "Extensor digiti minimi.l",
       "layer": "muscle",
       "name": "Extensor digiti minimi",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4438,7 +4005,6 @@
       "sourceObject": "Extensor indicis.l",
       "layer": "muscle",
       "name": "Extensor indicis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4446,7 +4012,6 @@
       "sourceObject": "Extensor pollicis brevis.l",
       "layer": "muscle",
       "name": "Extensor pollicis brevis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4454,7 +4019,6 @@
       "sourceObject": "Anconeus muscle.l",
       "layer": "muscle",
       "name": "Anconeus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4462,7 +4026,6 @@
       "sourceObject": "Coracobrachialis muscle.l",
       "layer": "muscle",
       "name": "Coracobrachialis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4470,7 +4033,6 @@
       "sourceObject": "Palmaris longus muscle.l",
       "layer": "muscle",
       "name": "Palmaris longus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4478,7 +4040,6 @@
       "sourceObject": "Pronator quadratus.l",
       "layer": "muscle",
       "name": "Pronator quadratus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4493,7 +4054,6 @@
       "sourceObject": "Popliteus muscle.l",
       "layer": "muscle",
       "name": "Popliteus",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4501,7 +4061,6 @@
       "sourceObject": "Plantaris muscle.l",
       "layer": "muscle",
       "name": "Plantaris",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4509,7 +4068,6 @@
       "sourceObject": "Fibularis tertius muscle.l",
       "layer": "muscle",
       "name": "Fibularis tertius",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4517,7 +4075,6 @@
       "sourceObject": "Serratus posterior superior muscle.l",
       "layer": "muscle",
       "name": "Serratus posterior superior",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4525,7 +4082,6 @@
       "sourceObject": "Serratus posterior inferior muscle.l",
       "layer": "muscle",
       "name": "Serratus posterior inferior",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4533,7 +4089,6 @@
       "sourceObject": "Bucinator.l",
       "layer": "muscle",
       "name": "Buccinator",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -4590,855 +4145,748 @@
       "sourceObject": "Scaphoid bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Scaphoid bone",
-      "profiles": ["detailed"]
+      "name": "Scaphoid bone"
     },
     {
       "anatomyId": "bone.lunate",
       "sourceObject": "Lunate bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Lunate bone",
-      "profiles": ["detailed"]
+      "name": "Lunate bone"
     },
     {
       "anatomyId": "bone.triquetrum",
       "sourceObject": "Triquetrum bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Triquetrum bone",
-      "profiles": ["detailed"]
+      "name": "Triquetrum bone"
     },
     {
       "anatomyId": "bone.pisiform",
       "sourceObject": "Pisiform bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Pisiform bone",
-      "profiles": ["detailed"]
+      "name": "Pisiform bone"
     },
     {
       "anatomyId": "bone.trapezium",
       "sourceObject": "Trapezium bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Trapezium bone",
-      "profiles": ["detailed"]
+      "name": "Trapezium bone"
     },
     {
       "anatomyId": "bone.trapezoid",
       "sourceObject": "Trapezoid bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Trapezoid bone",
-      "profiles": ["detailed"]
+      "name": "Trapezoid bone"
     },
     {
       "anatomyId": "bone.capitate",
       "sourceObject": "Capitate bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Capitate bone",
-      "profiles": ["detailed"]
+      "name": "Capitate bone"
     },
     {
       "anatomyId": "bone.hamate",
       "sourceObject": "Hamate bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Hamate bone",
-      "profiles": ["detailed"]
+      "name": "Hamate bone"
     },
     {
       "anatomyId": "bone.metacarpal1",
       "sourceObject": "First metacarpal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "First metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "First metacarpal bone"
     },
     {
       "anatomyId": "bone.metacarpal2",
       "sourceObject": "Second metacarpal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Second metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "Second metacarpal bone"
     },
     {
       "anatomyId": "bone.metacarpal3",
       "sourceObject": "Third metacarpal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Third metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "Third metacarpal bone"
     },
     {
       "anatomyId": "bone.metacarpal4",
       "sourceObject": "Fourth metacarpal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Fourth metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "Fourth metacarpal bone"
     },
     {
       "anatomyId": "bone.metacarpal5",
       "sourceObject": "Fifth metacarpal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Fifth metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "Fifth metacarpal bone"
     },
     {
       "anatomyId": "bone.handProximalPhalanx1",
       "sourceObject": "Proximal phalanx of first finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of first finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of first finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx1",
       "sourceObject": "Distal phalanx of first finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of first finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of first finger"
     },
     {
       "anatomyId": "bone.handProximalPhalanx2",
       "sourceObject": "Proximal phalanx of second finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of second finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of second finger"
     },
     {
       "anatomyId": "bone.handMiddlePhalanx2",
       "sourceObject": "Middle phalanx of second finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Middle phalanx of second finger",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of second finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx2",
       "sourceObject": "Distal phalanx of second finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of second finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of second finger"
     },
     {
       "anatomyId": "bone.handProximalPhalanx3",
       "sourceObject": "Proximal phalanx of third finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of third finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of third finger"
     },
     {
       "anatomyId": "bone.handMiddlePhalanx3",
       "sourceObject": "Middle phalanx of third finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Middle phalanx of third finger",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of third finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx3",
       "sourceObject": "Distal phalanx of third finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of third finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of third finger"
     },
     {
       "anatomyId": "bone.handProximalPhalanx4",
       "sourceObject": "Proximal phalanx of fourth finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of fourth finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of fourth finger"
     },
     {
       "anatomyId": "bone.handMiddlePhalanx4",
       "sourceObject": "Middle phalanx of fourth finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Middle phalanx of fourth finger",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of fourth finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx4",
       "sourceObject": "Distal phalanx of fourth finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of fourth finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of fourth finger"
     },
     {
       "anatomyId": "bone.handProximalPhalanx5",
       "sourceObject": "Proximal phalanx of fifth finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of fifth finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of fifth finger"
     },
     {
       "anatomyId": "bone.handMiddlePhalanx5",
       "sourceObject": "Middle phalanx of fifth finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Middle phalanx of fifth finger",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of fifth finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx5",
       "sourceObject": "Distal phalanx of fifth finger of hand.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of fifth finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of fifth finger"
     },
     {
       "anatomyId": "bone.talus",
       "sourceObject": "Talus.r",
       "side": "right",
       "layer": "bone",
-      "name": "Talus",
-      "profiles": ["detailed"]
+      "name": "Talus"
     },
     {
       "anatomyId": "bone.calcaneus",
       "sourceObject": "Calcaneus.r",
       "side": "right",
       "layer": "bone",
-      "name": "Calcaneus",
-      "profiles": ["detailed"]
+      "name": "Calcaneus"
     },
     {
       "anatomyId": "bone.navicular",
       "sourceObject": "Navicular bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Navicular bone",
-      "profiles": ["detailed"]
+      "name": "Navicular bone"
     },
     {
       "anatomyId": "bone.cuboid",
       "sourceObject": "Cuboid bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Cuboid bone",
-      "profiles": ["detailed"]
+      "name": "Cuboid bone"
     },
     {
       "anatomyId": "bone.medialCuneiform",
       "sourceObject": "Medial cuneiform bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Medial cuneiform bone",
-      "profiles": ["detailed"]
+      "name": "Medial cuneiform bone"
     },
     {
       "anatomyId": "bone.intermediateCuneiform",
       "sourceObject": "Intermediate cuneiform bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Intermediate cuneiform bone",
-      "profiles": ["detailed"]
+      "name": "Intermediate cuneiform bone"
     },
     {
       "anatomyId": "bone.lateralCuneiform",
       "sourceObject": "Lateral cuneiform bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Lateral cuneiform bone",
-      "profiles": ["detailed"]
+      "name": "Lateral cuneiform bone"
     },
     {
       "anatomyId": "bone.metatarsal1",
       "sourceObject": "First metatarsal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "First metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "First metatarsal bone"
     },
     {
       "anatomyId": "bone.metatarsal2",
       "sourceObject": "Second metatarsal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Second metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "Second metatarsal bone"
     },
     {
       "anatomyId": "bone.metatarsal3",
       "sourceObject": "Third metatarsal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Third metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "Third metatarsal bone"
     },
     {
       "anatomyId": "bone.metatarsal4",
       "sourceObject": "Fourth metatarsal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Fourth metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "Fourth metatarsal bone"
     },
     {
       "anatomyId": "bone.metatarsal5",
       "sourceObject": "Fifth metatarsal bone.r",
       "side": "right",
       "layer": "bone",
-      "name": "Fifth metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "Fifth metatarsal bone"
     },
     {
       "anatomyId": "bone.footProximalPhalanx1",
       "sourceObject": "Proximal phalanx of first finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of first toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of first toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx1",
       "sourceObject": "Distal phalanx of first finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of first toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of first toe"
     },
     {
       "anatomyId": "bone.footProximalPhalanx2",
       "sourceObject": "Proximal phalanx of second finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of second toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of second toe"
     },
     {
       "anatomyId": "bone.footMiddlePhalanx2",
       "sourceObject": "Middle phalanx of second finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Middle phalanx of second toe",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of second toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx2",
       "sourceObject": "Distal phalanx of second finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of second toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of second toe"
     },
     {
       "anatomyId": "bone.footProximalPhalanx3",
       "sourceObject": "Proximal phalanx of third finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of third toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of third toe"
     },
     {
       "anatomyId": "bone.footMiddlePhalanx3",
       "sourceObject": "Middle phalanx of third finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Middle phalanx of third toe",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of third toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx3",
       "sourceObject": "Distal phalanx of third finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of third toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of third toe"
     },
     {
       "anatomyId": "bone.footProximalPhalanx4",
       "sourceObject": "Proximal phalanx of fourth finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of fourth toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of fourth toe"
     },
     {
       "anatomyId": "bone.footMiddlePhalanx4",
       "sourceObject": "Middle phalanx of fourth finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Middle phalanx of fourth toe",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of fourth toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx4",
       "sourceObject": "Distal phalanx of fourth finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of fourth toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of fourth toe"
     },
     {
       "anatomyId": "bone.footProximalPhalanx5",
       "sourceObject": "Proximal phalanx of fifth finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Proximal phalanx of fifth toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of fifth toe"
     },
     {
       "anatomyId": "bone.footMiddlePhalanx5",
       "sourceObject": "Middle phalanx of fifth finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Middle phalanx of fifth toe",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of fifth toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx5",
       "sourceObject": "Distal phalanx of fifth finger of foot.r",
       "side": "right",
       "layer": "bone",
-      "name": "Distal phalanx of fifth toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of fifth toe"
     },
     {
       "anatomyId": "bone.scaphoid",
       "sourceObject": "Scaphoid bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Scaphoid bone",
-      "profiles": ["detailed"]
+      "name": "Scaphoid bone"
     },
     {
       "anatomyId": "bone.lunate",
       "sourceObject": "Lunate bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Lunate bone",
-      "profiles": ["detailed"]
+      "name": "Lunate bone"
     },
     {
       "anatomyId": "bone.triquetrum",
       "sourceObject": "Triquetrum bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Triquetrum bone",
-      "profiles": ["detailed"]
+      "name": "Triquetrum bone"
     },
     {
       "anatomyId": "bone.pisiform",
       "sourceObject": "Pisiform bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Pisiform bone",
-      "profiles": ["detailed"]
+      "name": "Pisiform bone"
     },
     {
       "anatomyId": "bone.trapezium",
       "sourceObject": "Trapezium bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Trapezium bone",
-      "profiles": ["detailed"]
+      "name": "Trapezium bone"
     },
     {
       "anatomyId": "bone.trapezoid",
       "sourceObject": "Trapezoid bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Trapezoid bone",
-      "profiles": ["detailed"]
+      "name": "Trapezoid bone"
     },
     {
       "anatomyId": "bone.capitate",
       "sourceObject": "Capitate bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Capitate bone",
-      "profiles": ["detailed"]
+      "name": "Capitate bone"
     },
     {
       "anatomyId": "bone.hamate",
       "sourceObject": "Hamate bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Hamate bone",
-      "profiles": ["detailed"]
+      "name": "Hamate bone"
     },
     {
       "anatomyId": "bone.metacarpal1",
       "sourceObject": "First metacarpal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "First metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "First metacarpal bone"
     },
     {
       "anatomyId": "bone.metacarpal2",
       "sourceObject": "Second metacarpal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Second metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "Second metacarpal bone"
     },
     {
       "anatomyId": "bone.metacarpal3",
       "sourceObject": "Third metacarpal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Third metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "Third metacarpal bone"
     },
     {
       "anatomyId": "bone.metacarpal4",
       "sourceObject": "Fourth metacarpal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Fourth metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "Fourth metacarpal bone"
     },
     {
       "anatomyId": "bone.metacarpal5",
       "sourceObject": "Fifth metacarpal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Fifth metacarpal bone",
-      "profiles": ["detailed"]
+      "name": "Fifth metacarpal bone"
     },
     {
       "anatomyId": "bone.handProximalPhalanx1",
       "sourceObject": "Proximal phalanx of first finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of first finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of first finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx1",
       "sourceObject": "Distal phalanx of first finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of first finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of first finger"
     },
     {
       "anatomyId": "bone.handProximalPhalanx2",
       "sourceObject": "Proximal phalanx of second finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of second finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of second finger"
     },
     {
       "anatomyId": "bone.handMiddlePhalanx2",
       "sourceObject": "Middle phalanx of second finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Middle phalanx of second finger",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of second finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx2",
       "sourceObject": "Distal phalanx of second finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of second finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of second finger"
     },
     {
       "anatomyId": "bone.handProximalPhalanx3",
       "sourceObject": "Proximal phalanx of third finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of third finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of third finger"
     },
     {
       "anatomyId": "bone.handMiddlePhalanx3",
       "sourceObject": "Middle phalanx of third finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Middle phalanx of third finger",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of third finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx3",
       "sourceObject": "Distal phalanx of third finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of third finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of third finger"
     },
     {
       "anatomyId": "bone.handProximalPhalanx4",
       "sourceObject": "Proximal phalanx of fourth finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of fourth finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of fourth finger"
     },
     {
       "anatomyId": "bone.handMiddlePhalanx4",
       "sourceObject": "Middle phalanx of fourth finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Middle phalanx of fourth finger",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of fourth finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx4",
       "sourceObject": "Distal phalanx of fourth finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of fourth finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of fourth finger"
     },
     {
       "anatomyId": "bone.handProximalPhalanx5",
       "sourceObject": "Proximal phalanx of fifth finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of fifth finger",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of fifth finger"
     },
     {
       "anatomyId": "bone.handMiddlePhalanx5",
       "sourceObject": "Middle phalanx of fifth finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Middle phalanx of fifth finger",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of fifth finger"
     },
     {
       "anatomyId": "bone.handDistalPhalanx5",
       "sourceObject": "Distal phalanx of fifth finger of hand.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of fifth finger",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of fifth finger"
     },
     {
       "anatomyId": "bone.talus",
       "sourceObject": "Talus.l",
       "side": "left",
       "layer": "bone",
-      "name": "Talus",
-      "profiles": ["detailed"]
+      "name": "Talus"
     },
     {
       "anatomyId": "bone.calcaneus",
       "sourceObject": "Calcaneus.l",
       "side": "left",
       "layer": "bone",
-      "name": "Calcaneus",
-      "profiles": ["detailed"]
+      "name": "Calcaneus"
     },
     {
       "anatomyId": "bone.navicular",
       "sourceObject": "Navicular bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Navicular bone",
-      "profiles": ["detailed"]
+      "name": "Navicular bone"
     },
     {
       "anatomyId": "bone.cuboid",
       "sourceObject": "Cuboid bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Cuboid bone",
-      "profiles": ["detailed"]
+      "name": "Cuboid bone"
     },
     {
       "anatomyId": "bone.medialCuneiform",
       "sourceObject": "Medial cuneiform bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Medial cuneiform bone",
-      "profiles": ["detailed"]
+      "name": "Medial cuneiform bone"
     },
     {
       "anatomyId": "bone.intermediateCuneiform",
       "sourceObject": "Intermediate cuneiform bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Intermediate cuneiform bone",
-      "profiles": ["detailed"]
+      "name": "Intermediate cuneiform bone"
     },
     {
       "anatomyId": "bone.lateralCuneiform",
       "sourceObject": "Lateral cuneiform bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Lateral cuneiform bone",
-      "profiles": ["detailed"]
+      "name": "Lateral cuneiform bone"
     },
     {
       "anatomyId": "bone.metatarsal1",
       "sourceObject": "First metatarsal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "First metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "First metatarsal bone"
     },
     {
       "anatomyId": "bone.metatarsal2",
       "sourceObject": "Second metatarsal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Second metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "Second metatarsal bone"
     },
     {
       "anatomyId": "bone.metatarsal3",
       "sourceObject": "Third metatarsal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Third metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "Third metatarsal bone"
     },
     {
       "anatomyId": "bone.metatarsal4",
       "sourceObject": "Fourth metatarsal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Fourth metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "Fourth metatarsal bone"
     },
     {
       "anatomyId": "bone.metatarsal5",
       "sourceObject": "Fifth metatarsal bone.l",
       "side": "left",
       "layer": "bone",
-      "name": "Fifth metatarsal bone",
-      "profiles": ["detailed"]
+      "name": "Fifth metatarsal bone"
     },
     {
       "anatomyId": "bone.footProximalPhalanx1",
       "sourceObject": "Proximal phalanx of first finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of first toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of first toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx1",
       "sourceObject": "Distal phalanx of first finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of first toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of first toe"
     },
     {
       "anatomyId": "bone.footProximalPhalanx2",
       "sourceObject": "Proximal phalanx of second finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of second toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of second toe"
     },
     {
       "anatomyId": "bone.footMiddlePhalanx2",
       "sourceObject": "Middle phalanx of second finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Middle phalanx of second toe",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of second toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx2",
       "sourceObject": "Distal phalanx of second finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of second toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of second toe"
     },
     {
       "anatomyId": "bone.footProximalPhalanx3",
       "sourceObject": "Proximal phalanx of third finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of third toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of third toe"
     },
     {
       "anatomyId": "bone.footMiddlePhalanx3",
       "sourceObject": "Middle phalanx of third finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Middle phalanx of third toe",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of third toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx3",
       "sourceObject": "Distal phalanx of third finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of third toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of third toe"
     },
     {
       "anatomyId": "bone.footProximalPhalanx4",
       "sourceObject": "Proximal phalanx of fourth finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of fourth toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of fourth toe"
     },
     {
       "anatomyId": "bone.footMiddlePhalanx4",
       "sourceObject": "Middle phalanx of fourth finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Middle phalanx of fourth toe",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of fourth toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx4",
       "sourceObject": "Distal phalanx of fourth finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of fourth toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of fourth toe"
     },
     {
       "anatomyId": "bone.footProximalPhalanx5",
       "sourceObject": "Proximal phalanx of fifth finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Proximal phalanx of fifth toe",
-      "profiles": ["detailed"]
+      "name": "Proximal phalanx of fifth toe"
     },
     {
       "anatomyId": "bone.footMiddlePhalanx5",
       "sourceObject": "Middle phalanx of fifth finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Middle phalanx of fifth toe",
-      "profiles": ["detailed"]
+      "name": "Middle phalanx of fifth toe"
     },
     {
       "anatomyId": "bone.footDistalPhalanx5",
       "sourceObject": "Distal phalanx of fifth finger of foot.l",
       "side": "left",
       "layer": "bone",
-      "name": "Distal phalanx of fifth toe",
-      "profiles": ["detailed"]
+      "name": "Distal phalanx of fifth toe"
     },
     {
       "anatomyId": "fascia.epicranialAponeurosis",
       "sourceObject": "Epicranial aponeurosis.r",
       "layer": "fascia",
       "name": "Epicranial aponeurosis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5446,7 +4894,6 @@
       "sourceObject": "Epicranial aponeurosis.l",
       "layer": "fascia",
       "name": "Epicranial aponeurosis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5454,7 +4901,6 @@
       "sourceObject": "Posterior layer of thoracolumbar fascia.r",
       "layer": "fascia",
       "name": "Posterior layer of thoracolumbar fascia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5462,7 +4908,6 @@
       "sourceObject": "Posterior layer of thoracolumbar fascia.l",
       "layer": "fascia",
       "name": "Posterior layer of thoracolumbar fascia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5470,7 +4915,6 @@
       "sourceObject": "Fascia lata.r",
       "layer": "fascia",
       "name": "Fascia lata",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5478,7 +4922,6 @@
       "sourceObject": "Fascia lata.l",
       "layer": "fascia",
       "name": "Fascia lata",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5486,7 +4929,6 @@
       "sourceObject": "Crural fascia.r",
       "layer": "fascia",
       "name": "Crural fascia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5494,7 +4936,6 @@
       "sourceObject": "Crural fascia.l",
       "layer": "fascia",
       "name": "Crural fascia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5502,7 +4943,6 @@
       "sourceObject": "Antebrachial fascia.r",
       "layer": "fascia",
       "name": "Antebrachial fascia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5510,7 +4950,6 @@
       "sourceObject": "Antebrachial fascia.l",
       "layer": "fascia",
       "name": "Antebrachial fascia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5518,7 +4957,6 @@
       "sourceObject": "Brachial fascia.r",
       "layer": "fascia",
       "name": "Brachial fascia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5526,7 +4964,6 @@
       "sourceObject": "Brachial fascia.l",
       "layer": "fascia",
       "name": "Brachial fascia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5534,7 +4971,6 @@
       "sourceObject": "Plantar aponeurosis.r",
       "layer": "fascia",
       "name": "Plantar aponeurosis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5542,7 +4978,6 @@
       "sourceObject": "Plantar aponeurosis.l",
       "layer": "fascia",
       "name": "Plantar aponeurosis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5550,7 +4985,6 @@
       "sourceObject": "Palmar aponeurosis.r",
       "layer": "fascia",
       "name": "Palmar aponeurosis",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5558,22 +4992,19 @@
       "sourceObject": "Palmar aponeurosis.l",
       "layer": "fascia",
       "name": "Palmar aponeurosis",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
       "anatomyId": "fascia.transversalis",
       "sourceObject": "Transversalis fascia",
       "layer": "fascia",
-      "name": "Transversalis fascia",
-      "profiles": ["detailed"]
+      "name": "Transversalis fascia"
     },
     {
       "anatomyId": "fascia.investingAbdominal",
       "sourceObject": "Investing abdominal fascia.r",
       "layer": "fascia",
       "name": "Investing abdominal fascia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5581,7 +5012,6 @@
       "sourceObject": "Investing abdominal fascia.l",
       "layer": "fascia",
       "name": "Investing abdominal fascia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5589,7 +5019,6 @@
       "sourceObject": "Pectoral fascia.r",
       "layer": "fascia",
       "name": "Pectoral fascia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5597,7 +5026,6 @@
       "sourceObject": "Pectoral fascia.l",
       "layer": "fascia",
       "name": "Pectoral fascia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5605,7 +5033,6 @@
       "sourceObject": "Clavipectoral fascia.r",
       "layer": "fascia",
       "name": "Clavipectoral fascia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5613,7 +5040,6 @@
       "sourceObject": "Clavipectoral fascia.l",
       "layer": "fascia",
       "name": "Clavipectoral fascia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5621,7 +5047,6 @@
       "sourceObject": "Superficial investing cervical fascia.r",
       "layer": "fascia",
       "name": "Superficial investing cervical fascia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5629,7 +5054,6 @@
       "sourceObject": "Superficial investing cervical fascia.l",
       "layer": "fascia",
       "name": "Superficial investing cervical fascia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5637,7 +5061,6 @@
       "sourceObject": "Iliopsoas fascia.r",
       "layer": "fascia",
       "name": "Iliopsoas fascia",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5645,7 +5068,6 @@
       "sourceObject": "Iliopsoas fascia.l",
       "layer": "fascia",
       "name": "Iliopsoas fascia",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5653,7 +5075,6 @@
       "sourceObject": "Interosseous membrane of forearm.r",
       "layer": "ligament",
       "name": "Interosseous membrane of forearm",
-      "profiles": ["detailed"],
       "maxTriangles": 1500,
       "side": "right"
     },
@@ -5662,7 +5083,6 @@
       "sourceObject": "Interosseous membrane of forearm.l",
       "layer": "ligament",
       "name": "Interosseous membrane of forearm",
-      "profiles": ["detailed"],
       "maxTriangles": 1500,
       "side": "left"
     },
@@ -5671,7 +5091,6 @@
       "sourceObject": "Interosseous membrane of leg.r",
       "layer": "ligament",
       "name": "Interosseous membrane of leg",
-      "profiles": ["detailed"],
       "maxTriangles": 1500,
       "side": "right"
     },
@@ -5680,7 +5099,6 @@
       "sourceObject": "Interosseous membrane of leg.l",
       "layer": "ligament",
       "name": "Interosseous membrane of leg",
-      "profiles": ["detailed"],
       "maxTriangles": 1500,
       "side": "left"
     },
@@ -5689,7 +5107,6 @@
       "sourceObject": "Long plantar ligament.r",
       "layer": "ligament",
       "name": "Long plantar ligament",
-      "profiles": ["detailed"],
       "maxTriangles": 1500,
       "side": "right"
     },
@@ -5698,7 +5115,6 @@
       "sourceObject": "Long plantar ligament.l",
       "layer": "ligament",
       "name": "Long plantar ligament",
-      "profiles": ["detailed"],
       "maxTriangles": 1500,
       "side": "left"
     },
@@ -5707,7 +5123,6 @@
       "sourceObject": "Ligament of head of femur.r",
       "layer": "ligament",
       "name": "Ligament of head of femur",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5715,7 +5130,6 @@
       "sourceObject": "Ligament of head of femur.l",
       "layer": "ligament",
       "name": "Ligament of head of femur",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5723,7 +5137,6 @@
       "sourceObject": "Posterior sacro-iliac ligament.r",
       "layer": "ligament",
       "name": "Posterior sacro-iliac ligament",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5731,7 +5144,6 @@
       "sourceObject": "Posterior sacro-iliac ligament.l",
       "layer": "ligament",
       "name": "Posterior sacro-iliac ligament",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5739,7 +5151,6 @@
       "sourceObject": "Radiate ligament of head of rib.r",
       "layer": "ligament",
       "name": "Radiate ligament of head of rib",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5747,7 +5158,6 @@
       "sourceObject": "Radiate ligament of head of rib.l",
       "layer": "ligament",
       "name": "Radiate ligament of head of rib",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5755,7 +5165,6 @@
       "sourceObject": "Collateral interphalangeal ligaments of hand.r",
       "layer": "ligament",
       "name": "Collateral interphalangeal ligaments of hand",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5763,7 +5172,6 @@
       "sourceObject": "Collateral interphalangeal ligaments of hand.l",
       "layer": "ligament",
       "name": "Collateral interphalangeal ligaments of hand",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5771,7 +5179,6 @@
       "sourceObject": "Collateral interphalangeal ligaments of foot.r",
       "layer": "ligament",
       "name": "Collateral interphalangeal ligaments of foot",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5779,7 +5186,6 @@
       "sourceObject": "Collateral interphalangeal ligaments of foot.l",
       "layer": "ligament",
       "name": "Collateral interphalangeal ligaments of foot",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5787,7 +5193,6 @@
       "sourceObject": "Subacromial bursa.r",
       "layer": "bursa",
       "name": "Subacromial bursa",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5795,7 +5200,6 @@
       "sourceObject": "Subacromial bursa.l",
       "layer": "bursa",
       "name": "Subacromial bursa",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5803,7 +5207,6 @@
       "sourceObject": "Trochanteric bursa of gluteus medius muscle.r",
       "layer": "bursa",
       "name": "Trochanteric bursa of gluteus medius muscle",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5811,7 +5214,6 @@
       "sourceObject": "Trochanteric bursa of gluteus medius muscle.l",
       "layer": "bursa",
       "name": "Trochanteric bursa of gluteus medius muscle",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5819,7 +5221,6 @@
       "sourceObject": "Subcutaneous trochanteric bursa.r",
       "layer": "bursa",
       "name": "Subcutaneous trochanteric bursa",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5827,7 +5228,6 @@
       "sourceObject": "Subcutaneous trochanteric bursa.l",
       "layer": "bursa",
       "name": "Subcutaneous trochanteric bursa",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5835,7 +5235,6 @@
       "sourceObject": "Subcutaneous prepatellar bursa.r",
       "layer": "bursa",
       "name": "Subcutaneous prepatellar bursa",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5843,7 +5242,6 @@
       "sourceObject": "Subcutaneous prepatellar bursa.l",
       "layer": "bursa",
       "name": "Subcutaneous prepatellar bursa",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5851,7 +5249,6 @@
       "sourceObject": "Deep infrapatellar bursa.r",
       "layer": "bursa",
       "name": "Deep infrapatellar bursa",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5859,7 +5256,6 @@
       "sourceObject": "Deep infrapatellar bursa.l",
       "layer": "bursa",
       "name": "Deep infrapatellar bursa",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5867,7 +5263,6 @@
       "sourceObject": "Subtendinous bursa of triceps brachii muscle.r",
       "layer": "bursa",
       "name": "Subtendinous bursa of triceps brachii muscle",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5875,7 +5270,6 @@
       "sourceObject": "Subtendinous bursa of triceps brachii muscle.l",
       "layer": "bursa",
       "name": "Subtendinous bursa of triceps brachii muscle",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5883,7 +5277,6 @@
       "sourceObject": "Anserine bursa.r",
       "layer": "bursa",
       "name": "Anserine bursa",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5891,7 +5284,6 @@
       "sourceObject": "Anserine bursa.l",
       "layer": "bursa",
       "name": "Anserine bursa",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -5899,7 +5291,6 @@
       "sourceObject": "Semimembranosus bursa.r",
       "layer": "bursa",
       "name": "Semimembranosus bursa",
-      "profiles": ["detailed"],
       "side": "right"
     },
     {
@@ -5907,7 +5298,6 @@
       "sourceObject": "Semimembranosus bursa.l",
       "layer": "bursa",
       "name": "Semimembranosus bursa",
-      "profiles": ["detailed"],
       "side": "left"
     },
     {
@@ -6003,1320 +5393,6 @@
       "name": "Adductor Minimus",
       "maxTriangles": 800,
       "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.armFlexor",
-      "sourceObjects": [
-        "Long head of biceps brachii.r",
-        "Short head of biceps brachii.r",
-        "Brachialis muscle.r",
-        "Coracobrachialis muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Arm flexors",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.armExtensor",
-      "sourceObjects": [
-        "Long head of triceps brachii.r",
-        "Lateral head of triceps brachii.r",
-        "Medial head of triceps brachii.r",
-        "Anconeus muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Arm extensors",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.forearmFlexor",
-      "sourceObjects": [
-        "Flexor carpi radialis.r",
-        "Humeral head of flexor carpi ulnaris.r",
-        "Ulnar head of flexor carpi ulnaris.r",
-        "Palmaris longus muscle.r",
-        "Deep head of pronator teres.r",
-        "Superficial head of pronator teres.r",
-        "Humero-ulnar head of flexor digitorum superficialis.r",
-        "Radial head of flexor digitorum superficialis.r",
-        "Flexor digitorum profundus.r",
-        "Flexor pollicis longus.r",
-        "Pronator quadratus.r"
-      ],
-      "layer": "muscle",
-      "name": "Forearm flexors",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.forearmExtensor",
-      "sourceObjects": [
-        "Extensor carpi radialis longus.r",
-        "Extensor carpi radialis brevis.r",
-        "Humeral head of extensor carpi ulnaris.r",
-        "Ulnar head of extensor carpi ulnaris.r",
-        "Extensor digitorum.r",
-        "Extensor digiti minimi.r",
-        "Extensor indicis.r",
-        "Extensor pollicis longus.r",
-        "Extensor pollicis brevis.r",
-        "Abductor pollicis longus.r",
-        "Supinator.r",
-        "Brachioradialis muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Forearm extensors",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.rotatorCuff",
-      "sourceObjects": [
-        "Supraspinatus muscle.r",
-        "Infraspinatus muscle.r",
-        "Teres minor muscle.r",
-        "Subscapularis muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Rotator cuff",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.thenar",
-      "sourceObjects": [
-        "Abductor pollicis brevis.r",
-        "Superficial head of flexor pollicis brevis.r",
-        "Deep head of flexor pollicis brevis.r",
-        "Opponens pollicis muscle.r",
-        "Oblique head of adductor pollicis.r",
-        "Transverse head of adductor pollicis.r"
-      ],
-      "layer": "muscle",
-      "name": "Thenar muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.hypothenar",
-      "sourceObjects": [
-        "Abductor digiti minimi of hand.r",
-        "Flexor digiti minimi of hand.r",
-        "Opponens digiti minimi muscle of hand.r"
-      ],
-      "layer": "muscle",
-      "name": "Hypothenar muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.handInterossei",
-      "sourceObjects": [
-        "Dorsal interossei muscles of hand.r",
-        "Palmar interossei muscles.r",
-        "Lumbrical muscles of hand.r"
-      ],
-      "layer": "muscle",
-      "name": "Hand intrinsic muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.quadriceps",
-      "sourceObjects": [
-        "Rectus femoris muscle.r",
-        "Vastus lateralis muscle.r",
-        "Vastus medialis muscle.r",
-        "Vastus intermedius muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Quadriceps",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.hamstring",
-      "sourceObjects": [
-        "Long head of biceps femoris.r",
-        "Short head of biceps femoris.r",
-        "Semitendinosus muscle.r",
-        "Semimembranosus muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Hamstrings",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.hipAdductor",
-      "sourceObjects": [
-        "Adductor longus.r",
-        "Adductor brevis.r",
-        "Adductor magnus.r",
-        "Gracilis muscle.r",
-        "Pectineus muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Hip adductors",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.gluteal",
-      "sourceObjects": [
-        "Gluteus maximus muscle.r",
-        "Gluteus medius muscle.r",
-        "Gluteus minimus muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Gluteal muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.deepHipRotator",
-      "sourceObjects": [
-        "Piriformis muscle.r",
-        "Obturator internus.r",
-        "Superior gemellus muscle.r",
-        "Inferior gemellus muscle.r",
-        "Quadratus femoris muscle.r",
-        "Obturator externus.r"
-      ],
-      "layer": "muscle",
-      "name": "Deep hip rotators",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.calf",
-      "sourceObjects": [
-        "Lateral head of gastrocnemius.r",
-        "Medial head of gastrocnemius.r",
-        "Soleus muscle.r",
-        "Plantaris muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Calf (triceps surae)",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.deepPosteriorLeg",
-      "sourceObjects": [
-        "Tibialis posterior muscle.r",
-        "Flexor digitorum longus.r",
-        "Flexor hallucis longus.r",
-        "Popliteus muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Deep posterior leg muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.anteriorLeg",
-      "sourceObjects": [
-        "Tibialis anterior muscle.r",
-        "Extensor digitorum longus.r",
-        "Extensor hallucis longus.r",
-        "Fibularis tertius muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Anterior leg muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.fibular",
-      "sourceObjects": ["Fibularis longus muscle.r", "Fibularis brevis muscle.r"],
-      "layer": "muscle",
-      "name": "Fibular (peroneal) muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.footIntrinsic",
-      "sourceObjects": [
-        "Abductor hallucis.r",
-        "Flexor digitorum brevis.r",
-        "Abductor digiti minimi of foot.r",
-        "Extensor digitorum brevis.r",
-        "Extensor hallucis brevis.r",
-        "Quadratus plantae muscle.r",
-        "Lumbrical muscles of foot.r",
-        "Medial head of flexor hallucis brevis.r",
-        "Lateral head of flexor hallucis brevis.r",
-        "Oblique head of adductor hallucis.r",
-        "Transverse head of adductor hallucis.r",
-        "Flexor digiti minimi of foot.r",
-        "Plantar interossei muscles.r",
-        "Dorsal interossei muscles of foot.r"
-      ],
-      "layer": "muscle",
-      "name": "Foot intrinsic muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.abdominal",
-      "sourceObjects": [
-        "Rectus abdominis muscle.r",
-        "External abdominal oblique muscle.r",
-        "Internal abdominal oblique muscle.r",
-        "Transversus abdominis muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Abdominal muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.erectorSpinae",
-      "sourceObjects": [
-        "Iliocostalis colli muscle.r",
-        "Iliocostalis lumborum muscle.r",
-        "Iliocostalis thoracis muscle.r",
-        "Longissimus capitis muscle.r",
-        "Longissimus colli muscle.r",
-        "Longissimus thoracis muscle.r",
-        "Spinalis capitis muscle.r",
-        "Spinalis colli muscle.r",
-        "Spinalis thoracis muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Erector spinae",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.transversospinal",
-      "sourceObjects": [
-        "Multifidus colli muscle.r",
-        "Multifidus lumborum muscle.r",
-        "Multifidus thoracis muscle.r",
-        "Semispinalis colli muscle.r",
-        "Semispinalis thoracis muscle.r",
-        "Rotatores.r"
-      ],
-      "layer": "muscle",
-      "name": "Transversospinales",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.rhomboid",
-      "sourceObjects": ["Rhomboid major muscle.r", "Rhomboid minor muscle.r"],
-      "layer": "muscle",
-      "name": "Rhomboids",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.serratusPosterior",
-      "sourceObjects": [
-        "Serratus posterior superior muscle.r",
-        "Serratus posterior inferior muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Serratus posterior",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.intercostal",
-      "sourceObjects": [
-        "External intercostal muscles.r",
-        "Internal intercostal muscles.r",
-        "Innermost intercostal muscles.r"
-      ],
-      "layer": "muscle",
-      "name": "Intercostal muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.pelvicFloor",
-      "sourceObjects": [
-        "Pubococcygeus muscle.r",
-        "Iliococcygeus muscle.r",
-        "Coccygeus muscle.r",
-        "Pubo-analis muscle.r",
-        "External anal sphincter.r"
-      ],
-      "layer": "muscle",
-      "name": "Pelvic floor muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.pectoral",
-      "sourceObjects": [
-        "Clavicular head of pectoralis major muscle.r",
-        "Sternocostal head of pectoralis major muscle.r",
-        "(Abdominal part of pectoralis major muscle).r",
-        "Pectoralis minor muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Pectoral muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.splenius",
-      "sourceObjects": ["Splenius capitis muscle.r", "Splenius colli muscle.r"],
-      "layer": "muscle",
-      "name": "Splenius muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.scalene",
-      "sourceObjects": [
-        "Scalenus anterior muscle.r",
-        "Scalenus medius muscle.r",
-        "Scalenus posterior muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Scalene muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.prevertebral",
-      "sourceObjects": [
-        "Longus capitis muscle.r",
-        "Longus colli muscle.r",
-        "Rectus anterior capitis muscle.r",
-        "Rectus lateralis capitis muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Prevertebral muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.suprahyoid",
-      "sourceObjects": [
-        "Anterior belly of digastric muscle.r",
-        "Posterior belly of digastric muscle.r",
-        "Intermediate tendon of digastric muscle.r",
-        "Mylohyoid muscle.r",
-        "Geniohyoid muscle.r",
-        "Stylohyoid muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Suprahyoid muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.infrahyoid",
-      "sourceObjects": [
-        "Sternohyoid muscle.r",
-        "Sternothyroid muscle.r",
-        "Thyrohyoid muscle.r",
-        "Omohyoid muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Infrahyoid muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.suboccipital",
-      "sourceObjects": [
-        "Rectus posterior major capitis muscle.r",
-        "Rectus posterior minor capitis muscle.r",
-        "Obliquus superior capitis muscle.r",
-        "Obliquus inferior capitis muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Suboccipital muscles",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.mastication",
-      "sourceObjects": [
-        "Superficial part of masseter.r",
-        "Deep part of masseter.r",
-        "Temporalis muscle.r",
-        "Medial pterygoid muscle.r",
-        "Superior head of lateral pterygoid muscle.r",
-        "Inferior head of lateral pterygoid muscle.r"
-      ],
-      "layer": "muscle",
-      "name": "Muscles of mastication",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.epicranius",
-      "sourceObjects": ["Frontalis muscle.r", "Occipitalis muscle.r", "Temporoparietalis muscle.r"],
-      "layer": "muscle",
-      "name": "Epicranius (scalp)",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.facialExpression",
-      "sourceObjects": [
-        "Orbital part of orbicularis oculi.r",
-        "Palpebral part of orbicularis oculi.r",
-        "Corrugator supercilii.r",
-        "Procerus muscle.r",
-        "Orbicularis oris muscle.r",
-        "Zygomaticus major muscle.r",
-        "Zygomaticus minor muscle.r",
-        "Levator labii superioris.r",
-        "Levator anguli oris.r",
-        "Risorius muscle.r",
-        "Depressor anguli oris.r",
-        "Depressor labii inferioris.r",
-        "Mentalis muscle.r",
-        "Nasalis muscle.r",
-        "Depressor septi nasi.r",
-        "Bucinator.r"
-      ],
-      "layer": "muscle",
-      "name": "Muscles of facial expression",
-      "profiles": ["simplified"],
-      "side": "right"
-    },
-    {
-      "anatomyId": "muscleGroup.armFlexor",
-      "sourceObjects": [
-        "Long head of biceps brachii.l",
-        "Short head of biceps brachii.l",
-        "Brachialis muscle.l",
-        "Coracobrachialis muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Arm flexors",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.armExtensor",
-      "sourceObjects": [
-        "Long head of triceps brachii.l",
-        "Lateral head of triceps brachii.l",
-        "Medial head of triceps brachii.l",
-        "Anconeus muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Arm extensors",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.forearmFlexor",
-      "sourceObjects": [
-        "Flexor carpi radialis.l",
-        "Humeral head of flexor carpi ulnaris.l",
-        "Ulnar head of flexor carpi ulnaris.l",
-        "Palmaris longus muscle.l",
-        "Deep head of pronator teres.l",
-        "Superficial head of pronator teres.l",
-        "Humero-ulnar head of flexor digitorum superficialis.l",
-        "Radial head of flexor digitorum superficialis.l",
-        "Flexor digitorum profundus.l",
-        "Flexor pollicis longus.l",
-        "Pronator quadratus.l"
-      ],
-      "layer": "muscle",
-      "name": "Forearm flexors",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.forearmExtensor",
-      "sourceObjects": [
-        "Extensor carpi radialis longus.l",
-        "Extensor carpi radialis brevis.l",
-        "Humeral head of extensor carpi ulnaris.l",
-        "Ulnar head of extensor carpi ulnaris.l",
-        "Extensor digitorum.l",
-        "Extensor digiti minimi.l",
-        "Extensor indicis.l",
-        "Extensor pollicis longus.l",
-        "Extensor pollicis brevis.l",
-        "Abductor pollicis longus.l",
-        "Supinator.l",
-        "Brachioradialis muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Forearm extensors",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.rotatorCuff",
-      "sourceObjects": [
-        "Supraspinatus muscle.l",
-        "Infraspinatus muscle.l",
-        "Teres minor muscle.l",
-        "Subscapularis muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Rotator cuff",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.thenar",
-      "sourceObjects": [
-        "Abductor pollicis brevis.l",
-        "Superficial head of flexor pollicis brevis.l",
-        "Deep head of flexor pollicis brevis.l",
-        "Opponens pollicis muscle.l",
-        "Oblique head of adductor pollicis.l",
-        "Transverse head of adductor pollicis.l"
-      ],
-      "layer": "muscle",
-      "name": "Thenar muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.hypothenar",
-      "sourceObjects": [
-        "Abductor digiti minimi of hand.l",
-        "Flexor digiti minimi of hand.l",
-        "Opponens digiti minimi muscle of hand.l"
-      ],
-      "layer": "muscle",
-      "name": "Hypothenar muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.handInterossei",
-      "sourceObjects": [
-        "Dorsal interossei muscles of hand.l",
-        "Palmar interossei muscles.l",
-        "Lumbrical muscles of hand.l"
-      ],
-      "layer": "muscle",
-      "name": "Hand intrinsic muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.quadriceps",
-      "sourceObjects": [
-        "Rectus femoris muscle.l",
-        "Vastus lateralis muscle.l",
-        "Vastus medialis muscle.l",
-        "Vastus intermedius muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Quadriceps",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.hamstring",
-      "sourceObjects": [
-        "Long head of biceps femoris.l",
-        "Short head of biceps femoris.l",
-        "Semitendinosus muscle.l",
-        "Semimembranosus muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Hamstrings",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.hipAdductor",
-      "sourceObjects": [
-        "Adductor longus.l",
-        "Adductor brevis.l",
-        "Adductor magnus.l",
-        "Gracilis muscle.l",
-        "Pectineus muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Hip adductors",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.gluteal",
-      "sourceObjects": [
-        "Gluteus maximus muscle.l",
-        "Gluteus medius muscle.l",
-        "Gluteus minimus muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Gluteal muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.deepHipRotator",
-      "sourceObjects": [
-        "Piriformis muscle.l",
-        "Obturator internus.l",
-        "Superior gemellus muscle.l",
-        "Inferior gemellus muscle.l",
-        "Quadratus femoris muscle.l",
-        "Obturator externus.l"
-      ],
-      "layer": "muscle",
-      "name": "Deep hip rotators",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.calf",
-      "sourceObjects": [
-        "Lateral head of gastrocnemius.l",
-        "Medial head of gastrocnemius.l",
-        "Soleus muscle.l",
-        "Plantaris muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Calf (triceps surae)",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.deepPosteriorLeg",
-      "sourceObjects": [
-        "Tibialis posterior muscle.l",
-        "Flexor digitorum longus.l",
-        "Flexor hallucis longus.l",
-        "Popliteus muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Deep posterior leg muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.anteriorLeg",
-      "sourceObjects": [
-        "Tibialis anterior muscle.l",
-        "Extensor digitorum longus.l",
-        "Extensor hallucis longus.l",
-        "Fibularis tertius muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Anterior leg muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.fibular",
-      "sourceObjects": ["Fibularis longus muscle.l", "Fibularis brevis muscle.l"],
-      "layer": "muscle",
-      "name": "Fibular (peroneal) muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.footIntrinsic",
-      "sourceObjects": [
-        "Abductor hallucis.l",
-        "Flexor digitorum brevis.l",
-        "Abductor digiti minimi of foot.l",
-        "Extensor digitorum brevis.l",
-        "Extensor hallucis brevis.l",
-        "Quadratus plantae muscle.l",
-        "Lumbrical muscles of foot.l",
-        "Medial head of flexor hallucis brevis.l",
-        "Lateral head of flexor hallucis brevis.l",
-        "Oblique head of adductor hallucis.l",
-        "Transverse head of adductor hallucis.l",
-        "Flexor digiti minimi of foot.l",
-        "Plantar interossei muscles.l",
-        "Dorsal interossei muscles of foot.l"
-      ],
-      "layer": "muscle",
-      "name": "Foot intrinsic muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.abdominal",
-      "sourceObjects": [
-        "Rectus abdominis muscle.l",
-        "External abdominal oblique muscle.l",
-        "Internal abdominal oblique muscle.l",
-        "Transversus abdominis muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Abdominal muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.erectorSpinae",
-      "sourceObjects": [
-        "Iliocostalis colli muscle",
-        "Iliocostalis lumborum muscle.l",
-        "Iliocostalis thoracis muscle.l",
-        "Longissimus capitis muscle.l",
-        "Longissimus colli muscle.l",
-        "Longissimus thoracis muscle.l",
-        "Spinalis capitis muscle.l",
-        "Spinalis colli muscle.l",
-        "Spinalis thoracis muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Erector spinae",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.transversospinal",
-      "sourceObjects": [
-        "Multifidus colli muscle.l",
-        "Multifidus lumborum muscle.l",
-        "Multifidus thoracis muscle.l",
-        "Semispinalis colli muscle.l",
-        "Semispinalis thoracis muscle.l",
-        "Rotatores.l"
-      ],
-      "layer": "muscle",
-      "name": "Transversospinales",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.rhomboid",
-      "sourceObjects": ["Rhomboid major muscle.l", "Rhomboid minor muscle.l"],
-      "layer": "muscle",
-      "name": "Rhomboids",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.serratusPosterior",
-      "sourceObjects": [
-        "Serratus posterior superior muscle.l",
-        "Serratus posterior inferior muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Serratus posterior",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.intercostal",
-      "sourceObjects": [
-        "External intercostal muscles.l",
-        "Internal intercostal muscles.l",
-        "Innermost intercostal muscles.l"
-      ],
-      "layer": "muscle",
-      "name": "Intercostal muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.pelvicFloor",
-      "sourceObjects": [
-        "Pubococcygeus muscle.l",
-        "Iliococcygeus muscle.l",
-        "Coccygeus muscle.l",
-        "Pubo-analis muscle.l",
-        "External anal sphincter.l"
-      ],
-      "layer": "muscle",
-      "name": "Pelvic floor muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.pectoral",
-      "sourceObjects": [
-        "Clavicular head of pectoralis major muscle.l",
-        "Sternocostal head of pectoralis major muscle.l",
-        "(Abdominal part of pectoralis major muscle).l",
-        "Pectoralis minor muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Pectoral muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.splenius",
-      "sourceObjects": ["Splenius capitis muscle.l", "Splenius colli muscle.l"],
-      "layer": "muscle",
-      "name": "Splenius muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.scalene",
-      "sourceObjects": [
-        "Scalenus anterior muscle.l",
-        "Scalenus medius muscle.l",
-        "Scalenus posterior muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Scalene muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.prevertebral",
-      "sourceObjects": [
-        "Longus capitis muscle.l",
-        "Longus colli muscle.l",
-        "Rectus anterior capitis muscle.l",
-        "Rectus lateralis capitis muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Prevertebral muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.suprahyoid",
-      "sourceObjects": [
-        "Anterior belly of digastric muscle.l",
-        "Posterior belly of digastric muscle.l",
-        "Intermediate tendon of digastric muscle.l",
-        "Mylohyoid muscle.l",
-        "Geniohyoid muscle.l",
-        "Stylohyoid muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Suprahyoid muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.infrahyoid",
-      "sourceObjects": [
-        "Sternohyoid muscle.l",
-        "Sternothyroid muscle.l",
-        "Thyrohyoid muscle.l",
-        "Omohyoid muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Infrahyoid muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.suboccipital",
-      "sourceObjects": [
-        "Rectus posterior major capitis muscle.l",
-        "Rectus posterior minor capitis muscle.l",
-        "Obliquus superior capitis muscle.l",
-        "Obliquus inferior capitis muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Suboccipital muscles",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.mastication",
-      "sourceObjects": [
-        "Superficial part of masseter.l",
-        "Deep part of masseter.l",
-        "Temporalis muscle.l",
-        "Medial pterygoid muscle.l",
-        "Superior head of lateral pterygoid muscle.l",
-        "Inferior head of lateral pterygoid muscle.l"
-      ],
-      "layer": "muscle",
-      "name": "Muscles of mastication",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.epicranius",
-      "sourceObjects": ["Frontalis muscle.l", "Occipitalis muscle.l", "Temporoparietalis muscle.l"],
-      "layer": "muscle",
-      "name": "Epicranius (scalp)",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "muscleGroup.facialExpression",
-      "sourceObjects": [
-        "Orbital part of orbicularis oculi.l",
-        "Palpebral part of orbicularis oculi.l",
-        "Corrugator supercilii.l",
-        "Procerus muscle.l",
-        "Orbicularis oris muscle.l",
-        "Zygomaticus major muscle.l",
-        "Zygomaticus minor muscle.l",
-        "Levator labii superioris.l",
-        "Levator anguli oris.l",
-        "Risorius muscle.l",
-        "Depressor anguli oris.l",
-        "Depressor labii inferioris.l",
-        "Mentalis muscle.l",
-        "Nasalis muscle.l",
-        "Depressor septi nasi.l",
-        "Bucinator.l"
-      ],
-      "layer": "muscle",
-      "name": "Muscles of facial expression",
-      "profiles": ["simplified"],
-      "side": "left"
-    },
-    {
-      "anatomyId": "bone.upperLimb",
-      "sourceObjects": [
-        "Humerus.r",
-        "Radius.r",
-        "Ulna.r",
-        "Scapula.r",
-        "Clavicle.r",
-        "Scaphoid bone.r",
-        "Lunate bone.r",
-        "Triquetrum bone.r",
-        "Pisiform bone.r",
-        "Trapezium bone.r",
-        "Trapezoid bone.r",
-        "Capitate bone.r",
-        "Hamate bone.r",
-        "First metacarpal bone.r",
-        "Second metacarpal bone.r",
-        "Third metacarpal bone.r",
-        "Fourth metacarpal bone.r",
-        "Fifth metacarpal bone.r",
-        "Proximal phalanx of first finger of hand.r",
-        "Distal phalanx of first finger of hand.r",
-        "Proximal phalanx of second finger of hand.r",
-        "Middle phalanx of second finger of hand.r",
-        "Distal phalanx of second finger of hand.r",
-        "Proximal phalanx of third finger of hand.r",
-        "Middle phalanx of third finger of hand.r",
-        "Distal phalanx of third finger of hand.r",
-        "Proximal phalanx of fourth finger of hand.r",
-        "Middle phalanx of fourth finger of hand.r",
-        "Distal phalanx of fourth finger of hand.r",
-        "Proximal phalanx of fifth finger of hand.r",
-        "Middle phalanx of fifth finger of hand.r",
-        "Distal phalanx of fifth finger of hand.r"
-      ],
-      "layer": "bone",
-      "name": "Upper limb bones",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "bone.upperLimb",
-      "sourceObjects": [
-        "Humerus.l",
-        "Radius.l",
-        "Ulna.l",
-        "Scapula.l",
-        "Clavicle.l",
-        "Scaphoid bone.l",
-        "Lunate bone.l",
-        "Triquetrum bone.l",
-        "Pisiform bone.l",
-        "Trapezium bone.l",
-        "Trapezoid bone.l",
-        "Capitate bone.l",
-        "Hamate bone.l",
-        "First metacarpal bone.l",
-        "Second metacarpal bone.l",
-        "Third metacarpal bone.l",
-        "Fourth metacarpal bone.l",
-        "Fifth metacarpal bone.l",
-        "Proximal phalanx of first finger of hand.l",
-        "Distal phalanx of first finger of hand.l",
-        "Proximal phalanx of second finger of hand.l",
-        "Middle phalanx of second finger of hand.l",
-        "Distal phalanx of second finger of hand.l",
-        "Proximal phalanx of third finger of hand.l",
-        "Middle phalanx of third finger of hand.l",
-        "Distal phalanx of third finger of hand.l",
-        "Proximal phalanx of fourth finger of hand.l",
-        "Middle phalanx of fourth finger of hand.l",
-        "Distal phalanx of fourth finger of hand.l",
-        "Proximal phalanx of fifth finger of hand.l",
-        "Middle phalanx of fifth finger of hand.l",
-        "Distal phalanx of fifth finger of hand.l"
-      ],
-      "layer": "bone",
-      "name": "Upper limb bones",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "bone.lowerLimb",
-      "sourceObjects": [
-        "Femur.r",
-        "Tibia.r",
-        "Fibula.r",
-        "Patella.r",
-        "Hip bone.r",
-        "Talus.r",
-        "Calcaneus.r",
-        "Navicular bone.r",
-        "Cuboid bone.r",
-        "Medial cuneiform bone.r",
-        "Intermediate cuneiform bone.r",
-        "Lateral cuneiform bone.r",
-        "First metatarsal bone.r",
-        "Second metatarsal bone.r",
-        "Third metatarsal bone.r",
-        "Fourth metatarsal bone.r",
-        "Fifth metatarsal bone.r",
-        "Proximal phalanx of first finger of foot.r",
-        "Distal phalanx of first finger of foot.r",
-        "Proximal phalanx of second finger of foot.r",
-        "Middle phalanx of second finger of foot.r",
-        "Distal phalanx of second finger of foot.r",
-        "Proximal phalanx of third finger of foot.r",
-        "Middle phalanx of third finger of foot.r",
-        "Distal phalanx of third finger of foot.r",
-        "Proximal phalanx of fourth finger of foot.r",
-        "Middle phalanx of fourth finger of foot.r",
-        "Distal phalanx of fourth finger of foot.r",
-        "Proximal phalanx of fifth finger of foot.r",
-        "Middle phalanx of fifth finger of foot.r",
-        "Distal phalanx of fifth finger of foot.r"
-      ],
-      "layer": "bone",
-      "name": "Lower limb bones",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "bone.lowerLimb",
-      "sourceObjects": [
-        "Femur.l",
-        "Tibia.l",
-        "Fibula.l",
-        "Patella.l",
-        "Hip bone.l",
-        "Talus.l",
-        "Calcaneus.l",
-        "Navicular bone.l",
-        "Cuboid bone.l",
-        "Medial cuneiform bone.l",
-        "Intermediate cuneiform bone.l",
-        "Lateral cuneiform bone.l",
-        "First metatarsal bone.l",
-        "Second metatarsal bone.l",
-        "Third metatarsal bone.l",
-        "Fourth metatarsal bone.l",
-        "Fifth metatarsal bone.l",
-        "Proximal phalanx of first finger of foot.l",
-        "Distal phalanx of first finger of foot.l",
-        "Proximal phalanx of second finger of foot.l",
-        "Middle phalanx of second finger of foot.l",
-        "Distal phalanx of second finger of foot.l",
-        "Proximal phalanx of third finger of foot.l",
-        "Middle phalanx of third finger of foot.l",
-        "Distal phalanx of third finger of foot.l",
-        "Proximal phalanx of fourth finger of foot.l",
-        "Middle phalanx of fourth finger of foot.l",
-        "Distal phalanx of fourth finger of foot.l",
-        "Proximal phalanx of fifth finger of foot.l",
-        "Middle phalanx of fifth finger of foot.l",
-        "Distal phalanx of fifth finger of foot.l"
-      ],
-      "layer": "bone",
-      "name": "Lower limb bones",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "bone.thoracicCage",
-      "sourceObjects": [
-        "First rib.r",
-        "First rib.l",
-        "Second rib.r",
-        "Second rib.l",
-        "Third rib.r",
-        "Third rib.l",
-        "Fourth rib.r",
-        "Fourth rib.l",
-        "Fifth rib.r",
-        "Fifth rib.l",
-        "Sixth rib.r",
-        "Sixth rib.l",
-        "Seventh rib.r",
-        "Seventh rib.l",
-        "Eighth rib.r",
-        "Eighth rib.l",
-        "Ninth rib.r",
-        "Ninth rib.l",
-        "Tenth rib.r",
-        "Tenth rib.l",
-        "Eleventh rib.r",
-        "Eleventh rib.l",
-        "Twelfth rib.r",
-        "Twelfth rib.l",
-        "Costal cartilage of first rib.r",
-        "Costal cartilage of first rib.l",
-        "Costal cartilage of second rib.r",
-        "Costal cartilage of second rib.l",
-        "Costal cartilage of third rib.r",
-        "Costal cartilage of third rib.l",
-        "Costal cartilage of fourth rib.r",
-        "Costal cartilage of fourth rib.l",
-        "Costal cartilage of fifth rib.r",
-        "Costal cartilage of fifth rib.l",
-        "Costal cartilage of sixth rib.r",
-        "Costal cartilage of sixth rib.l",
-        "Costal cartilage of seventh rib.r",
-        "Costal cartilage of seventh rib.l",
-        "Costal cartilage of eighth rib.r",
-        "Costal cartilage of eighth rib.l",
-        "Costal cartilage of ninth rib.r",
-        "Costal cartilage of ninth rib.l",
-        "Costal cartilage of tenth rib.r",
-        "Costal cartilage of tenth rib.l",
-        "Manubrium of sternum",
-        "Body of sternum",
-        "Xiphoid process"
-      ],
-      "layer": "bone",
-      "name": "Thoracic cage",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "bone.vertebralColumn",
-      "sourceObjects": [
-        "Atlas (C1)",
-        "Axis (C2)",
-        "Vertebra C3",
-        "Vertebra C4",
-        "Vertebra C5",
-        "Vertebra C6",
-        "Vertebra C7",
-        "Vertebra T1",
-        "Vertebra T2",
-        "Vertebra T3",
-        "Vertebra T4",
-        "Vertebra T5",
-        "Vertebra T6",
-        "Vertebra T7",
-        "Vertebra T8",
-        "Vertebra T9",
-        "Vertebra T10",
-        "Vertebra T11",
-        "Vertebra T12",
-        "Vertebra L1",
-        "Vertebra L2",
-        "Vertebra L3",
-        "Vertebra L4",
-        "Vertebra L5",
-        "Sacrum",
-        "Coccyx"
-      ],
-      "layer": "bone",
-      "name": "Vertebral column",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "bone.skull",
-      "sourceObjects": [
-        "Frontal bone",
-        "Occipital bone",
-        "Sphenoid bone",
-        "Ethmoid bone",
-        "Vomer",
-        "Parietal bone.r",
-        "Parietal bone.l",
-        "Temporal bone.r",
-        "Temporal bone.l",
-        "Maxilla.r",
-        "Maxilla.l",
-        "Zygomatic bone.r",
-        "Zygomatic bone.l",
-        "Nasal bone.r",
-        "Nasal bone.l",
-        "Lacrimal bone.r",
-        "Lacrimal bone.l",
-        "Palatine bone.r",
-        "Palatine bone.l",
-        "Inferior nasal concha bone.r",
-        "Inferior nasal concha bone.l",
-        "Mandible",
-        "Hyoid bone"
-      ],
-      "layer": "bone",
-      "name": "Skull",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "nerve.brachialPlexus",
-      "sourceObjects": [
-        "Radial nerve.r",
-        "Ulnar nerve.r",
-        "Musculocutaneous nerve.r",
-        "Median nerve.r",
-        "Axillary nerve.r",
-        "Suprascapular nerve.r",
-        "Superior subscapular nerve.r",
-        "Inferior subscapular nerve.r"
-      ],
-      "layer": "nerve",
-      "name": "Brachial plexus",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "nerve.brachialPlexus",
-      "sourceObjects": [
-        "Radial nerve.l",
-        "Ulnar nerve.l",
-        "Musculocutaneous nerve.l",
-        "Median nerve.l",
-        "Axillary nerve.l",
-        "Suprascapular nerve.l",
-        "Superior subscapular nerve.l",
-        "Inferior subscapular nerve.l"
-      ],
-      "layer": "nerve",
-      "name": "Brachial plexus",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "nerve.lumbarPlexus",
-      "sourceObjects": ["Femoral nerve.r", "Obturator nerve.r"],
-      "layer": "nerve",
-      "name": "Lumbar plexus",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "nerve.lumbarPlexus",
-      "sourceObjects": ["Femoral nerve.l", "Obturator nerve.l"],
-      "layer": "nerve",
-      "name": "Lumbar plexus",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "nerve.sacralPlexus",
-      "sourceObjects": [
-        "Sciatic nerve.r",
-        "Superior gluteal nerve.r",
-        "Tibial nerve.r",
-        "Deep fibular nerve.r",
-        "Superficial fibular nerve.r"
-      ],
-      "layer": "nerve",
-      "name": "Sacral plexus",
-      "profiles": ["simplified"]
-    },
-    {
-      "anatomyId": "nerve.sacralPlexus",
-      "sourceObjects": [
-        "Sciatic nerve.l",
-        "Superior gluteal nerve.l",
-        "Tibial nerve.l",
-        "Deep fibular nerve.l",
-        "Superficial fibular nerve.l"
-      ],
-      "layer": "nerve",
-      "name": "Sacral plexus",
-      "profiles": ["simplified"]
     }
   ]
 }

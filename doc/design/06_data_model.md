@@ -281,7 +281,7 @@
 
 ## 6.5 解剖實體（人體模型共用）
 
-人體模型與評估標註共用同一套解剖實體；2D／3D、精簡／細節版皆引用相同 `anatomyId`。
+人體模型與評估標註共用同一套解剖實體；2D／3D 皆引用相同 `anatomyId`。
 
 > `anatomyId` 為**語意式識別**（如 `muscle.bicepsBrachii`），是 App 對外識別、與資產來源脫鉤。3D／2D 資產由 FMA 命名之開源來源（BodyParts3D／Z-Anatomy）經 **FMA ↔ anatomyId 對照表（crosswalk）** 正規化產製；匯出 glTF 的 node 名與 2D SVG 圖層 id 皆＝`anatomyId`。詳見 [04_human_model.md](04_human_model.md) §4.6.2。
 
@@ -309,7 +309,7 @@
 | `actions` | 對各關節的作用（屈／伸／旋…），供收縮／伸展判斷 |
 | `innervation` | 神經支配 |
 
-- 深層/小肌補齊 5 件（皆雙側、**重用既有 `muscle` 型、無新型**）：`muscle.interspinales`（棘間肌、deep、聚合頸/胸/腰 3 部）、`muscle.intertransversarii`（橫突間肌、deep、聚合背/腹 2 部）、`muscle.pyramidalis`（錐狀肌、superficial）、`muscle.transversusThoracis`（胸橫肌、deep）、`muscle.adductorMinimus`（內收最小肌、deep）。**兩 profile 個別可選**（manifest 無 `profiles` flag），detailed 各 entity 以 per-entity `maxTriangles:800` 上限守預算。actions／innervation 屬教科書佔位（pyramidalis 神經實為 subcostal T12、以既有 `nerve.intercostal` 佔位），發布前須 ⚠ PT 審閱定版。
+- 深層/小肌補齊 5 件（皆雙側、**重用既有 `muscle` 型、無新型**）：`muscle.interspinales`（棘間肌、deep、聚合頸/胸/腰 3 部）、`muscle.intertransversarii`（橫突間肌、deep、聚合背/腹 2 部）、`muscle.pyramidalis`（錐狀肌、superficial）、`muscle.transversusThoracis`（胸橫肌、deep）、`muscle.adductorMinimus`（內收最小肌、deep）。各 entity 以 per-entity `maxTriangles:800` 上限守預算。actions／innervation 屬教科書佔位（pyramidalis 神經實為 subcostal T12、以既有 `nerve.intercostal` 佔位），發布前須 ⚠ PT 審閱定版。
 
 ### 神經 nerve
 
@@ -349,7 +349,7 @@
 
 - 韌帶為被動穩定結構（如膝十字 ACL/PCL、脊椎前縱／後縱／黃韌帶），對 PT 高臨床價值（ACL 撕裂、脊椎穩定/狹窄）。
 - 結構為 **minimal 型**（僅 base＋`type`）：不帶 `relatedJoints`／`function`——膝/脊椎 joint 實體尚未建，避懸空參考。
-- 涵蓋 **13 條**：膝十字 ACL/PCL、脊椎前縱／後縱／黃韌帶等 5 條，加 8 條源料確存之高價值具名韌帶——**骨間膜**（前臂 `ligament.interosseousMembraneForearm`／小腿 `ligament.interosseousMembraneLeg`＝旋轉穩定/脛腓聯合高位踝扭傷）、長足底韌帶（足弓）、股骨頭韌帶（圓韌帶）、後薦髂韌帶（薦髂/下背）、肋骨頭放射狀韌帶（肋椎）、指/趾間關節側副韌帶。`ligament` 為傘類，骨間膜（interosseous membrane）亦歸此型。**僅細節版**（manifest `profiles:["detailed"]`；simplified 預算已滿）。經典膝/踝/肘側副韌帶（MCL/LCL/ATFL/CFL/UCL/RCL）源料未以該名良模，待源料重模。
+- 涵蓋 **13 條**：膝十字 ACL/PCL、脊椎前縱／後縱／黃韌帶等 5 條，加 8 條源料確存之高價值具名韌帶——**骨間膜**（前臂 `ligament.interosseousMembraneForearm`／小腿 `ligament.interosseousMembraneLeg`＝旋轉穩定/脛腓聯合高位踝扭傷）、長足底韌帶（足弓）、股骨頭韌帶（圓韌帶）、後薦髂韌帶（薦髂/下背）、肋骨頭放射狀韌帶（肋椎）、指/趾間關節側副韌帶。`ligament` 為傘類，骨間膜（interosseous membrane）亦歸此型。（標準資產納入、被動結構層預設隱藏）。經典膝/踝/肘側副韌帶（MCL/LCL/ATFL/CFL/UCL/RCL）源料未以該名良模，待源料重模。
 - 名稱屬臨床佔位，發布前須 ⚠ PT 審閱定版（同其餘解剖種子）。
 
 ### 椎間盤 disc
@@ -416,7 +416,7 @@
 - 筋膜為**包覆肌肉之纖維結締組織鞘膜**（含腱膜 aponeurosis＝特化扁平筋膜，如帽狀腱膜/足底腱膜/掌腱膜），同韌帶/關節囊屬被動結構。PT 高臨床價值：胸腰筋膜（下背痛/核心傳力）、足底腱膜（足底筋膜炎）、闊筋膜/髂脛束（外側膝/髖）、掌腱膜（Dupuytren 攣縮）。
 - 結構同韌帶/椎間盤/關節囊/關節盤之 **minimal 型**（僅 base＋`type`）。
 - 涵蓋 **14 件 curated 主要筋膜**（使用者「Include fascia」＋擇 Curated major set）：帽狀腱膜 `fascia.epicranialAponeurosis`〔頭頂冠部覆蓋、回應 57 頭皮關切〕、胸腰筋膜、闊筋膜、小腿/前臂/臂筋膜、足底/掌腱膜、腹橫/腹壁包覆筋膜、胸肌/鎖胸筋膜、頸部封套筋膜、髂腰肌筋膜。
-- **資產眉角（04 §4.3.6）**：筋膜為**開殼鞘膜**——減面 floor 偏高、且視覺遮蔽其下肌肉；故預設隱藏（passiveStructure），manifest 標 `profiles:["detailed"]` **僅納細節版**（simplified 預算已滿、低階裝置不需）。其餘 ~50 筋膜/腱膜/支持帶採 demand-first，未納入種子。
+- **資產眉角（04 §4.3.6）**：筋膜為**開殼鞘膜**——減面 floor 偏高、且視覺遮蔽其下肌肉；故預設隱藏（passiveStructure，標準資產納入）。其餘 ~50 筋膜/腱膜/支持帶採 demand-first，未納入種子。
 - 名稱屬臨床佔位，發布前須 ⚠ PT 審閱定版（同其餘解剖種子）。
 
 ### 滑囊 bursa
@@ -433,7 +433,7 @@
 - 滑囊為**充液之纖維囊**，降肌腱/骨摩擦；同韌帶/關節囊/筋膜屬被動結構。PT 高臨床價值＝**滑囊炎 bursitis**：肩峰下/三角肌下（肩夾擠）、大轉子（GTPS）、髕前（女僕膝）、鵝足（內側膝/跑者）、半膜肌（貝克氏囊腫）。
 - 結構同韌帶/椎間盤/關節囊/關節盤/筋膜之 **minimal 型**（僅 base＋`type`）。
 - 涵蓋 **8 件 curated 臨床滑囊**：肩峰下 `bursa.subacromial`、臀中肌轉子＋皮下轉子（GTPS）、皮下髕前/深層髕下、肱三頭肌腱下（鷹嘴）、鵝足、半膜肌。
-- **資產眉角（04 §4.3.6）**：滑囊為小囊（源料 48–192 polyCount）但**多島嶼→減面 floor 高**（~1,472/側、無法降至 cap 500），預設隱藏（passiveStructure），manifest 標 `profiles:["detailed"]` **僅納細節版**（simplified 預算已滿）。其餘 ~70 滑囊採 demand-first，未納入種子。
+- **資產眉角（04 §4.3.6）**：滑囊為小囊（源料 48–192 polyCount）但**多島嶼→減面 floor 高**（~1,472/側、無法降至 cap 500），預設隱藏（passiveStructure，標準資產納入）。其餘 ~70 滑囊採 demand-first，未納入種子。
 - 名稱屬臨床佔位，發布前須 ⚠ PT 審閱定版（同其餘解剖種子）。
 
 ### 關節唇 labrum
@@ -465,14 +465,13 @@
 }
 ```
 
-- 肌群為**精簡版「肌群合併 mesh」之選取單位**（04 §4.3.5／§4.3.6 終態——精簡版逐肌群、細節版逐肌肉）。`base`＋`type`＋`layer`（`superficial`／`deep`，比照 `muscle` 用以歸 `deepMuscle`／`superficialMuscle` 顯示層）；群組為**粗化代表**、不帶 `muscle` 之 `relatedJoints`／`actions`／`innervation`（避懸空參考）。
-- 涵蓋 **35 件 curated 臨床功能/區域肌群**（148 成員肌；如股四頭肌、大腿後肌群、旋轉肌袖、豎脊肌群、足部內在肌群、顏面表情肌群）；餘 14 大地標肌（deltoid／trapezius／latissimusDorsi／sartorius／iliopsoas／diaphragm…）維持逐肌（兩 profile 皆顯、不分組）。
-- **資產製作（04 §4.6.3／§4.3.6）**：以宣告式產生器 `infra/asset-pipeline/buildMuscleGroups.mjs`（單一真相、冪等）產出衍生資料——成員肌標 `profiles:["detailed"]`（細節版逐肌）、群組件標 `profiles:["simplified"]`＋`sourceObjects` join（精簡版合併為單一 node）。合併後之精簡版 node 經既有 `gltfBinding` 反查此 `muscleGroup` 實體，流入 picking／layers／info／labels。混層群（如臀肌群 max 淺/med·min 深）合併後取單一代表顯示層＝精簡版粗化權衡（設計接受）。
-- 名稱屬臨床佔位，發布前須 ⚠ PT 審閱定版（同其餘解剖種子）。
+- 肌群原為**精簡版「肌群合併 mesh」之選取單位**。細節版/精簡版雙 export profile 已收斂為單一標準資產，肌群合併**退役**、種子已無 `muscleGroup` instance；**型別保留於 schema** 供未來重新分版。結構＝`base`＋`type`＋`layer`（`superficial`／`deep`，比照 `muscle` 歸 `deepMuscle`／`superficialMuscle` 顯示層）；群組為粗化代表、不帶 `relatedJoints`／`actions`／`innervation`。
+- 原規劃 35 件 curated 臨床功能/區域肌群（148 成員肌）；收斂後不再產出，個別肌（含 deltoid／trapezius／latissimusDorsi／sartorius／iliopsoas／diaphragm…）皆逐肌呈現。
+- **資產製作**：原以宣告式產生器 `infra/asset-pipeline/buildMuscleGroups.mjs` 合併產出；收斂後產生器已退役（刪除）、manifest 無 `muscleGroup` node。未來重新分版時以 `sourceObjects` join ＋ manifest `profiles` 旗標重新引入即可。
 
-> 分層（見 [04_human_model.md](04_human_model.md) 4.1）與實體的對應：骨骼層＝`type: "bone"`、神經層＝`type: "nerve"`、表層／深層肌群＝`type: "muscle"` 或 `type: "muscleGroup"`（精簡版肌群合併單位）依 `layer` 區分；**韌帶 `type: "ligament"`、椎間盤 `type: "disc"`、關節囊 `type: "capsule"`、關節盤 `type: "articularDisc"`、筋膜 `type: "fascia"` 與滑囊 `type: "bursa"` 皆歸專屬「被動結構」顯示層（`passiveStructure`）、隨被動結構開關（預設隱藏、opt-in）**；以 `defaultLayers.passiveStructure` 選填欄位向後相容、免 schema 遷移。骨骼／神經／韌帶／椎間盤／關節囊／關節盤／筋膜／滑囊同樣可選取、標籤。
+> 分層（見 [04_human_model.md](04_human_model.md) 4.1）與實體的對應：骨骼層＝`type: "bone"`、神經層＝`type: "nerve"`、表層／深層肌群＝`type: "muscle"`（`muscleGroup` 型保留但種子無 instance）依 `layer` 區分；**韌帶 `type: "ligament"`、椎間盤 `type: "disc"`、關節囊 `type: "capsule"`、關節盤 `type: "articularDisc"`、筋膜 `type: "fascia"` 與滑囊 `type: "bursa"` 皆歸專屬「被動結構」顯示層（`passiveStructure`）、隨被動結構開關（預設隱藏、opt-in）**；以 `defaultLayers.passiveStructure` 選填欄位向後相容、免 schema 遷移。骨骼／神經／韌帶／椎間盤／關節囊／關節盤／筋膜／滑囊同樣可選取、標籤。
 >
-> **精簡版區域/神經叢合併**：骨骼與神經之精簡版合併**重用既有 `bone`／`nerve` minimal 型**（區域即骨、神經叢即神經，`anatomyId prefix === type` 不變量天然滿足——異於肌肉需另立 `muscleGroup` 型）。骨骼 5 區域（`bone.upperLimb`／`lowerLimb`／`thoracicCage`／`vertebralColumn`／`skull`）、神經 3 神經叢（`nerve.brachialPlexus`／`lumbarPlexus`／`sacralPlexus`）為**僅精簡版**合併 node（manifest `profiles:["simplified"]`＋`sourceObjects` join、成員逐件標 `profiles:["detailed"]`）；細節版維持逐骨/逐神經。歸 `bone`／`nerve` 顯示層，資訊卡顯型別「骨骼」／「神經」。
+> **區域/神經叢合併（已退役）**：原精簡版以重用 `bone`／`nerve` 型之合併 node 呈現骨骼 5 區域（`bone.upperLimb`／`lowerLimb`／`thoracicCage`／`vertebralColumn`／`skull`）與神經 3 神經叢（`nerve.brachialPlexus`／`lumbarPlexus`／`sacralPlexus`）；雙 profile 收斂後此等合併 node 已自 manifest／definitions 移除，骨骼與神經皆逐件呈現。
 
 ### 關節 joint（含 ROM）
 

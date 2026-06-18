@@ -432,10 +432,6 @@ describe('groupAnatomyIdsByLayer（依分層彙整 anatomyId）', () => {
         'nerve.lateralPectoral',
         'nerve.medialPectoral',
         'nerve.nerveToSubclavius',
-        // 神經叢群（解3d資產 62、重用 nerve 型、精簡版合併單位）
-        'nerve.brachialPlexus',
-        'nerve.lumbarPlexus',
-        'nerve.sacralPlexus',
       ].sort(),
     );
     // 骨骼層＝所有 bone 型實體：拆逐件後個別骨眾多（椎/肋/腕/跗…），改派生斷言（避免逐一硬列、
@@ -460,7 +456,7 @@ describe('groupAnatomyIdsByLayer（依分層彙整 anatomyId）', () => {
     ]) {
       expect(grouped.bone).not.toContain(id);
     }
-    // 仍含逐件代表骨（拆分到位）＋既有四肢長骨＋精簡版區域群（重用 bone 型）。
+    // 仍含逐件代表骨（拆分到位）＋既有四肢長骨（精簡版區域群已退役）。
     for (const id of [
       'bone.c1',
       'bone.t12',
@@ -472,8 +468,6 @@ describe('groupAnatomyIdsByLayer（依分層彙整 anatomyId）', () => {
       'bone.frontal',
       'bone.humerus',
       'bone.femur',
-      'bone.upperLimb',
-      'bone.skull',
     ]) {
       expect(grouped.bone).toContain(id);
     }
@@ -585,50 +579,11 @@ describe('groupAnatomyIdsByLayer（依分層彙整 anatomyId）', () => {
     }
   });
 
-  it('35 肌群（muscleGroup.*）依 layer 歸 superficial/deepMuscle（精簡版肌群合併選取單位、隨既有肌群開關；解3d資產 61）', () => {
+  it('細節版/精簡版雙 profile 收斂：muscleGroup 合併單位已退役、不再出現於分層彙整（§4.3.5/§4.3.6）', () => {
     const grouped = groupAnatomyIdsByLayer(anatomyEntities);
-    expect(grouped.superficialMuscle.filter((id) => id.startsWith('muscleGroup.')).sort()).toEqual(
-      [
-        'muscleGroup.armFlexor',
-        'muscleGroup.armExtensor',
-        'muscleGroup.forearmFlexor',
-        'muscleGroup.forearmExtensor',
-        'muscleGroup.thenar',
-        'muscleGroup.hypothenar',
-        'muscleGroup.quadriceps',
-        'muscleGroup.hamstring',
-        'muscleGroup.hipAdductor',
-        'muscleGroup.gluteal',
-        'muscleGroup.calf',
-        'muscleGroup.anteriorLeg',
-        'muscleGroup.fibular',
-        'muscleGroup.footIntrinsic',
-        'muscleGroup.abdominal',
-        'muscleGroup.pectoral',
-        'muscleGroup.suprahyoid',
-        'muscleGroup.infrahyoid',
-        'muscleGroup.mastication',
-        'muscleGroup.epicranius',
-        'muscleGroup.facialExpression',
-      ].sort(),
+    const muscleGroupIds = [...grouped.superficialMuscle, ...grouped.deepMuscle].filter((id) =>
+      id.startsWith('muscleGroup.'),
     );
-    expect(grouped.deepMuscle.filter((id) => id.startsWith('muscleGroup.')).sort()).toEqual(
-      [
-        'muscleGroup.rotatorCuff',
-        'muscleGroup.handInterossei',
-        'muscleGroup.deepHipRotator',
-        'muscleGroup.deepPosteriorLeg',
-        'muscleGroup.erectorSpinae',
-        'muscleGroup.transversospinal',
-        'muscleGroup.rhomboid',
-        'muscleGroup.serratusPosterior',
-        'muscleGroup.intercostal',
-        'muscleGroup.pelvicFloor',
-        'muscleGroup.splenius',
-        'muscleGroup.scalene',
-        'muscleGroup.prevertebral',
-        'muscleGroup.suboccipital',
-      ].sort(),
-    );
+    expect(muscleGroupIds).toEqual([]);
   });
 });

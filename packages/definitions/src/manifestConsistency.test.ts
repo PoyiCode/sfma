@@ -34,9 +34,7 @@ const KNOWN_LAYERS: ReadonlySet<string> = new Set([
   'labrum',
 ]);
 
-// LOD profile（detailed＝個別部位、simplified＝合併 muscleGroup）。
-const RENDER_PROFILES = ['detailed', 'simplified'] as const;
-const KNOWN_PROFILES: ReadonlySet<string> = new Set(RENDER_PROFILES);
+// 細節版/精簡版雙 profile 已收斂為單一資產：實體不再帶 profiles 旗標。
 
 // 設計上不建模、故可缺席於 manifest 的 definitions.type：
 // joint＝功能關節無 mesh（manifest deferred.functionalJoint）、
@@ -48,12 +46,6 @@ function sourcesOf(entity: ManifestEntity): string[] {
     return [entity.sourceObject];
   }
   return Array.isArray(entity.sourceObjects) ? entity.sourceObjects : [];
-}
-
-// profiles 缺席／空＝出現於所有 profile（預設）；否則僅列出之 profile。
-function inProfile(entity: ManifestEntity, profile: string): boolean {
-  const { profiles } = entity;
-  return !Array.isArray(profiles) || profiles.length === 0 || profiles.includes(profile);
 }
 
 // 不變式 1：manifest anatomyId 中 definitions 不認得者（孤兒 3D 節點）。去重、保序。
@@ -97,21 +89,15 @@ function findStructuralViolations(entities: readonly ManifestEntity[]): string[]
   return violations;
 }
 
-// 不變式 4：layer ∈ 已知層、profile token ∈ 已知 profile。
+// 不變式 4：layer ∈ 已知層。
 function findVocabularyViolations(
   entities: readonly ManifestEntity[],
   knownLayers: ReadonlySet<string>,
-  knownProfiles: ReadonlySet<string>,
 ): string[] {
   const violations: string[] = [];
   for (const entity of entities) {
     if (!knownLayers.has(entity.layer)) {
       violations.push(`${entity.anatomyId}: 未知 layer "${entity.layer}"`);
-    }
-    for (const profile of entity.profiles ?? []) {
-      if (!knownProfiles.has(profile)) {
-        violations.push(`${entity.anatomyId}: 未知 profile "${profile}"`);
-      }
     }
   }
   return violations;
@@ -137,17 +123,15 @@ function findLayerNameInconsistencies(entities: readonly ManifestEntity[]): stri
   return violations;
 }
 
-// 不變式 6：逐 profile，無來源物件被兩個相異 anatomyId 認領（同一 LOD 內不重複指派）。
-// 跨 profile 同一 mesh 可對應不同 anatomyId（detailed→個別肌、simplified→群），故必逐 profile。
-function findSourceDoubleClaims(entities: readonly ManifestEntity[], profile: string): string[] {
+// 不變式 6：無來源物件被兩個相異 anatomyId 認領（單一資產內不重複指派）。
+function findSourceDoubleClaims(entities: readonly ManifestEntity[]): string[] {
   const owner = new Map<string, string>();
   const violations: string[] = [];
   for (const entity of entities) {
-    if (!inProfile(entity, profile)) continue;
     for (const source of sourcesOf(entity)) {
       const existing = owner.get(source);
       if (existing !== undefined && existing !== entity.anatomyId) {
-        violations.push(`[${profile}] "${source}": ${existing} 與 ${entity.anatomyId} 重認`);
+        violations.push(`"${source}": ${existing} 與 ${entity.anatomyId} 重認`);
       } else {
         owner.set(source, entity.anatomyId);
       }
@@ -185,18 +169,21 @@ describe('manifest ⇄ definitions 一致性（真實資料、04 §4.6.2）', ()
     expect(findStructuralViolations(manifestEntities)).toEqual([]);
   });
 
-  it('manifest 詞彙合法：layer ∈ 已知層、profile ∈ 已知 profile', () => {
-    expect(findVocabularyViolations(manifestEntities, KNOWN_LAYERS, KNOWN_PROFILES)).toEqual([]);
+  it('manifest 詞彙合法：layer ∈ 已知層', () => {
+    expect(findVocabularyViolations(manifestEntities, KNOWN_LAYERS)).toEqual([]);
+  });
+
+  it('細節版/精簡版雙 profile 已收斂：無實體帶 profiles 旗標', () => {
+    const withProfiles = manifestEntities.filter((e) => e.profiles !== undefined);
+    expect(withProfiles.map((e) => e.anatomyId)).toEqual([]);
   });
 
   it('同一 anatomyId 群之 layer/name 一致', () => {
     expect(findLayerNameInconsistencies(manifestEntities)).toEqual([]);
   });
 
-  it('逐 profile 無來源物件被相異 anatomyId 重認', () => {
-    for (const profile of RENDER_PROFILES) {
-      expect(findSourceDoubleClaims(manifestEntities, profile)).toEqual([]);
-    }
+  it('無來源物件被相異 anatomyId 重認', () => {
+    expect(findSourceDoubleClaims(manifestEntities)).toEqual([]);
   });
 });
 
@@ -235,14 +222,14 @@ describe('一致性檢查純函式之牙齒（合成壞資料）', () => {
     expect(violations.some((v) => v.startsWith('c:'))).toBe(false);
   });
 
-  it('findVocabularyViolations 偵出未知 layer/profile', () => {
+  it('findVocabularyViolations 偵出未知 layer', () => {
     const entities: ManifestEntity[] = [
       { anatomyId: 'a', layer: 'bogus', name: 'A', sourceObject: 'X' },
-      { anatomyId: 'b', layer: 'bone', name: 'B', sourceObject: 'Y', profiles: ['medium'] },
+      { anatomyId: 'b', layer: 'bone', name: 'B', sourceObject: 'Y' },
     ];
-    const violations = findVocabularyViolations(entities, KNOWN_LAYERS, KNOWN_PROFILES);
+    const violations = findVocabularyViolations(entities, KNOWN_LAYERS);
     expect(violations).toContain('a: 未知 layer "bogus"');
-    expect(violations).toContain('b: 未知 profile "medium"');
+    expect(violations.some((v) => v.startsWith('b:'))).toBe(false);
   });
 
   it('findLayerNameInconsistencies 偵出同 anatomyId 之矛盾中介資料', () => {
@@ -255,42 +242,17 @@ describe('一致性檢查純函式之牙齒（合成壞資料）', () => {
     expect(violations).toContain('m: name 不一致');
   });
 
-  it('findSourceDoubleClaims 偵出同 profile 內重認、放行跨 profile 共用', () => {
-    const sameProfile: ManifestEntity[] = [
-      {
-        anatomyId: 'muscle.a',
-        layer: 'muscle',
-        name: 'A',
-        sourceObject: 'Shared',
-        profiles: ['detailed'],
-      },
-      {
-        anatomyId: 'muscle.b',
-        layer: 'muscle',
-        name: 'B',
-        sourceObject: 'Shared',
-        profiles: ['detailed'],
-      },
+  it('findSourceDoubleClaims 偵出來源被相異 anatomyId 重認、放行同 anatomyId 共用', () => {
+    const clash: ManifestEntity[] = [
+      { anatomyId: 'muscle.a', layer: 'muscle', name: 'A', sourceObject: 'Shared' },
+      { anatomyId: 'muscle.b', layer: 'muscle', name: 'B', sourceObject: 'Shared' },
     ];
-    expect(findSourceDoubleClaims(sameProfile, 'detailed')).toHaveLength(1);
+    expect(findSourceDoubleClaims(clash)).toHaveLength(1);
 
-    const crossProfile: ManifestEntity[] = [
-      {
-        anatomyId: 'muscle.a',
-        layer: 'muscle',
-        name: 'A',
-        sourceObject: 'Shared',
-        profiles: ['detailed'],
-      },
-      {
-        anatomyId: 'muscleGroup.g',
-        layer: 'muscle',
-        name: 'G',
-        sourceObjects: ['Shared'],
-        profiles: ['simplified'],
-      },
+    const sameOwner: ManifestEntity[] = [
+      { anatomyId: 'muscle.a', layer: 'muscle', name: 'A', sourceObject: 'Shared' },
+      { anatomyId: 'muscle.a', layer: 'muscle', name: 'A', sourceObjects: ['Shared'] },
     ];
-    expect(findSourceDoubleClaims(crossProfile, 'detailed')).toEqual([]);
-    expect(findSourceDoubleClaims(crossProfile, 'simplified')).toEqual([]);
+    expect(findSourceDoubleClaims(sameOwner)).toEqual([]);
   });
 });

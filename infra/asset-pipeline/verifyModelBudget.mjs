@@ -1,7 +1,7 @@
 // app 模型 GLB 三角面預算驗證（exportGltf.py 之後執行）。
 // 純 node 解析 GLB（不需 Blender）：讀 JSON chunk、逐 mesh-node 累計三角面
 // （indices accessor.count/3；Draco 壓縮下 accessor.count 仍＝解壓後計數，glTF 規範），
-// 核對細節版 ≤5,000k（解3d資產 67 自 900k 上調、見 04 §4.3.6）／精簡版 ≤150k（同 §4.3.6 算繪三角面預算）。
+// 核對標準資產 ≤5,000k（解3d資產 67 自 900k 上調、見 04 §4.3.6；細節版/精簡版雙 profile 已收斂）。
 // 另依 manifest 將 node→layer 彙整 per-layer 三角面，供超標時定位（被動結構/開殼件）。
 // glb 為 gitignored 本機產物，clean checkout 無檔屬預期（匯出後驗證工具、非 CI 常駐，
 // 比照 verifySystemsExport.mjs）。
@@ -15,12 +15,11 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const modelsDir = process.argv[2] ?? join(HERE, 'out');
 const manifestPath = process.argv[3] ?? join(HERE, 'manifestV1.json');
 
-// 04 §4.3.6 每-profile 算繪三角面預算（provisional、實測後調整）。
-// 細節版上限解3d資產 67 自 900k 上調至 5,000k（使用者持 iOS 實機 FPS、寬裕 headroom 免內容軌續撞牆；
-// 現用量 965k 為上限 19%；FPS<25/5s 自動降級為安全網）。精簡版維持 150k（低階/降級後備應輕量）。
+// 04 §4.3.6 標準資產算繪三角面預算（provisional、實測後調整）。
+// 上限解3d資產 67 自 900k 上調至 5,000k（使用者持 iOS 實機 FPS、寬裕 headroom 免內容軌續撞牆；
+// 現用量 965k 為上限 19%；FPS<25/5s 自動降級為安全網）。full（無損）不受預算約束、不在此稽核。
 const BUDGETS = {
-  'anatomyV1.glb': { label: 'detailed', max: 5000000 },
-  'anatomyV1.simplified.glb': { label: 'simplified', max: 150000 },
+  'anatomyV1.glb': { label: 'standard', max: 5000000 },
 };
 
 function readGlbJson(path) {
