@@ -49,6 +49,9 @@ interface Props {
   // LOD 模型細節（§3.5 控制項清單）：canChangeLod 提供＝顯自動／簡化／完整分段；值＝設定單一真相 lodMode。
   lodMode?: LodOverride;
   canChangeLod?: boolean;
+  // 運動模式（§4.3.3）：canToggleMotion＝顯關節活動開關；motionMode＝當前。
+  motionMode?: boolean;
+  canToggleMotion?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -60,6 +63,8 @@ const props = withDefaults(defineProps<Props>(), {
   canChangeLabelMode: false,
   lodMode: 'auto',
   canChangeLod: false,
+  motionMode: false,
+  canToggleMotion: false,
 });
 
 const emit = defineEmits<{
@@ -68,6 +73,7 @@ const emit = defineEmits<{
   showLabelsChange: [showLabels: boolean];
   labelModeChange: [mode: LabelMode];
   lodModeChange: [mode: LodOverride];
+  motionModeChange: [on: boolean];
 }>();
 
 const { t } = useI18n();
@@ -111,6 +117,13 @@ function onLod(value: string): void {
 
 <template>
   <div class="model3dControls">
+    <UiSwitch
+      v-if="canToggleMotion"
+      data-testid="motion-toggle"
+      :label="t('modelMotionMode')"
+      :model-value="motionMode === true"
+      @update:model-value="emit('motionModeChange', $event === true)"
+    />
     <UiSegmentedControl
       v-bind="{ ariaLabel: t('model3dViewLabel') }"
       :model-value="String(view)"
