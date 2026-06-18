@@ -1,11 +1,11 @@
 <script setup lang="ts">
+// 個案表單容器——新增（03 §3.3.8）：/patients/new。建立模式直接渲染編輯器。
+import PatientFormEditor from '../../components/patient/PatientFormEditor.vue';
+
 const { t } = useI18n();
 useHead({ title: () => t('titlePatientNew') });
 </script>
 
 <template>
-  <UCard>
-    <h2>{{ t('titlePatientNew') }}（placeholder）</h2>
-    <p>{{ t('screenTodo') }}（Phase 4）</p>
-  </UCard>
+  <PatientFormEditor />
 </template>

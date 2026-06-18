@@ -1,3 +1,53 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
 @import './tokens.css';
+
+/* 全域 .button：供「以連結呈現為按鈕」之元素（NuxtLink class="button" data-variant=…）取用，
+   與 Button.vue（scoped）外觀對齊（03 §3.7.1–3.7.4）。ptApp 原以全域 Button.css 提供，移植沿用。 */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-height);
+  padding: 0 var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--motion-fast) var(--easing-standard);
+}
+
+.button[data-variant='primary'] {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.button[data-variant='primary']:hover {
+  background: var(--color-accent-hover);
+}
+
+.button[data-variant='secondary'] {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+
+.button[data-variant='ghost'] {
+  background: transparent;
+  color: var(--color-accent-fg);
+}
+
+.button[data-variant='danger'] {
+  background: var(--color-danger);
+  color: #ffffff;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
