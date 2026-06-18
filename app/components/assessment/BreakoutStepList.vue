@@ -2,7 +2,7 @@
 // 步驟清單純展示（03 §3.3.9 line 171）：序·測試名·結果碼·該步衍生 findingType chip；
 // 當前待測步以 data-current／aria-current 高亮並顯「目前」。提供 rewindStep listener 時已答步顯 ✎ 改步入口；
 // 上拋 0-based 步索引。破壞性作廢的量化確認由上層（疊層）以 AlertDialog 把關。
-import UiIconButton from '../ui/IconButton.vue';
+import UiIconButton from '../base/IconButton.vue';
 import type { BreakoutStepView } from '../../utils/assessment/breakoutPresentation';
 import { localizeText } from '../../utils/i18n/localizeText';
 

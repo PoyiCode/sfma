@@ -39,7 +39,10 @@ import {
 import { degradeLodTier, type LodTier } from '../../../utils/humanModel/lod/lodTier';
 import { detectDeviceCapability } from '../../../utils/humanModel/lod/deviceCapability';
 import { viewerLayoutMode } from '../../../utils/humanModel/render/viewerLayoutMode';
-import { DEFAULT_CAMERA_VIEW, type CameraViewKey } from '../../../utils/humanModel/render/sceneCamera';
+import {
+  DEFAULT_CAMERA_VIEW,
+  type CameraViewKey,
+} from '../../../utils/humanModel/render/sceneCamera';
 import {
   DEFAULT_CAMERA_REGION,
   type CameraRegionKey,
@@ -50,9 +53,9 @@ import Model3DViewer from '../../../components/humanModel/Model3DViewer.vue';
 import BodyAnnotationDialog from '../../../components/humanModel/BodyAnnotationDialog.vue';
 import BodyAnnotationList from '../../../components/humanModel/BodyAnnotationList.vue';
 import FullLodConfirmDialog from '../../../components/humanModel/FullLodConfirmDialog.vue';
-import PageError from '../../../components/ui/PageError.vue';
-import PageSkeleton from '../../../components/ui/PageSkeleton.vue';
-import ErrorBoundary from '../../../components/ui/ErrorBoundary.vue';
+import PageError from '../../../components/base/PageError.vue';
+import PageSkeleton from '../../../components/base/PageSkeleton.vue';
+import ErrorBoundary from '../../../components/base/ErrorBoundary.vue';
 
 // AppSettings 之 lodMode 聯集（auto/simplified/full）；@ptapp/shared 未另 export 別名，於此取。
 type LodMode = AppSettings['lodMode'];
@@ -120,7 +123,9 @@ async function persistLodMode(mode: LodMode): Promise<void> {
 
 // ── 評估 session（選填 ?session=）：反向高亮＋正向標註 ──
 const session = useAssessmentSession(() => sessionId.value ?? '');
-const sessionReady = computed(() => sessionId.value !== null && session.state.value.status === 'ready');
+const sessionReady = computed(
+  () => sessionId.value !== null && session.state.value.status === 'ready',
+);
 const annotations = computed<readonly BodyAnnotation[] | undefined>(() =>
   session.state.value.status === 'ready' ? session.state.value.session.bodyAnnotations : undefined,
 );

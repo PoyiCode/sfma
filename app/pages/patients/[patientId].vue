@@ -5,9 +5,9 @@ import { computed, ref } from 'vue';
 import { usePatient } from '../../composables/patient/usePatient';
 import { localStore } from '../../utils/data/localStore';
 import { buildPatientExport, saveExportFile } from '../../utils/data/exporter';
-import UiButton from '../../components/ui/Button.vue';
-import PageSkeleton from '../../components/ui/PageSkeleton.vue';
-import PageError from '../../components/ui/PageError.vue';
+import UiButton from '../../components/base/Button.vue';
+import PageSkeleton from '../../components/base/PageSkeleton.vue';
+import PageError from '../../components/base/PageError.vue';
 
 definePageMeta({ titleKey: 'titlePatientDetail' });
 
@@ -60,11 +60,7 @@ async function handleExport(): Promise<void> {
         <h2 class="patientDetailName">{{ state.patient.name }}</h2>
       </div>
       <div class="patientDetailActions">
-        <NuxtLink
-          class="button"
-          data-variant="secondary"
-          :to="`/patients/${patientId}/edit`"
-        >
+        <NuxtLink class="button" data-variant="secondary" :to="`/patients/${patientId}/edit`">
           {{ t('patientDetailEdit') }}
         </NuxtLink>
         <UiButton variant="secondary" :disabled="exporting" @click="handleExport">

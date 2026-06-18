@@ -3,10 +3,10 @@
 // open＝phase 非 idle；× 與取消皆走 close（=hook reset）。純展示、邏輯在 useDataImport（容器接線）。
 import { computed } from 'vue';
 import type { ImportConflictStrategy } from '../../utils/data/repository';
-import UiButton from '../ui/Button.vue';
-import UiCheckbox from '../ui/Checkbox.vue';
-import UiDialog from '../ui/Dialog.vue';
-import UiSegmentedControl from '../ui/SegmentedControl.vue';
+import UiButton from '../base/Button.vue';
+import UiCheckbox from '../base/Checkbox.vue';
+import UiDialog from '../base/Dialog.vue';
+import UiSegmentedControl from '../base/SegmentedControl.vue';
 import type { DataImportPhase } from '../../composables/settings/useDataImport';
 import { importErrorMessageKey } from '../../utils/settings/importErrorMessage';
 

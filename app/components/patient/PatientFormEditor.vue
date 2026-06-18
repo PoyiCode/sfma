@@ -17,7 +17,7 @@ import {
 } from '../../utils/patient/patientForm';
 import { useUnsavedChangesGuard } from '../../composables/patient/useUnsavedChangesGuard';
 import PatientFormView from './PatientFormView.vue';
-import UiAlertDialog from '../ui/AlertDialog.vue';
+import UiAlertDialog from '../base/AlertDialog.vue';
 
 interface Props {
   // 編輯模式須帶既有 patient；建立模式 patient 省略。
@@ -45,9 +45,7 @@ const canSave = computed(
 );
 
 // 未存變更守衛（03 §3.3.5）：有未存草稿且非存檔中才攔截離開（成功存檔之 navigate 不自攔——存檔後值＝已存，dirty 為 false）。
-const guard = useUnsavedChangesGuard(
-  () => isPatientFormDirty(values, initial) && !saving.value,
-);
+const guard = useUnsavedChangesGuard(() => isPatientFormDirty(values, initial) && !saving.value);
 
 function applyPatch(patch: Partial<PatientFormValues>): void {
   Object.assign(values, patch);

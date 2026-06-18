@@ -48,7 +48,7 @@
 - **三處安全網 → `PageError`「不支援／載入失敗＋重試」**：
   1. 無 WebGL → `model3dUnsupported`＋重試（重新偵測）；
   2. FPS 降級到底＝精簡（不再退 2D）；
-  3. 3D 子樹 `ui/ErrorBoundary`（chunk 載入失敗／Babylon render 拋錯）→ `model3dLoadError`＋重試（bump key remount）。`ErrorBoundary` 為可重用原件。
+  3. 3D 子樹 `base/ErrorBoundary`（chunk 載入失敗／Babylon render 拋錯）→ `model3dLoadError`＋重試（bump key remount）。`ErrorBoundary` 為可重用原件。
 - **個別骨拆分供細節**：原以 `sourceObjects` join 聚合之骨（顱骨、脊椎、肋骨、肋軟骨、胸骨、手、足）拆為個別骨（每骨各得三角面預算→細節大增），可獨立選取／標註／分側（沿用 partKey）；複合肌頭 join 維持（一肌一實體＝臨床正確）。拆分後左右同名個別骨之鏡像幾何經 glTF 匯出器去重為共用 mesh，故載入以 `createInstances:false`（`GLTF_IMPORT_OPTIONS`）令每 node 為獨立 `Mesh`（還原「每部位一 Mesh」假設，使 overlay 高亮／單側可見性一致）。
 
 **SVG 抽取管線**（`export2dSvg.py`／`assets2d/`、§4.6.3 步驟 7）保留為**資產產生器**，與執行期檢視器分立。

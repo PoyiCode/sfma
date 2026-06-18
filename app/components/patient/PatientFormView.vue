@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // 個案表單展示元件（03 §3.3.8）：純展示——值由父層受控，變更以 change(patch) 上拋（React onChange(patch) 對等）。
 // useI18n 由 Nuxt 自動 import。
-import UiButton from '../ui/Button.vue';
-import UiCheckbox from '../ui/Checkbox.vue';
-import UiInput from '../ui/Input.vue';
+import UiButton from '../base/Button.vue';
+import UiCheckbox from '../base/Checkbox.vue';
+import UiInput from '../base/Input.vue';
 import type { PatientFormErrors, PatientFormValues } from '../../utils/patient/patientForm';
 
 interface Props {
@@ -27,10 +27,7 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <form
-    class="patientForm"
-    @submit.prevent="emit('submit')"
-  >
+  <form class="patientForm" @submit.prevent="emit('submit')">
     <label class="patientFormField">
       <span class="patientFormLabel">{{ t('patientFormName') }}</span>
       <UiInput

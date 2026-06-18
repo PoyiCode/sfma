@@ -3,7 +3,7 @@
 // 純展示：挑選與結果經回呼上拋。未挑流程時流程下拉首列為空值佔位。
 import { computed } from 'vue';
 import type { BreakoutNode, SfmaFlowKey } from '@ptapp/shared';
-import UiSelect, { type SelectOption } from '../ui/Select.vue';
+import UiSelect, { type SelectOption } from '../base/Select.vue';
 import BreakoutStepCard from './BreakoutStepCard.vue';
 import type {
   BreakoutFlowOption,

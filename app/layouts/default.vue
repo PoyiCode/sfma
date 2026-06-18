@@ -6,7 +6,7 @@
 import { computed } from 'vue';
 import { useBreakpoint } from '../composables/app/useBreakpoint';
 import { useOrientation } from '../composables/app/useOrientation';
-import UiIconButton from '../components/ui/IconButton.vue';
+import UiIconButton from '../components/base/IconButton.vue';
 import FirstLaunchNotice from '../components/app/FirstLaunchNotice.vue';
 import InstallGuide from '../components/app/InstallGuide.vue';
 
@@ -50,20 +50,9 @@ function goSettings(): void {
     <a class="skipLink" href="#appMain">{{ t('skipToContent') }}</a>
     <header class="appBar">
       <span v-if="isRoot" class="appBarLead" aria-hidden="true" />
-      <UiIconButton
-        v-else
-        class="appBarBack"
-        :label="t('navBack')"
-        icon="‹"
-        @click="goBack"
-      />
+      <UiIconButton v-else class="appBarBack" :label="t('navBack')" icon="‹" @click="goBack" />
       <h1 class="appBarTitle">{{ t(titleKey) }}</h1>
-      <UiIconButton
-        class="appBarSettings"
-        :label="t('navSettings')"
-        icon="⚙"
-        @click="goSettings"
-      />
+      <UiIconButton class="appBarSettings" :label="t('navSettings')" icon="⚙" @click="goSettings" />
     </header>
     <main id="appMain" class="appContent" tabindex="-1">
       <slot />

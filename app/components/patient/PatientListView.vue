@@ -1,8 +1,8 @@
 <script setup lang="ts">
 // 個案清單展示元件（03 §3.3.8）：純展示——搜尋框＋新增 CTA＋清單列；query 由父層受控（v-model）。
 // useI18n／NuxtLink 由 Nuxt 自動 import。
-import UiInput from '../ui/Input.vue';
-import UiStatusChip from '../ui/StatusChip.vue';
+import UiInput from '../base/Input.vue';
+import UiStatusChip from '../base/StatusChip.vue';
 import type { PatientListItemData } from '../../utils/patient/patientListItems';
 
 interface Props {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 人工擇一候選卡（05 §5.3.3 #7／03 §3.3.9 line 167）：priorResult 缺值致分支 undecidable 時，
 // 列各候選分支供臨床判斷擇一。純展示——擇一／取消經回呼上拋（引導與自由模式共用）。
-import UiButton from '../ui/Button.vue';
+import UiButton from '../base/Button.vue';
 import type { BreakoutCandidateView } from '../../utils/assessment/breakoutPresentation';
 import { localizeText } from '../../utils/i18n/localizeText';
 

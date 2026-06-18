@@ -14,7 +14,12 @@ const model = defineModel<string | number>();
 </script>
 
 <template>
-  <input :type="type" class="input" :value="model" @input="model = ($event.target as HTMLInputElement).value" >
+  <input
+    :type="type"
+    class="input"
+    :value="model"
+    @input="model = ($event.target as HTMLInputElement).value"
+  />
 </template>
 
 <style scoped>

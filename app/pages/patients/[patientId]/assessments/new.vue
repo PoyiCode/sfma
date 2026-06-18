@@ -5,8 +5,8 @@ import { onMounted, ref } from 'vue';
 import { createUuid, toIsoDateTime } from '@ptapp/shared';
 import { localStore } from '../../../../utils/data/localStore';
 import { newAssessmentSession } from '../../../../utils/assessment/assessmentSession';
-import UiButton from '../../../../components/ui/Button.vue';
-import PageSkeleton from '../../../../components/ui/PageSkeleton.vue';
+import UiButton from '../../../../components/base/Button.vue';
+import PageSkeleton from '../../../../components/base/PageSkeleton.vue';
 
 definePageMeta({ titleKey: 'titleAssessmentNew' });
 

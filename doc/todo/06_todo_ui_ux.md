@@ -12,5 +12,5 @@
 
 ## 設計系統（§3.7）
 
-- [ ] UI 原語包裝（Nuxt UI；03 §3.7.4）—— 基礎元件由 Nuxt UI 直接提供；app 專屬包裝已落地於 `app/components/ui/`：Button／IconButton／Input／Checkbox／Accordion／AlertDialog／Select／Dialog／Switch／Callout／SegmentedControl／StatusChip／Skeleton／PageSkeleton／PageError／ErrorBoundary。**demand-first 暫緩**：Radio／Slider／Tabs／Popover／Tooltip／Toast／Menu／Card／Badge 等可直接用 Nuxt UI（`URadioGroup`／`USlider`／`UTabs`／`UPopover`／`UTooltip`／`useToast` …），俟實際 consumer 再視需要加專屬包裝
+- [ ] UI 原語包裝（Nuxt UI；03 §3.7.4）—— 基礎元件由 Nuxt UI 直接提供；app 專屬包裝已落地於 `app/components/base/`：Button／IconButton／Input／Checkbox／Accordion／AlertDialog／Select／Dialog／Switch／Callout／SegmentedControl／StatusChip／Skeleton／PageSkeleton／PageError／ErrorBoundary。**demand-first 暫緩**：Radio／Slider／Tabs／Popover／Tooltip／Toast／Menu／Card／Badge 等可直接用 Nuxt UI（`URadioGroup`／`USlider`／`UTabs`／`UPopover`／`UTooltip`／`useToast` …），俟實際 consumer 再視需要加專屬包裝
 - [ ] 系統級無障礙驗收：WCAG AA 對比、`:focus-visible` 環、`prefers-reduced-motion`、`forced-colors` 退化、點按 ≥44px、icon-only 配 VisuallyHidden（03 §3.7.5）—— 大部分已落地；**仍待**：`forced-colors` 退化（非單元可測、待實機驗收）

@@ -2,15 +2,10 @@
 // Breakout 疊層三區（03 §3.3.9）：頂條（流程名·已測步數·收合）／中段（端點結果卡＋步進卡）／底摺疊條
 // （發現·待測流程）。純展示——結果上拋 result、收合上拋 close；自動前進與引擎呼叫由上層 composable 負責。
 import { computed, ref } from 'vue';
-import type {
-  BreakoutFindingType,
-  BreakoutNode,
-  LocalizedText,
-  SfmaFlowKey,
-} from '@ptapp/shared';
-import UiAlertDialog from '../ui/AlertDialog.vue';
-import UiButton from '../ui/Button.vue';
-import UiIconButton from '../ui/IconButton.vue';
+import type { BreakoutFindingType, BreakoutNode, LocalizedText, SfmaFlowKey } from '@ptapp/shared';
+import UiAlertDialog from '../base/AlertDialog.vue';
+import UiButton from '../base/Button.vue';
+import UiIconButton from '../base/IconButton.vue';
 import BreakoutStepCard from './BreakoutStepCard.vue';
 import BreakoutStepList from './BreakoutStepList.vue';
 import BreakoutCompletionCard from './BreakoutCompletionCard.vue';
@@ -123,11 +118,7 @@ function confirmRewind(): void {
       </div>
     </header>
     <div v-if="stepsExpanded" class="breakoutStepListPanel">
-      <BreakoutStepList
-        :steps="stepViews"
-        rewindable
-        @rewind-step="pendingRewind = $event"
-      />
+      <BreakoutStepList :steps="stepViews" rewindable @rewind-step="pendingRewind = $event" />
       <UiButton
         v-if="stepCount > 0"
         variant="ghost"

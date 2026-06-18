@@ -8,8 +8,8 @@ import { localStore } from '../../utils/data/localStore';
 import { useSettings } from '../../composables/settings/useSettings';
 import { useInstallPrompt } from '../../composables/app/useInstallPrompt';
 import { resolveInstallMode } from '../../utils/app/installPrompt';
-import UiButton from '../ui/Button.vue';
-import UiCallout from '../ui/Callout.vue';
+import UiButton from '../base/Button.vue';
+import UiCallout from '../base/Callout.vue';
 
 // 已安裝 PWA 偵測：display-mode standalone（Chromium/Android）或 navigator.standalone（iOS）。
 interface NavigatorStandalone {
@@ -40,8 +40,8 @@ const { t } = useI18n();
 const settings = useSettings(props.repo ?? localStore);
 const live = useInstallPrompt();
 
-const userAgent = computed(() =>
-  props.userAgent ?? (typeof navigator !== 'undefined' ? navigator.userAgent : ''),
+const userAgent = computed(
+  () => props.userAgent ?? (typeof navigator !== 'undefined' ? navigator.userAgent : ''),
 );
 const standalone = computed(() =>
   props.standalone !== undefined ? props.standalone : detectStandalone(),

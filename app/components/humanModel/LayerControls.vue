@@ -2,8 +2,8 @@
 // 人體模型分層開關（2D／3D 共用，主要操作；04 §4.1）。純展示受控；狀態由 useLayerVisibility 管理。
 // 可收合分層面板（03 §3.5）：legend 內 disclosure 按鈕（WAI-ARIA Disclosure 模式），收合時隱藏 body。
 import { ref, useId } from 'vue';
-import UiButton from '../ui/Button.vue';
-import UiCheckbox from '../ui/Checkbox.vue';
+import UiButton from '../base/Button.vue';
+import UiCheckbox from '../base/Checkbox.vue';
 import {
   ANATOMY_LAYER_KEYS,
   type AnatomyLayerKey,

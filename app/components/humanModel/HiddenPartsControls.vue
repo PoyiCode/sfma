@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 已隱藏部位清單（檢視器控制項；04 §4.1）：逐一或「恢復全部」還原。
 // 無隱藏部位時休眠（不渲染），避免控制列冗餘。
-import UiButton from '../ui/Button.vue';
+import UiButton from '../base/Button.vue';
 import { anatomyDisplayName } from '../../utils/humanModel/anatomy/anatomyInfo';
 import { parsePartKey } from '../../utils/humanModel/anatomy/partKey';
 
@@ -29,7 +29,11 @@ function partKeyDisplayName(key: string): string {
 </script>
 
 <template>
-  <section v-if="hiddenIds.length > 0" class="hiddenPartsControls" :aria-label="t('hiddenPartsTitle')">
+  <section
+    v-if="hiddenIds.length > 0"
+    class="hiddenPartsControls"
+    :aria-label="t('hiddenPartsTitle')"
+  >
     <div class="hiddenPartsHeader">
       <h3 class="hiddenPartsTitle">{{ t('hiddenPartsTitle') }}</h3>
       <UiButton variant="secondary" @click="emit('restoreAll')">

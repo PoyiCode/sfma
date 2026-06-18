@@ -2,7 +2,7 @@
 // 部位資訊卡（2D／3D 共用，§4.1 部位選取）。純展示；渲染 describeAnatomyEntity 描述子。
 import { computed } from 'vue';
 import type { AnatomyEntity } from '@ptapp/shared';
-import UiButton from '../ui/Button.vue';
+import UiButton from '../base/Button.vue';
 import { describeAnatomyEntity } from '../../utils/humanModel/anatomy/anatomyInfo';
 import type { AnatomySide } from '../../utils/humanModel/anatomy/partKey';
 
