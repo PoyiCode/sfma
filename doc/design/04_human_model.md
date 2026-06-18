@@ -133,16 +133,15 @@ ROM 以資料定義，每個關節一筆（範例見 [06_data_model.md](06_data_
 
 下表之「精簡版／細節版」為**資產 export profile**（與執行期 LOD 階層分立）：
 
-| 預算項目 | 精簡版 profile | 細節版 profile |
+| 預算項目 | 精簡版 profile |
 | --- | --- | --- |
-| 總三角形數 | ≤ 150k | ≤ 5,000k |
-| Draw calls | ≤ 60 | ≤ 200 |
-| 紋理解析度 | ≤ 1024²（KTX2） | ≤ 2048²（KTX2） |
-| 資產下載量（壓縮後） | ≤ 15 MB | ≤ 50 MB |
-| GPU 記憶體佔用 | ≤ 256 MB | ≤ 768 MB |
-| 骨架 | 兩版共用同一骨架（≤ 120 bones） | 同左 |
+| 總三角形數 | ≤ 150k |
+| Draw calls | ≤ 60 |
+| 紋理解析度 | ≤ 1024²（KTX2） |
+| 資產下載量（壓縮後） | ≤ 15 MB |
+| GPU 記憶體佔用 | ≤ 256 MB |
+| 骨架 | 兩版共用同一骨架（≤ 120 bones） |
 
-- 細節版三角面上限為 5,000k（自初版 900k 上調，提供寬裕 headroom 免內容軌續撞牆；現役細節 glb Draco 後約 3.3 MB）。
 - **製作面**：細節版逐肌肉獨立 mesh（支援單一肌肉選取、隱藏與著色）；精簡版以肌群合併 mesh 降低 draw calls（選取粒度為肌群）。per-entity 減面上限（`entity.maxTriangles`，cap 取 `min(全域, layerCap, entity.maxTriangles)`）為可重用機制，粗聚合件單件壓緊、不傷同 layer 他件。
 - **降級規則**：FPS 低於 25 持續 5 秒 → 自動降一級（**完整 → 精簡**；精簡為最低、不再退 2D），介面提示目前等級（`role="status"`，i18n `modelLodAutoDegraded`）；使用者可於設定覆寫。FPS 取樣 `lod/useFpsAutoDegrade.ts` 以 `scene.onAfterRenderObservable` 回報 `engine.getFps()`。門檻 25fps/5000ms 為工程啟發值，待實機校正。
 - **完整版（無損）豁免預算**：`full` 為手動 opt-in 之未壓縮未減面原始模型，**不受上表預算約束**（「無視預算」即其定義）；`verifyModelBudget.mjs` 不對其稽核。

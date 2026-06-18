@@ -13,7 +13,7 @@ const VITE_DEV_MODE =
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   ssr: false, // SPA：local-first（IndexedDB/Babylon 僅 client），無 SSR 水合問題（master plan F）
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ['@nuxt/ui', '@nuxt/eslint', '@pinia/nuxt', '@nuxtjs/i18n', '@vite-pwa/nuxt'],
   css: ['~/assets/css/main.css'],
   devServer: {
@@ -25,6 +25,15 @@ export default defineNuxtConfig({
     define: {
       'import.meta.env.VITE_DEV_MODE': JSON.stringify(VITE_DEV_MODE),
     },
+    optimizeDeps: {
+      include: [
+        '@babylonjs/core',
+        '@babylonjs/core/Rendering/outlineRenderer',
+        '@babylonjs/gui',
+        '@babylonjs/loaders',
+        '@babylonjs/loaders/glTF',
+      ]
+    }
   },
   i18n: {
     defaultLocale: 'zh-TW',
