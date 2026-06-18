@@ -6,6 +6,8 @@ import AssessmentHistoryView from '../../../../components/assessment/AssessmentH
 import PageError from '../../../../components/ui/PageError.vue';
 import PageSkeleton from '../../../../components/ui/PageSkeleton.vue';
 
+definePageMeta({ titleKey: 'titleAssessments' });
+
 const { t } = useI18n();
 useHead({ title: () => t('titleAssessments') });
 

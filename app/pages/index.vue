@@ -7,6 +7,8 @@ import PageSkeleton from '../components/ui/PageSkeleton.vue';
 import PageError from '../components/ui/PageError.vue';
 import PatientListView from '../components/patient/PatientListView.vue';
 
+definePageMeta({ titleKey: 'titlePatients' });
+
 const { t } = useI18n();
 useHead({ title: () => t('titlePatients') });
 

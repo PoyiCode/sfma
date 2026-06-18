@@ -9,6 +9,8 @@ import UiButton from '../../components/ui/Button.vue';
 import PageSkeleton from '../../components/ui/PageSkeleton.vue';
 import PageError from '../../components/ui/PageError.vue';
 
+definePageMeta({ titleKey: 'titlePatientDetail' });
+
 const { t } = useI18n();
 useHead({ title: () => t('titlePatientDetail') });
 

@@ -8,6 +8,8 @@ import { newAssessmentSession } from '../../../../utils/assessment/assessmentSes
 import UiButton from '../../../../components/ui/Button.vue';
 import PageSkeleton from '../../../../components/ui/PageSkeleton.vue';
 
+definePageMeta({ titleKey: 'titleAssessmentNew' });
+
 const { t } = useI18n();
 useHead({ title: () => t('titleAssessmentNew') });
 

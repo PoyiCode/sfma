@@ -24,6 +24,8 @@ interface BreakoutTarget {
   side: Side;
 }
 
+definePageMeta({ titleKey: 'titleAssessmentSession' });
+
 const { t } = useI18n();
 useHead({ title: () => t('titleAssessmentSession') });
 

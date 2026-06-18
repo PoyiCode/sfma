@@ -1,4 +1,6 @@
 <script setup lang="ts">
+definePageMeta({ titleKey: 'notFound' });
+
 const { t } = useI18n();
 useHead({ title: () => t('notFound') });
 </script>

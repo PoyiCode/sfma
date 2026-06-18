@@ -6,6 +6,8 @@ import PatientFormEditor from '../../../components/patient/PatientFormEditor.vue
 import PageSkeleton from '../../../components/ui/PageSkeleton.vue';
 import PageError from '../../../components/ui/PageError.vue';
 
+definePageMeta({ titleKey: 'titlePatientEdit' });
+
 const { t } = useI18n();
 useHead({ title: () => t('titlePatientEdit') });
 

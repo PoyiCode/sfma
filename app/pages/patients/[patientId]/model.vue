@@ -57,6 +57,8 @@ import ErrorBoundary from '../../../components/ui/ErrorBoundary.vue';
 // AppSettings 之 lodMode 聯集（auto/simplified/full）；@ptapp/shared 未另 export 別名，於此取。
 type LodMode = AppSettings['lodMode'];
 
+definePageMeta({ titleKey: 'titleModel' });
+
 const { t } = useI18n();
 useHead({ title: () => t('titleModel') });
 
