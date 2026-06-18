@@ -194,10 +194,13 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
             :populate-scene="scenePopulator"
             :motion-mode="motionMode"
             :pose="pose"
+            :motion-joint="motionJoint"
             @select="emit('selectPart', $event)"
             @background-click="emit('backgroundClick')"
             @fps="emit('fps', $event)"
             @loading-change="isModelLoading = $event"
+            @set-joint-angle="(j, a, d) => emit('setJointAngle', j, a, d)"
+            @select-motion-joint="emit('motionJointChange', $event)"
           />
         </ClientOnly>
         <p v-if="isModelLoading" class="model3dLoading" role="status">
