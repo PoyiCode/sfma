@@ -51,6 +51,20 @@ const SETTINGS: AppSettings = {
   updatedAt: '2026-06-13T09:00:00+08:00',
 };
 
+describe('localStore：寫入前去非結構化複製值（防 DataCloneError）', () => {
+  it('含不可結構化複製屬性（函式，比擬 reactive proxy）之輸入仍能存、且存後去除', async () => {
+    const store = freshStore();
+    const session = makeSession('s-evil', 'p-evil');
+    // 上層 Vue composables 可能傳入帶不可結構化複製成員之物件（reactive proxy）；
+    // 以函式屬性比擬：未經 toStorable 直接 put 會擲 DataCloneError。
+    const withUncloneable = { ...session, evil: () => 'nope' } as unknown as AssessmentSession;
+    await expect(store.saveAssessment(withUncloneable)).resolves.toBeDefined();
+    const stored = await store.getAssessment('s-evil');
+    expect(stored?.patterns).toHaveLength(1);
+    expect((stored as unknown as Record<string, unknown>).evil).toBeUndefined();
+  });
+});
+
 describe('localStore：個案 CRUD', () => {
   it('createPatient 產生 UUID、自動 displayCode、時間戳與 schemaVersion', async () => {
     const store = freshStore();

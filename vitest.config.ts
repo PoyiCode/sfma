@@ -15,6 +15,8 @@ export default defineConfig({
       'config/**/*.test.ts',
       'infra/**/*.test.ts',
     ],
-    exclude: ['**/node_modules/**', '**/.nuxt/**', '**/.output/**'],
+    // *.nuxt.test.ts 為 Nuxt-context 整合測試，僅由 vitest.nuxt.config.ts（environment: 'nuxt'）執行，
+    // 須自主套件（node 環境）排除，否則 node 環境跑不起 Nuxt runtime 而失敗。
+    exclude: ['**/node_modules/**', '**/.nuxt/**', '**/.output/**', '**/*.nuxt.test.ts'],
   },
 });

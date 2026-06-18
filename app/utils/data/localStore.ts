@@ -25,6 +25,14 @@ function migrate<T>(record: T, steps: MigrationSteps): T {
   return applyMigrations(record as unknown as Record<string, unknown>, steps) as unknown as T;
 }
 
+// 寫入 IndexedDB 前一律轉純資料：上層（Vue composables）可能傳入 reactive proxy，
+// 結構化複製 proxy 於真實瀏覽器擲 DataCloneError。DTO 皆 camelCase JSON（無 Date／函式），
+// JSON 往返無損且深層去 proxy；框架無關（不依賴 Vue）。fake-indexeddb 不強制結構化複製，
+// 故此防線於實機才實質生效、測試行為不受影響。
+function toStorable<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
 // 開發期 Repository 實作：IndexedDB 為真實來源（02 §2.6–2.8）
 export function createLocalStore(dbName: string = DB_NAME): Repository {
   let dbPromise: Promise<IDBPDatabase<PtAppDb>> | undefined;
@@ -67,7 +75,7 @@ export function createLocalStore(dbName: string = DB_NAME): Repository {
     },
 
     async updatePatient(patient) {
-      const updated: Patient = { ...patient, updatedAt: toIsoDateTime(new Date()) };
+      const updated: Patient = toStorable({ ...patient, updatedAt: toIsoDateTime(new Date()) });
       await (await db()).put('patients', updated);
       actionLogger.log('data', 'updatePatient', patient.patientId);
       return updated;
@@ -98,11 +106,11 @@ export function createLocalStore(dbName: string = DB_NAME): Repository {
 
     async saveAssessment(session) {
       // summary 唯一寫入點：patterns 變更即重算寫回，UI 只讀（06 §6.3）
-      const saved: AssessmentSession = {
+      const saved: AssessmentSession = toStorable({
         ...session,
         schemaVersion: CURRENT_SCHEMA_VERSION,
         summary: deriveSummary(session.patterns),
-      };
+      });
       await (await db()).put('assessments', saved);
       actionLogger.log('data', 'saveAssessment', saved.sessionId);
       return saved;
@@ -119,12 +127,12 @@ export function createLocalStore(dbName: string = DB_NAME): Repository {
     },
 
     async saveSettings(settings) {
-      const saved: AppSettings = {
+      const saved: AppSettings = toStorable({
         ...settings,
         schemaVersion: CURRENT_SCHEMA_VERSION,
         settingsId: 'app',
         updatedAt: toIsoDateTime(new Date()),
-      };
+      });
       await (await db()).put('settings', saved);
       actionLogger.log('data', 'saveSettings', 'app');
       return saved;

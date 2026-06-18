@@ -19,6 +19,22 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+      # Nuxt-context 整合測試（@nuxt/test-utils runtime；獨立設定，不混入主 test 避免拖慢/互擾）。
+      - run: pnpm test:nuxt
       - run: pnpm build
       - run: pnpm verify:bundle
-      # E2E（Playwright）於 Phase 7 測試輪加入（07 §7.7）
+
+  # E2E（Playwright）獨立 job：需瀏覽器系統相依（--with-deps），與主 checks 分離避免拖慢純驗證鏈。
+  # 本機 WSL2 環境缺系統相依（libnspr4 等）且無 sudo 終端，無法跑——CI ubuntu-latest 具相依，於此運行。
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e -- --project=chromium
