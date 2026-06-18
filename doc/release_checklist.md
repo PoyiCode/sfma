@@ -1,7 +1,7 @@
 # 發布前檢核表（開發期單機版）
 
-> 對應 [todo/README.md](todo/README.md)「發布檢核：09」與 [todo/09_todo_security.md](todo/09_todo_security.md)「發布前總複核」。
-> 範圍：開發期單機（資料存裝置 IndexedDB ＋ 使用者自管匯出檔）。上雲（PostgreSQL／帳號／上架）相關見 [todo/10_todo_future.md](todo/10_todo_future.md)。
+> 本表為發布前總複核（資安／隱私／合規閘門）。設計來源：[design/08_security_privacy.md](design/08_security_privacy.md)、[design/05_assessment.md](design/05_assessment.md) §5.6。
+> 範圍：開發期單機（資料存裝置 IndexedDB ＋ 使用者自管匯出檔）。上雲（PostgreSQL／帳號／上架）為未來範圍，不在本表。
 > 最後更新：2026-06-18。
 
 ## 1. 自動化驗證（每次發布前於 repo root 執行）
@@ -18,7 +18,7 @@ pnpm lint; if ($?) { pnpm typecheck }; if ($?) { pnpm test }; if ($?) { pnpm bui
 | 建置 | `pnpm build` | 成功（chunk >500kB 警告為既知無害） |
 | 後門掃描 | `pnpm verify:bundle` | OK（哨兵 `ptappDevLoggerMarker` 不在 dist） |
 
-## 2. 資安與隱私（todo 09 ／ 設計 08）
+## 2. 資安與隱私（設計 08）
 
 - [x] 告知同意 per-patient 閘門：建立個案前顯示目的／項目／範圍／期間／權利 ＋ 必勾「已取得當事人同意」，存檔記 `consentAcknowledgedAt`（`PatientFormView`、`patientSchema`；08 §8.5）
 - [x] 當事人權利：本地查詢（`usePatient`／`usePatientList`）／更正（編輯表單）／刪除；刪除個案連動刪其評估（`localStore.deletePatient` 單一交易，已測）
@@ -29,7 +29,7 @@ pnpm lint; if ($?) { pnpm typecheck }; if ($?) { pnpm test }; if ($?) { pnpm bui
 - [x] 最小蒐集：僅 `name` 必填、餘選填、`patientId` 系統產生（08 §8.1；`schemas.test` 回歸鎖定）
 - [x] 資料安全指引（裝置保護 ＋ 匯出檔處理守則）就地呈現於設定「關於」可展開區塊
 
-## 3. 持久儲存防線整體驗收（todo 09 line 11）
+## 3. 持久儲存防線整體驗收
 
 - [x] `navigator.storage.persist()` 啟動申請 ＋ 准駁記錄（`initStorage`；02）
 - [x] PWA 安裝引導（`InstallGuide`：Chromium `beforeinstallprompt`／iOS「加入主畫面」指引）
@@ -52,8 +52,8 @@ pnpm lint; if ($?) { pnpm typecheck }; if ($?) { pnpm test }; if ($?) { pnpm bui
 
 - [ ] 04 人體模型真 3D（Babylon／glTF）：**render 層＋glTF 載入鏈已就緒**（2026-06-14：sceneCore/layers/picking/camera/highlight/gltfBinding/scenePopulator＋LOD 子系統＋`gltfMeshLoader`〔`@babylonjs/loaders` `ImportMeshAsync`〕；`createGltfScenePopulator(createGltfMeshLoader('/models/<name>.glb'))` 即完整填充器；託管＝`apps/web/public/`〔gitignored glb〕）；**仍待**：(1) Blender 匯出覆蓋擴大（✅ `anatomyV1.glb` 已重生為**全身 382 node**（2026-06-15、Blender 5.1.2 已安裝；**196 邏輯部位**雙側/中線——四肢＋軀幹＋頭頸＋胸廓＋中軸骨架＋骨盆全肌骨架＋全表情/咀嚼/呼吸肌；多頭 `sourceObjects` join、神經 CURVE `curveBevel` 轉管；分層基底著色〔`layerColors`，材質 3〕；**🏁 肌源已罄**〔㊹ buccinator 收尾〕；**✅ Stage D 減面已落地**〔㊺、cap=1800 DECIMATE COLLAPSE：算繪 2.7M→**577,425 ≤600k 細節版預算**、檔案 30.67→**8.37 MB（−73%）**、`EXPORT_OK selected=382 decimated=226`、node/雙側綁定不變、app 零改〕；複製至 `apps/web/public/models/`〔gitignored〕；actions/ROM 為教科書佔位值〔§4 PT 審閱閘門〕；後續主為**精簡版 ≤150k 肌群合併／Draco·meshopt 壓縮／draw-call 批次**）、(2) **live opt-in 3D 接入已落地**（2026-06-14：`ModelViewerContent` 以 `useRenderTier` 判能力，具 WebGL 顯「顯示維度」2D⇄3D 切換、預設 2D、切 3D 才 lazy 載 Babylon〔3D chunk on-demand、不 precache；**全離線 3D（2026-06-16）**：開過 3D 後 glb／draco／chunk 以 runtime CacheFirst cache-on-use → 可離線重看，§4.2／§4.3.5〕）；**仍待真實資產之子項**：LOD 自動／手動切換 UI、執行期 FPS 動態降級、3D 精準貼近部位定位（§4.6 Z-Anatomy 管線）
 - [ ] 模型檢視器精準貼近部位定位：待真實資產與執行期座標（getScreenCTM／letterbox）
-- [x] 04 人體模型正式 2D 三視圖（SVG）：**3D→2D 抽取管線 A/B/C 三階段全落地**（2026-06-16；技術＝**幾何輪廓投影**，非 Freestyle〔本機 Blender 5.1.2 無 `render_freestyle_svg` addon、經 AskUserQuestion 改技術繞過〕）：**A ✅** 抽 `pipelineCommon.py` 共用物件解析（純重構、重匯 GLB byte-identical 核對）／**B ✅** `export2dSvg.py` world→camera 投影＋柵格化覆蓋遮罩＋Moore 邊界追蹤＋DP 簡化→封閉填色剪影 SVG＋`anatomy2dManifest.json`＋產 `assets2d/`〔bpy 慣例實檔重跑驗：三方位 **267/267 detailed 部位 100% 涵蓋**〕／**C（已移除執行期消費，2026-06-17）** 原 `Model2DView` 消費真實 SVG，**2026-06-17 政策移除 2D 模型→App 僅 3D、執行期 2D 檢視器已刪**；**SVG 抽取管線（A `pipelineCommon.py`／B `export2dSvg.py`／`assets2d/` 產出）保留**為資產產生器（與執行期 2D 檢視器分立、見 04 §4.2）。資產 `apps/web/public/assets2d/` **gitignored**。**像素級視覺精緻度待使用者實機 QA 迭代**。**⚠ 同步義務**：**任何 3D `manifestV1.json` 變更（新增／改名／刪除部位、或來源幾何改動）須同時重跑 2D 抽取器重生 SVG**（`blender -b <blend> -P export2dSvg.py -- manifestV1.json out2d/`，與 `exportGltf.py` 並跑、再複製至 `public/assets2d/`），由 app 端一致性測試（2D anatomyId ⊆ 3D）把關漂移。見 [04 §4.6.3](04_human_model.md)、[plans/2026-06-15-3d-to-2d-svg-pipeline.md](plans/2026-06-15-3d-to-2d-svg-pipeline.md)、[plans/2026-06-16-2d-stage-b-silhouette.md](plans/2026-06-16-2d-stage-b-silhouette.md)
-- [x] 原始系統不壓縮 glb 基準（精簡化前／2D 描繪參考、**不入 App**）：**collection 驅動** `exportSystemsGltf.py` 輸出原始 `z-anatomy.blend` 系統 1/2/3/4/7 之 master＋5 per-system glb 至 `out/`（gitignored）；`verifySystemsExport.mjs` 核 master mesh-node＝系統聯集（2026-06-16：2641＝277/705/409/669/581）。**非 App 資產**（與 manifest 驅動 `anatomyV1.glb` 並存、不同用途）。**同步註**：3D 來源 `.blend` 幾何變更時可重跑此器更新基準（非發布閘門、屬參考素材）。見 [04 §4.6.3](04_human_model.md)、[plans/2026-06-16-uncompressed-master-export.md](plans/2026-06-16-uncompressed-master-export.md)。**內容缺口稽核（2026-06-16）**：`contentGapAudit.mjs` 以此基準比對 app `manifestV1.json`，量化原始已建模但 app 未納之解剖（驅動未來內容擴張決策、非發布閘門）；報告見 [analysis/contentGapAudit.md](analysis/contentGapAudit.md)
+- [x] 04 人體模型正式 2D 三視圖（SVG）：**3D→2D 抽取管線 A/B/C 三階段全落地**（2026-06-16；技術＝**幾何輪廓投影**，非 Freestyle〔本機 Blender 5.1.2 無 `render_freestyle_svg` addon、經 AskUserQuestion 改技術繞過〕）：**A ✅** 抽 `pipelineCommon.py` 共用物件解析（純重構、重匯 GLB byte-identical 核對）／**B ✅** `export2dSvg.py` world→camera 投影＋柵格化覆蓋遮罩＋Moore 邊界追蹤＋DP 簡化→封閉填色剪影 SVG＋`anatomy2dManifest.json`＋產 `assets2d/`〔bpy 慣例實檔重跑驗：三方位 **267/267 detailed 部位 100% 涵蓋**〕／**C（已移除執行期消費，2026-06-17）** 原 `Model2DView` 消費真實 SVG，**2026-06-17 政策移除 2D 模型→App 僅 3D、執行期 2D 檢視器已刪**；**SVG 抽取管線（A `pipelineCommon.py`／B `export2dSvg.py`／`assets2d/` 產出）保留**為資產產生器（與執行期 2D 檢視器分立、見 04 §4.2）。資產 `apps/web/public/assets2d/` **gitignored**。**像素級視覺精緻度待使用者實機 QA 迭代**。**⚠ 同步義務**：**任何 3D `manifestV1.json` 變更（新增／改名／刪除部位、或來源幾何改動）須同時重跑 2D 抽取器重生 SVG**（`blender -b <blend> -P export2dSvg.py -- manifestV1.json out2d/`，與 `exportGltf.py` 並跑、再複製至 `public/assets2d/`），由 app 端一致性測試（2D anatomyId ⊆ 3D）把關漂移。見 [04 §4.6.3](04_human_model.md)
+- [x] 原始系統不壓縮 glb 基準（精簡化前／2D 描繪參考、**不入 App**）：**collection 驅動** `exportSystemsGltf.py` 輸出原始 `z-anatomy.blend` 系統 1/2/3/4/7 之 master＋5 per-system glb 至 `out/`（gitignored）；`verifySystemsExport.mjs` 核 master mesh-node＝系統聯集（2026-06-16：2641＝277/705/409/669/581）。**非 App 資產**（與 manifest 驅動 `anatomyV1.glb` 並存、不同用途）。**同步註**：3D 來源 `.blend` 幾何變更時可重跑此器更新基準（非發布閘門、屬參考素材）。見 [04 §4.6.3](04_human_model.md)。**內容缺口稽核（2026-06-16）**：`contentGapAudit.mjs` 以此基準比對 app `manifestV1.json`，量化原始已建模但 app 未納之解剖（驅動未來內容擴張決策、非發布閘門）
 
 ---
 

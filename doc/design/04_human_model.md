@@ -193,7 +193,7 @@ ROM 以資料定義，每個關節一筆（範例見 [06_data_model.md](06_data_
 
 - **相同方式分享只及於 mesh**：僅**解剖資產檔**（及其減面／綁骨改作）帶 CC BY-SA 4.0；APP 程式碼不受影響（Creative Commons 不建議將 CC BY-SA 用於軟體，且 ShareAlike 只及於改作、不及於僅顯示資產的程式）。**MakeHuman 骨架為 CC0、不帶 copyleft**，故 copyleft 僅源於 Z-Anatomy 解剖 mesh。
 - **允許商業使用**：CC BY-SA 不禁止商業化；義務為 (a) **標示來源**（APP credits／about 畫面，含 BodyParts3D 指定標示字串）、(b) **資產維持開放**（他人可合法抽用）。本 APP 護城河為 SFMA 評估流程與 UX，非肌肉網格，故 (b) 成本低。
-- **併入既有閘門**：與 SFMA 授權（見 [05_assessment.md](05_assessment.md) §5.6）同列「對外發布／商業化前確認」關卡，統一追蹤於 [09_todo_security.md](../todo/09_todo_security.md)；非新增獨立阻擋。開發期單機本地、無散布，幾近零風險。
+- **併入既有閘門**：與 SFMA 授權（見 [05_assessment.md](05_assessment.md) §5.6）同列「對外發布／商業化前確認」關卡；非新增獨立阻擋。開發期單機本地、無散布，幾近零風險。
 - **版本策略**：以 **Z-Anatomy 4.0 為單一上游授權版本**，避免混用 BodyParts3D 2.1-JP。
 
 > 授權事實來源：[Z-Anatomy](https://www.z-anatomy.com/)（CC BY-SA 4.0、分層）、[BodyParts3D 內容授權](https://github.com/Kevin-Mattheus-Moerman/BodyParts3D/blob/main/LICENSE_content)（CC BY-SA 2.1 JP、FMA 命名）、[MakeHuman 授權說明](http://www.makehumancommunity.org/content/license_explanation.html)（匯出模型 CC0）。

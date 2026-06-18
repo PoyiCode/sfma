@@ -17,7 +17,7 @@ import sys
 import os
 import json
 
-# 共用物件解析（2D/3D 同源同步保證，見 pipelineCommon.py、doc/plans/2026-06-15-3d-to-2d-svg-pipeline.md §2.1）。
+# 共用物件解析（2D/3D 同源同步保證，見 pipelineCommon.py、04 §4.6.3 步驟 7）。
 # Blender `-P` 之 __file__＝本腳本路徑；注入其所在目錄使同目錄之 pipelineCommon 可 import。
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pipelineCommon import (  # noqa: E402（須先注入 sys.path 方可 import）

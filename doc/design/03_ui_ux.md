@@ -120,7 +120,7 @@ Compact <600        Medium 600–1024       Expanded >1024
 兩者分離：
 
 - **首啟通知（資訊性、一次性、非阻擋）**：說明「資料存於本機、請定期匯出」＋安裝引導；dismiss 後以 `AppSettings` 旗標記錄。安裝盡力而為（比照 §3.3.2 方向鎖定）：Chromium 以 `beforeinstallprompt` 延遲後提供「安裝」；iOS 顯示「加入主畫面」指引。
-- **告知同意＝個案建立時的閘門**（依 [08_security_privacy.md](08_security_privacy.md) §8.5）：新增個案流程內含告知同意（蒐集目的／項目／範圍／期間／當事人權利），治療師確認「已取得當事人同意」後才寫入；**per-patient** 記錄同意確認時間戳。⟹ 連動 [06_data_model.md](06_data_model.md) `Patient` 增同意確認欄位、[09_todo_security.md](../todo/09_todo_security.md) 告知同意項落地。
+- **告知同意＝個案建立時的閘門**（依 [08_security_privacy.md](08_security_privacy.md) §8.5）：新增個案流程內含告知同意（蒐集目的／項目／範圍／期間／當事人權利），治療師確認「已取得當事人同意」後才寫入；**per-patient** 記錄同意確認時間戳。⟹ 連動 [06_data_model.md](06_data_model.md) `Patient` 增同意確認欄位。
 
 安裝引導為獨立 App Shell 暫態層元件 `app/InstallGuide`，與資料保全通知（§3.6 `FirstLaunchNotice`）分離、各持獨立一次性旗標：Chromium 捕捉 `beforeinstallprompt` 延遲後以「安裝」鈕叫起原生安裝、iOS Safari 顯「加入主畫面」指引；關閉或安裝後寫旗標持久化。**盡力而為**（比照 §3.3.2 方向鎖定）：已安裝（standalone）／不支援平台／已關閉皆不渲染。
 
@@ -141,8 +141,8 @@ Compact <600        Medium 600–1024       Expanded >1024
 - **評估表**（`…/assessments/:sessionId`）：頂列個案·日期·進度（n/15）·完成；**列項＝手風琴清單**——每動作一列點開填疼痛＋判讀標準勾選 → 即時衍生 FN/FP/DN/DP（`StatusChip`，[05_assessment.md](05_assessment.md) §5.2），收合顯示結果，雙側左右各一（展開版面見 §3.3.9），衍生值可覆寫；**Breakout 容器**＝DN／DP 列「進入 Breakout」開疊層（Compact 全屏 sheet、Expanded 側面板），步進卡逐步互動見 §3.3.9 與 05 §5.3。
 - **人體模型檢視**（`…/model` 或詳情第 3 欄）：畫布（**僅 3D**）＋ 控制項（分層、標籤、LOD、視角、關節），Expanded 側欄、Compact 浮動工具列＋可收合分層面板（§3.1、§3.5）；**選取資訊卡＝浮動卡貼近部位**（名稱／屬性／「隱藏此部位」／「＋關聯到評估」，點空白關閉、避免遮擋）；ROM 極限以提示色＋文字（§3.4）。
 - **設定**（`/settings`）：四區塊 —— 治療師資料／顯示（語系·主題·LOD·密度·方向鎖定·預設分層）／資料管理（匯出全部·匯入還原＋資料保全提醒）／**關於·授權標示**（SFMA ©、Z-Anatomy CC BY-SA、BodyParts3D、MakeHuman CC0、版本·隱私；對應 [05_assessment.md](05_assessment.md) §5.6、[04_human_model.md](04_human_model.md) §4.6.1）。
-  - 「匯出全部備份」按下先開確認 AlertDialog 提示「匯出檔為明文 JSON 且含個資」與存放注意（受控位置、勿上公開雲端／即時通訊、轉移後刪暫存），確認才匯出（[08_security_privacy.md](08_security_privacy.md) §8.7、[09_todo_security.md](../todo/09_todo_security.md) line 9）。
-  - 「關於」區塊含可展開「資料安全指引」（Accordion）＝裝置保護（螢幕鎖／磁碟加密／設定檔不共用）＋匯出檔處理守則（受控位置／勿公開雲端·即時通訊／刪暫存），就地呈現 [08_security_privacy.md](08_security_privacy.md) §8.7 指引（[09_todo_security.md](../todo/09_todo_security.md) line 21-22）。
+  - 「匯出全部備份」按下先開確認 AlertDialog 提示「匯出檔為明文 JSON 且含個資」與存放注意（受控位置、勿上公開雲端／即時通訊、轉移後刪暫存），確認才匯出（[08_security_privacy.md](08_security_privacy.md) §8.7）。
+  - 「關於」區塊含可展開「資料安全指引」（Accordion）＝裝置保護（螢幕鎖／磁碟加密／設定檔不共用）＋匯出檔處理守則（受控位置／勿公開雲端·即時通訊／刪暫存），就地呈現 [08_security_privacy.md](08_security_privacy.md) §8.7 指引。
 
 ### 3.3.9 評估表與 Breakout 互動細節
 

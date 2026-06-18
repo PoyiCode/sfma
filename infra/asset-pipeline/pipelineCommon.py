@@ -3,7 +3,7 @@
 # `exportGltf.py`（3D GLB）與 `export2dSvg.py`（2D Freestyle 線稿，Stage B）**同 import 本模組**
 # → 兩者對同一 `manifestV1.json` 解析出**完全相同的 per-anatomyId 物件集**（同一份程式碼解析
 # 同一批物件、2D 不可能漂移出 3D 沒有的部位）。此即 2D／3D 外觀一致與「3D 改、2D 同改」之
-# 最強同步保證（見 doc/plans/2026-06-15-3d-to-2d-svg-pipeline.md §2.1、04 §4.6.3 步驟 7）。
+# 最強同步保證（見 04 §4.6.3 步驟 7）。
 #
 # 本模組僅含**物件解析**（哪些來源物件屬某 anatomyId、profile 過濾、CURVE 轉 mesh、join 聚合、
 # 取消選取）；色彩材質／減面／匯出編排屬各匯出器專屬，不入此處。

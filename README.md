@@ -3,8 +3,6 @@
 SFMA（選擇性功能動作評估）APP，**Nuxt 4 + Vue 3** 實作，渲染模式 SPA（`ssr: false`）、PWA 可安裝可離線。由 ptApp（React）移植而來。
 
 - 設計文件：[`doc/design`](doc/design/README.md)（zh-tw）
-- Todo：[`doc/todo`](doc/todo/README.md)
-- 移植計畫：[`doc/plans`](doc/plans/README.md)（總規格 [`doc/plans/2026-06-18-nuxt-migration-master-plan.md`](doc/plans/2026-06-18-nuxt-migration-master-plan.md)）
 
 技術堆疊：Nuxt 4（Vue 3 + 內建 Vite）、Nuxt UI（Reka UI + Tailwind v4）、Pinia、`@nuxtjs/i18n`（zh-TW 預設）、`@vite-pwa/nuxt`、Babylon.js（3D）。套件管理 **pnpm workspace**。
 

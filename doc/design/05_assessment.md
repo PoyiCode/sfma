@@ -228,4 +228,4 @@ classification；亦可自由紀錄）；FP 僅記錄疼痛
 - 本設計將 SFMA 的計分結構與測試流程數位化為 APP 內表單，供臨床紀錄之用。**若 APP 對外發布或商業化，應先向權利方確認授權條件**。
 - 取得授權前的替代方案：僅供內部／個人使用；不重製原版表單版面與原文；或改以中性的自訂評估範本呈現。
 - 此為商業決策，在此記錄風險與選項。評估模組為**資料驅動**（題項由 `sfmaPatterns.json`、Breakout 決策樹由 `sfmaBreakoutFlows.json` 定義生成；後者為原版流程圖之數位化，與 [`../ref/SFMA_form.md`](../ref/SFMA_form.md) 同受本節授權注意約束），未來若需替換或改寫題項，不影響程式架構。
-- **解剖圖資授權**：3D／2D 圖資以開源資源加工 — Z-Anatomy（CC BY-SA 4.0，上游 BodyParts3D）為解剖 mesh 主體、骨架取自 MakeHuman（匯出模型 CC0）。義務：**標示來源**（含 BodyParts3D 指定字串）與**資產檔以 CC BY-SA 散布**（保持開放）；ShareAlike 只及於資產改作、APP 程式碼不受影響，copyleft 僅源於 Z-Anatomy mesh。與 SFMA 授權同列「對外發布／商業化前確認」關卡，追蹤於 [09_todo_security.md](../todo/09_todo_security.md)。詳見 [04_human_model.md](04_human_model.md) §4.6.1。
+- **解剖圖資授權**：3D／2D 圖資以開源資源加工 — Z-Anatomy（CC BY-SA 4.0，上游 BodyParts3D）為解剖 mesh 主體、骨架取自 MakeHuman（匯出模型 CC0）。義務：**標示來源**（含 BodyParts3D 指定字串）與**資產檔以 CC BY-SA 散布**（保持開放）；ShareAlike 只及於資產改作、APP 程式碼不受影響，copyleft 僅源於 Z-Anatomy mesh。與 SFMA 授權同列「對外發布／商業化前確認」關卡。詳見 [04_human_model.md](04_human_model.md) §4.6.1。

@@ -4,7 +4,7 @@
 #
 # 管線：world_to_camera 投影（向量化）→ 柵格化覆蓋遮罩 → Moore 邊界追蹤 → Douglas–Peucker
 # 簡化 → per-orientation SVG ＋ anatomy2dManifest.json。與 3D 共用 pipelineCommon 物件解析
-# （2D 不漂移出 3D；見 doc/plans/2026-06-16-2d-stage-b-silhouette.md、…/2026-06-15-…-pipeline.md §2.1）。
+# （2D 不漂移出 3D；見 04 §4.6.3 步驟 7）。
 #
 # 用法：
 #   blender.exe -b "<anatomy.blend>" -P export2dSvg.py -- "<manifestV1.json>" "<out_dir>" \
