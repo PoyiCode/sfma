@@ -5,7 +5,10 @@
 import { computed, ref } from 'vue';
 import type { AnatomyEntity } from '@ptapp/shared';
 import UiButton from '../ui/Button.vue';
-import type { AnatomyLayerKey, LayerVisibility } from '../../utils/humanModel/anatomy/anatomyLayers';
+import type {
+  AnatomyLayerKey,
+  LayerVisibility,
+} from '../../utils/humanModel/anatomy/anatomyLayers';
 import type { AnnotationHighlights } from '../../utils/humanModel/anatomy/anatomyHighlight';
 import type { AnatomySide } from '../../utils/humanModel/anatomy/partKey';
 import LayerControls from './LayerControls.vue';
@@ -23,6 +26,8 @@ import type { LodTier, LodOverride } from '../../utils/humanModel/lod/lodTier';
 import { DEFAULT_CAMERA_VIEW, type CameraViewKey } from '../../utils/humanModel/render/sceneCamera';
 import type { CameraRegionKey } from '../../utils/humanModel/render/sceneCameraFraming';
 import type { ViewerLayoutMode } from '../../utils/humanModel/render/viewerLayoutMode';
+import MotionControls from './MotionControls.vue';
+import type { MotionPose } from '../../utils/humanModel/motion/motionPose';
 
 interface Props {
   // 分層
@@ -65,6 +70,11 @@ interface Props {
   layoutMode?: ViewerLayoutMode;
   // 一鍵重置檢視（03 §3.6）：canResetView 提供＝顯「重置檢視」鈕。
   canResetView?: boolean;
+  // 運動模式（§4.3.3）：canToggleMotion＝控制列顯開關；motionMode/pose/motionJoint 為當前狀態。
+  motionMode?: boolean;
+  canToggleMotion?: boolean;
+  pose?: MotionPose;
+  motionJoint?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -91,6 +101,10 @@ const props = withDefaults(defineProps<Props>(), {
   viewNonce: undefined,
   layoutMode: 'standard',
   canResetView: false,
+  motionMode: false,
+  canToggleMotion: false,
+  pose: undefined,
+  motionJoint: 'joint.knee',
 });
 
 const emit = defineEmits<{
@@ -110,6 +124,10 @@ const emit = defineEmits<{
   lodModeChange: [mode: LodOverride];
   resetView: [];
   fps: [fps: number];
+  motionModeChange: [on: boolean];
+  setJointAngle: [jointId: string, axis: string, deg: number];
+  resetPose: [];
+  motionJointChange: [jointId: string];
 }>();
 
 const { t } = useI18n();
@@ -147,11 +165,14 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
         :can-change-label-mode="canChangeLabelMode"
         :lod-mode="lodMode"
         :can-change-lod="canChangeLod"
+        :motion-mode="motionMode"
+        :can-toggle-motion="canToggleMotion"
         @view-change="emit('viewChange', $event)"
         @region-change="emit('regionChange', $event)"
         @show-labels-change="emit('showLabelsChange', $event)"
         @label-mode-change="emit('labelModeChange', $event)"
         @lod-mode-change="emit('lodModeChange', $event)"
+        @motion-mode-change="emit('motionModeChange', $event)"
       />
       <UiButton v-if="canResetView" variant="secondary" @click="emit('resetView')">
         {{ t('modelResetView') }}
@@ -171,10 +192,15 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
             :region="region"
             :view-nonce="viewNonce"
             :populate-scene="scenePopulator"
+            :motion-mode="motionMode"
+            :pose="pose"
+            :motion-joint="motionJoint"
             @select="emit('selectPart', $event)"
             @background-click="emit('backgroundClick')"
             @fps="emit('fps', $event)"
             @loading-change="isModelLoading = $event"
+            @set-joint-angle="(j, a, d) => emit('setJointAngle', j, a, d)"
+            @select-motion-joint="emit('motionJointChange', $event)"
           />
         </ClientOnly>
         <p v-if="isModelLoading" class="model3dLoading" role="status">
@@ -183,8 +209,16 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
       </div>
       <!-- 資訊卡預留位（恆佔位）：避免選取/取消選取時主區總高變動、畫面跳動。 -->
       <div class="model3dCardSlot">
+        <MotionControls
+          v-if="motionMode"
+          :pose="pose ?? {}"
+          :selected-joint="motionJoint"
+          @set-joint-angle="(j, a, d) => emit('setJointAngle', j, a, d)"
+          @reset-pose="emit('resetPose')"
+          @update:selected-joint="emit('motionJointChange', $event)"
+        />
         <AnatomyInfoCard
-          v-if="selected"
+          v-else-if="selected"
           :entity="selected"
           :side="selectedSide ?? null"
           :can-annotate="canAnnotate"

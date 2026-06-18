@@ -29,7 +29,10 @@ import {
   type MeshBounds,
   REGION_Y_BANDS,
 } from '../../utils/humanModel/render/sceneCameraFraming';
-import { defaultEngineFactory, type EngineFactory } from '../../utils/humanModel/render/engineFactory';
+import {
+  defaultEngineFactory,
+  type EngineFactory,
+} from '../../utils/humanModel/render/engineFactory';
 import {
   addDefaultCamera,
   addDefaultLight,
@@ -49,6 +52,18 @@ import {
 } from '../../utils/humanModel/render/sceneLabels';
 import { createLabelLayer, type LabelLayer } from '../../utils/humanModel/render/labelLayer';
 import type { AnnotationHighlights } from '../../utils/humanModel/anatomy/anatomyHighlight';
+import {
+  createRigController,
+  type RigController,
+} from '../../utils/humanModel/motion/rigController';
+import type { MotionPose } from '../../utils/humanModel/motion/motionPose';
+import {
+  createGizmoController,
+  type GizmoController,
+} from '../../utils/humanModel/motion/gizmoController';
+import { jointForMesh, sideOfMesh } from '../../utils/humanModel/motion/meshToJoint';
+import { jointAngle } from '../../utils/humanModel/motion/motionPose';
+import { movableJointDof } from '../../utils/humanModel/motion/jointKinematics';
 
 // 標籤層工廠（§4.4）：預設真 Babylon GUI 綁定；測試注入假層脫鉤（GUI 需 canvas）。
 type LabelLayerFactory = (scene: Scene) => LabelLayer;
@@ -72,6 +87,10 @@ interface Props {
   labelMode?: LabelMode;
   // 標籤層工廠（測試脫鉤）：預設真 Babylon GUI 綁定 createLabelLayer。
   labelLayerFactory?: LabelLayerFactory;
+  // 運動模式（§4.3.3）：motionMode 開即建 rig；pose 變即套用。
+  motionMode?: boolean;
+  pose?: MotionPose;
+  motionJoint?: string;
   class?: string;
 }
 
@@ -88,6 +107,9 @@ const props = withDefaults(defineProps<Props>(), {
   showLabels: true,
   labelMode: DEFAULT_LABEL_MODE,
   labelLayerFactory: createLabelLayer,
+  motionMode: false,
+  pose: undefined,
+  motionJoint: undefined,
   class: undefined,
 });
 
@@ -100,6 +122,8 @@ const emit = defineEmits<{
   fps: [fps: number];
   // 場景填充載入態回報（§4.6.4）：建場景起 true、填充 settle 後 false。
   loadingChange: [loading: boolean];
+  setJointAngle: [jointId: string, axis: string, deg: number];
+  selectMotionJoint: [jointId: string];
 }>();
 
 const canvasRef = ref<HTMLCanvasElement>();
@@ -113,6 +137,11 @@ let extents: Extents | null = null;
 // 各 mesh 世界 AABB（部位框取精修）：填充後存、供算部位段水平範圍；靜態模型故算一次。
 let meshBounds: readonly MeshBounds[] = [];
 let labelLayer: LabelLayer | null = null;
+let rigController: RigController | null = null;
+let gizmoController: GizmoController | null = null;
+let gizmoDragging = false;
+// 拖曳/面板選關節時手柄置放側（由點選側決定；面板選取之雙側關節預設 #R）。
+let motionSide: string | null = '#R';
 
 // 自適應框取（§4.3.2／需求 3 部位視角）：由模型包圍盒＋實機畫布比例＋部位 yBand 推算
 // target/radius/半徑上下限/近裁面。無有效包圍盒或畫布尺寸未定時回 undefined → applyCameraView 沿用 preset。
@@ -220,6 +249,18 @@ onMounted(() => {
     // 選取僅於「點按」(POINTERTAP) 觸發、非拖曳（旋轉/平移屬拖曳、超閾值不發 → 不誤選/誤清選取）。
     builtScene.onPointerObservable.add((pointerInfo) => {
       const pickInfo = pointerInfo.pickInfo;
+      if (props.motionMode) {
+        // 運動模式：點身體部位→選其控制關節（忽略手柄弧之點按；拖曳剛結束之 tap 不誤選）。
+        if (gizmoDragging) return;
+        const name = pickInfo?.pickedMesh?.name;
+        if (!name) return;
+        const joint = jointForMesh(name);
+        if (joint !== null) {
+          motionSide = sideOfMesh(name) ?? '#R';
+          emit('selectMotionJoint', joint);
+        }
+        return;
+      }
       const key = partKeyFromPick(pickInfo);
       if (key !== null) emit('select', key);
       else if (isBackgroundPick(pickInfo)) emit('backgroundClick');
@@ -249,6 +290,31 @@ onMounted(() => {
         applyHighlights(builtScene, props.selectedId ?? null, props.highlights);
         // 標籤補套（§4.4）：標籤須連結載入後之 mesh，故於填充完成後以最新值再同步（惰性建層）。
         syncLabels();
+        rigController = createRigController(builtScene);
+        rigController.sync(props.motionMode, props.pose ?? {});
+        gizmoController = createGizmoController(
+          builtScene,
+          (j, s) => rigController?.getPivot(j, s) ?? null,
+          {
+            onAngle: (j, a, d) => emit('setJointAngle', j, a, d),
+            onDragStart: () => {
+              gizmoDragging = true;
+              builtCamera.detachControl();
+            },
+            onDragEnd: () => {
+              gizmoDragging = false;
+              builtCamera.attachControl(canvas, true);
+            },
+            getPoseAngle: (j, a) =>
+              jointAngle(props.pose ?? {}, j, a, movableJointDof(j, a)?.neutral ?? 0),
+          },
+        );
+        gizmoController.sync(
+          props.motionMode,
+          props.motionJoint ?? null,
+          motionSide,
+          props.pose ?? {},
+        );
       })
       .finally(() => {
         // 成功與失敗（withFallback 退佔位亦 resolve）皆視為載入結束；守衛卸載／場景已換。
@@ -294,6 +360,10 @@ onMounted(() => {
     if (handleResize) window.removeEventListener('resize', handleResize);
     labelLayer?.dispose();
     labelLayer = null;
+    rigController?.dispose();
+    rigController = null;
+    gizmoController?.dispose();
+    gizmoController = null;
     const builtScene = scene;
     scene = null;
     camera = null;
@@ -339,8 +409,31 @@ watch(
 
 // 標籤同步（§4.4）：標籤相關 prop 任一變更時，以 resolveVisibleLabels 算集合→labelLayer.sync。
 watch(
-  () => [props.showLabels, props.labelMode, props.visibility, props.hiddenIds, props.selectedId] as const,
+  () =>
+    [
+      props.showLabels,
+      props.labelMode,
+      props.visibility,
+      props.hiddenIds,
+      props.selectedId,
+    ] as const,
   () => syncLabels(),
+);
+
+// 運動模式（§4.3.3）：motionMode／motionJoint／pose 變更即冪等建/套/拆 rig＋手柄（填充完成後 controllers 方存在）。
+watch(
+  () => [props.motionMode, props.motionJoint, props.pose] as const,
+  () => {
+    if (rigController) rigController.sync(props.motionMode, props.pose ?? {});
+    if (gizmoController) {
+      gizmoController.sync(
+        props.motionMode,
+        props.motionJoint ?? null,
+        motionSide,
+        props.pose ?? {},
+      );
+    }
+  },
 );
 </script>
 
