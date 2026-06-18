@@ -58,7 +58,9 @@ export const JOINT_KINEMATICS: Readonly<Record<string, JointKinematics>> = {
     pivot: { bone: 'bone.femur', face: 'maxY' }, // 股骨頭端（上）
     bilateral: true,
     dofs: [
-      { axis: 'flexionExtension', worldAxis: X, sign: 1 },
+      // flexionExtension 經實機目視校正為 -1：屈曲（往前，正角→ROM max 120）對應大腿前舉、
+      // 伸展（往後，負角→ROM min -20）對應後擺（§4.3.3 軸/sign 校正）。其餘軸仍待校正。
+      { axis: 'flexionExtension', worldAxis: X, sign: -1 },
       { axis: 'abductionAdduction', worldAxis: Z, sign: 1 },
       { axis: 'internalExternalRotation', worldAxis: Y, sign: 1 },
     ],
@@ -83,7 +85,9 @@ export const JOINT_KINEMATICS: Readonly<Record<string, JointKinematics>> = {
     pivot: { bone: 'bone.humerus', face: 'maxY' }, // 肱骨頭端（上）
     bilateral: true,
     dofs: [
-      { axis: 'flexionExtension', worldAxis: X, sign: 1 },
+      // flexionExtension 經實機目視校正為 -1：屈曲（往前，正角→ROM max 180）對應手臂前舉、
+      // 伸展（往後，負角→ROM min -60）對應後擺（§4.3.3 軸/sign 校正）。其餘軸仍待校正。
+      { axis: 'flexionExtension', worldAxis: X, sign: -1 },
       { axis: 'abductionAdduction', worldAxis: Z, sign: 1 },
       { axis: 'internalExternalRotation', worldAxis: Y, sign: 1 },
     ],
