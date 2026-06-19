@@ -1,5 +1,6 @@
-import { MeshBuilder, NullEngine } from '@babylonjs/core';
+import { Bone, MeshBuilder, NullEngine, Skeleton } from '@babylonjs/core';
 import { afterEach, describe, expect, it } from 'vitest';
+import { anatomyEntities } from '@ptapp/definitions';
 import { createModelScene } from './sceneCore';
 import { anatomyIdOfMesh } from './scenePicking';
 import { applyMeshVisibility } from './sceneLayers';
@@ -89,5 +90,28 @@ describe('gltfBinding（glTF mesh→anatomyId metadata 橋接；04 §4.6.2）', 
     const scene = sceneWithNamed(['bone.humerus.foo']);
     bindAnatomyMetadata(scene);
     expect(scene.getMeshByName('bone.humerus.foo')?.metadata ?? null).toBeNull();
+  });
+
+  it('rigged-shaped 場景：skinned mesh 仍綁定、armature 不被誤綁、scene.skeletons 有值', () => {
+    // 建立場景並使用前兩個解剖實體的 anatomyId 建 mesh
+    const ids = anatomyEntities.slice(0, 2).map((e) => e.anatomyId);
+    const scene = sceneWithNamed(ids);
+
+    // armature：bone 名刻意非 anatomyId
+    const skel = new Skeleton('rig', 'rig', scene);
+    new Bone('upperleg01.L', skel, null);
+    new Bone('spine01', skel, null);
+
+    const bound = bindAnatomyMetadata(scene);
+
+    // 場景有 skeleton
+    expect(scene.skeletons.length).toBe(1);
+
+    // mesh anatomyId 皆被綁定
+    for (const id of ids) expect(bound).toContain(id);
+
+    // armature bone 名未被當部位綁定（bone 非 mesh，不在 scene.meshes）
+    expect(bound).not.toContain('upperleg01.L');
+    expect(bound).not.toContain('spine01');
   });
 });
