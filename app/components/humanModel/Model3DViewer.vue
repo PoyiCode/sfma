@@ -77,6 +77,7 @@ interface Props {
   motionJoint?: string;
   // 選取側別（左右獨立，§4.3.3）：雙側 '#L'/'#R'、單側 null。透傳至 Model3DView（手柄側）與 MotionControls（滑桿側）。
   motionSide?: string | null;
+  muscleShading?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -108,6 +109,7 @@ const props = withDefaults(defineProps<Props>(), {
   pose: undefined,
   motionJoint: 'joint.knee',
   motionSide: '#R',
+  muscleShading: true,
 });
 
 const emit = defineEmits<{
@@ -128,6 +130,7 @@ const emit = defineEmits<{
   resetView: [];
   fps: [fps: number];
   motionModeChange: [on: boolean];
+  muscleShadingChange: [on: boolean];
   setJointAngle: [jointId: string, side: string | null, axis: string, deg: number];
   resetPose: [];
   motionJointChange: [jointId: string];
@@ -202,6 +205,7 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
             :pose="pose"
             :motion-joint="motionJoint"
             :motion-side="motionSide"
+            :muscle-shading="muscleShading ?? true"
             @select="emit('selectPart', $event)"
             @background-click="emit('backgroundClick')"
             @fps="emit('fps', $event)"
@@ -221,10 +225,12 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
           :pose="pose ?? {}"
           :selected-joint="motionJoint"
           :selected-side="motionSide"
+          :muscle-shading="muscleShading ?? true"
           @set-joint-angle="(j, s, a, d) => emit('setJointAngle', j, s, a, d)"
           @reset-pose="emit('resetPose')"
           @update:selected-joint="emit('motionJointChange', $event)"
           @update:selected-side="emit('motionSideChange', $event)"
+          @update:muscle-shading="emit('muscleShadingChange', $event)"
         />
         <AnatomyInfoCard
           v-else-if="selected"

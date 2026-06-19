@@ -44,7 +44,7 @@ import {
 } from '../../utils/humanModel/render/scenePopulator';
 import { applyMeshVisibility } from '../../utils/humanModel/render/sceneLayers';
 import { isBackgroundPick, partKeyFromPick } from '../../utils/humanModel/render/scenePicking';
-import { applyHighlights } from '../../utils/humanModel/render/sceneHighlight';
+import { applyOverlays, type OverlayParams } from '../../utils/humanModel/motion/muscleShading';
 import {
   DEFAULT_LABEL_MODE,
   resolveVisibleLabels,
@@ -93,6 +93,8 @@ interface Props {
   motionJoint?: string;
   // 選取側別（左右獨立，§4.3.3）：雙側關節為 '#L'/'#R'、單側關節為 null。決定手柄置放側與 setJointAngle 之側。
   motionSide?: string | null;
+  // 肌肉著色（§4.3.4）：運動模式內獨立開關，預設開。
+  muscleShading?: boolean;
   class?: string;
 }
 
@@ -113,6 +115,7 @@ const props = withDefaults(defineProps<Props>(), {
   pose: undefined,
   motionJoint: undefined,
   motionSide: '#R',
+  muscleShading: true,
   class: undefined,
 });
 
@@ -143,6 +146,19 @@ let labelLayer: LabelLayer | null = null;
 let rigController: RigController | null = null;
 let gizmoController: GizmoController | null = null;
 let gizmoDragging = false;
+
+function overlayParams(): OverlayParams {
+  return {
+    motionMode: props.motionMode,
+    muscleShading: props.muscleShading,
+    pose: props.pose ?? {},
+    selectedKey: props.selectedId ?? null,
+    highlights: props.highlights,
+  };
+}
+function refreshOverlays(): void {
+  if (scene) applyOverlays(scene, overlayParams());
+}
 
 // 自適應框取（§4.3.2／需求 3 部位視角）：由模型包圍盒＋實機畫布比例＋部位 yBand 推算
 // target/radius/半徑上下限/近裁面。無有效包圍盒或畫布尺寸未定時回 undefined → applyCameraView 沿用 preset。
@@ -288,7 +304,7 @@ onMounted(() => {
           );
         }
         lastFitWidth = createdEngine.getRenderWidth();
-        applyHighlights(builtScene, props.selectedId ?? null, props.highlights);
+        refreshOverlays();
         // 標籤補套（§4.4）：標籤須連結載入後之 mesh，故於填充完成後以最新值再同步（惰性建層）。
         syncLabels();
         rigController = createRigController(builtScene);
@@ -403,9 +419,7 @@ watch(
 // 高亮（§4.1 選取＋§4.5 反向標註）：selectedId／highlights 任一變更時重套合成高亮（選取優先）。
 watch(
   () => [props.selectedId, props.highlights] as const,
-  () => {
-    if (scene) applyHighlights(scene, props.selectedId ?? null, props.highlights);
-  },
+  () => refreshOverlays(),
 );
 
 // 標籤同步（§4.4）：標籤相關 prop 任一變更時，以 resolveVisibleLabels 算集合→labelLayer.sync。
@@ -421,9 +435,16 @@ watch(
   () => syncLabels(),
 );
 
-// 運動模式（§4.3.3）：motionMode／motionJoint／pose 變更即冪等建/套/拆 rig＋手柄（填充完成後 controllers 方存在）。
+// 運動模式（§4.3.3）：motionMode／motionJoint／pose／muscleShading 變更即冪等建/套/拆 rig＋手柄（填充完成後 controllers 方存在）。
 watch(
-  () => [props.motionMode, props.motionJoint, props.motionSide, props.pose] as const,
+  () =>
+    [
+      props.motionMode,
+      props.motionJoint,
+      props.motionSide,
+      props.pose,
+      props.muscleShading,
+    ] as const,
   () => {
     if (rigController) rigController.sync(props.motionMode, props.pose ?? {});
     if (gizmoController) {
@@ -434,6 +455,7 @@ watch(
         props.pose ?? {},
       );
     }
+    refreshOverlays();
   },
 );
 </script>
