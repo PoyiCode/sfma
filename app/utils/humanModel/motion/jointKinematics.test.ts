@@ -3,6 +3,7 @@ import { anatomyEntities, anatomyEntityById } from '@ptapp/definitions';
 import {
   JOINT_KINEMATICS,
   MOVABLE_JOINT_IDS,
+  isMirroredAxis,
   jointDofForSide,
   movableJointDof,
   normalizeSide,
@@ -138,5 +139,18 @@ describe('jointKinematics（運動學表不變式）', () => {
       range('joint.spine', 'lateralFlexion', '#R'),
     );
     expect(jointDofForSide('joint.hip', 'bogus', '#L')).toBeUndefined();
+  });
+
+  describe('isMirroredAxis（左右鏡像軸判定）', () => {
+    it('額狀／橫狀面軸為鏡像軸', () => {
+      expect(isMirroredAxis('abductionAdduction')).toBe(true);
+      expect(isMirroredAxis('inversionEversion')).toBe(true);
+      expect(isMirroredAxis('internalExternalRotation')).toBe(true);
+    });
+    it('矢狀面與其他軸非鏡像', () => {
+      expect(isMirroredAxis('flexionExtension')).toBe(false);
+      expect(isMirroredAxis('plantarDorsiflexion')).toBe(false);
+      expect(isMirroredAxis('unknownAxis')).toBe(false);
+    });
   });
 });

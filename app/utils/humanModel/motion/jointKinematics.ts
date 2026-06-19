@@ -359,6 +359,11 @@ const MIRRORED_AXES: ReadonlySet<string> = new Set([
   'internalExternalRotation',
 ]);
 
+// 是否為左右鏡像軸（額狀／橫狀面：外展內收／內翻外翻／內外旋）。包裝 MIRRORED_AXES、不外露 Set。
+export function isMirroredAxis(axis: string): boolean {
+  return MIRRORED_AXES.has(axis);
+}
+
 // 側別感知 ROM（左右鏡像，§4.3.3）：definitions 存右側值。雙側關節之鏡像軸左側取 [-max, -min]；
 // 右側、矢狀面軸、單側關節皆原值。對稱範圍（如 [-45,45]）鏡像為無作用，故與右側相同。
 export function jointDofForSide(
