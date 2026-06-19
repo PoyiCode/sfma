@@ -80,6 +80,11 @@ describe('contractionState（純量→文字態）', () => {
     expect(contractionState(0)).toBe('neutral');
     expect(contractionState(0.01)).toBe('neutral'); // 在 EPSILON 內
   });
+  it('EPSILON 邊界：恰好 0.02 為 neutral（strict >），0.021 為 contract', () => {
+    expect(contractionState(0.02)).toBe('neutral'); // 等於 EPSILON → neutral（strict >）
+    expect(contractionState(0.021)).toBe('contract');
+    expect(contractionState(-0.021)).toBe('stretch');
+  });
 });
 
 describe('musclesForJoint（選取關節相關肌群）', () => {
@@ -137,13 +142,13 @@ describe('applyMuscleShading（overlay 著色；§4.3.4）', () => {
     expect(get(s, 'muscle.gluteusMedius#R').renderOverlay).toBe(false);
   });
 
-  it('外展肌外展 +45 → 暖色 overlay、alpha>0', () => {
+  it('外展肌外展 +45 → 暖色 overlay、alpha = MAX_ALPHA（全幅 1.0 × 0.55）', () => {
     const s = scene();
     applyMuscleShading(s, { 'joint.hip#R': { abductionAdduction: 45 } });
     const gm = get(s, 'muscle.gluteusMedius#R');
     expect(gm.renderOverlay).toBe(true);
     expect(gm.overlayColor.equals(WARM)).toBe(true);
-    expect(gm.overlayAlpha).toBeGreaterThan(0);
+    expect(gm.overlayAlpha).toBeCloseTo(0.55, 5);
   });
 
   it('非肌肉 mesh 一律清 overlay', () => {

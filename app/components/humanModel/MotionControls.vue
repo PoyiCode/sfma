@@ -190,7 +190,14 @@ function onSlider(axis: string, raw: string | number): void {
       <span class="legendSwatch legendNeutral" />{{ t('muscleShadingNeutral') }}
       <span class="legendSwatch legendStretch" />{{ t('muscleShadingStretch') }}
     </div>
-    <ul v-if="muscleShading && relatedMuscles.length" class="muscleShadingList">
+    <p v-if="muscleShading && relatedMuscles.length" class="muscleShadingHeading">
+      {{ t('muscleShadingRelated') }}
+    </p>
+    <ul
+      v-if="muscleShading && relatedMuscles.length"
+      class="muscleShadingList"
+      data-testid="muscle-shading-list"
+    >
       <li
         v-for="m in relatedMuscles"
         :key="m.anatomyId"
@@ -258,6 +265,11 @@ function onSlider(axis: string, raw: string | number): void {
 }
 .legendStretch {
   background: #2f6fb0;
+}
+.muscleShadingHeading {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin: 0;
 }
 .muscleShadingList {
   list-style: none;

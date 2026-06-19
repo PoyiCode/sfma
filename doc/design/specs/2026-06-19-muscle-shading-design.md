@@ -114,8 +114,8 @@ NullEngine 可測）：
   （收縮／伸展／中性＋量值）。已有 `pose`/`selectedJoint`/`selectedSide` props，無需新增資料來源。
 - `model.vue`：`muscleShading` ref（預設 `true`）＋切換 handler（透傳，不另算狀態）。
 - `AnatomyInfoCard`：**不變**（運動模式不渲染該卡）。
-- `i18n/locales/zh-TW.json`：`modelMuscleShading`、`muscleShadingLegend{Contract,Neutral,Stretch}`、
-  `muscleContractionState{Contract,Stretch,Neutral}`。
+- `i18n/locales/zh-TW.json`：`modelMuscleShading`、`muscleShadingContract`、`muscleShadingStretch`、
+  `muscleShadingNeutral`、`muscleShadingRelated`。
 
 ### 5. 邊界情形
 
