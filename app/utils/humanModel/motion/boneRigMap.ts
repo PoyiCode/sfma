@@ -62,7 +62,8 @@ export const BONE_RIG_MAP: Readonly<Record<string, BoneJointMapping>> = {
     },
   },
   'joint.spine': {
-    bone: 'spine01',
+    // MakeHuman 預設骨架 spine 鏈：spine05（最下、接骨盆）＝腰薦樞紐；spine01 為上段（近頸）。
+    bone: 'spine05',
     dofs: {
       flexionExtension: { localAxis: X, sign: 1 },
       lateralFlexion: { localAxis: Z, sign: 1 },

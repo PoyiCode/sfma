@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
+import skeleton from '../../../../doc/ref/models/makehuman-default-skeleton.json';
 import { BONE_RIG_MAP } from './boneRigMap';
 import { JOINT_KINEMATICS, MOVABLE_JOINT_IDS, movableJointDof } from './jointKinematics';
+
+const SKEL_BONES = (skeleton as { bones: Record<string, { head: number[] }> }).bones;
 
 describe('BONE_RIG_MAP（骨骼驅動資料表）', () => {
   it('每個可動關節都有對應', () => {
@@ -36,5 +39,27 @@ describe('BONE_RIG_MAP（骨骼驅動資料表）', () => {
       expect(bone.length, jid).toBeGreaterThan(0);
       expect(bone.startsWith('bone.') || bone.startsWith('joint.'), jid).toBe(false);
     }
+  });
+
+  it('每個 bone 名存在於 MakeHuman 預設骨架（雙側補 .L/.R、單側裸名）', () => {
+    for (const jid of MOVABLE_JOINT_IDS) {
+      const base = BONE_RIG_MAP[jid]!.bone;
+      const bilateral = JOINT_KINEMATICS[jid]?.bilateral === true;
+      const cands = bilateral ? [`${base}.L`, `${base}.R`] : [base];
+      for (const n of cands) expect(SKEL_BONES[n], `${jid}:${n}`).toBeDefined();
+    }
+  });
+
+  it('joint.spine 代表骨為腰薦最下段脊椎骨（head 最低者，非上段 spine01）', () => {
+    // MakeHuman Y-up：head[1] 最小＝最接近骨盆＝腰薦樞紐。
+    const spineNames = Object.keys(SKEL_BONES).filter((n) => /^spine\d+$/.test(n));
+    const lowest = spineNames.reduce((a, b) =>
+      SKEL_BONES[a]!.head[1]! <= SKEL_BONES[b]!.head[1]! ? a : b,
+    );
+    expect(BONE_RIG_MAP['joint.spine']!.bone).toBe(lowest);
+  });
+
+  it('joint.cervicalSpine 代表骨為頸基（neck01）', () => {
+    expect(BONE_RIG_MAP['joint.cervicalSpine']!.bone).toBe('neck01');
   });
 });
