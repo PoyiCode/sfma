@@ -19,7 +19,7 @@
 
 ### 待實作（後續軌）
 
-- [ ] 肌肉收縮／伸展著色（04 §4.3.4；待 Node Material）
+- [x] 肌肉收縮／伸展著色（overlay；04 §4.3.4）
 - [ ] MakeHuman 真骨架＋skin weights 軟變形，取代剛性節段（04 §4.3.3）
 - [ ] 其餘關節：肘、腕、指、趾、顳顎關節、胸廓等（04 §4.3.3）
 - [ ] 平滑多椎脊椎：頸椎／脊椎逐椎獨立旋轉（取代單樞紐近似）
@@ -27,6 +27,8 @@
 
 ## 肌肉收縮／伸展著色
 
-- [ ] 關節角度 → 肌肉長度變化推算（由 `relatedJoints`／`actions` 資料驅動；04 §4.3.4）
-- [ ] Node Material 參數驅動：收縮暖色／伸展冷色／中性基準色，強度對應變化量
-- [ ] 色彩之外的輔助提示（無障礙；03 §3.6）
+- [x] 關節角度 → 肌肉長度變化純量（pose × `actions`，方向明確成對軸；`muscleContractionScalar`；04 §4.3.4）
+- [x] overlay 發散著色（收縮暖／伸展冷／中性無；運動模式內獨立開關、預設開；`applyMuscleShading`/`applyOverlays`）
+- [x] 非色彩輔助（§3.6）：色階圖例＋選取關節相關肌群文字態（MotionControls）
+- [ ] Node Material 參數驅動發散材質（更細緻漸層，取代 overlay）
+- [ ] `lateralFlexion`／`rotation` 軸著色（資料 action 單名、待左右方向）

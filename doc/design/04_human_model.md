@@ -128,7 +128,18 @@ ROM 以**資料定義**（每個關節一筆，見 [06_data_model.md](06_data_mo
 - 每條肌肉與其跨越的關節、作用（屈／伸／旋等）以資料關聯（見 `muscle` 與 `joint`），使色彩由資料推導而非寫死。
 - **著色由資料推導、非量測變形後 mesh**：以關節角相對 `neutral` 的變化 × `actions` 屈／伸／旋計算長度變化純量。正因著色與 mesh 是否軟變形無關，§4.3.3 的**剛性綁定才在視覺上可接受**（剛性肌不軟變形也不影響顏色正確性）。
 
-> **待**：Node Material 收縮／伸展著色尚待實作。
+**現役：overlay 著色**（§4.3.3 同管道）——運動模式擺動關節時，相關肌群依 `muscleContractionScalar`
+（pose × `muscle.actions`）以 mesh overlay 發散著色：收縮暖（`#D94A2A`）、伸展冷（`#2F6FB0`）、
+中性無 overlay，alpha ∝ |純量|。運動模式內**獨立開關**（預設開）；著色開時為**唯一 overlay 權威**
+（`applyOverlays` 暫停選取/標註高亮，運動模式以 gizmo 表達選取關節）。非色彩通道（§3.6）：
+MotionControls 顯暖↔冷色階**圖例** ＋「選取關節相關肌群」逐肌**文字態**（收縮/伸展/中性＋量值）。
+
+- **方向明確成對軸**（屈伸/外展內收/內外旋/蹠背屈/內外翻）；複合軸名第一動作為正向。
+- **左側鏡像翻轉**：鏡像軸（外展內收/內翻外翻/內外旋）左側收縮方向翻轉，與 `jointDofForSide` 一致。
+- **對未校正世界 sign 免疫**：著色與 rig 讀同一 pose，主動肌縮/拮抗肌伸關係恆成立。
+
+> **待（後續軌）**：Node Material 發散材質（更細緻漸層）；`lateralFlexion`／`rotation` 軸（資料 action
+> 單名、無左右方向）著色；肌肉實際長度量測。工作規格：[2026-06-19-muscle-shading-design.md](specs/2026-06-19-muscle-shading-design.md)。
 
 ### 4.3.5 LOD：精簡版與完整版
 
