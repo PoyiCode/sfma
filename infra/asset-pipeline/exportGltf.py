@@ -96,6 +96,11 @@ def main():
     if profile not in ("standard", "full"):
         print("EXPORT_ERR 未知 profile：%s（standard｜full）" % profile)
         return
+    # 選填 rig+skin（全身綁骨蒙皮）：給 <skeleton.json> <membership.json> 則建 MakeHuman 骨架＋
+    # 依成員綁定＋帶 skins 匯出（rigSkin.py）；不給則沿用無骨架行為（向後相容）。
+    skeleton_path = args[3] if len(args) >= 4 else None
+    membership_path = args[4] if len(args) >= 5 else None
+    rig_enabled = bool(skeleton_path and membership_path)
     # full（無損，解3d資產「完整」級別）：同一批實體但**無減面**（cap=None）、
     # **無 Draco**（見匯出旗標 useDraco）——載入端得未壓縮、未量化之原始幾何，無視預算。
     os.makedirs(out_dir, exist_ok=True)
@@ -190,11 +195,26 @@ def main():
             if addDecimateModifier(obj, effectiveCap):
                 decimated += 1
 
+    # rig+skin（選填）：建對位 armature、依成員剛性綁定（須於 mesh 改名後、匯出前）。
+    arm = None
+    if rig_enabled:
+        from rigSkin import build_aligned_armature, bind_meshes
+        with open(skeleton_path, "r", encoding="utf-8") as fh:
+            skel = json.load(fh)
+        with open(membership_path, "r", encoding="utf-8") as fh:
+            membership = json.load(fh)
+        anat_to_joint = {aid: jid for jid, ids in membership.items() for aid in ids}
+        arm = build_aligned_armature(skel)
+        nbound = bind_meshes(arm, resultObjects, anat_to_joint)
+        print("RIG_OK bones=%d bound=%d" % (len(skel["bones"]), nbound))
+
     deselectAll()
     selected = []
     for obj in resultObjects:
         obj.select_set(True)
         selected.append(obj.name)
+    if arm is not None:
+        arm.select_set(True)
     bpy.context.view_layer.objects.active = resultObjects[0]
 
     out_name = {
@@ -209,6 +229,7 @@ def main():
         use_selection=True,
         export_apply=True,
         export_yup=True,
+        export_skins=rig_enabled,
         # Draco 網格壓縮（KHR_draco_mesh_compression；GLB 壓縮切片）：縮小傳輸體積（行動/區網首載）。
         # 載入端 Babylon glTF 以 DracoDecoder.Default 解碼、配置自帶 public/draco/（apps/web render/dracoConfig.ts）。
         # 量化為有損——位置 14-bit 於解剖尺度視覺無損；無 UV/頂點色故 texcoord/color 量化無作用。皆 Blender 預設、明列利重現。
