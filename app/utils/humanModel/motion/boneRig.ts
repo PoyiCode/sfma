@@ -88,7 +88,7 @@ export function buildBoneRig(scene: Scene): ArticulationRig {
   }
 
   function dispose(): void {
-    for (const d of driven) d.bone.setRotationQuaternion(d.rest, Space.LOCAL);
+    for (const d of driven) d.bone.setRotationQuaternion(d.rest.clone(), Space.LOCAL);
     driven.length = 0;
   }
 
