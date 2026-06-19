@@ -20,10 +20,11 @@
 ### 待實作（後續軌）
 
 - [x] 肌肉收縮／伸展著色（overlay；04 §4.3.4）
-- [ ] MakeHuman 真骨架＋skin weights 軟變形，取代剛性節段（04 §4.3.3）
+- [x] 執行期 skin 變形驅動：有真骨架資產時以 pose 驅動 Babylon Skeleton bones 軟變形（`boneRig`／`BONE_RIG_MAP`；`rigController` 依骨架能力選路、無骨架走剛性 fallback；ship-dark；[spec](../design/specs/2026-06-19-skin-deformation-runtime-design.md)）
+- [ ] 資產管線綁骨＋蒙皮匯出：匯入 MakeHuman 骨架對位、綁定（剛性＋跨關節肌 skin weights）、匯出帶 skins 的 rigged GLB（04 §4.6.3 步驟 3–4，另一子專案，產出真骨架資產）
 - [ ] 其餘關節：肘、腕、指、趾、顳顎關節、胸廓等（04 §4.3.3）
 - [ ] 平滑多椎脊椎：頸椎／脊椎逐椎獨立旋轉（取代單樞紐近似）
-- [ ] 軸／sign 實機目視校正（各 DOF 旋轉軸方向與正負號待真實資產驗證）
+- [ ] 軸／sign 實機目視校正（各 DOF 旋轉軸方向與正負號待真實資產驗證，含 bone-local 軸校正）
 
 ## 肌肉收縮／伸展著色
 

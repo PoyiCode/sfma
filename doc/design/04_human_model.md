@@ -117,7 +117,7 @@ ROM 以**資料定義**（每個關節一筆，見 [06_data_model.md](06_data_mo
 > - **軸／sign 實機目視校正**：各 DOF 旋轉軸方向與正負號待真實資產上目視驗證。已校正：肩（盂肱）與髖之 flexionExtension sign＝-1（屈曲＝往前、伸展＝往後）；其餘軸與關節仍待校正。
 > - **其餘關節**：肘、腕、指、趾、顳顎關節、胸廓等（目前僅 6 SFMA 關節）
 > - **肌肉收縮／伸展著色**（§4.3.4）：關節角推算肌長變化並以 Node Material 顯示
-> - **MakeHuman 真骨架＋skin 變形**：引入真骨架 rig 與 skin weights 軟變形，取代剛性節段
+> - **skin 變形（執行期驅動已實作、ship-dark）**：`rigController` 依資產能力選路——載入**帶真骨架**的 GLB 時走骨骼驅動（`boneRig`／`BONE_RIG_MAP`，bone 區域旋轉＋GPU 蒙皮軟變形）、無骨架（現役出貨）走剛性節段 fallback；兩者共用同一 `pose` seam、下游零改動。待：真資產 bone 名與 bone-local 軸/正負之**實機目視校正**、skinned 路徑 gizmo 擺位與 picking 精修、平滑多椎脊椎、**資產管線綁骨＋蒙皮匯出**（§4.6.3 步驟 3–4，另一子專案，產出 rigged GLB）。見 [skin 變形執行期驅動 spec](specs/2026-06-19-skin-deformation-runtime-design.md)。
 > - **平滑多椎脊椎**：脊椎／頸椎逐椎獨立旋轉（取代單樞紐近似）
 
 ### 4.3.4 肌肉收縮／伸展色彩
