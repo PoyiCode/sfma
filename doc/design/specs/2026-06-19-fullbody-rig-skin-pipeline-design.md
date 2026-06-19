@@ -47,7 +47,8 @@
 
 ### 2. 綁定（bpy，成員驅動）
 
-- **剛性綁定（多數 mesh）**：每件 mesh 依**節段成員**綁至該節段對應骨（單骨、weight 1.0）。節段→MakeHuman 骨：`joint.hip→upperleg01.{L,R}`、`joint.knee→lowerleg01.{L,R}`、`joint.ankle→foot.{L,R}`、`joint.glenohumeral→upperarm01.{L,R}`（含肘以下手臂 mesh——v1 手臂整段剛動）、`joint.spine→spine0x`、`joint.cervicalSpine→neck01`。騎乘固定基座者（骨盆／薦椎／肋／胸骨／骨盆底肌）綁 `root`（不動）。
+- **入 rig 範圍＝僅 `bone.`／`muscle.`**：被動結構（韌帶／關節囊／椎間盤／滑囊／筋膜／盂唇…）、神經、血管、臟器**不入旋轉變形**、靜態匯出（不蒙皮）——使用者決策：此類不需隨關節變形。
+- **剛性綁定（bone./muscle.）**：每件 mesh 依**節段成員**綁至該節段對應骨（單骨、weight 1.0）。節段→MakeHuman 骨：`joint.hip→upperleg01.{L,R}`、`joint.knee→lowerleg01.{L,R}`、`joint.ankle→foot.{L,R}`、`joint.glenohumeral→upperarm01.{L,R}`（含肘以下手臂 mesh——v1 手臂整段剛動）、`joint.spine→spine0x`、`joint.cervicalSpine→neck01`。騎乘固定基座之骨（骨盆／薦椎／肋／胸骨）綁 `root`（不動）。
 - **跨關節肌蒙皮**：跨關節肌（既有 `MUSCLE_SEGMENT_OVERRIDE` 之外在肌＋雙關節肌如腿後肌／股直肌／腓腸肌）以 **位置漸變權重**（spike 技法：沿肢長軸於關節處於父／子骨間平滑混合），自動權重失敗之 mesh 以就近骨後備（同 spike）。
 - **成員來源**：bpy 讀 §5 之成員 JSON，不重寫成員邏輯。
 

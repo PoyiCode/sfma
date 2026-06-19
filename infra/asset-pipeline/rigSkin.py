@@ -128,7 +128,8 @@ def build_aligned_armature(skel):
 
 def bind_meshes(arm, result_objects, anat_to_joint):
     """把 result_objects（已改名 anatomyId#L/R 之 mesh）依成員剛性綁至節段骨；無成員→root。
-    回傳已綁定數。"""
+    **僅綁 bone./muscle.**——被動結構（ligament/capsule/disc/bursa/fascia/labrum…）／神經／血管／
+    臟器不入 rig（不需旋轉變形），匯出為靜態 mesh（不蒙皮）。回傳已綁定數。"""
     bound = 0
     for o in result_objects:
         if o.type != "MESH":
@@ -140,6 +141,8 @@ def bind_meshes(arm, result_objects, anat_to_joint):
             side, anat = "left", name[:-2]
         elif name.endswith("#R"):
             side, anat = "right", name[:-2]
+        if not (anat.startswith("bone.") or anat.startswith("muscle.")):
+            continue  # 被動結構/神經/血管/臟器：不入 rig、靜態匯出
         jid = anat_to_joint.get(anat)
         if jid:
             base = SEGMENT_TO_BONE[jid]
