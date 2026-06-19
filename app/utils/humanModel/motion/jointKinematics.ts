@@ -317,7 +317,31 @@ export function segmentForMuscle(relatedJoints: readonly string[]): string | nul
   return best;
 }
 
-// 解析各節段之全部成員（側別無關 anatomyId）：curated 骨 ＋ 由 relatedJoints 推導之肌。
+// 肌肉節段歸屬人工校正（curated override；§4.3.3「半自動分群＋人工校正」）：
+// segmentForMuscle 以 relatedJoints（肌「作用」的關節）推節段，但外在肌之肌腹（belly）位於其所跨
+// 關節的「近端」節段——單關節肌時兩者背離，使肌腹被誤歸遠端節段、隨遠端剛性旋轉而整條脫離。
+// 此 map 把這類肌歸正確節段（肌腹所在）。無法以 relatedJoints 自動辨識（如三角肌亦單關節 [盂肱]
+// 但肌腹罩於上臂、歸手臂才對），故採資料化人工校正。涵蓋下肢；肘/腕/指為手臂內屬關節、上肢全段
+// 同動故無此問題。
+export const MUSCLE_SEGMENT_OVERRIDE: Readonly<Record<string, string>> = {
+  // 股四頭單關節三頭：肌腹在股骨 → 大腿（非小腿），膝旋轉不帶動
+  'muscle.vastusLateralis': 'joint.hip',
+  'muscle.vastusMedialis': 'joint.hip',
+  'muscle.vastusIntermedius': 'joint.hip',
+  // 小腿外在肌：肌腹在脛／腓骨 → 小腿（非足），踝旋轉不帶動（肌腱過踝至足）
+  'muscle.soleus': 'joint.knee',
+  'muscle.tibialisAnterior': 'joint.knee',
+  'muscle.tibialisPosterior': 'joint.knee',
+  'muscle.fibularisLongus': 'joint.knee',
+  'muscle.fibularisBrevis': 'joint.knee',
+  'muscle.fibularisTertius': 'joint.knee',
+  'muscle.extensorDigitorumLongus': 'joint.knee',
+  'muscle.extensorHallucisLongus': 'joint.knee',
+  'muscle.flexorDigitorumLongus': 'joint.knee',
+  'muscle.flexorHallucisLongus': 'joint.knee',
+};
+
+// 解析各節段之全部成員（側別無關 anatomyId）：curated 骨 ＋ 由 override／relatedJoints 推導之肌。
 export function resolveSegmentMembership(
   entities: readonly AnatomyEntity[],
 ): Map<string, string[]> {
@@ -325,7 +349,7 @@ export function resolveSegmentMembership(
   for (const segId of MOVABLE_JOINT_IDS) result.set(segId, [...(SEGMENT_BONES[segId] ?? [])]);
   for (const e of entities) {
     if (e.type !== 'muscle') continue;
-    const seg = segmentForMuscle(e.relatedJoints ?? []);
+    const seg = MUSCLE_SEGMENT_OVERRIDE[e.anatomyId] ?? segmentForMuscle(e.relatedJoints ?? []);
     if (seg !== null) result.get(seg)!.push(e.anatomyId);
   }
   return result;

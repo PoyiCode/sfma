@@ -90,6 +90,42 @@ describe('jointKinematics（運動學表不變式）', () => {
     expect(membership.get('joint.hip')).toContain(hipMuscle!.anatomyId);
   });
 
+  it('MUSCLE_SEGMENT_OVERRIDE：belly 在近端之外在肌歸正確節段（修剛性脫離）', () => {
+    const membership = resolveSegmentMembership(anatomyEntities);
+    const thigh = membership.get('joint.hip')!;
+    const shank = membership.get('joint.knee')!;
+    const foot = membership.get('joint.ankle')!;
+    // 股四頭三頭（單關節膝伸肌，belly 在股骨）→ 大腿、非小腿；膝旋轉不應帶動
+    for (const m of [
+      'muscle.vastusLateralis',
+      'muscle.vastusMedialis',
+      'muscle.vastusIntermedius',
+    ]) {
+      expect(thigh, m).toContain(m);
+      expect(shank, m).not.toContain(m);
+    }
+    // 小腿外在肌（belly 在脛／腓骨）→ 小腿、非足；踝旋轉不應帶動
+    for (const m of [
+      'muscle.soleus',
+      'muscle.tibialisAnterior',
+      'muscle.tibialisPosterior',
+      'muscle.fibularisLongus',
+      'muscle.fibularisBrevis',
+      'muscle.fibularisTertius',
+      'muscle.extensorDigitorumLongus',
+      'muscle.extensorHallucisLongus',
+      'muscle.flexorDigitorumLongus',
+      'muscle.flexorHallucisLongus',
+    ]) {
+      expect(shank, m).toContain(m);
+      expect(foot, m).not.toContain(m);
+    }
+    // 回歸護欄：雙關節腿後肌/股直肌仍大腿；腓腸肌仍小腿；足內在肌仍足
+    expect(thigh).toContain('muscle.rectusFemoris');
+    expect(shank).toContain('muscle.gastrocnemius');
+    expect(foot).toContain('muscle.abductorHallucis');
+  });
+
   it('movableJointDof 讀 definitions ROM', () => {
     expect(movableJointDof('joint.knee', 'flexionExtension')?.max).toBe(140);
     expect(movableJointDof('joint.knee', 'bogus')).toBeUndefined();
