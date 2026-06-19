@@ -1,8 +1,12 @@
 // 肌肉收縮／伸展著色（04 §4.3.4）：由運動 pose × muscle.actions 推導每肌「收縮（暖）／伸展（冷）」
 // 純量。著色由資料推導、與剛性節段綁定無關（§4.3.4）。純函式核心、可 node 測。
+import { Color3, type Scene } from '@babylonjs/core';
+import '@babylonjs/core/Rendering/outlineRenderer';
 import type { Muscle } from '@ptapp/shared';
-import { anatomyEntities } from '@ptapp/definitions';
+import { anatomyEntities, anatomyEntityById } from '@ptapp/definitions';
+import type { PlaceholderMeshMetadata } from '../render/sceneCore';
 import { type MotionPose, jointAngle } from './motionPose';
+import { sideOfMesh } from './meshToJoint';
 import {
   isMirroredAxis,
   JOINT_KINEMATICS,
@@ -66,4 +70,37 @@ export function musclesForJoint(jointId: string): Muscle[] {
       e.type === 'muscle' &&
       e.actions.some((a) => a.jointId === jointId && ACTION_AXIS[a.action] !== undefined),
   );
+}
+
+// 著色色（發散）：收縮暖、伸展冷（暫定、可對齊 tokens §3.7）。
+export const WARM = new Color3(217 / 255, 74 / 255, 42 / 255); // #D94A2A
+export const COOL = new Color3(47 / 255, 111 / 255, 176 / 255); // #2F6FB0
+const MAX_ALPHA = 0.55;
+
+// 肌肉著色（唯一 overlay 來源）：染肌肉、清非肌肉殘留 overlay。NullEngine 可測。
+export function applyMuscleShading(scene: Scene, pose: MotionPose): void {
+  for (const mesh of scene.meshes) {
+    const meta = mesh.metadata as PlaceholderMeshMetadata | null | undefined;
+    if (meta?.entityType !== 'muscle' || meta.anatomyId === undefined) {
+      mesh.renderOverlay = false;
+      continue;
+    }
+    const entity = anatomyEntityById.get(meta.anatomyId);
+    if (entity === undefined || entity.type !== 'muscle') {
+      mesh.renderOverlay = false;
+      continue;
+    }
+    const s = muscleContractionScalar(entity, pose, sideOfMesh(mesh.name));
+    if (s > EPSILON) {
+      mesh.renderOverlay = true;
+      mesh.overlayColor = WARM;
+      mesh.overlayAlpha = s * MAX_ALPHA;
+    } else if (s < -EPSILON) {
+      mesh.renderOverlay = true;
+      mesh.overlayColor = COOL;
+      mesh.overlayAlpha = -s * MAX_ALPHA;
+    } else {
+      mesh.renderOverlay = false;
+    }
+  }
 }

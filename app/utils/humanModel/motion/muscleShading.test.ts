@@ -1,8 +1,18 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
+import { MeshBuilder, NullEngine } from '@babylonjs/core';
+import type { Scene } from '@babylonjs/core';
 import { anatomyEntityById } from '@ptapp/definitions';
 import type { Muscle } from '@ptapp/shared';
 import type { MotionPose } from './motionPose';
-import { contractionState, muscleContractionScalar, musclesForJoint } from './muscleShading';
+import { createModelScene, type PlaceholderMeshMetadata } from '../render/sceneCore';
+import {
+  applyMuscleShading,
+  contractionState,
+  COOL,
+  muscleContractionScalar,
+  musclesForJoint,
+  WARM,
+} from './muscleShading';
 
 function muscle(id: string): Muscle {
   const e = anatomyEntityById.get(id);
@@ -81,5 +91,70 @@ describe('musclesForJoint（選取關節相關肌群）', () => {
   });
   it('非可動關節（肘）→ 空集', () => {
     expect(musclesForJoint('joint.elbow')).toEqual([]);
+  });
+});
+
+describe('applyMuscleShading（overlay 著色；§4.3.4）', () => {
+  let engine: NullEngine | undefined;
+  afterEach(() => {
+    engine?.dispose();
+    engine = undefined;
+  });
+
+  function addMuscle(scene: Scene, anatomyId: string, side: 'L' | 'R'): void {
+    const mesh = MeshBuilder.CreateBox(`${anatomyId}#${side}`, { size: 1 }, scene);
+    const metadata: PlaceholderMeshMetadata = {
+      anatomyId,
+      entityType: 'muscle',
+      side: side === 'L' ? 'left' : 'right',
+    };
+    mesh.metadata = metadata;
+  }
+  function addBone(scene: Scene, anatomyId: string): void {
+    const mesh = MeshBuilder.CreateBox(anatomyId, { size: 1 }, scene);
+    mesh.metadata = { anatomyId, entityType: 'bone' } satisfies PlaceholderMeshMetadata;
+  }
+  function scene(): Scene {
+    engine = new NullEngine();
+    const s = createModelScene(engine);
+    addMuscle(s, 'muscle.gluteusMedius', 'R'); // hip abduction
+    addMuscle(s, 'muscle.bicepsFemoris', 'R'); // hip extension（拮抗）
+    addBone(s, 'bone.femur');
+    return s;
+  }
+  const get = (s: Scene, name: string) => s.getMeshByName(name)!;
+
+  it('收縮肌得暖色 overlay、拮抗肌得冷色：右髖屈曲 +120', () => {
+    const s = scene();
+    applyMuscleShading(s, { 'joint.hip#R': { flexionExtension: 120 } });
+    const rf = get(s, 'muscle.bicepsFemoris#R'); // 髖伸肌 → 屈曲時伸展（冷）
+    expect(rf.renderOverlay).toBe(true);
+    expect(rf.overlayColor.equals(COOL)).toBe(true);
+    // gluteusMedius 僅外展、屈曲不動之 → 中性、無 overlay
+    expect(get(s, 'muscle.gluteusMedius#R').renderOverlay).toBe(false);
+  });
+
+  it('外展肌外展 +45 → 暖色 overlay、alpha>0', () => {
+    const s = scene();
+    applyMuscleShading(s, { 'joint.hip#R': { abductionAdduction: 45 } });
+    const gm = get(s, 'muscle.gluteusMedius#R');
+    expect(gm.renderOverlay).toBe(true);
+    expect(gm.overlayColor.equals(WARM)).toBe(true);
+    expect(gm.overlayAlpha).toBeGreaterThan(0);
+  });
+
+  it('非肌肉 mesh 一律清 overlay', () => {
+    const s = scene();
+    const bone = get(s, 'bone.femur');
+    bone.renderOverlay = true; // 模擬殘留選取
+    applyMuscleShading(s, { 'joint.hip#R': { abductionAdduction: 45 } });
+    expect(bone.renderOverlay).toBe(false);
+  });
+
+  it('中性 pose → 全肌無 overlay', () => {
+    const s = scene();
+    applyMuscleShading(s, {});
+    expect(get(s, 'muscle.gluteusMedius#R').renderOverlay).toBe(false);
+    expect(get(s, 'muscle.bicepsFemoris#R').renderOverlay).toBe(false);
   });
 });
