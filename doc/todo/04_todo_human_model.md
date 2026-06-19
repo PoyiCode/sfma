@@ -22,7 +22,8 @@
 - [x] 肌肉收縮／伸展著色（overlay；04 §4.3.4）
 - [x] 執行期 skin 變形驅動：有真骨架資產時以 pose 驅動 Babylon Skeleton bones 軟變形（`boneRig`／`BONE_RIG_MAP`；`rigController` 依骨架能力選路、無骨架走剛性 fallback；ship-dark；[spec](../design/specs/2026-06-19-skin-deformation-runtime-design.md)）
 - [x] 資產管線綁骨＋蒙皮匯出：MakeHuman 163-bone CC0 骨架（headless 取得 `makehuman-default-skeleton.json`）→ Umeyama 對位＋per-joint snap（`rigSkin.build_aligned_armature`）→ 成員驅動剛性綁（`rigSkin.bind_meshes`）→ exportGltf 帶 skins 匯出 rigged `anatomyV1.glb`（5.26MB、1 skin/164 joints、730 全 skinned、驅動骨齊備；structural e2e 通過）。[spec](../design/specs/2026-06-19-fullbody-rig-skin-pipeline-design.md)
-- [ ] 跨關節肌位置漸變蒙皮精修（初版全剛性；spike 已驗位置漸變技法於腿）＋rigged 資產 on-device 視覺驗證＋部署（替換出貨 anatomyV1.glb）
+- [x] 跨關節肌位置漸變蒙皮（`crossJointBlend` 橋接＋`rigSkin.bind_meshes`：biarticular＋override 跨子節段肌於子關節 anchor 沿 proximal→distal 軸於兩骨間混合；42 mesh blended，spike 技法）
+- [ ] rigged 資產 on-device 視覺驗證＋部署（替換出貨 anatomyV1.glb）＋真實 rig 軸/sign 實機校正
 - [ ] skinned 路徑 gizmo 精確擺位與 picking 精修：bone 驅動下手柄擺位／拾取（v1 `getPivot` 回 null、手柄不啟用；04 §4.3.3）
 - [ ] 其餘關節：肘、腕、指、趾、顳顎關節、胸廓等（04 §4.3.3）
 - [ ] 平滑多椎脊椎：頸椎／脊椎逐椎獨立旋轉（取代單樞紐近似）

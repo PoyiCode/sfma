@@ -123,14 +123,45 @@ def build_aligned_armature(skel):
         e.head = za[hl].copy()
         e.tail = za[ts[1]].copy() if ts[0] == "anchor" and ts[1] in za else e.head + (ot - oh)
     bpy.ops.object.mode_set(mode="OBJECT")
-    return arm
+    return arm, za
 
 
-def bind_meshes(arm, result_objects, anat_to_joint):
-    """把 result_objects（已改名 anatomyId#L/R 之 mesh）依成員剛性綁至節段骨；無成員→root。
-    **僅綁 bone./muscle.**——被動結構（ligament/capsule/disc/bursa/fascia/labrum…）／神經／血管／
-    臟器不入 rig（不需旋轉變形），匯出為靜態 mesh（不蒙皮）。回傳已綁定數。"""
+# jointId → za anchor 標籤基底（雙側補 .L/.R）。
+ANCHOR_LABEL = {
+    "joint.hip": "hip",
+    "joint.knee": "knee",
+    "joint.ankle": "ankle",
+    "joint.glenohumeral": "shoulder",
+    "joint.spine": "lumbosacral",
+    "joint.cervicalSpine": "cervical",
+}
+
+
+def _bone_for(jid, side):
+    base = SEGMENT_TO_BONE[jid]
+    return base + (".L" if side == "left" else ".R") if jid in BILATERAL else base
+
+
+def _anchor_key(jid, side):
+    base = ANCHOR_LABEL[jid]
+    return base + (".L" if side == "left" else ".R") if jid in BILATERAL else base
+
+
+def _add_armature_mod(o, arm):
+    m = o.modifiers.new("arm", "ARMATURE")
+    m.object = arm
+    m.use_vertex_groups = True
+
+
+def bind_meshes(arm, result_objects, anat_to_joint, za=None, cross_joint=None):
+    """把 result_objects（已改名 anatomyId#L/R 之 mesh）綁至骨架。
+    **僅綁 bone./muscle.**——被動結構／神經／血管／臟器不入 rig（不需旋轉變形）、靜態匯出。
+    跨關節肌（cross_joint）於子關節處沿 proximal→distal 軸位置漸變蒙皮（spike 技法）；其餘剛性綁
+    至節段骨（無成員→root）。za＝build_aligned_armature 回傳之關節 anchor。回傳已綁定數。"""
+    za = za or {}
+    cross_joint = cross_joint or {}
     bound = 0
+    blended = 0
     for o in result_objects:
         if o.type != "MESH":
             continue
@@ -143,16 +174,37 @@ def bind_meshes(arm, result_objects, anat_to_joint):
             side, anat = "right", name[:-2]
         if not (anat.startswith("bone.") or anat.startswith("muscle.")):
             continue  # 被動結構/神經/血管/臟器：不入 rig、靜態匯出
+
+        # 跨關節肌位置漸變蒙皮：於子關節 anchor 沿 proximal→distal 軸於兩骨間平滑混合。
+        bp = cross_joint.get(anat)
+        if bp:
+            p_anchor = za.get(_anchor_key(bp["proximal"], side))
+            d_anchor = za.get(_anchor_key(bp["distal"], side))
+            if p_anchor is not None and d_anchor is not None and (d_anchor - p_anchor).length > 1e-6:
+                axis = (d_anchor - p_anchor)
+                length = axis.length
+                axis = axis / length
+                band = length * 0.18
+                pbone = _bone_for(bp["proximal"], side)
+                dbone = _bone_for(bp["distal"], side)
+                vg_p = o.vertex_groups.get(pbone) or o.vertex_groups.new(name=pbone)
+                vg_d = o.vertex_groups.get(dbone) or o.vertex_groups.new(name=dbone)
+                mw = o.matrix_world
+                for i, v in enumerate(o.data.vertices):
+                    t = (mw @ v.co - d_anchor).dot(axis)
+                    wd = max(0.0, min(1.0, (t + band) / (2.0 * band)))
+                    vg_d.add([i], wd, "REPLACE")
+                    vg_p.add([i], 1.0 - wd, "REPLACE")
+                _add_armature_mod(o, arm)
+                bound += 1
+                blended += 1
+                continue
+
+        # 剛性綁定（非跨關節肌或 anchor 不全）
         jid = anat_to_joint.get(anat)
-        if jid:
-            base = SEGMENT_TO_BONE[jid]
-            bone = base + (".L" if side == "left" else ".R") if jid in BILATERAL else base
-        else:
-            bone = "root"
+        bone = _bone_for(jid, side) if jid else "root"
         vg = o.vertex_groups.get(bone) or o.vertex_groups.new(name=bone)
         vg.add(range(len(o.data.vertices)), 1.0, "REPLACE")
-        m = o.modifiers.new("arm", "ARMATURE")
-        m.object = arm
-        m.use_vertex_groups = True
+        _add_armature_mod(o, arm)
         bound += 1
-    return bound
+    return bound, blended

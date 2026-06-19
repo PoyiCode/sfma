@@ -117,7 +117,7 @@ ROM 以**資料定義**（每個關節一筆，見 [06_data_model.md](06_data_mo
 > - **軸／sign 實機目視校正**：各 DOF 旋轉軸方向與正負號待真實資產上目視驗證。已校正：肩（盂肱）與髖之 flexionExtension sign＝-1（屈曲＝往前、伸展＝往後）；其餘軸與關節仍待校正。
 > - **其餘關節**：肘、腕、指、趾、顳顎關節、胸廓等（目前僅 6 SFMA 關節）
 > - **肌肉收縮／伸展著色**（§4.3.4）：關節角推算肌長變化並以 Node Material 顯示
-> - **skin 變形（執行期驅動已實作、ship-dark）**：`rigController` 依資產能力選路——載入**帶真骨架**的 GLB 時走骨骼驅動（`boneRig`／`BONE_RIG_MAP`，bone 區域旋轉＋GPU 蒙皮軟變形）、無骨架（現役出貨）走剛性節段 fallback；兩者共用同一 `pose` seam、下游零改動。待：真資產 bone 名與 bone-local 軸/正負之**實機目視校正**、skinned 路徑 gizmo 擺位與 picking 精修、平滑多椎脊椎、**資產管線綁骨＋蒙皮匯出**（§4.6.3 步驟 3–4，**已實作**：`rigSkin.py`＋exportGltf 整合，產出 rigged `anatomyV1.glb`〔163-bone MakeHuman 骨架、全身剛性綁＋skins、structural 驗證通過〕；待逐肌位置漸變蒙皮精修＋on-device 視覺驗證）。見 [skin 變形執行期驅動 spec](specs/2026-06-19-skin-deformation-runtime-design.md)、[全身 rig+skin 管線 spec](specs/2026-06-19-fullbody-rig-skin-pipeline-design.md)。
+> - **skin 變形（執行期驅動已實作、ship-dark）**：`rigController` 依資產能力選路——載入**帶真骨架**的 GLB 時走骨骼驅動（`boneRig`／`BONE_RIG_MAP`，bone 區域旋轉＋GPU 蒙皮軟變形）、無骨架（現役出貨）走剛性節段 fallback；兩者共用同一 `pose` seam、下游零改動。待：真資產 bone 名與 bone-local 軸/正負之**實機目視校正**、skinned 路徑 gizmo 擺位與 picking 精修、平滑多椎脊椎、**資產管線綁骨＋蒙皮匯出**（§4.6.3 步驟 3–4，**已實作**：`rigSkin.py`＋exportGltf 整合，產出 rigged `anatomyV1.glb`〔163-bone MakeHuman 骨架、全身剛性綁＋skins、跨關節肌位置漸變蒙皮、structural 驗證通過〕；待 on-device 視覺驗證＋部署）。見 [skin 變形執行期驅動 spec](specs/2026-06-19-skin-deformation-runtime-design.md)、[全身 rig+skin 管線 spec](specs/2026-06-19-fullbody-rig-skin-pipeline-design.md)。
 > - **平滑多椎脊椎**：脊椎／頸椎逐椎獨立旋轉（取代單樞紐近似）
 
 ### 4.3.4 肌肉收縮／伸展色彩
@@ -257,13 +257,13 @@ MotionControls 顯暖↔冷色階**圖例** ＋「選取關節相關肌群」逐
 | 1 | 匯入彙整：自 Z-Anatomy `.blend`（已分層為 collections）起 | 人工 |
 | 2 | 命名正規化：來源英文解剖名（去 `.l/.r/.j` 等後綴）→語意式 `anatomyId`、抽名稱表 → crosswalk＋`anatomyId↔名稱↔分層` manifest（分層由頂層 collection 推定） | 腳本 |
 | 3 | 綁骨：MakeHuman 預設骨架（163 bones、CC0；`makehuman-default-skeleton.json` headless 自開源 `.mhskel`＋`base.obj` 重建）→ Umeyama 全域擬合＋受驅動骨 per-joint snap 對位 z-anatomy（`rigSkin.build_aligned_armature`） | 腳本 |
-| 4 | 綁定：成員驅動剛性綁至節段骨（`rigSkin.bind_meshes`，重用 `jointKinematics` 成員）。**僅 `bone.`／`muscle.` 入 rig**；被動結構（韌帶/關節囊/椎間盤/滑囊/筋膜/盂唇…）／神經／血管／臟器**不入旋轉變形、靜態匯出**。跨關節肌位置漸變蒙皮為後續精修（spike 已驗） | 腳本 |
+| 4 | 綁定：成員驅動綁至節段骨（`rigSkin.bind_meshes`，重用 `jointKinematics` 成員）。**僅 `bone.`／`muscle.` 入 rig**；被動結構（韌帶/關節囊/椎間盤/滑囊/筋膜/盂唇…）／神經／血管／臟器**不入旋轉變形、靜態匯出**。**跨關節肌位置漸變蒙皮已實作**（`crossJointBlend` 橋接：biarticular＋override 跨子節段者，於子關節 anchor 沿 proximal→distal 軸於兩骨間混合，42 mesh），其餘剛性綁 | 腳本 |
 | 5 | 減面：逐肌肉 mesh ＋ decimate（標準資產 export profile）；**減面為必經** | 腳本 |
 | 6 | 匯出：glTF／GLB，Draco＋（必要時）KTX2；node 名＝`anatomyId` | 腳本 |
 | 7 | 2D 抽取：固定正交視角（正／側／背）逐層輸出輪廓→SVG；圖層 id＝`anatomyId`（**資產產生器，與執行期檢視器分立**） | 腳本 |
 | 8 | manifest→definitions：ID／名稱／分層 ＋ 關節 ROM ＋ 肌肉 `relatedJoints`／`actions` 組為 definitions JSON（見 [06_data_model.md](06_data_model.md) 6.5） | 腳本 |
 
-步驟 3–4 已腳本化（`rigSkin.py`，headless 可重複；`blender.exe -b z-anatomy.blend -P exportGltf.py -- manifest out standard skeleton.json membership.json` 一次產出 rigged glb）。剩餘工時/風險：跨關節肌**位置漸變蒙皮精修**（初版全剛性、成員校正已消除整段脫離）、真實 rig 之**軸/sign 實機校正**（§4.3.3）、**減面品質**（Z-Anatomy 研究級高面數）。**跨關節肌（軟蒙皮）清單**屬管線編寫資料、不入 runtime 實體；初版保守、視 QA 擴充。
+步驟 3–4 已腳本化（`rigSkin.py`，headless 可重複；`blender.exe -b z-anatomy.blend -P exportGltf.py -- manifest out standard skeleton.json membership.json` 一次產出 rigged glb；跨關節肌位置漸變蒙皮含於內）。剩餘工時/風險：真實 rig 之**軸/sign 實機校正**（§4.3.3）、**減面品質**（Z-Anatomy 研究級高面數）、rigged 資產 **on-device 視覺驗證＋部署**。**跨關節肌（軟蒙皮）清單**屬管線編寫資料、不入 runtime 實體；初版保守、視 QA 擴充。
 
 **來源實況**：來源 Z-Anatomy 4.0 約 7184 物件（MESH 4569／CURVE 951〔神經・血管・支氣管以曲線表示〕／FONT 1660〔`.t` 標籤〕…），總面數約 366 萬多邊形（遠超預算 → **減面為必經**，約 6×）、**無骨架**（rig 由 `doc/ref/models/makehuman-default-skeleton.json` 提供——MakeHuman 預設骨架 163 bones、CC0，headless 自開源 `.mhskel`＋`base.obj` 重建，無 MakeHuman app；步驟 3 對位之）。頂層 collection 即分層系統：`Skeletal system`（→bone）、`Muscular system`＋`Muscular insertions`（→muscle）、`Joints`（→joint）、`Nervous system & Sense organs`（→nerve）、`Cardiovascular system`（→vessel）、`Visceral systems`（→organ）等。FONT 標籤不入 glTF mesh；CURVE 之神經・血管轉 mesh（管狀）。
 

@@ -5,7 +5,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { MOVABLE_JOINT_IDS } from '../../app/utils/humanModel/motion/jointKinematics';
-import { buildMembershipJson } from './exportSegmentMembership';
+import { buildCrossJointBlend, buildMembershipJson } from './exportSegmentMembership';
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -42,5 +42,22 @@ describe('exportSegmentMembership（節段成員 TS→JSON 橋接）', () => {
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'segmentMembership.json'), JSON.stringify(json, null, 1));
     expect(json['joint.hip'].length).toBeGreaterThan(0);
+  });
+
+  it('跨關節肌 blend pair：biarticular 取近端→子節段；純單關節肌不入', () => {
+    const b = buildCrossJointBlend();
+    expect(b['muscle.rectusFemoris']).toEqual({ proximal: 'joint.hip', distal: 'joint.knee' });
+    expect(b['muscle.gastrocnemius']).toEqual({ proximal: 'joint.knee', distal: 'joint.ankle' });
+    expect(b['muscle.bicepsFemoris']).toEqual({ proximal: 'joint.hip', distal: 'joint.knee' });
+    expect(b['muscle.vastusLateralis']).toEqual({ proximal: 'joint.hip', distal: 'joint.knee' }); // override→hip，跨膝腱
+    expect(b['muscle.soleus']).toEqual({ proximal: 'joint.knee', distal: 'joint.ankle' });
+    expect(b['muscle.gluteusMaximus']).toBeUndefined(); // 純髖
+    expect(b['muscle.iliopsoas']).toBeUndefined();
+  });
+
+  it('側出 out/crossJointBlend.json 供 rigSkin 位置漸變蒙皮', () => {
+    const b = buildCrossJointBlend();
+    writeFileSync(join(here, 'out', 'crossJointBlend.json'), JSON.stringify(b, null, 1));
+    expect(Object.keys(b).length).toBeGreaterThan(0);
   });
 });

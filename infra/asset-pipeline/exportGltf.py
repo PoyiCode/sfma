@@ -204,9 +204,16 @@ def main():
         with open(membership_path, "r", encoding="utf-8") as fh:
             membership = json.load(fh)
         anat_to_joint = {aid: jid for jid, ids in membership.items() for aid in ids}
-        arm = build_aligned_armature(skel)
-        nbound = bind_meshes(arm, resultObjects, anat_to_joint)
-        print("RIG_OK bones=%d bound=%d" % (len(skel["bones"]), nbound))
+        # 跨關節肌位置漸變 blend pair（與 membership 同目錄之 crossJointBlend.json；缺則全剛性）。
+        cross_path = os.path.join(os.path.dirname(membership_path), "crossJointBlend.json")
+        cross_joint = {}
+        if os.path.exists(cross_path):
+            with open(cross_path, "r", encoding="utf-8") as fh:
+                cross_joint = json.load(fh)
+        arm, za = build_aligned_armature(skel)
+        nbound, nblend = bind_meshes(arm, resultObjects, anat_to_joint, za, cross_joint)
+        print("RIG_OK bones=%d bound=%d blended=%d crossJoint=%d"
+              % (len(skel["bones"]), nbound, nblend, len(cross_joint)))
 
     deselectAll()
     selected = []
