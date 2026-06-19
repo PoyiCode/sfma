@@ -216,6 +216,8 @@ const motionMode = ref(false);
 const motionJoint = ref('joint.knee');
 const motionSide = ref<string | null>(normalizeSide('joint.knee', '#R'));
 const pose = ref<MotionPose>(NEUTRAL_POSE);
+// 肌肉著色（§4.3.4）：運動模式內獨立開關，預設開（記憶體暫態、未持久化）。
+const muscleShading = ref(true);
 
 function handleMotionModeChange(on: boolean): void {
   motionMode.value = on;
@@ -443,6 +445,8 @@ function retryBoundary(): void {
         :pose="pose"
         :motion-joint="motionJoint"
         :motion-side="motionSide"
+        :muscle-shading="muscleShading"
+        @muscle-shading-change="muscleShading = $event"
         @set-visible="layers.setVisible"
         @reset-layers="layers.reset"
         @select-part="selection.toggle"
