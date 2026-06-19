@@ -80,6 +80,7 @@ pelvis/sacrum（固定基座）
 
 - 每件 mesh 指派至**恰一**節段。
 - **肌肉歸其「肌腹（belly）」所在節段**：預設啟發式 `segmentForMuscle` 取 `relatedJoints` 對應諸節段中**最近端**者（深度最小）。但外在肌之肌腹位於所跨關節的**近端**節段——單關節肌時「作用關節」與「肌腹節段」背離（如股四頭三頭 `vastus*` 作用膝、肌腹在股骨；小腿外在肌 `soleus`／脛前後肌／腓骨肌／伸屈趾長肌作用踝/趾、肌腹在脛腓骨），若按作用關節會被誤歸遠端節段、隨遠端剛性旋轉而**整條脫離**。故以 curated `MUSCLE_SEGMENT_OVERRIDE`（`jointKinematics.ts`）把這類肌校正回近端節段。無法純由 `relatedJoints` 自動辨識（三角肌亦單關節 `[盂肱]` 但肌腹罩上臂、歸手臂才對），故採資料化人工校正。
+- **無作用關節之肌亦走 override**：表情肌（`orbicularisOculi`／`zygomaticus*`／`occipitofrontalis`／`buccinator`／`platysma`…）動皮膚不動關節 → `relatedJoints` 空 → `segmentForMuscle` 回 null → 預設**騎乘固定基座（靜止）**，旋轉頭/頸時整批浮空脫離。以 `MUSCLE_SEGMENT_OVERRIDE` 歸 `joint.cervicalSpine`（肌腹貼顱骨/面），隨顱骨旋轉。骨盆底肌（`pubococcygeus`…）同為 null 但本應靜止於基座、**不**override。
 - 校正後僅**肌腱越關節之插入端**有輕微縫隙＝設計接受基線（待真 skin 變形改善，見 [skin 變形執行期驅動 spec](2026-06-19-skin-deformation-runtime-design.md)）。
 - 初版可依骨骼命名＋Y 位置半自動分群，再人工校正；成員表為資料，擴充關節 = 增資料、不需改碼。
 

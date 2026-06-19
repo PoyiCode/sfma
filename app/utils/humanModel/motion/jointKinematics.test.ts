@@ -126,6 +126,37 @@ describe('jointKinematics（運動學表不變式）', () => {
     expect(foot).toContain('muscle.abductorHallucis');
   });
 
+  it('MUSCLE_SEGMENT_OVERRIDE：表情肌（無 relatedJoints）歸頭頸節段（修浮空於基座、隨頭旋轉脫離）', () => {
+    const membership = resolveSegmentMembership(anatomyEntities);
+    const cervical = membership.get('joint.cervicalSpine')!;
+    for (const m of [
+      'muscle.occipitofrontalis',
+      'muscle.temporoparietalis',
+      'muscle.orbicularisOculi',
+      'muscle.corrugatorSupercilii',
+      'muscle.procerus',
+      'muscle.orbicularisOris',
+      'muscle.zygomaticusMajor',
+      'muscle.zygomaticusMinor',
+      'muscle.levatorLabiiSuperioris',
+      'muscle.levatorAnguliOris',
+      'muscle.risorius',
+      'muscle.depressorAnguliOris',
+      'muscle.depressorLabiiInferioris',
+      'muscle.mentalis',
+      'muscle.nasalis',
+      'muscle.depressorSeptiNasi',
+      'muscle.platysma',
+      'muscle.buccinator',
+    ]) {
+      expect(cervical, m).toContain(m);
+    }
+    // 回歸護欄：骨盆底肌仍無節段（靜止於基座＝正確，不應被掃進任何節段）
+    const assigned = [...membership.values()].flat();
+    expect(assigned).not.toContain('muscle.pubococcygeus');
+    expect(assigned).not.toContain('muscle.coccygeus');
+  });
+
   it('movableJointDof 讀 definitions ROM', () => {
     expect(movableJointDof('joint.knee', 'flexionExtension')?.max).toBe(140);
     expect(movableJointDof('joint.knee', 'bogus')).toBeUndefined();

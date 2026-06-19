@@ -339,6 +339,26 @@ export const MUSCLE_SEGMENT_OVERRIDE: Readonly<Record<string, string>> = {
   'muscle.extensorHallucisLongus': 'joint.knee',
   'muscle.flexorDigitorumLongus': 'joint.knee',
   'muscle.flexorHallucisLongus': 'joint.knee',
+  // 表情肌（動皮膚、不動關節 → relatedJoints 空 → segmentForMuscle 回 null → 浮於基座）：
+  // 肌腹貼於顱骨/面部 → 歸頭頸節段，隨顱骨旋轉。頸闊肌跨下頜→鎖骨，肌腹在頸、歸頭頸（下緣輕微縫隙＝基線）。
+  'muscle.occipitofrontalis': 'joint.cervicalSpine',
+  'muscle.temporoparietalis': 'joint.cervicalSpine',
+  'muscle.orbicularisOculi': 'joint.cervicalSpine',
+  'muscle.corrugatorSupercilii': 'joint.cervicalSpine',
+  'muscle.procerus': 'joint.cervicalSpine',
+  'muscle.orbicularisOris': 'joint.cervicalSpine',
+  'muscle.zygomaticusMajor': 'joint.cervicalSpine',
+  'muscle.zygomaticusMinor': 'joint.cervicalSpine',
+  'muscle.levatorLabiiSuperioris': 'joint.cervicalSpine',
+  'muscle.levatorAnguliOris': 'joint.cervicalSpine',
+  'muscle.risorius': 'joint.cervicalSpine',
+  'muscle.depressorAnguliOris': 'joint.cervicalSpine',
+  'muscle.depressorLabiiInferioris': 'joint.cervicalSpine',
+  'muscle.mentalis': 'joint.cervicalSpine',
+  'muscle.nasalis': 'joint.cervicalSpine',
+  'muscle.depressorSeptiNasi': 'joint.cervicalSpine',
+  'muscle.platysma': 'joint.cervicalSpine',
+  'muscle.buccinator': 'joint.cervicalSpine',
 };
 
 // 解析各節段之全部成員（側別無關 anatomyId）：curated 骨 ＋ 由 override／relatedJoints 推導之肌。
