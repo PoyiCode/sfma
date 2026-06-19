@@ -3,7 +3,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { defineComponent } from 'vue';
 import { mount } from '@vue/test-utils';
 import MotionControls from './MotionControls.vue';
-import { NEUTRAL_POSE, setJointAngle } from '../../utils/humanModel/motion/motionPose';
+import {
+  NEUTRAL_POSE,
+  setJointAngle,
+  type MotionPose,
+} from '../../utils/humanModel/motion/motionPose';
 
 beforeEach(() => {
   vi.stubGlobal('useI18n', () => ({ t: (key: string) => key }));
@@ -25,10 +29,37 @@ const BaseSegmentedControlStub = defineComponent({
   emits: ['update:modelValue'],
   template: `<div class="segStub" />`,
 });
+// 肌肉著色開關替身（§4.3.4；繞過 USwitch Nuxt UI 執行期）。
+const BaseSwitchStub = defineComponent({
+  name: 'BaseSwitch',
+  inheritAttrs: true,
+  props: { modelValue: { type: Boolean, default: false }, label: { type: String, default: '' } },
+  emits: ['update:modelValue'],
+  template: `<button class="switchStub" @click="$emit('update:modelValue', !modelValue)" />`,
+});
 const mountOpts = {
   props: { pose: NEUTRAL_POSE, selectedJoint: 'joint.knee', selectedSide: '#R' as string | null },
   global: { stubs: { BaseButton: BaseButtonStub, BaseSegmentedControl: BaseSegmentedControlStub } },
 };
+
+// 肌肉著色測試 helper（§4.3.4）。
+function mountShading(props: {
+  pose: MotionPose;
+  selectedJoint: string;
+  selectedSide: string | null;
+  muscleShading: boolean;
+}) {
+  return mount(MotionControls, {
+    props,
+    global: {
+      stubs: {
+        BaseButton: BaseButtonStub,
+        BaseSegmentedControl: BaseSegmentedControlStub,
+        BaseSwitch: BaseSwitchStub,
+      },
+    },
+  });
+}
 
 describe('MotionControls（運動控制面板；04 §4.3.3）', () => {
   it('選膝（1 DOF）顯一支滑桿', () => {
@@ -116,5 +147,41 @@ describe('MotionControls（運動控制面板；04 §4.3.3）', () => {
     const wrapper = mount(MotionControls, mountOpts);
     await wrapper.find('[data-testid="motion-reset"]').trigger('click');
     expect(wrapper.emitted('resetPose')).toBeTruthy();
+  });
+});
+
+describe('MotionControls 肌肉著色（§4.3.4）', () => {
+  it('著色開（muscleShading=true）→ 顯開關、圖例與相關肌群清單', () => {
+    const wrapper = mountShading({
+      pose: { 'joint.hip#R': { abductionAdduction: 45 } },
+      selectedJoint: 'joint.hip',
+      selectedSide: '#R',
+      muscleShading: true,
+    });
+    expect(wrapper.find('[data-testid="muscle-shading-toggle"]').exists()).toBe(true);
+    expect(wrapper.find('[data-testid="muscle-shading-legend"]').exists()).toBe(true);
+    expect(wrapper.findAll('[data-testid="muscle-shading-item"]').length).toBeGreaterThan(0);
+  });
+
+  it('著色關（muscleShading=false）→ 不顯圖例與清單', () => {
+    const wrapper = mountShading({
+      pose: {},
+      selectedJoint: 'joint.hip',
+      selectedSide: '#R',
+      muscleShading: false,
+    });
+    expect(wrapper.find('[data-testid="muscle-shading-legend"]').exists()).toBe(false);
+    expect(wrapper.findAll('[data-testid="muscle-shading-item"]').length).toBe(0);
+  });
+
+  it('切換開關 → emit update:muscleShading', async () => {
+    const wrapper = mountShading({
+      pose: {},
+      selectedJoint: 'joint.hip',
+      selectedSide: '#R',
+      muscleShading: true,
+    });
+    await wrapper.find('[data-testid="muscle-shading-toggle"]').trigger('click');
+    expect(wrapper.emitted('update:muscleShading')).toBeTruthy();
   });
 });

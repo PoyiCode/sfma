@@ -5,6 +5,7 @@ import { computed } from 'vue';
 import { anatomyEntityById } from '@ptapp/definitions';
 import BaseSegmentedControl, { type SegmentedOption } from '../base/SegmentedControl.vue';
 import BaseButton from '../base/Button.vue';
+import BaseSwitch from '../base/Switch.vue';
 import { localizeText } from '../../utils/i18n/localizeText';
 import { clampAngle } from '../../utils/humanModel/motion/romClamp';
 import { type MotionPose, jointAngle } from '../../utils/humanModel/motion/motionPose';
@@ -14,6 +15,12 @@ import {
   jointDofForSide,
   poseKey,
 } from '../../utils/humanModel/motion/jointKinematics';
+import {
+  contractionState,
+  type ContractionState,
+  muscleContractionScalar,
+  musclesForJoint,
+} from '../../utils/humanModel/motion/muscleShading';
 
 const AXIS_LABEL_KEYS: Record<string, string> = {
   flexionExtension: 'motionAxisFlexionExtension',
@@ -30,13 +37,16 @@ interface Props {
   selectedJoint: string;
   // 選取側別（左右獨立，§4.3.3）：雙側關節為 '#L'/'#R'、單側關節為 null。
   selectedSide: string | null;
+  // 肌肉著色（§4.3.4）：運動模式內獨立開關（預設由父持、預設開）。
+  muscleShading?: boolean;
 }
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), { muscleShading: true });
 const emit = defineEmits<{
   setJointAngle: [jointId: string, side: string | null, axis: string, deg: number];
   resetPose: [];
   'update:selectedJoint': [jointId: string];
   'update:selectedSide': [side: string | null];
+  'update:muscleShading': [on: boolean];
 }>();
 
 const { t } = useI18n();
@@ -89,6 +99,37 @@ const sliders = computed<SliderModel[]>(() => {
   });
 });
 
+const STATE_KEYS: Record<ContractionState, string> = {
+  contract: 'muscleShadingContract',
+  stretch: 'muscleShadingStretch',
+  neutral: 'muscleShadingNeutral',
+};
+
+interface RelatedMuscle {
+  anatomyId: string;
+  label: string;
+  stateLabel: string;
+  percent: number; // 0..100，量值（含方向已由 stateLabel 表達）
+}
+
+// 選取關節相關肌群（§4.3.4 非色彩通道）：著色開時，逐肌顯收縮/伸展/中性＋量值。
+const relatedMuscles = computed<RelatedMuscle[]>(() => {
+  if (!props.muscleShading) return [];
+  return musclesForJoint(props.selectedJoint).map((m) => {
+    const scalar = muscleContractionScalar(m, props.pose, props.selectedSide);
+    return {
+      anatomyId: m.anatomyId,
+      label: localizeText(m.name),
+      stateLabel: t(STATE_KEYS[contractionState(scalar)]),
+      percent: Math.round(Math.abs(scalar) * 100),
+    };
+  });
+});
+
+function onMuscleShading(on: boolean): void {
+  emit('update:muscleShading', on);
+}
+
 function onJoint(value: string): void {
   if (MOVABLE_JOINT_IDS.includes(value)) emit('update:selectedJoint', value);
 }
@@ -138,6 +179,28 @@ function onSlider(axis: string, raw: string | number): void {
       />
       <p v-if="s.atLimit" class="motionAtLimit" role="status">{{ t('modelMotionAtLimit') }}</p>
     </div>
+    <BaseSwitch
+      data-testid="muscle-shading-toggle"
+      :model-value="muscleShading"
+      :label="t('modelMuscleShading')"
+      @update:model-value="onMuscleShading($event === true)"
+    />
+    <div v-if="muscleShading" data-testid="muscle-shading-legend" class="muscleShadingLegend">
+      <span class="legendSwatch legendContract" />{{ t('muscleShadingContract') }}
+      <span class="legendSwatch legendNeutral" />{{ t('muscleShadingNeutral') }}
+      <span class="legendSwatch legendStretch" />{{ t('muscleShadingStretch') }}
+    </div>
+    <ul v-if="muscleShading && relatedMuscles.length" class="muscleShadingList">
+      <li
+        v-for="m in relatedMuscles"
+        :key="m.anatomyId"
+        data-testid="muscle-shading-item"
+        class="muscleShadingItem"
+      >
+        <span>{{ m.label }}</span>
+        <span class="muscleShadingState">{{ m.stateLabel }} {{ m.percent }}%</span>
+      </li>
+    </ul>
     <BaseButton variant="secondary" data-testid="motion-reset" @click="emit('resetPose')">
       {{ t('modelMotionReset') }}
     </BaseButton>
@@ -173,5 +236,45 @@ function onSlider(axis: string, raw: string | number): void {
   margin: 0;
   font-size: var(--font-size-xs);
   color: var(--color-warning, #b26a00);
+}
+.muscleShadingLegend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+.legendSwatch {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+.legendContract {
+  background: #d94a2a;
+}
+.legendNeutral {
+  background: var(--color-border);
+}
+.legendStretch {
+  background: #2f6fb0;
+}
+.muscleShadingList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.muscleShadingItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+.muscleShadingState {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
 }
 </style>
