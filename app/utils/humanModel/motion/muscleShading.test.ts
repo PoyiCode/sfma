@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { anatomyEntityById } from '@ptapp/definitions';
 import type { Muscle } from '@ptapp/shared';
 import type { MotionPose } from './motionPose';
-import { contractionState, muscleContractionScalar } from './muscleShading';
+import { contractionState, muscleContractionScalar, musclesForJoint } from './muscleShading';
 
 function muscle(id: string): Muscle {
   const e = anatomyEntityById.get(id);
@@ -66,5 +66,20 @@ describe('contractionState（純量→文字態）', () => {
     expect(contractionState(-0.5)).toBe('stretch');
     expect(contractionState(0)).toBe('neutral');
     expect(contractionState(0.01)).toBe('neutral'); // 在 EPSILON 內
+  });
+});
+
+describe('musclesForJoint（選取關節相關肌群）', () => {
+  it('取作用於髖且 v1 會著色之肌（含 gluteusMedius）', () => {
+    const ids = musclesForJoint('joint.hip').map((m) => m.anatomyId);
+    expect(ids).toContain('muscle.gluteusMedius');
+    expect(ids).toContain('muscle.rectusFemoris');
+    expect(ids.length).toBeGreaterThan(0);
+  });
+  it('全回傳項皆為 muscle 型別', () => {
+    expect(musclesForJoint('joint.hip').every((m) => m.type === 'muscle')).toBe(true);
+  });
+  it('非可動關節（肘）→ 空集', () => {
+    expect(musclesForJoint('joint.elbow')).toEqual([]);
   });
 });

@@ -1,8 +1,15 @@
 // 肌肉收縮／伸展著色（04 §4.3.4）：由運動 pose × muscle.actions 推導每肌「收縮（暖）／伸展（冷）」
 // 純量。著色由資料推導、與剛性節段綁定無關（§4.3.4）。純函式核心、可 node 測。
 import type { Muscle } from '@ptapp/shared';
+import { anatomyEntities } from '@ptapp/definitions';
 import { type MotionPose, jointAngle } from './motionPose';
-import { isMirroredAxis, JOINT_KINEMATICS, jointDofForSide, poseKey } from './jointKinematics';
+import {
+  isMirroredAxis,
+  JOINT_KINEMATICS,
+  jointDofForSide,
+  MOVABLE_JOINT_IDS,
+  poseKey,
+} from './jointKinematics';
 
 // 方向明確之成對軸 action → { axis, dir }；複合軸名第一動作＝+1（與 ROM 資料一致）。
 // lateralFlexion／rotation 等單名/非成對動作刻意不入表 → 貢獻 0、不著色（v1 範圍）。
@@ -49,4 +56,14 @@ export function contractionState(scalar: number): ContractionState {
   if (scalar > EPSILON) return 'contract';
   if (scalar < -EPSILON) return 'stretch';
   return 'neutral';
+}
+
+// 作用於某可動關節、且 action 於 v1 著色表有對應之肌；非可動關節或無對應 → 空集。
+export function musclesForJoint(jointId: string): Muscle[] {
+  if (!MOVABLE_JOINT_IDS.includes(jointId)) return [];
+  return anatomyEntities.filter(
+    (e): e is Muscle =>
+      e.type === 'muscle' &&
+      e.actions.some((a) => a.jointId === jointId && ACTION_AXIS[a.action] !== undefined),
+  );
 }
