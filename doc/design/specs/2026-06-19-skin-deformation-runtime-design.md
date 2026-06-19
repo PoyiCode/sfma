@@ -60,12 +60,16 @@ if (motionMode) {
 
 `buildBoneRig(scene): ArticulationRig`：
 
-- **建構**：取 `scene.skeletons[0]`（或 mesh.skeleton）；依 `BONE_RIG_MAP` 以 bone 名解析各關節之 `Bone`（雙側關節解析 `#L/#R` 對應骨；解析不到之關節跳過，不致命）。記錄每 bone 之 **rest 區域旋轉**供還原。
-- **`applyPose(pose)`**：對每個已解析關節 × 每個 DOF，輸入**與剛性路相同**——`pk = poseKey(jointId, side)`、`deg = jointAngle(pose, pk, axis, neutral) − neutral`（角度上游已 clamp）；以 `BONE_RIG_MAP` 之 `localAxis`＋`sign` 組旋轉四元數，套到 `bone` 之**區域**旋轉（`Space.LOCAL`）。多 DOF 於同 bone 者依序相乘（同剛性路 `q.multiply` 慣例）。GPU 蒙皮自動變形 mesh——**剛性綁定（單骨權重 1.0）與跨關節肌（多骨權重）一律由 GPU 處理、runtime 不分辨**。
-- **`dispose()`**：所有受驅動 bone 還原 rest 區域旋轉（不動場景 parenting——bone 路徑不 reparent mesh，與剛性路 `dispose` 還原 parenting 相對）。
+- **建構**：取 `scene.skeletons`；依 `BONE_RIG_MAP` 以 bone 名解析各關節之 `Bone`（雙側關節解析 `#L/#R` 對應骨；解析不到之關節跳過，不致命）。記錄每 bone 之 **rest 區域旋轉**＋**驅動目標**供還原。
+- **驅動目標＝linkedTransformNode（若有）否則 bone**（一條腿 spike L2 實機發現）：**glTF 匯入之骨架經 `bone.linkedTransformNode` 驅動**，直接 `bone.setRotationQuaternion` 對 glTF 骨架**無效**（不會動）。故建構時取 `bone.getTransformNode()`：有 node→寫 `node.rotationQuaternion`、rest 取自 node；無 node（合成 fixture）→ `bone.setRotationQuaternion(Space.LOCAL)`、rest 取自 bone。測試須以**帶 linkedTransformNode 之 fixture**覆蓋 node 路徑（否則合成 fixture 漏掉此 bug）。
+- **`applyPose(pose)`**：對每個已解析關節 × 每個 DOF，輸入**與剛性路相同**——`pk = poseKey(jointId, side)`、`deg = jointAngle(pose, pk, axis, neutral) − neutral`（角度上游已 clamp）；以 `BONE_RIG_MAP` 之 `localAxis`＋`sign` 組旋轉四元數（自 rest 起逐 DOF 相乘，同剛性路 `q.multiply` 慣例），套到上述**驅動目標**之區域旋轉。GPU 蒙皮自動變形 mesh——**剛性綁定（單骨權重 1.0）與跨關節肌（多骨權重）一律由 GPU 處理、runtime 不分辨**。
+- **skinned mesh 防視錐裁切**（spike L2 發現）：建構時對 `scene.meshes` 中帶 `skeleton` 者設 `alwaysSelectAsActiveMesh = true`；否則 Babylon 以 rest-pose 邊界剔除、posed 幾何超界整件不繪（畫面空白）。
+- **`dispose()`**：所有驅動目標還原 rest 區域旋轉（不動場景 parenting——bone 路徑不 reparent mesh，與剛性路 `dispose` 還原 parenting 相對）。
 - **`getPivot(jointId, side)`**：v1 一律回 `null`（gizmo 精確擺位延後；回 null 時 gizmo 仍可經共用 seam 驅動關節，僅視覺手柄擺位不啟用）。
 
-> **唯一變動場景圖之處**：bone 路徑僅改 bone 區域旋轉、**不 reparent mesh**；剛性路仍為 `articulationRig.ts` 唯一 reparent 者。兩者互斥（由 `RigController` 擇一），不會同時動場景圖。
+> **唯一變動場景圖之處**：bone 路徑僅改 bone/node 區域旋轉（＋skinned mesh 的 `alwaysSelectAsActiveMesh` 旗標）、**不 reparent mesh**；剛性路仍為 `articulationRig.ts` 唯一 reparent 者。兩者互斥（由 `RigController` 擇一），不會同時動場景圖。
+
+> **一條腿綁骨蒙皮 spike**（de-risk，`infra/asset-pipeline/spikeLegRig.py`）：以最小 3 骨 armature＋自動權重（ARMATURE_AUTO，失敗 mesh 以沿腿位置漸變後備權重）綁右腿跨膝肌、彎膝算圖，**證實自動蒙皮變形臨床可接受**；並以 Babylon 端對端（`spike_leg.glb` 載入→骨架驅動→WebGL 算圖）驗出上述 linkedTransformNode／視錐裁切兩 runtime bug。
 
 ### 3. 資料：`boneRigMap.ts`（新，純資料／可測）
 

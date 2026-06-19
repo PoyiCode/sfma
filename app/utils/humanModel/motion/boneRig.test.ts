@@ -107,4 +107,29 @@ describe('boneRig（骨骼驅動，NullEngine）', () => {
       rig.applyPose(setJointAngle(NEUTRAL_POSE, 'joint.ankle#R', 'plantarDorsiflexion', 20)),
     ).not.toThrow();
   });
+
+  it('glTF 骨架（bone 有 linkedTransformNode）→ applyPose 驅動 node 區域旋轉、dispose 還原（非 bone 直驅）', () => {
+    const scene = freshScene();
+    makeBoneRigFixture(scene, { linkNodes: true });
+    const rig = buildBoneRig(scene);
+    rig.applyPose(setJointAngle(NEUTRAL_POSE, 'joint.knee#R', 'flexionExtension', 90));
+    const m = BONE_RIG_MAP['joint.knee']!.dofs.flexionExtension!;
+    const expected = Quaternion.RotationAxis(
+      new Vector3(m.localAxis[0], m.localAxis[1], m.localAxis[2]),
+      90 * m.sign * DEG2RAD,
+    );
+    const node = boneByName(scene, resolveBoneName('lowerleg01', '#R')).getTransformNode();
+    expect(node).not.toBeNull();
+    expect(sameRotation(node!.rotationQuaternion!, expected)).toBe(true);
+    rig.dispose();
+    expect(sameRotation(node!.rotationQuaternion!, Quaternion.Identity())).toBe(true);
+  });
+
+  it('buildBoneRig 對 skinned mesh 設 alwaysSelectAsActiveMesh（防視錐裁切）', () => {
+    const scene = freshScene();
+    const { mesh } = makeBoneRigFixture(scene);
+    expect(mesh.alwaysSelectAsActiveMesh).toBe(false);
+    buildBoneRig(scene);
+    expect(mesh.alwaysSelectAsActiveMesh).toBe(true);
+  });
 });

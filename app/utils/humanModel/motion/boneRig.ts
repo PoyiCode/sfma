@@ -52,8 +52,8 @@ export function hasDrivableSkeleton(scene: Scene): boolean {
 interface DrivenBone {
   jointId: string;
   side: string | null;
-  bone: Bone;
   rest: Quaternion;
+  setLocal(q: Quaternion): void;
 }
 
 export function buildBoneRig(scene: Scene): ArticulationRig {
@@ -65,9 +65,30 @@ export function buildBoneRig(scene: Scene): ArticulationRig {
       for (const side of sidesFor(jointId)) {
         const bone = findBone(skeleton, resolveBoneName(map.bone, side));
         if (!bone) continue;
-        driven.push({ jointId, side, bone, rest: bone.getRotationQuaternion(Space.LOCAL).clone() });
+        // glTF 匯入之骨架經 bone.linkedTransformNode 驅動：須轉該 node 之區域旋轉，直接
+        // bone.setRotationQuaternion 對 glTF 骨架無效（合成 fixture 無 node → 退回 bone 直驅）。
+        const node = bone.getTransformNode();
+        let rest: Quaternion;
+        let setLocal: (q: Quaternion) => void;
+        if (node) {
+          rest = (node.rotationQuaternion ?? Quaternion.FromEulerVector(node.rotation)).clone();
+          setLocal = (q) => {
+            node.rotationQuaternion = q;
+          };
+        } else {
+          rest = bone.getRotationQuaternion(Space.LOCAL).clone();
+          setLocal = (q) => {
+            bone.setRotationQuaternion(q, Space.LOCAL);
+          };
+        }
+        driven.push({ jointId, side, rest, setLocal });
       }
     }
+  }
+
+  // skinned mesh 防視錐裁切：Babylon 以 rest-pose 邊界剔除，posed 幾何超出邊界會整件不繪。
+  for (const mesh of scene.meshes) {
+    if (mesh.skeleton) mesh.alwaysSelectAsActiveMesh = true;
   }
 
   function applyPose(pose: MotionPose): void {
@@ -83,12 +104,12 @@ export function buildBoneRig(scene: Scene): ArticulationRig {
         const v = new Vector3(m.localAxis[0], m.localAxis[1], m.localAxis[2]);
         q = q.multiply(Quaternion.RotationAxis(v, deg * m.sign * DEG2RAD));
       }
-      d.bone.setRotationQuaternion(q, Space.LOCAL);
+      d.setLocal(q);
     }
   }
 
   function dispose(): void {
-    for (const d of driven) d.bone.setRotationQuaternion(d.rest.clone(), Space.LOCAL);
+    for (const d of driven) d.setLocal(d.rest.clone());
     driven.length = 0;
   }
 
