@@ -5,8 +5,11 @@ import { anatomyEntityById } from '@ptapp/definitions';
 import type { Muscle } from '@ptapp/shared';
 import type { MotionPose } from './motionPose';
 import { createModelScene, type PlaceholderMeshMetadata } from '../render/sceneCore';
+import { partKey } from '../anatomy/partKey';
+import { SELECTION_OVERLAY_COLOR } from '../render/sceneHighlight';
 import {
   applyMuscleShading,
+  applyOverlays,
   contractionState,
   COOL,
   muscleContractionScalar,
@@ -156,5 +159,65 @@ describe('applyMuscleShading（overlay 著色；§4.3.4）', () => {
     applyMuscleShading(s, {});
     expect(get(s, 'muscle.gluteusMedius#R').renderOverlay).toBe(false);
     expect(get(s, 'muscle.bicepsFemoris#R').renderOverlay).toBe(false);
+  });
+});
+
+describe('applyOverlays（overlay 單一權威 dispatcher）', () => {
+  let engine: NullEngine | undefined;
+  afterEach(() => {
+    engine?.dispose();
+    engine = undefined;
+  });
+  function sidedMuscle(s: Scene, anatomyId: string, side: 'L' | 'R'): void {
+    const m = MeshBuilder.CreateBox(`${anatomyId}#${side}`, { size: 1 }, s);
+    m.metadata = {
+      anatomyId,
+      entityType: 'muscle',
+      side: side === 'L' ? 'left' : 'right',
+    } satisfies PlaceholderMeshMetadata;
+  }
+  function scene(): Scene {
+    engine = new NullEngine();
+    const s = createModelScene(engine);
+    sidedMuscle(s, 'muscle.gluteusMedius', 'R');
+    return s;
+  }
+
+  it('運動模式+著色開 → 走肌肉著色（外展肌外展得暖色）', () => {
+    const s = scene();
+    applyOverlays(s, {
+      motionMode: true,
+      muscleShading: true,
+      pose: { 'joint.hip#R': { abductionAdduction: 45 } },
+      selectedKey: null,
+    });
+    expect(s.getMeshByName('muscle.gluteusMedius#R')!.overlayColor.equals(WARM)).toBe(true);
+  });
+
+  it('運動模式但著色關 → 走選取/標註高亮（選取部位 accent）', () => {
+    const s = scene();
+    applyOverlays(s, {
+      motionMode: true,
+      muscleShading: false,
+      pose: { 'joint.hip#R': { abductionAdduction: 45 } },
+      selectedKey: partKey('muscle.gluteusMedius', 'right'),
+    });
+    // 選取高亮以 partKey 比對 metadata.anatomyId+side → accent；非肌肉著色色。
+    const gm = s.getMeshByName('muscle.gluteusMedius#R')!;
+    expect(gm.renderOverlay).toBe(true);
+    expect(gm.overlayColor.equals(SELECTION_OVERLAY_COLOR)).toBe(true);
+  });
+
+  it('非運動模式 → 走選取/標註高亮', () => {
+    const s = scene();
+    applyOverlays(s, {
+      motionMode: false,
+      muscleShading: true,
+      pose: {},
+      selectedKey: partKey('muscle.gluteusMedius', 'right'),
+    });
+    expect(
+      s.getMeshByName('muscle.gluteusMedius#R')!.overlayColor.equals(SELECTION_OVERLAY_COLOR),
+    ).toBe(true);
   });
 });

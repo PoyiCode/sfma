@@ -2,6 +2,8 @@
 // 純量。著色由資料推導、與剛性節段綁定無關（§4.3.4）。純函式核心、可 node 測。
 import { Color3, type Scene } from '@babylonjs/core';
 import '@babylonjs/core/Rendering/outlineRenderer';
+import type { AnnotationHighlights } from '../anatomy/anatomyHighlight';
+import { applyHighlights } from '../render/sceneHighlight';
 import type { Muscle } from '@ptapp/shared';
 import { anatomyEntities, anatomyEntityById } from '@ptapp/definitions';
 import type { PlaceholderMeshMetadata } from '../render/sceneCore';
@@ -77,7 +79,7 @@ export const WARM = new Color3(217 / 255, 74 / 255, 42 / 255); // #D94A2A
 export const COOL = new Color3(47 / 255, 111 / 255, 176 / 255); // #2F6FB0
 const MAX_ALPHA = 0.55;
 
-// 肌肉著色（唯一 overlay 來源）：染肌肉、清非肌肉殘留 overlay。NullEngine 可測。
+// 肌肉著色（overlay 來源之一）：染肌肉、清非肌肉殘留 overlay。NullEngine 可測。
 export function applyMuscleShading(scene: Scene, pose: MotionPose): void {
   for (const mesh of scene.meshes) {
     const meta = mesh.metadata as PlaceholderMeshMetadata | null | undefined;
@@ -102,5 +104,22 @@ export function applyMuscleShading(scene: Scene, pose: MotionPose): void {
     } else {
       mesh.renderOverlay = false;
     }
+  }
+}
+
+export interface OverlayParams {
+  motionMode: boolean;
+  muscleShading: boolean;
+  pose: MotionPose;
+  selectedKey: string | null;
+  highlights?: AnnotationHighlights;
+}
+
+// overlay 單一權威：運動模式+著色 → 肌肉著色；否則 → 選取/標註高亮（含運動模式著色關時仍顯標註）。
+export function applyOverlays(scene: Scene, params: OverlayParams): void {
+  if (params.motionMode && params.muscleShading) {
+    applyMuscleShading(scene, params.pose);
+  } else {
+    applyHighlights(scene, params.selectedKey, params.highlights);
   }
 }
