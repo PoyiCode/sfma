@@ -184,7 +184,8 @@ def bind_meshes(arm, result_objects, anat_to_joint, za=None, cross_joint=None):
                 axis = (d_anchor - p_anchor)
                 length = axis.length
                 axis = axis / length
-                band = length * 0.18
+                # 過渡半寬：localize 至關節處 ~3cm crease（過寬→大區塊 LBS 塌陷、中度屈曲即壓扁）。
+                band = min(0.03, length * 0.5)
                 pbone = _bone_for(bp["proximal"], side)
                 dbone = _bone_for(bp["distal"], side)
                 vg_p = o.vertex_groups.get(pbone) or o.vertex_groups.new(name=pbone)
