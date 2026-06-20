@@ -10,13 +10,13 @@
 
 ## 單元測試（純函式 — 邏輯與場景分離原則）
 
-- [ ] ROM 鉗制計算（待真實 3D——ROM 上下限已定義，鉗制計算屬 3D 執行期）
-- [ ] 肌肉長度 → 色彩推導（待真實 3D——收縮視覺化未實作）
+- [x] ROM 鉗制計算：`clampAngle`（`motion/romClamp.ts`）；`romClamp.test.ts` 涵蓋鉗制至 min/max、atLimit 旗標、邊界。
+- [x] 肌肉長度 → 色彩推導：`muscleContractionScalar`／`contractionState`（pose×actions→收縮純量→暖/冷）；`muscleShading.test.ts` 涵蓋主動/拮抗、半幅比例、左側鏡像、側屈同側、頂點色施加。
 
 ## 3D 場景測試（NullEngine）
 
-- [ ] 骨架階層正確（待 MakeHuman 骨架——NullEngine 環境已備、骨架到位即可測）
-- [ ] ROM 限制有套用（超出範圍被鉗制）（待 MakeHuman 骨架，04 §4.3.3）
+- [x] 骨架階層正確：`render/gltfSkeletonHierarchy.test.ts`——解析部署 glb 驗受驅動骨存在＋FK 鏈完整（髖→膝→踝雙側、neck01／upperarm01 ⊏ spine05），守護重出時 armature 階層不斷裂。
+- [x] ROM 限制有套用（超出範圍被鉗制）：`clampAngle` 套於滑桿（`MotionControls`）、on-model 拖曳（`dragRotation`／`jointGizmo` atLimit）；`romClamp.test`／`dragRotation.test`／`MotionControls.test` 涵蓋。
 - [x] `anatomyId` **三方對應完整**：glTF node／2D SVG 圖層 id／definitions 實體三方一致且無孤兒（04 §4.6.2）。三腿皆靜態守恆測：① definitions⇄3D-manifest（`manifestConsistency.test.ts`，既有）；② **glTF-node 腿**（`render/gltfNodeConsistency.test.ts`，新——解析部署 glb 之 JSON chunk node 名、免 Draco、以 gltfBinding 正規化對 definitions 查孤兒＋non-exempt 漏網；連帶涵蓋 20 條有 mesh 之神經〔manifest 測 blanket-exempt 之缺口〕）；③ **2D-SVG 腿**（`anatomy/svg2dConsistency.test.ts`，新——2dManifest coverage＋SVG `data-anatomy-id` base 對 definitions、coverage⇄SVG 互核）。審計結果無孤兒（730 glTF mesh node／730 2D partKey 全解析）。**FMA crosswalk N/A**：本專案 FMA＝Selective Functional Movement Assessment（評估協定）、非 Foundational Model of Anatomy 本體，無 FMA id／crosswalk。
 - [ ] LOD 效能預算量測：三角面／draw calls／下載量／GPU 記憶體對照 04 §4.3.6；基準裝置 FPS（≥ 30 fps 底線）—— 靜態三角面/預算上限對照已由 `verifyModelBudget.mjs` 核；**待實機**：GPU 記憶體量測＋基準裝置 FPS ≥30 底線
 
