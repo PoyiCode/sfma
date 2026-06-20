@@ -21,7 +21,9 @@ import {
 } from './jointKinematics';
 
 // 方向明確之成對軸 action → { axis, dir }；複合軸名第一動作＝+1（與 ROM 資料一致）。
-// lateralFlexion／rotation 等單名/非成對動作刻意不入表 → 貢獻 0、不著色（v1 範圍）。
+// lateralFlexion：同側收縮軸（dir 由肌之側別定，見 IPSILATERAL_SIDE_AXES）。
+// rotation 刻意**不**入表 → 貢獻 0、不著色：旋轉之同側/對側因肌而異（外腹斜＝對側、內腹斜＝同側、
+// 多裂肌/迴旋肌＝對側、SCM＝對側…），資料 action 僅單名「rotation」未載方向、無法一致推導。
 const ACTION_AXIS: Readonly<Record<string, { axis: string; dir: 1 | -1 }>> = {
   flexion: { axis: 'flexionExtension', dir: 1 },
   extension: { axis: 'flexionExtension', dir: -1 },
@@ -33,7 +35,12 @@ const ACTION_AXIS: Readonly<Record<string, { axis: string; dir: 1 | -1 }>> = {
   dorsiflexion: { axis: 'plantarDorsiflexion', dir: -1 },
   inversion: { axis: 'inversionEversion', dir: 1 },
   eversion: { axis: 'inversionEversion', dir: -1 },
+  lateralFlexion: { axis: 'lateralFlexion', dir: 1 },
 };
+
+// 同側收縮軸：成對肌之收縮方向由**肌之側別**定（非關節側別）。側屈肌恆同側——關節向側別 S 側屈時、
+// S 側肌收縮、對側伸展。+ROM 側屈＝右（rig 慣例）→ #R 肌 dir=+map.dir、#L dir=-map.dir；中線肌不貢獻。
+const IPSILATERAL_SIDE_AXES: ReadonlySet<string> = new Set(['lateralFlexion']);
 
 const EPSILON = 0.02;
 
@@ -52,8 +59,18 @@ export function muscleContractionScalar(
     const delta = jointAngle(pose, poseKey(jointId, side), map.axis, dof.neutral) - dof.neutral;
     const reach = delta >= 0 ? dof.max - dof.neutral : dof.neutral - dof.min;
     if (reach <= 0) continue;
-    const bilateral = JOINT_KINEMATICS[jointId]?.bilateral === true;
-    const dir = side === '#L' && isMirroredAxis(map.axis) && bilateral ? -map.dir : map.dir;
+    let dir: number = map.dir;
+    if (IPSILATERAL_SIDE_AXES.has(map.axis)) {
+      // 同側收縮：肌之側別定方向（+ROM 側屈＝右 → #R 收縮、#L 伸展）；中線肌無側屈方向→不貢獻。
+      if (side === null) continue;
+      dir = side === '#R' ? map.dir : -map.dir;
+    } else if (
+      side === '#L' &&
+      isMirroredAxis(map.axis) &&
+      JOINT_KINEMATICS[jointId]?.bilateral === true
+    ) {
+      dir = -map.dir;
+    }
     sum += (dir * delta) / reach;
   }
   return Math.max(-1, Math.min(1, sum));

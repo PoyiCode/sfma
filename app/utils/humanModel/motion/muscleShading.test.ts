@@ -72,6 +72,23 @@ describe('muscleContractionScalar（收縮純量；§4.3.4）', () => {
     const pose: MotionPose = { 'joint.hip#R': { flexionExtension: 120 } };
     expect(muscleContractionScalar(muscle('muscle.bicepsBrachii'), pose, null)).toBe(0);
   });
+
+  it('側屈同側收縮：脊椎右側屈 +35 → 右側屈肌收縮(+)、左側伸展(-)', () => {
+    // externalAbdominalOblique 有 spine lateralFlexion；+ROM 側屈＝右 → #R 收縮、#L 伸展（同側）。
+    const pose: MotionPose = { 'joint.spine': { lateralFlexion: 35 } };
+    expect(
+      muscleContractionScalar(muscle('muscle.externalAbdominalOblique'), pose, '#R'),
+    ).toBeGreaterThan(0);
+    expect(
+      muscleContractionScalar(muscle('muscle.externalAbdominalOblique'), pose, '#L'),
+    ).toBeLessThan(0);
+  });
+
+  it('rotation 仍不著色（同側/對側因肌而異、資料未載方向）：脊椎旋轉 → 迴旋肌 0', () => {
+    const pose: MotionPose = { 'joint.spine': { rotation: 40 } };
+    expect(muscleContractionScalar(muscle('muscle.rotatores'), pose, '#R')).toBe(0);
+    expect(muscleContractionScalar(muscle('muscle.rotatores'), pose, '#L')).toBe(0);
+  });
 });
 
 describe('contractionState（純量→文字態）', () => {

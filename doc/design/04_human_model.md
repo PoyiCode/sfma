@@ -141,10 +141,11 @@ MotionControls 顯暖↔冷色階**圖例** ＋「選取關節相關肌群」逐
 
 - **方向明確成對軸**（屈伸/外展內收/內外旋/蹠背屈/內外翻）；複合軸名第一動作為正向。
 - **左側鏡像翻轉**：鏡像軸（外展內收/內翻外翻/內外旋）左側收縮方向翻轉，與 `jointDofForSide` 一致。
+- **側屈同側收縮**：`lateralFlexion`（軀幹/頸，成對肌）由**肌之側別**定方向（`IPSILATERAL_SIDE_AXES`）——關節向 S 側屈時 S 側肌收縮、對側伸展（+ROM 側屈＝右 → #R 收縮）。`rotation` 因同側/對側**因肌而異**（外腹斜對側、內腹斜同側、多裂肌/迴旋肌對側…）、資料 action 僅單名未載方向 → **不著色**。
 - **對未校正世界 sign 免疫**：著色與 rig 讀同一 pose，主動肌縮/拮抗肌伸關係恆成立。
 
-> **待（後續軌）**：Node Material 發散材質（更細緻漸層）；`lateralFlexion`／`rotation` 軸（資料 action
-> 單名、無左右方向）著色；肌肉實際長度量測。工作規格：[2026-06-19-muscle-shading-design.md](specs/2026-06-19-muscle-shading-design.md)。
+> **待（後續軌）**：Node Material 發散材質（更細緻漸層）；`rotation` 軸著色（待 per-muscle
+> 同側/對側方向資料）；肌肉實際長度量測。工作規格：[2026-06-19-muscle-shading-design.md](specs/2026-06-19-muscle-shading-design.md)。
 
 ### 4.3.5 LOD：精簡版與完整版
 

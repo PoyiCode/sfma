@@ -45,4 +45,5 @@
 - [x] overlay 發散著色（收縮暖／伸展冷／中性無；運動模式內獨立開關、預設開；`applyMuscleShading`/`applyOverlays`）
 - [x] 非色彩輔助（§3.6）：色階圖例＋選取關節相關肌群文字態（MotionControls）
 - [ ] Node Material 參數驅動發散材質（更細緻漸層，取代 overlay）
-- [ ] `lateralFlexion`／`rotation` 軸著色（資料 action 單名、待左右方向）
+- [x] **lateralFlexion 軸著色（同側收縮）**：軀幹/頸側屈肌依**肌之側別**著色（`IPSILATERAL_SIDE_AXES`；+ROM 側屈=右 → #R 收縮、#L 伸展）。`muscleShading.ts`＋測試、855 綠。
+- [ ] `rotation` 軸著色：旋轉之同側/對側**因肌而異**（外腹斜對側、內腹斜同側、多裂肌/迴旋肌對側、SCM 對側…）、資料 action 僅單名「rotation」未載方向 → 待 per-muscle 方向資料
