@@ -91,12 +91,16 @@ describe('boneRig（骨骼驅動，NullEngine）', () => {
     expect(sameRotation(bone.getRotationQuaternion(Space.LOCAL), Quaternion.Identity())).toBe(true);
   });
 
-  it('getPivot 回 null、pivotKeys 為空（gizmo 擺位延後）', () => {
+  it('getPivot 回關節中心 TransformNode、pivotKeys 非空（gizmo 啟用）', () => {
     const scene = freshScene();
-    makeBoneRigFixture(scene);
+    makeBoneRigFixture(scene, { linkNodes: true });
     const rig = buildBoneRig(scene);
-    expect(rig.getPivot('joint.knee', '#R')).toBeNull();
-    expect(rig.pivotKeys).toEqual([]);
+    expect(rig.getPivot('joint.knee', '#R')).not.toBeNull();
+    expect(rig.getPivot('joint.knee', '#L')).not.toBeNull();
+    expect(rig.pivotKeys).toContain('joint.knee#R');
+    expect(rig.pivotKeys.length).toBeGreaterThan(0);
+    // 未解析之關節仍回 null
+    expect(rig.getPivot('joint.ankle', '#R')).toBeNull();
   });
 
   it('applyPose：左肩用 localAxisLeft、右肩用 localAxis（肩 rest 左右鏡像不對稱）', () => {

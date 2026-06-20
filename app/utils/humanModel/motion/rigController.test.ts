@@ -56,8 +56,8 @@ describe('rigController（依 motionMode/pose 建/套/拆 rig）', () => {
           1,
       ) < 1e-4;
     expect(isIdentity).toBe(false);
-    // getPivot 回 null（gizmo 擺位延後）
-    expect(ctrl.getPivot('joint.knee', '#R')).toBeNull();
+    // getPivot 回關節中心 TransformNode（gizmo 啟用、bone-path）
+    expect(ctrl.getPivot('joint.knee', '#R')).not.toBeNull();
     ctrl.dispose();
   });
 

@@ -8,7 +8,7 @@ import {
   type Scene,
   type Skeleton,
   Space,
-  type TransformNode,
+  TransformNode,
   Vector3,
 } from '@babylonjs/core';
 import type { ArticulationRig } from './articulationRig';
@@ -52,6 +52,8 @@ export function hasDrivableSkeleton(scene: Scene): boolean {
 interface DrivenBone {
   jointId: string;
   side: string | null;
+  bone: Bone;
+  node: TransformNode | null;
   rest: Quaternion;
   setLocal(q: Quaternion): void;
 }
@@ -81,7 +83,7 @@ export function buildBoneRig(scene: Scene): ArticulationRig {
             bone.setRotationQuaternion(q, Space.LOCAL);
           };
         }
-        driven.push({ jointId, side, rest, setLocal });
+        driven.push({ jointId, side, bone, node, rest, setLocal });
       }
     }
   }
@@ -90,6 +92,29 @@ export function buildBoneRig(scene: Scene): ArticulationRig {
   for (const mesh of scene.meshes) {
     if (mesh.skeleton) mesh.alwaysSelectAsActiveMesh = true;
   }
+
+  // gizmo 樞紐：每 (jointId, side) 一個自由 TransformNode（identity 旋轉、置於關節中心＝bone head），
+  // **不** parent 至骨。arc 以 dof.worldAxis 為子節點建於此 → 因樞紐 identity 旋轉、worldAxis 直接對映
+  // 世界平面（識別軸無誤）。位置於每次 applyPose 後隨 FK 更新（近端關節轉動時遠端中心隨動）。
+  // 拖曳為 pose-space、與 rig 無關 → 與剛性路共用 jointGizmo 之 arc/drag。
+  const pivots = new Map<string, TransformNode>();
+  const pivotSrc: { pivot: TransformNode; node: TransformNode | null; bone: Bone }[] = [];
+  const pivotKeyOf = (jointId: string, side: string | null): string => `${jointId}${side ?? ''}`;
+  for (const d of driven) {
+    const key = pivotKeyOf(d.jointId, d.side);
+    if (pivots.has(key)) continue;
+    const piv = new TransformNode(`gizmoPivot:${key}`, scene);
+    piv.rotationQuaternion = Quaternion.Identity();
+    pivots.set(key, piv);
+    pivotSrc.push({ pivot: piv, node: d.node, bone: d.bone });
+  }
+  function syncPivots(): void {
+    for (const p of pivotSrc) {
+      const pos = p.node ? p.node.getAbsolutePosition() : p.bone.getAbsolutePosition();
+      p.pivot.position.copyFrom(pos);
+    }
+  }
+  syncPivots(); // 初始＝rest 關節中心
 
   function applyPose(pose: MotionPose): void {
     for (const d of driven) {
@@ -107,17 +132,21 @@ export function buildBoneRig(scene: Scene): ArticulationRig {
       }
       d.setLocal(q);
     }
+    syncPivots(); // 關節中心隨 FK 更新（pose 變更後）
   }
 
   function dispose(): void {
     for (const d of driven) d.setLocal(d.rest.clone());
     driven.length = 0;
+    for (const piv of pivots.values()) piv.dispose();
+    pivots.clear();
+    pivotSrc.length = 0;
   }
 
-  // gizmo 視覺手柄擺位延後（§spec §2）：回 null → gizmoController 不建手柄；滑桿仍經共用 seam 驅動。
-  function getPivot(_jointId: string, _side: string | null = null): TransformNode | null {
-    return null;
+  // gizmo 手柄樞紐：關節中心 TransformNode（gizmoController 據此建 arc 手柄；bone-path 啟用）。
+  function getPivot(jointId: string, side: string | null = null): TransformNode | null {
+    return pivots.get(pivotKeyOf(jointId, side)) ?? null;
   }
 
-  return { applyPose, dispose, pivotKeys: [], getPivot };
+  return { applyPose, dispose, pivotKeys: [...pivots.keys()], getPivot };
 }

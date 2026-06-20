@@ -119,7 +119,7 @@ ROM 以**資料定義**（每個關節一筆，見 [06_data_model.md](06_data_mo
 > - **球窩關節旋轉中心（髖/肩）**：旋轉中心＝股骨/肱骨近端**球頭之球心**（`rigSkin._fit_ball_center` 最小二乘球面擬合、迭代去骨幹/粗隆汙染），非 AABB 頂面中心（後者偏上外、致旋轉時球頭擺動脫位）。實證：新樞紐＝球心誤差 <1.5mm、旋轉時球頭定座於關節窩（髖髖臼／肩盂；2026-06-20）。膝/踝鉸鏈樞紐沿用節段骨頂面 anchor。
 > - **其餘關節**：肘、腕、指、趾、顳顎關節、胸廓等（目前僅 6 SFMA 關節）
 > - **肌肉收縮／伸展著色**（§4.3.4）：關節角推算肌長變化並以 Node Material 顯示
-> - **skin 變形（執行期驅動已實作、ship-dark）**：`rigController` 依資產能力選路——載入**帶真骨架**的 GLB 時走骨骼驅動（`boneRig`／`BONE_RIG_MAP`，bone 區域旋轉＋GPU 蒙皮軟變形）、無骨架（現役出貨）走剛性節段 fallback；兩者共用同一 `pose` seam、下游零改動。待：真資產 bone 名與 bone-local 軸/正負之**實機目視校正**、skinned 路徑 gizmo 擺位與 picking 精修、平滑多椎脊椎、**資產管線綁骨＋蒙皮匯出**（§4.6.3 步驟 3–4，**已實作**：`rigSkin.py`＋exportGltf 整合，產出 rigged `anatomyV1.glb`〔163-bone MakeHuman 骨架、全身剛性綁＋skins、跨關節肌位置漸變蒙皮、structural 驗證通過〕；待 on-device 視覺驗證＋部署）。見 [skin 變形執行期驅動 spec](specs/2026-06-19-skin-deformation-runtime-design.md)、[全身 rig+skin 管線 spec](specs/2026-06-19-fullbody-rig-skin-pipeline-design.md)。
+> - **skin 變形（執行期驅動已實作、ship-dark）**：`rigController` 依資產能力選路——載入**帶真骨架**的 GLB 時走骨骼驅動（`boneRig`／`BONE_RIG_MAP`，bone 區域旋轉＋GPU 蒙皮軟變形）、無骨架（現役出貨）走剛性節段 fallback；兩者共用同一 `pose` seam、下游零改動。待：真資產 bone 名與 bone-local 軸/正負之**實機目視校正**、skinned 路徑 gizmo 拖曳手感 on-device 驗證（**擺位已啟用**：`boneRig.getPivot` 回關節中心 TransformNode〔bone head＝球窩關節球心〕、identity 旋轉使 arc 對映世界平面、每次 applyPose 後隨 FK 更新；arc/drag 與剛性路共用）、平滑多椎脊椎、**資產管線綁骨＋蒙皮匯出**（§4.6.3 步驟 3–4，**已實作**：`rigSkin.py`＋exportGltf 整合，產出 rigged `anatomyV1.glb`〔163-bone MakeHuman 骨架、全身剛性綁＋skins、跨關節肌位置漸變蒙皮、structural 驗證通過〕；待 on-device 視覺驗證＋部署）。見 [skin 變形執行期驅動 spec](specs/2026-06-19-skin-deformation-runtime-design.md)、[全身 rig+skin 管線 spec](specs/2026-06-19-fullbody-rig-skin-pipeline-design.md)。
 > - **平滑多椎脊椎**：脊椎／頸椎逐椎獨立旋轉（取代單樞紐近似）
 
 ### 4.3.4 肌肉收縮／伸展色彩

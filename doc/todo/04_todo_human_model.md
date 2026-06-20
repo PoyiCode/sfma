@@ -32,7 +32,8 @@
 - [x] **修綁定串側 bug（雙側 mesh 共享 datablock）**：`bone.tibia#R`/`fibula#R`/`patella#R` 原同時被綁左右兩側骨（如 `lowerleg01.R`＋`.L`）→ 單側膝/髖旋轉時夾於左右骨間塌陷、與肌肉脫離（壓縮）。`bind_meshes` 綁定前 `o.data.users>1→copy` 單一化資料；重出實證各骨僅綁自側（tibia#R→lowerleg01.R）。
 - [ ] rigged 資產 on-device 視覺最終驗證；rigid fallback 軸/sign 同步；髕骨遠端滑移/傾轉（選配精修）
 - [x] **muscle-shading 改頂點色著色（skinning-safe）**：根因＝`renderOverlay` outline shell 以 rest-pose 殼繪、與 GPU skin 變形面 z-fighting 致雜訊（且本無停用 guard、實為 on 且閃爍）。改以頂點色（`VertexBuffer.ColorKind`、乘 albedo、attribute 於 skin/morph 後內插）發散著色＋`clearMuscleShading` 還原；`muscleShading.ts`、852 test 綠。（更細緻漸層之 Node Material 仍為後續軌）
-- [ ] skinned 路徑 gizmo 精確擺位與 picking 精修：bone 驅動下手柄擺位／拾取（v1 `getPivot` 回 null、手柄不啟用；04 §4.3.3）
+- [x] **skinned 路徑 gizmo 擺位啟用**：`boneRig.getPivot` 回關節中心 TransformNode（identity 旋轉、置於 bone head＝關節中心〔球窩關節為球心〕、每次 applyPose 後隨 FK 更新位置）；gizmoController/jointGizmo 之 arc/drag 為 pose-space、rig 無關而直接共用；識別軸＝`dof.worldAxis`（樞紐 identity → 直接對映世界平面）。placement/wiring 經 NullEngine 測試；**拖曳手感待 on-device 確認**（無法於此環境驅動指標互動）。
+- [ ] skinned 路徑 gizmo picking 精修（極限 pose 下 skinned mesh rest-pose 邊界可能遮擋 arc 拾取，必要時加 pick predicate）
 - [ ] 其餘關節：肘、腕、指、趾、顳顎關節、胸廓等（04 §4.3.3）
 - [ ] 平滑多椎脊椎：頸椎／脊椎逐椎獨立旋轉（取代單樞紐近似）
 - [ ] 軸／sign 實機目視校正（各 DOF 旋轉軸方向與正負號待真實資產驗證，含 bone-local 軸校正）
