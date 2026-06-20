@@ -206,6 +206,11 @@ def bind_meshes(arm, result_objects, anat_to_joint, za=None, cross_joint=None):
         if not (anat.startswith("bone.") or anat.startswith("muscle.")):
             continue  # 被動結構/神經/血管/臟器：不入 rig、靜態匯出
 
+        # 雙側 mesh 若共享 datablock，加 vertex group/權重會串至對側（如 tibia#R 同時綁
+        # lowerleg01.R＋lowerleg01.L）→ 單側旋轉時夾於左右兩骨間塌陷、與肌肉脫離。綁定前先單一化資料。
+        if o.data.users > 1:
+            o.data = o.data.copy()
+
         # 跨關節肌位置漸變蒙皮：於子關節 anchor 沿 proximal→distal 軸於兩骨間平滑混合。
         bp = cross_joint.get(anat)
         if bp:

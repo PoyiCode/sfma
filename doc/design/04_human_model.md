@@ -262,7 +262,7 @@ MotionControls 顯暖↔冷色階**圖例** ＋「選取關節相關肌群」逐
 | 1 | 匯入彙整：自 Z-Anatomy `.blend`（已分層為 collections）起 | 人工 |
 | 2 | 命名正規化：來源英文解剖名（去 `.l/.r/.j` 等後綴）→語意式 `anatomyId`、抽名稱表 → crosswalk＋`anatomyId↔名稱↔分層` manifest（分層由頂層 collection 推定） | 腳本 |
 | 3 | 綁骨：MakeHuman 預設骨架（163 bones、CC0；`makehuman-default-skeleton.json` headless 自開源 `.mhskel`＋`base.obj` 重建）→ Umeyama 全域擬合＋受驅動骨 per-joint snap 對位 z-anatomy（`rigSkin.build_aligned_armature`） | 腳本 |
-| 4 | 綁定：成員驅動綁至節段骨（`rigSkin.bind_meshes`，重用 `jointKinematics` 成員）。**僅 `bone.`／`muscle.` 入 rig**；被動結構（韌帶/關節囊/椎間盤/滑囊/筋膜/盂唇…）／神經／血管／臟器**不入旋轉變形、靜態匯出**。**跨關節肌位置漸變蒙皮已實作**（`crossJointBlend` 橋接：biarticular＋override 跨子節段者，於子關節 anchor 沿 proximal→distal 軸於兩骨間混合，42 mesh），其餘剛性綁 | 腳本 |
+| 4 | 綁定：成員驅動綁至節段骨（`rigSkin.bind_meshes`，重用 `jointKinematics` 成員）。**僅 `bone.`／`muscle.` 入 rig**；被動結構（韌帶/關節囊/椎間盤/滑囊/筋膜/盂唇…）／神經／血管／臟器**不入旋轉變形、靜態匯出**。**跨關節肌位置漸變蒙皮已實作**（`crossJointBlend` 橋接：biarticular＋override 跨子節段者，於子關節 anchor 沿 proximal→distal 軸於兩骨間混合，42 mesh），其餘剛性綁。**雙側 mesh 綁定前單一化 datablock**（`o.data.users>1→copy`）：避免共享資料致一側骨/肌 mesh 串綁對側骨〔如 tibia#R 同時綁 lowerleg01.R＋.L〕、單側旋轉時夾於左右骨間塌陷脫離（2026-06-21 修） | 腳本 |
 | 5 | 減面：逐肌肉 mesh ＋ decimate（標準資產 export profile）；**減面為必經** | 腳本 |
 | 6 | 匯出：glTF／GLB，Draco＋（必要時）KTX2；node 名＝`anatomyId` | 腳本 |
 | 7 | 2D 抽取：固定正交視角（正／側／背）逐層輸出輪廓→SVG；圖層 id＝`anatomyId`（**資產產生器，與執行期檢視器分立**） | 腳本 |

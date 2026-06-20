@@ -29,6 +29,7 @@
 - [x] **髕骨綁定改歸股骨（髕股關節）**：髕骨追蹤股骨滑車溝、非隨脛骨；`SEGMENT_BONES` 將 `bone.patella` 由 joint.knee→joint.hip（綁 femur），膝屈曲時留股骨前（Blender 質心驗證：膝屈 120° 位移 0.000m、脛骨 0.114m、髖屈 60° 隨大腿 0.221m）。仍剛綁、未含遠端滑移/傾轉（後續可加角度驅動）。
 - [x] **上肢／軀幹 bone-path 軸/sign 校正**（同下肢解析法）：肩（盂肱）rest 斜且左右鏡像不對稱→per-side `localAxisLeft`（屈/外展 sign -1、內旋 +1）；脊椎/頸椎側屈/旋轉為斜軸（FE=世界 X；+ROM＝右側屈/左旋/內旋，使用者確認）。改 `boneRigMap.ts`＋`boneRig.applyPose` per-side、補測試（851 綠）。
 - [x] **球窩關節（髖/肩）旋轉中心校正**：`rigSkin._fit_ball_center` 以最小二乘球面擬合股骨/肱骨頭球心為 anchor（取代 AABB 頂面中心、偏上外 2.9–3.5cm），旋轉中心移至球心（實證 <1.5mm、球頭旋轉定座於關節窩）；重出部署 glb。
+- [x] **修綁定串側 bug（雙側 mesh 共享 datablock）**：`bone.tibia#R`/`fibula#R`/`patella#R` 原同時被綁左右兩側骨（如 `lowerleg01.R`＋`.L`）→ 單側膝/髖旋轉時夾於左右骨間塌陷、與肌肉脫離（壓縮）。`bind_meshes` 綁定前 `o.data.users>1→copy` 單一化資料；重出實證各骨僅綁自側（tibia#R→lowerleg01.R）。
 - [ ] rigged 資產 on-device 視覺最終驗證；rigid fallback 軸/sign 同步；髕骨遠端滑移/傾轉（選配精修）
 - [x] **muscle-shading 改頂點色著色（skinning-safe）**：根因＝`renderOverlay` outline shell 以 rest-pose 殼繪、與 GPU skin 變形面 z-fighting 致雜訊（且本無停用 guard、實為 on 且閃爍）。改以頂點色（`VertexBuffer.ColorKind`、乘 albedo、attribute 於 skin/morph 後內插）發散著色＋`clearMuscleShading` 還原；`muscleShading.ts`、852 test 綠。（更細緻漸層之 Node Material 仍為後續軌）
 - [ ] skinned 路徑 gizmo 精確擺位與 picking 精修：bone 驅動下手柄擺位／拾取（v1 `getPivot` 回 null、手柄不啟用；04 §4.3.3）
