@@ -324,11 +324,15 @@ def add_corrective_shapekeys(arm, result_objects, anat_to_joint, za, cross_joint
             qb.normalize()
             T = Matrix.Translation(a * tp + b * td) @ qb.to_matrix().to_4x4()
             target_w = T @ p_w
-            try:
-                solved = np.linalg.solve(M, np.array([target_w[0], target_w[1], target_w[2], 1.0]))
-            except np.linalg.LinAlgError:
-                continue
-            new_local = mwi @ Vector((solved[0], solved[1], solved[2]))
+            # 穩定 corrective：取 LBS 與保體積目標於 posed 空間之差 ΔP，以穩定的混合旋轉 qb⁻¹ 轉回 rest
+            # 位移。直接解 M_blend⁻¹·target 於大角度近奇異（兩骨旋轉相距大→混合矩陣退化）會爆裂尖刺；
+            # 改以有界位移（≈塌陷距離）＋clamp 5cm 防殘餘尖刺，犧牲精確換穩定（退化處改為部分修正、不爆）。
+            lbs_w = M @ np.array([p_w[0], p_w[1], p_w[2], 1.0])
+            dP = Vector((target_w[0] - lbs_w[0], target_w[1] - lbs_w[1], target_w[2] - lbs_w[2]))
+            d_rest = qb.inverted() @ dP
+            if d_rest.length > 0.05:
+                d_rest = d_rest * (0.05 / d_rest.length)
+            new_local = mwi @ (p_w + d_rest)
             if (new_local - co).length < CORRECTIVE_EPS:
                 continue
             key.data[i].co = new_local
