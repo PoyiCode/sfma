@@ -7,7 +7,7 @@
 import bpy
 import math
 import numpy as np
-from mathutils import Vector
+from mathutils import Matrix, Quaternion, Vector
 
 SEGMENT_TO_BONE = {
     "joint.hip": "upperleg01",
@@ -209,3 +209,133 @@ def bind_meshes(arm, result_objects, anat_to_joint, za=None, cross_joint=None):
         _add_armature_mod(o, arm)
         bound += 1
     return bound, blended
+
+
+# === 極限屈曲 corrective shape keys（spec 2026-06-20）===
+# 子關節屈曲 ROM max（與 definitions 對齊；morph 於此角度烘焙全量修正）。
+CORRECTIVE_REF_DEG = {
+    "joint.knee": 140.0,
+    "joint.hip": 120.0,
+    "joint.ankle": 50.0,
+}
+# Blender 子骨屈曲姿勢：(euler 軸 index, sign)。膝已驗 local-X 正＝矢狀屈曲；髖/踝待 MCP 校正（Task 6）。
+CORRECTIVE_POSE_AXIS = {
+    "joint.knee": (0, 1.0),
+    "joint.hip": (0, 1.0),
+    "joint.ankle": (0, 1.0),
+}
+CORRECTIVE_EPS = 1e-4  # rest-space delta 門檻（m）；以下不寫入（稀疏化）。
+
+
+def _vgroup_weights(o, vg_index):
+    """回 {vertex_index: weight}（指定 vertex group 之逐頂點權重）。"""
+    w = {}
+    for v in o.data.vertices:
+        for g in v.groups:
+            if g.group == vg_index:
+                w[v.index] = g.weight
+                break
+    return w
+
+
+def add_corrective_shapekeys(arm, result_objects, anat_to_joint, za, cross_joint):
+    """跨關節肌極限屈曲 corrective shape key：保體積目標（四元數混合旋轉）− LBS 之 rest-space
+    delta。須於 bind_meshes 後、export 前呼用。回 (mesh 數, target 數)。"""
+    import bpy
+    n_mesh = 0
+    n_target = 0
+    for o in result_objects:
+        if o.type != "MESH":
+            continue
+        name = o.name
+        side, anat = None, name
+        if name.endswith("#L"):
+            side, anat = "left", name[:-2]
+        elif name.endswith("#R"):
+            side, anat = "right", name[:-2]
+        bp = cross_joint.get(anat)
+        if not bp:
+            continue
+        distal = bp["distal"]
+        ref = CORRECTIVE_REF_DEG.get(distal)
+        if ref is None:
+            continue
+        dbone = _bone_for(distal, side)
+        pbone = _bone_for(bp["proximal"], side)
+        if dbone not in arm.pose.bones or pbone not in arm.pose.bones:
+            continue
+        vg_d = o.vertex_groups.get(dbone)
+        vg_p = o.vertex_groups.get(pbone)
+        if vg_d is None or vg_p is None:
+            continue
+        wd = _vgroup_weights(o, vg_d.index)
+        wp = _vgroup_weights(o, vg_p.index)
+        band = [i for i in wd if wd[i] > 1e-6 and wp.get(i, 0.0) > 1e-6]
+        if not band:
+            continue
+
+        # rest 世界蒙皮基底矩陣（mathutils，供 to_quaternion／反矩陣）。
+        Mp_rest = arm.matrix_world @ arm.pose.bones[pbone].bone.matrix_local
+        Md_rest = arm.matrix_world @ arm.pose.bones[dbone].bone.matrix_local
+
+        # 子骨屈曲 ref。
+        axis_i, sign = CORRECTIVE_POSE_AXIS[distal]
+        pbd = arm.pose.bones[dbone]
+        old_mode, old_euler = pbd.rotation_mode, tuple(pbd.rotation_euler)
+        pbd.rotation_mode = "XYZ"
+        eul = [0.0, 0.0, 0.0]
+        eul[axis_i] = math.radians(ref) * sign
+        pbd.rotation_euler = eul
+        bpy.context.view_layer.update()
+
+        Sp_m = (arm.matrix_world @ arm.pose.bones[pbone].matrix) @ Mp_rest.inverted()
+        Sd_m = (arm.matrix_world @ arm.pose.bones[dbone].matrix) @ Md_rest.inverted()
+
+        pbd.rotation_euler = old_euler
+        pbd.rotation_mode = old_mode
+        bpy.context.view_layer.update()
+
+        Sp = np.array(Sp_m)
+        Sd = np.array(Sd_m)
+        qp = Sp_m.to_quaternion()
+        qd = Sd_m.to_quaternion()
+        tp, td = Sp_m.translation, Sd_m.translation
+
+        mw = o.matrix_world
+        mwi = mw.inverted()
+        if o.data.shape_keys is None:
+            o.shape_key_add(name="Basis", from_mix=False)
+        key = o.shape_key_add(name="corr.%s" % distal, from_mix=False)
+
+        wrote = 0
+        for i in band:
+            a = wp.get(i, 0.0)
+            b = wd.get(i, 0.0)
+            s = a + b
+            if s <= 1e-9:
+                continue
+            a, b = a / s, b / s
+            co = o.data.vertices[i].co
+            p_w = mw @ co
+            # LBS（線性矩陣混合）。
+            M = a * Sp + b * Sd
+            # 保體積目標：四元數混合旋轉（對齊半球）＋線性平移。
+            qb = qp * a + (qd if qd.dot(qp) >= 0 else qd * -1.0) * b
+            qb.normalize()
+            T = Matrix.Translation(a * tp + b * td) @ qb.to_matrix().to_4x4()
+            target_w = T @ p_w
+            try:
+                solved = np.linalg.solve(M, np.array([target_w[0], target_w[1], target_w[2], 1.0]))
+            except np.linalg.LinAlgError:
+                continue
+            new_local = mwi @ Vector((solved[0], solved[1], solved[2]))
+            if (new_local - co).length < CORRECTIVE_EPS:
+                continue
+            key.data[i].co = new_local
+            wrote += 1
+        if wrote == 0:
+            o.shape_key_remove(key)
+            continue
+        n_mesh += 1
+        n_target += 1
+    return n_mesh, n_target
