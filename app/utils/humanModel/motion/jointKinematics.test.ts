@@ -78,6 +78,25 @@ describe('jointKinematics（運動學表不變式）', () => {
     expect(SEGMENT_BONES['joint.knee']).not.toContain('bone.patella');
   });
 
+  it('JOINT_KINEMATICS 軸/sign 與 bone-path 校正同步（剛性 fallback＋gizmo arc/drag 共用此表）', () => {
+    const dof = (j: string, a: string) => JOINT_KINEMATICS[j]!.dofs.find((d) => d.axis === a)!;
+    expect(dof('joint.hip', 'flexionExtension').sign).toBe(-1);
+    expect(dof('joint.hip', 'abductionAdduction')).toMatchObject({
+      worldAxis: [0, 0, 1],
+      sign: -1,
+    });
+    expect(dof('joint.hip', 'internalExternalRotation').sign).toBe(1);
+    expect(dof('joint.knee', 'flexionExtension').sign).toBe(1);
+    expect(dof('joint.ankle', 'plantarDorsiflexion').sign).toBe(-1);
+    expect(dof('joint.ankle', 'inversionEversion').sign).toBe(-1);
+    expect(dof('joint.glenohumeral', 'flexionExtension').sign).toBe(-1);
+    expect(dof('joint.glenohumeral', 'abductionAdduction').sign).toBe(-1);
+    expect(dof('joint.glenohumeral', 'internalExternalRotation').sign).toBe(1);
+    for (const j of ['joint.spine', 'joint.cervicalSpine'])
+      for (const a of ['flexionExtension', 'lateralFlexion', 'rotation'])
+        expect(dof(j, a).sign, `${j}/${a}`).toBe(1);
+  });
+
   it('resolveSegmentMembership：成員不重複、骨＋肌皆納', () => {
     const membership = resolveSegmentMembership(anatomyEntities);
     const seen = new Map<string, string>();

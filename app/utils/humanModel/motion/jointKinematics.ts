@@ -38,7 +38,8 @@ export interface SegmentTreeNode {
 }
 
 // 世界軸（中立站姿；模型 +Y 上）。X＝左右（屈伸軸）、Y＝上下（縱軸＝旋轉）、Z＝前後（側彎／外展軸）。
-// 註：sign 與軸於 Task 4 對實機目視校正（見該 task Step 7）。
+// sign 已與 bone-path 校正同步（2026-06-21）：世界旋轉＝RotationAxis(worldAxis, deg·sign) 與 boneRigMap
+// 之世界效果一致。此表供剛性 fallback 與 **gizmo（arc 方位＋拖曳方向）** 共用 → 與 bone-path 一致至關重要。
 const X: AxisVec = [1, 0, 0];
 const Y: AxisVec = [0, 1, 0];
 const Z: AxisVec = [0, 0, 1];
@@ -58,10 +59,9 @@ export const JOINT_KINEMATICS: Readonly<Record<string, JointKinematics>> = {
     pivot: { bone: 'bone.femur', face: 'maxY' }, // 股骨頭端（上）
     bilateral: true,
     dofs: [
-      // flexionExtension 經實機目視校正為 -1：屈曲（往前，正角→ROM max 120）對應大腿前舉、
-      // 伸展（往後，負角→ROM min -20）對應後擺（§4.3.3 軸/sign 校正）。其餘軸仍待校正。
+      // bone-path 校正同步（2026-06-21）：+ROM 屈曲＝前舉(-1)、外展＝外張(-1)、內旋(+1)。
       { axis: 'flexionExtension', worldAxis: X, sign: -1 },
-      { axis: 'abductionAdduction', worldAxis: Z, sign: 1 },
+      { axis: 'abductionAdduction', worldAxis: Z, sign: -1 },
       { axis: 'internalExternalRotation', worldAxis: Y, sign: 1 },
     ],
   },
@@ -76,8 +76,9 @@ export const JOINT_KINEMATICS: Readonly<Record<string, JointKinematics>> = {
     pivot: { bone: 'bone.tibia', face: 'minY' }, // 遠端脛骨（下）
     bilateral: true,
     dofs: [
-      { axis: 'plantarDorsiflexion', worldAxis: X, sign: 1 },
-      { axis: 'inversionEversion', worldAxis: Z, sign: 1 },
+      // bone-path 校正同步（2026-06-21）：+ROM 背屈(-1)、外翻(-1)。
+      { axis: 'plantarDorsiflexion', worldAxis: X, sign: -1 },
+      { axis: 'inversionEversion', worldAxis: Z, sign: -1 },
     ],
   },
   'joint.glenohumeral': {
@@ -85,10 +86,9 @@ export const JOINT_KINEMATICS: Readonly<Record<string, JointKinematics>> = {
     pivot: { bone: 'bone.humerus', face: 'maxY' }, // 肱骨頭端（上）
     bilateral: true,
     dofs: [
-      // flexionExtension 經實機目視校正為 -1：屈曲（往前，正角→ROM max 180）對應手臂前舉、
-      // 伸展（往後，負角→ROM min -60）對應後擺（§4.3.3 軸/sign 校正）。其餘軸仍待校正。
+      // bone-path 校正同步（2026-06-21）：+ROM 屈曲＝前舉(-1)、外展＝外張(-1)、內旋(+1)。
       { axis: 'flexionExtension', worldAxis: X, sign: -1 },
-      { axis: 'abductionAdduction', worldAxis: Z, sign: 1 },
+      { axis: 'abductionAdduction', worldAxis: Z, sign: -1 },
       { axis: 'internalExternalRotation', worldAxis: Y, sign: 1 },
     ],
   },
