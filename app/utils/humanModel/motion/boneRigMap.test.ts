@@ -23,14 +23,32 @@ describe('BONE_RIG_MAP（骨骼驅動資料表）', () => {
     }
   });
 
-  it('localAxis 為單位主軸、sign ∈ {1,-1}', () => {
+  it('localAxis 為單位向量（含下肢校正斜軸）、sign ∈ {1,-1}', () => {
     for (const jid of MOVABLE_JOINT_IDS) {
       for (const [axis, m] of Object.entries(BONE_RIG_MAP[jid]!.dofs)) {
         const sq = m.localAxis[0] ** 2 + m.localAxis[1] ** 2 + m.localAxis[2] ** 2;
-        expect(sq, `${jid}/${axis} unit`).toBe(1);
+        expect(sq, `${jid}/${axis} unit`).toBeCloseTo(1, 4);
         expect([1, -1], `${jid}/${axis} sign`).toContain(m.sign);
       }
     }
+  });
+
+  it('下肢校正值（2026-06-20：localAxis=R_rest⁻¹·W 解析推導＋contact sheet 目視確認 sign）', () => {
+    const hip = BONE_RIG_MAP['joint.hip']!.dofs;
+    expect(hip.flexionExtension).toEqual({ localAxis: [1, 0, 0], sign: -1 });
+    expect(hip.abductionAdduction).toEqual({ localAxis: [0, 0, 1], sign: 1 });
+    expect(hip.internalExternalRotation).toEqual({ localAxis: [0, 1, 0], sign: -1 });
+    expect(BONE_RIG_MAP['joint.knee']!.dofs.flexionExtension).toEqual({
+      localAxis: [1, 0, 0],
+      sign: 1,
+    });
+    const ankle = BONE_RIG_MAP['joint.ankle']!.dofs;
+    expect(ankle.plantarDorsiflexion).toEqual({ localAxis: [1, 0, 0], sign: -1 });
+    // 踝內外翻：斜軸（foot rest 傾斜，bone-local 達成世界 Z 旋轉）＋ +ROM 外翻 → sign=-1
+    expect(ankle.inversionEversion!.sign).toBe(-1);
+    expect(ankle.inversionEversion!.localAxis[0]).toBe(0);
+    expect(ankle.inversionEversion!.localAxis[1]).toBeCloseTo(0.884, 3);
+    expect(ankle.inversionEversion!.localAxis[2]).toBeCloseTo(-0.4675, 3);
   });
 
   it('bone 名非空且非 anatomyId 形式（不以 bone./joint. 起頭）', () => {
