@@ -23,11 +23,14 @@ describe('BONE_RIG_MAP（骨骼驅動資料表）', () => {
     }
   });
 
-  it('localAxis 為單位向量（含下肢校正斜軸）、sign ∈ {1,-1}', () => {
+  it('localAxis（含 localAxisLeft）為單位向量（含校正斜軸）、sign ∈ {1,-1}', () => {
     for (const jid of MOVABLE_JOINT_IDS) {
       for (const [axis, m] of Object.entries(BONE_RIG_MAP[jid]!.dofs)) {
-        const sq = m.localAxis[0] ** 2 + m.localAxis[1] ** 2 + m.localAxis[2] ** 2;
-        expect(sq, `${jid}/${axis} unit`).toBeCloseTo(1, 4);
+        for (const ax of [m.localAxis, m.localAxisLeft]) {
+          if (!ax) continue;
+          const sq = ax[0] ** 2 + ax[1] ** 2 + ax[2] ** 2;
+          expect(sq, `${jid}/${axis} unit`).toBeCloseTo(1, 4);
+        }
         expect([1, -1], `${jid}/${axis} sign`).toContain(m.sign);
       }
     }
@@ -49,6 +52,28 @@ describe('BONE_RIG_MAP（骨骼驅動資料表）', () => {
     expect(ankle.inversionEversion!.localAxis[0]).toBe(0);
     expect(ankle.inversionEversion!.localAxis[1]).toBeCloseTo(0.884, 3);
     expect(ankle.inversionEversion!.localAxis[2]).toBeCloseTo(-0.4675, 3);
+  });
+
+  it('上肢/軀幹校正值（2026-06-20：解析推導斜軸＋目視確認 sign）', () => {
+    const gh = BONE_RIG_MAP['joint.glenohumeral']!.dofs;
+    expect(gh.flexionExtension!.sign).toBe(-1);
+    expect(gh.abductionAdduction!.sign).toBe(-1);
+    expect(gh.internalExternalRotation!.sign).toBe(1);
+    // 肩 rest 斜且左右鏡像不對稱 → per-side localAxis（左右 Y 反號）
+    expect(gh.flexionExtension!.localAxisLeft).toBeDefined();
+    expect(gh.flexionExtension!.localAxis[0]).toBeCloseTo(0.625, 2);
+    expect(gh.flexionExtension!.localAxisLeft![1]).toBeCloseTo(
+      -gh.flexionExtension!.localAxis[1],
+      2,
+    );
+    // 軀幹/頸：FE 為世界 X（無 left override）；側屈/旋轉為斜軸、sign +1
+    const sp = BONE_RIG_MAP['joint.spine']!.dofs;
+    expect(sp.flexionExtension).toEqual({ localAxis: [1, 0, 0], sign: 1 });
+    expect(sp.lateralFlexion!.sign).toBe(1);
+    expect(sp.lateralFlexion!.localAxis[2]).toBeCloseTo(0.883, 2);
+    const cv = BONE_RIG_MAP['joint.cervicalSpine']!.dofs;
+    expect(cv.flexionExtension).toEqual({ localAxis: [1, 0, 0], sign: 1 });
+    expect(cv.rotation!.localAxis[1]).toBeCloseTo(0.926, 2);
   });
 
   it('bone 名非空且非 anatomyId 形式（不以 bone./joint. 起頭）', () => {

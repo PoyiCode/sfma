@@ -101,7 +101,8 @@ export function buildBoneRig(scene: Scene): ArticulationRig {
         const neutral = movableJointDof(d.jointId, axis)?.neutral ?? 0;
         const deg = jointAngle(pose, pk, axis, neutral) - neutral;
         if (deg === 0) continue;
-        const v = new Vector3(m.localAxis[0], m.localAxis[1], m.localAxis[2]);
+        const la = d.side === '#L' && m.localAxisLeft ? m.localAxisLeft : m.localAxis;
+        const v = new Vector3(la[0], la[1], la[2]);
         q = q.multiply(Quaternion.RotationAxis(v, deg * m.sign * DEG2RAD));
       }
       d.setLocal(q);

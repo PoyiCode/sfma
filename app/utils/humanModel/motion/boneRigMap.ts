@@ -1,16 +1,19 @@
 // 骨骼驅動資料表（04 §4.3.3 skin 變形）：每個可動關節對應一根 MakeHuman armature bone
 // （base 名、雙側於解析時補 .L/.R）＋每個 DOF 之 bone-local 旋轉軸與正負號。
 // 與剛性路 JOINT_KINEMATICS[*].pivot.bone（骨 mesh 的 anatomyId）語意不同。
-// 上肢/軀幹 軸/正負起始值比照剛性路 worldAxis/sign（placeholder、待校正）；
-// 下肢（髖/膝/踝）已校正（2026-06-20）：localAxis = R_rest⁻¹·W 解析推導（W＝解剖世界軸：屈伸=X、
-// 外展內收=Z、旋轉=Y）＋ Blender contact sheet 目視確認 sign（見
-// doc/design/specs/2026-06-20-bone-path-axis-calibration-design.md）。脊椎/頸椎以單一代表 bone（多椎延後）。
+// 全身已校正（2026-06-20）：localAxis = R_rest⁻¹·W 解析推導（W＝解剖世界軸：屈伸=X、外展內收/側屈=Z、
+// 旋轉=Y）＋ Blender contact sheet 目視確認 sign（見
+// doc/design/specs/2026-06-20-bone-path-axis-calibration-design.md）。下肢髖/膝/踝多為主軸（踝內外翻為斜軸）；
+// 上肢肩 rest 斜且左右鏡像不對稱→per-side localAxisLeft；軀幹脊椎/頸椎側屈/旋轉因骨前傾為斜軸（單代表 bone、多椎延後）。
 import type { AxisVec } from './jointKinematics';
 
 export interface BoneDofMapping {
-  // bone 區域座標之旋轉軸（單位向量；多為主軸，斜骨架如踝內外翻為斜軸）
+  // bone 區域座標之旋轉軸（單位向量；多為主軸，斜骨架如踝內外翻、肩、脊椎/頸側屈/旋轉為斜軸）。
+  // 預設用於右側／單側；左側 rest frame 鏡像不對稱者（如肩）以 localAxisLeft 覆寫。
   localAxis: AxisVec;
-  // 正角度方向（待實機校正）
+  // 左側覆寫（選填）：bone rest frame 左右鏡像不對稱時用（肩 upperarm01）。未填則左右共用 localAxis。
+  localAxisLeft?: AxisVec;
+  // 正角度方向
   sign: 1 | -1;
 }
 
@@ -51,29 +54,43 @@ export const BONE_RIG_MAP: Readonly<Record<string, BoneJointMapping>> = {
       inversionEversion: { localAxis: ANKLE_INV_AXIS, sign: -1 }, // +ROM 外翻；斜軸達成世界 Z 旋轉
     },
   },
+  // 上肢校正（2026-06-20）。upperarm01 rest frame 斜（臂垂於側、傾~50°）且左右鏡像不對稱→per-side localAxis。
   'joint.glenohumeral': {
     bone: 'upperarm01',
     dofs: {
-      flexionExtension: { localAxis: X, sign: -1 },
-      abductionAdduction: { localAxis: Z, sign: 1 },
-      internalExternalRotation: { localAxis: Y, sign: 1 },
+      flexionExtension: {
+        localAxis: [0.62501, -0.62154, -0.47227],
+        localAxisLeft: [0.62501, 0.62155, 0.47227],
+        sign: -1, // +ROM 屈曲＝前舉（錨點驗證）
+      },
+      abductionAdduction: {
+        localAxis: [-0.62154, -0.03022, -0.7828],
+        localAxisLeft: [0.62155, -0.03022, -0.78279],
+        sign: -1, // +ROM 外展＝臂外張
+      },
+      internalExternalRotation: {
+        localAxis: [-0.47227, -0.7828, 0.4052],
+        localAxisLeft: [0.47227, -0.78279, 0.40521],
+        sign: 1, // +ROM 內旋
+      },
     },
   },
+  // 軀幹/頸校正（2026-06-20，單代表 bone）。FE 軸為世界 X；側屈/旋轉因骨 rest 前傾而為斜軸。
   'joint.cervicalSpine': {
     bone: 'neck01',
     dofs: {
-      flexionExtension: { localAxis: X, sign: 1 },
-      lateralFlexion: { localAxis: Z, sign: 1 },
-      rotation: { localAxis: Y, sign: 1 },
+      flexionExtension: { localAxis: X, sign: 1 }, // +ROM 屈曲＝頭前傾
+      lateralFlexion: { localAxis: [0, 0.37768, 0.92594], sign: 1 }, // +ROM 右側屈
+      rotation: { localAxis: [0, 0.92594, -0.37768], sign: 1 }, // +ROM 左旋
     },
   },
   'joint.spine': {
     // MakeHuman 預設骨架 spine 鏈：spine05（最下、接骨盆）＝腰薦樞紐；spine01 為上段（近頸）。
     bone: 'spine05',
     dofs: {
-      flexionExtension: { localAxis: X, sign: 1 },
-      lateralFlexion: { localAxis: Z, sign: 1 },
-      rotation: { localAxis: Y, sign: 1 },
+      flexionExtension: { localAxis: X, sign: 1 }, // +ROM 屈曲＝前彎
+      lateralFlexion: { localAxis: [0, -0.46921, 0.88309], sign: 1 }, // +ROM 右側屈
+      rotation: { localAxis: [0, 0.88309, 0.46921], sign: 1 }, // +ROM 左旋
     },
   },
 };

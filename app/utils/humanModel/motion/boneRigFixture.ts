@@ -25,6 +25,8 @@ export function makeBoneRigFixture(
     resolveBoneName(BONE_RIG_MAP['joint.hip']!.bone, '#R'),
     resolveBoneName(BONE_RIG_MAP['joint.knee']!.bone, '#L'),
     resolveBoneName(BONE_RIG_MAP['joint.knee']!.bone, '#R'),
+    resolveBoneName(BONE_RIG_MAP['joint.glenohumeral']!.bone, '#L'),
+    resolveBoneName(BONE_RIG_MAP['joint.glenohumeral']!.bone, '#R'),
     resolveBoneName(BONE_RIG_MAP['joint.spine']!.bone, null),
   ];
   for (const name of names) {

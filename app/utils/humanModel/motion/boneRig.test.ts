@@ -99,7 +99,20 @@ describe('boneRig（骨骼驅動，NullEngine）', () => {
     expect(rig.pivotKeys).toEqual([]);
   });
 
-  it('解析不到之關節安全跳過（fixture 無踝/肩/頸 bone→無錯）', () => {
+  it('applyPose：左肩用 localAxisLeft、右肩用 localAxis（肩 rest 左右鏡像不對稱）', () => {
+    const scene = freshScene();
+    makeBoneRigFixture(scene, { linkNodes: true });
+    const rig = buildBoneRig(scene);
+    const fe = BONE_RIG_MAP['joint.glenohumeral']!.dofs.flexionExtension!;
+    rig.applyPose(setJointAngle(NEUTRAL_POSE, 'joint.glenohumeral#L', 'flexionExtension', 60));
+    const nodeL = boneByName(scene, 'upperarm01.L').getTransformNode()!;
+    const expL = Quaternion.RotationAxis(new Vector3(...fe.localAxisLeft!), 60 * fe.sign * DEG2RAD);
+    const expR = Quaternion.RotationAxis(new Vector3(...fe.localAxis), 60 * fe.sign * DEG2RAD);
+    expect(sameRotation(nodeL.rotationQuaternion!, expL)).toBe(true);
+    expect(sameRotation(nodeL.rotationQuaternion!, expR)).toBe(false); // 左確用 localAxisLeft、非右側 localAxis
+  });
+
+  it('解析不到之關節安全跳過（fixture 無踝/頸 bone→無錯）', () => {
     const scene = freshScene();
     makeBoneRigFixture(scene);
     const rig = buildBoneRig(scene);

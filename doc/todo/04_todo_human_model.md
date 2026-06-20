@@ -27,7 +27,8 @@
 - [x] **極限屈曲 corrective shape keys**（procedural、SDD 實作）：`rigSkin.add_corrective_shapekeys`（保體積目標−LBS 之 ΔP、qb⁻¹ 穩定轉 rest 位移＋clamp，避 M_blend⁻¹ 大角度爆裂）→ exportGltf `export_morph`（**bind/corrective 前 bake decimate**，否則 export_apply 丟 shape-keyed mesh 之 corrective）→ runtime `morphTargetController.ts`（watcher 隨 pose 設 `influence=smoothstep(onset,ref,|角度|)`、契約名 `corr.<distal jointId>`）。實際範圍＝**膝＋踝**（髖恆為近端、無遠端跨髖肌 → 無 candy-wrapper、不生 corrective）。glb 38 morph mesh（knee18/ankle20）、保完整 ROM；MCP 140° 視覺驗證無尖刺、極限角度部分修正（pre-skin morph 先天上限）。[spec](../design/specs/2026-06-20-corrective-shape-keys-design.md)｜[plan](../design/specs/2026-06-20-corrective-shape-keys-plan.md)
 - [x] **下肢 bone-path 軸/sign 校正**（procedural 解析推導）：自出貨 glb node rest 解析推導 `localAxis = R_rest⁻¹·W`（W＝解剖世界軸：屈伸X／外展內收Z／旋轉Y）＋ Blender contact sheet 目視確認 sign（`boneRigMap.ts` 髖／膝／踝 6 DOF）。修正＝髖內外旋 sign、踝背蹠屈 sign、踝內外翻**斜軸** `[0,0.884,-0.4675]`＋sign；髖屈伸／外展、膝屈伸 placeholder 經驗證即正確（thigh rest≈Rot(X,180°)）。[spec](../design/specs/2026-06-20-bone-path-axis-calibration-design.md)
 - [x] **髕骨綁定改歸股骨（髕股關節）**：髕骨追蹤股骨滑車溝、非隨脛骨；`SEGMENT_BONES` 將 `bone.patella` 由 joint.knee→joint.hip（綁 femur），膝屈曲時留股骨前（Blender 質心驗證：膝屈 120° 位移 0.000m、脛骨 0.114m、髖屈 60° 隨大腿 0.221m）。仍剛綁、未含遠端滑移/傾轉（後續可加角度驅動）。
-- [ ] rigged 資產 on-device 視覺最終驗證；上肢／軀幹 bone-path 軸/sign 校正（同解析法）＋ rigid fallback 同步；髕骨遠端滑移/傾轉（選配精修）
+- [x] **上肢／軀幹 bone-path 軸/sign 校正**（同下肢解析法）：肩（盂肱）rest 斜且左右鏡像不對稱→per-side `localAxisLeft`（屈/外展 sign -1、內旋 +1）；脊椎/頸椎側屈/旋轉為斜軸（FE=世界 X；+ROM＝右側屈/左旋/內旋，使用者確認）。改 `boneRigMap.ts`＋`boneRig.applyPose` per-side、補測試（851 綠）。
+- [ ] rigged 資產 on-device 視覺最終驗證；rigid fallback 軸/sign 同步；髕骨遠端滑移/傾轉（選配精修）
 - [ ] 修 muscle-shading overlay 於 skinned 幾何之表面噪訊（§4.3.4；目前 skinned 資產下關閉，待修）
 - [ ] skinned 路徑 gizmo 精確擺位與 picking 精修：bone 驅動下手柄擺位／拾取（v1 `getPivot` 回 null、手柄不啟用；04 §4.3.3）
 - [ ] 其餘關節：肘、腕、指、趾、顳顎關節、胸廓等（04 §4.3.3）
