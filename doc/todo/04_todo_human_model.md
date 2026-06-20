@@ -30,7 +30,7 @@
 - [x] **上肢／軀幹 bone-path 軸/sign 校正**（同下肢解析法）：肩（盂肱）rest 斜且左右鏡像不對稱→per-side `localAxisLeft`（屈/外展 sign -1、內旋 +1）；脊椎/頸椎側屈/旋轉為斜軸（FE=世界 X；+ROM＝右側屈/左旋/內旋，使用者確認）。改 `boneRigMap.ts`＋`boneRig.applyPose` per-side、補測試（851 綠）。
 - [x] **球窩關節（髖/肩）旋轉中心校正**：`rigSkin._fit_ball_center` 以最小二乘球面擬合股骨/肱骨頭球心為 anchor（取代 AABB 頂面中心、偏上外 2.9–3.5cm），旋轉中心移至球心（實證 <1.5mm、球頭旋轉定座於關節窩）；重出部署 glb。
 - [ ] rigged 資產 on-device 視覺最終驗證；rigid fallback 軸/sign 同步；髕骨遠端滑移/傾轉（選配精修）
-- [ ] 修 muscle-shading overlay 於 skinned 幾何之表面噪訊（§4.3.4；目前 skinned 資產下關閉，待修）
+- [x] **muscle-shading 改頂點色著色（skinning-safe）**：根因＝`renderOverlay` outline shell 以 rest-pose 殼繪、與 GPU skin 變形面 z-fighting 致雜訊（且本無停用 guard、實為 on 且閃爍）。改以頂點色（`VertexBuffer.ColorKind`、乘 albedo、attribute 於 skin/morph 後內插）發散著色＋`clearMuscleShading` 還原；`muscleShading.ts`、852 test 綠。（更細緻漸層之 Node Material 仍為後續軌）
 - [ ] skinned 路徑 gizmo 精確擺位與 picking 精修：bone 驅動下手柄擺位／拾取（v1 `getPivot` 回 null、手柄不啟用；04 §4.3.3）
 - [ ] 其餘關節：肘、腕、指、趾、顳顎關節、胸廓等（04 §4.3.3）
 - [ ] 平滑多椎脊椎：頸椎／脊椎逐椎獨立旋轉（取代單樞紐近似）

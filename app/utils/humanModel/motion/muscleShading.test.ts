@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from 'vitest';
-import { MeshBuilder, NullEngine } from '@babylonjs/core';
+import { MeshBuilder, NullEngine, VertexBuffer } from '@babylonjs/core';
 import type { Scene } from '@babylonjs/core';
 import { anatomyEntityById } from '@ptapp/definitions';
 import type { Muscle } from '@ptapp/shared';
@@ -10,6 +10,7 @@ import { SELECTION_OVERLAY_COLOR } from '../render/sceneHighlight';
 import {
   applyMuscleShading,
   applyOverlays,
+  clearMuscleShading,
   contractionState,
   COOL,
   muscleContractionScalar,
@@ -102,7 +103,7 @@ describe('musclesForJoint（選取關節相關肌群）', () => {
   });
 });
 
-describe('applyMuscleShading（overlay 著色；§4.3.4）', () => {
+describe('applyMuscleShading（頂點色著色；§4.3.4、skinning-safe）', () => {
   let engine: NullEngine | undefined;
   afterEach(() => {
     engine?.dispose();
@@ -131,27 +132,40 @@ describe('applyMuscleShading（overlay 著色；§4.3.4）', () => {
     return s;
   }
   const get = (s: Scene, name: string) => s.getMeshByName(name)!;
+  const vcolor = (m: ReturnType<typeof get>): number[] | null => {
+    const d = m.getVerticesData(VertexBuffer.ColorKind);
+    return d ? [d[0]!, d[1]!, d[2]!, d[3]!] : null;
+  };
 
-  it('收縮肌得暖色 overlay、拮抗肌得冷色：右髖屈曲 +120', () => {
+  it('收縮肌得暖色頂點色、拮抗肌得冷色：右髖屈曲 +120（不再用 renderOverlay）', () => {
     const s = scene();
     applyMuscleShading(s, { 'joint.hip#R': { flexionExtension: 120 } });
-    const rf = get(s, 'muscle.bicepsFemoris#R'); // 髖伸肌 → 屈曲時伸展（冷）
-    expect(rf.renderOverlay).toBe(true);
-    expect(rf.overlayColor.equals(COOL)).toBe(true);
-    // gluteusMedius 僅外展、屈曲不動之 → 中性、無 overlay
-    expect(get(s, 'muscle.gluteusMedius#R').renderOverlay).toBe(false);
+    const bf = get(s, 'muscle.bicepsFemoris#R'); // 髖伸肌 → 屈曲時伸展（冷）
+    expect(bf.renderOverlay).toBe(false);
+    const c = vcolor(bf)!;
+    const f = 0.8; // |scalar|=1 × TINT_STRENGTH
+    expect(c[0]).toBeCloseTo(1 + (COOL.r - 1) * f, 3);
+    expect(c[1]).toBeCloseTo(1 + (COOL.g - 1) * f, 3);
+    expect(c[2]).toBeCloseTo(1 + (COOL.b - 1) * f, 3);
+    expect(c[3]).toBe(1);
+    const gm = vcolor(get(s, 'muscle.gluteusMedius#R'))!; // 屈曲不動 → 中性 → 白
+    expect(gm[0]).toBeCloseTo(1, 5);
+    expect(gm[1]).toBeCloseTo(1, 5);
+    expect(gm[2]).toBeCloseTo(1, 5);
   });
 
-  it('外展肌外展 +45 → 暖色 overlay、alpha = MAX_ALPHA（全幅 1.0 × 0.55）', () => {
+  it('外展肌外展 +45 → 暖色頂點色（lerp 白→WARM × 0.8、alpha=1）', () => {
     const s = scene();
     applyMuscleShading(s, { 'joint.hip#R': { abductionAdduction: 45 } });
-    const gm = get(s, 'muscle.gluteusMedius#R');
-    expect(gm.renderOverlay).toBe(true);
-    expect(gm.overlayColor.equals(WARM)).toBe(true);
-    expect(gm.overlayAlpha).toBeCloseTo(0.55, 5);
+    const c = vcolor(get(s, 'muscle.gluteusMedius#R'))!;
+    const f = 0.8;
+    expect(c[0]).toBeCloseTo(1 + (WARM.r - 1) * f, 3);
+    expect(c[1]).toBeCloseTo(1 + (WARM.g - 1) * f, 3);
+    expect(c[2]).toBeCloseTo(1 + (WARM.b - 1) * f, 3);
+    expect(c[3]).toBe(1);
   });
 
-  it('非肌肉 mesh 一律清 overlay', () => {
+  it('非肌肉 mesh 一律清 renderOverlay 殘留', () => {
     const s = scene();
     const bone = get(s, 'bone.femur');
     bone.renderOverlay = true; // 模擬殘留選取
@@ -159,11 +173,24 @@ describe('applyMuscleShading（overlay 著色；§4.3.4）', () => {
     expect(bone.renderOverlay).toBe(false);
   });
 
-  it('中性 pose → 全肌無 overlay', () => {
+  it('中性 pose → 全肌白頂點色、無 renderOverlay', () => {
     const s = scene();
     applyMuscleShading(s, {});
-    expect(get(s, 'muscle.gluteusMedius#R').renderOverlay).toBe(false);
-    expect(get(s, 'muscle.bicepsFemoris#R').renderOverlay).toBe(false);
+    for (const nm of ['muscle.gluteusMedius#R', 'muscle.bicepsFemoris#R']) {
+      const m = get(s, nm);
+      expect(m.renderOverlay).toBe(false);
+      expect(vcolor(m)![0]).toBeCloseTo(1, 5);
+    }
+  });
+
+  it('clearMuscleShading 還原已染色肌為白', () => {
+    const s = scene();
+    applyMuscleShading(s, { 'joint.hip#R': { abductionAdduction: 45 } });
+    clearMuscleShading(s);
+    const c = vcolor(get(s, 'muscle.gluteusMedius#R'))!;
+    expect(c[0]).toBeCloseTo(1, 5);
+    expect(c[1]).toBeCloseTo(1, 5);
+    expect(c[2]).toBeCloseTo(1, 5);
   });
 });
 
@@ -188,7 +215,7 @@ describe('applyOverlays（overlay 單一權威 dispatcher）', () => {
     return s;
   }
 
-  it('運動模式+著色開 → 走肌肉著色（外展肌外展得暖色）', () => {
+  it('運動模式+著色開 → 走肌肉著色（外展肌外展得暖色頂點色）', () => {
     const s = scene();
     applyOverlays(s, {
       motionMode: true,
@@ -196,7 +223,9 @@ describe('applyOverlays（overlay 單一權威 dispatcher）', () => {
       pose: { 'joint.hip#R': { abductionAdduction: 45 } },
       selectedKey: null,
     });
-    expect(s.getMeshByName('muscle.gluteusMedius#R')!.overlayColor.equals(WARM)).toBe(true);
+    const d = s.getMeshByName('muscle.gluteusMedius#R')!.getVerticesData(VertexBuffer.ColorKind)!;
+    expect(d[0]).toBeCloseTo(1 + (WARM.r - 1) * 0.8, 3);
+    expect(d[1]).toBeCloseTo(1 + (WARM.g - 1) * 0.8, 3);
   });
 
   it('運動模式但著色關 → 走選取/標註高亮（選取部位 accent）', () => {

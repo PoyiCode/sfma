@@ -1,6 +1,9 @@
 // 肌肉收縮／伸展著色（04 §4.3.4）：由運動 pose × muscle.actions 推導每肌「收縮（暖）／伸展（冷）」
 // 純量。著色由資料推導、與剛性節段綁定無關（§4.3.4）。純函式核心、可 node 測。
-import { Color3, type Scene } from '@babylonjs/core';
+// 著色經**頂點色**（VertexBuffer.ColorKind、乘於 albedo）施加——頂點色為 attribute、於 GPU skin/morph
+// 變形「之後」內插，不受 rest-pose 幾何影響；取代舊 renderOverlay outline shell（其以 rest-pose 殼繪、
+// 與 skinned 變形面 z-fighting 致表面雜訊）。renderOverlay 仍用於選取/標註高亮（sceneHighlight）。
+import { type AbstractMesh, Color3, type Mesh, type Scene, VertexBuffer } from '@babylonjs/core';
 import '@babylonjs/core/Rendering/outlineRenderer';
 import type { AnnotationHighlights } from '../anatomy/anatomyHighlight';
 import { applyHighlights } from '../render/sceneHighlight';
@@ -77,32 +80,62 @@ export function musclesForJoint(jointId: string): Muscle[] {
 // 著色色（發散）：收縮暖、伸展冷（暫定、可對齊 tokens §3.7）。
 export const WARM = new Color3(217 / 255, 74 / 255, 42 / 255); // #D94A2A
 export const COOL = new Color3(47 / 255, 111 / 255, 176 / 255); // #2F6FB0
-const MAX_ALPHA = 0.55;
+// 頂點色乘於 albedo：白＝不變（中性）；lerp(白→暖/冷) 以 |scalar| 為比、上限 TINT_STRENGTH（保底色辨識）。
+const TINT_STRENGTH = 0.8;
+const lastTint = new WeakMap<AbstractMesh, string>();
 
-// 肌肉著色（overlay 來源之一）：染肌肉、清非肌肉殘留 overlay。NullEngine 可測。
+// 設整片 mesh 之 uniform 頂點色（RGBA、alpha 固定 1 不引入透明）。快取跳過未變者，避免每次 pose 重傳 buffer。
+function setMeshTint(mesh: AbstractMesh, r: number, g: number, b: number): void {
+  const key = `${r.toFixed(3)},${g.toFixed(3)},${b.toFixed(3)}`;
+  if (lastTint.get(mesh) === key) return;
+  lastTint.set(mesh, key);
+  const m = mesh as Mesh;
+  const n = m.getTotalVertices();
+  if (n === 0) return;
+  const data = new Float32Array(n * 4);
+  for (let i = 0; i < n; i++) {
+    const o = i * 4;
+    data[o] = r;
+    data[o + 1] = g;
+    data[o + 2] = b;
+    data[o + 3] = 1;
+  }
+  if (m.isVerticesDataPresent(VertexBuffer.ColorKind)) {
+    m.updateVerticesData(VertexBuffer.ColorKind, data);
+  } else {
+    m.setVerticesData(VertexBuffer.ColorKind, data, true);
+  }
+  m.useVertexColors = true;
+}
+
+// 肌肉著色（overlay 單一權威之一）：以頂點色染肌肉（skinning-safe）、清所有 renderOverlay 殘留。NullEngine 可測。
 export function applyMuscleShading(scene: Scene, pose: MotionPose): void {
   for (const mesh of scene.meshes) {
+    mesh.renderOverlay = false; // 著色模式不顯選取/標註 overlay（清殘留）
     const meta = mesh.metadata as PlaceholderMeshMetadata | null | undefined;
-    if (meta?.entityType !== 'muscle' || meta.anatomyId === undefined) {
-      mesh.renderOverlay = false;
-      continue;
-    }
+    if (meta?.entityType !== 'muscle' || meta.anatomyId === undefined) continue;
     const entity = anatomyEntityById.get(meta.anatomyId);
-    if (entity === undefined || entity.type !== 'muscle') {
-      mesh.renderOverlay = false;
+    if (entity === undefined || entity.type !== 'muscle') continue;
+    const s = muscleContractionScalar(entity, pose, sideOfMesh(mesh.name));
+    if (contractionState(s) === 'neutral') {
+      setMeshTint(mesh, 1, 1, 1);
       continue;
     }
-    const s = muscleContractionScalar(entity, pose, sideOfMesh(mesh.name));
-    if (s > EPSILON) {
-      mesh.renderOverlay = true;
-      mesh.overlayColor = WARM;
-      mesh.overlayAlpha = s * MAX_ALPHA;
-    } else if (s < -EPSILON) {
-      mesh.renderOverlay = true;
-      mesh.overlayColor = COOL;
-      mesh.overlayAlpha = -s * MAX_ALPHA;
-    } else {
-      mesh.renderOverlay = false;
+    const base = s > 0 ? WARM : COOL;
+    const f = Math.min(1, Math.abs(s)) * TINT_STRENGTH;
+    setMeshTint(mesh, 1 + (base.r - 1) * f, 1 + (base.g - 1) * f, 1 + (base.b - 1) * f);
+  }
+}
+
+// 離開著色模式時還原肌肉頂點色為白（僅曾染色者），使 albedo 復原。
+export function clearMuscleShading(scene: Scene): void {
+  for (const mesh of scene.meshes) {
+    const meta = mesh.metadata as PlaceholderMeshMetadata | null | undefined;
+    if (
+      meta?.entityType === 'muscle' &&
+      (mesh as Mesh).isVerticesDataPresent(VertexBuffer.ColorKind)
+    ) {
+      setMeshTint(mesh, 1, 1, 1);
     }
   }
 }
@@ -120,6 +153,7 @@ export function applyOverlays(scene: Scene, params: OverlayParams): void {
   if (params.motionMode && params.muscleShading) {
     applyMuscleShading(scene, params.pose);
   } else {
+    clearMuscleShading(scene);
     applyHighlights(scene, params.selectedKey, params.highlights);
   }
 }

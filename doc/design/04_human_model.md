@@ -130,10 +130,13 @@ ROM 以**資料定義**（每個關節一筆，見 [06_data_model.md](06_data_mo
 - 每條肌肉與其跨越的關節、作用（屈／伸／旋等）以資料關聯（見 `muscle` 與 `joint`），使色彩由資料推導而非寫死。
 - **著色由資料推導、非量測變形後 mesh**：以關節角相對 `neutral` 的變化 × `actions` 屈／伸／旋計算長度變化純量。正因著色與 mesh 是否軟變形無關，§4.3.3 的**剛性綁定才在視覺上可接受**（剛性肌不軟變形也不影響顏色正確性）。
 
-**現役：overlay 著色**（§4.3.3 同管道）——運動模式擺動關節時，相關肌群依 `muscleContractionScalar`
-（pose × `muscle.actions`）以 mesh overlay 發散著色：收縮暖（`#D94A2A`）、伸展冷（`#2F6FB0`）、
-中性無 overlay，alpha ∝ |純量|。運動模式內**獨立開關**（預設開）；著色開時為**唯一 overlay 權威**
-（`applyOverlays` 暫停選取/標註高亮，運動模式以 gizmo 表達選取關節）。非色彩通道（§3.6）：
+**現役：頂點色著色**（§4.3.3 同管道）——運動模式擺動關節時，相關肌群依 `muscleContractionScalar`
+（pose × `muscle.actions`）以**頂點色**（`VertexBuffer.ColorKind`、乘於 albedo）發散著色：收縮暖
+（`#D94A2A`）、伸展冷（`#2F6FB0`）、中性＝白（不變），染色強度 ∝ |純量|（lerp 白→暖/冷、上限 0.8）。
+**頂點色為 attribute、於 GPU skin/morph 變形之後內插 → skinning-safe**（取代舊 `renderOverlay` outline
+shell：其以 rest-pose 殼繪、與 skinned 變形面 z-fighting 致表面雜訊；2026-06-20 修）。運動模式內
+**獨立開關**（預設開）；著色開時為**唯一 overlay 權威**（`applyOverlays` 暫停選取/標註高亮、先
+`clearMuscleShading` 還原頂點色，運動模式以 gizmo 表達選取關節）。非色彩通道（§3.6）：
 MotionControls 顯暖↔冷色階**圖例** ＋「選取關節相關肌群」逐肌**文字態**（收縮/伸展/中性＋量值）。
 
 - **方向明確成對軸**（屈伸/外展內收/內外旋/蹠背屈/內外翻）；複合軸名第一動作為正向。
