@@ -183,8 +183,10 @@ export const JOINT_TO_SEGMENT: Readonly<Record<string, string>> = {
 
 // 各節段之骨骼成員（側別無關 anatomyId）。基座（骨盆／薦椎／中軸殘餘）不列＝不動。
 export const SEGMENT_BONES: Readonly<Partial<Record<string, readonly string[]>>> = {
-  'joint.hip': ['bone.femur'],
-  'joint.knee': ['bone.tibia', 'bone.fibula', 'bone.patella'],
+  // 髕骨追蹤股骨（髕股關節滑車溝），非隨脛骨；rig 上歸大腿（joint.hip/femur）段，
+  // 故膝屈曲時留在股骨前而非隨小腿後盪（2026-06-20 校正；見 04 §4.3.3 髕股）。
+  'joint.hip': ['bone.femur', 'bone.patella'],
+  'joint.knee': ['bone.tibia', 'bone.fibula'],
   'joint.ankle': [
     'bone.talus',
     'bone.calcaneus',

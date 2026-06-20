@@ -115,6 +115,7 @@ ROM 以**資料定義**（每個關節一筆，見 [06_data_model.md](06_data_mo
 
 > **待**（以下為後續軌）：
 > - **軸／sign 實機目視校正**：各 DOF 旋轉軸方向與正負號待真實資產上目視驗證。rigid 路已校正：肩（盂肱）與髖之 flexionExtension sign＝-1（屈曲＝往前、伸展＝往後）。**bone-path 下肢已校正（2026-06-20）**：自出貨 glb node rest 解析推導 `localAxis = R_rest⁻¹·W`（W＝解剖世界軸）＋ Blender contact sheet 目視確認 sign（`boneRigMap.ts` 髖／膝／踝 6 DOF；修正＝髖內外旋 sign、踝背蹠屈 sign、踝內外翻**斜軸** `[0,0.884,-0.4675]`＋sign）；見 [bone-path 軸/sign 校正 spec](specs/2026-06-20-bone-path-axis-calibration-design.md)。上肢／軀幹 bone-path 與 rigid fallback 同步仍待校正。
+> - **髕骨綁定（髕股關節）**：髕骨追蹤股骨滑車溝、非隨脛骨，rig 歸大腿段（`SEGMENT_BONES` 將 `bone.patella` 置 joint.hip／綁 femur 骨），膝屈曲時留股骨前而非隨小腿後盪（2026-06-20；Blender 質心驗證：膝屈 120° 髕骨位移 0.000m〔脛骨 0.114m〕、髖屈 60° 隨大腿 0.221m）。仍為剛綁（未含遠端滑移/傾轉，後續可加角度驅動細化）。
 > - **其餘關節**：肘、腕、指、趾、顳顎關節、胸廓等（目前僅 6 SFMA 關節）
 > - **肌肉收縮／伸展著色**（§4.3.4）：關節角推算肌長變化並以 Node Material 顯示
 > - **skin 變形（執行期驅動已實作、ship-dark）**：`rigController` 依資產能力選路——載入**帶真骨架**的 GLB 時走骨骼驅動（`boneRig`／`BONE_RIG_MAP`，bone 區域旋轉＋GPU 蒙皮軟變形）、無骨架（現役出貨）走剛性節段 fallback；兩者共用同一 `pose` seam、下游零改動。待：真資產 bone 名與 bone-local 軸/正負之**實機目視校正**、skinned 路徑 gizmo 擺位與 picking 精修、平滑多椎脊椎、**資產管線綁骨＋蒙皮匯出**（§4.6.3 步驟 3–4，**已實作**：`rigSkin.py`＋exportGltf 整合，產出 rigged `anatomyV1.glb`〔163-bone MakeHuman 骨架、全身剛性綁＋skins、跨關節肌位置漸變蒙皮、structural 驗證通過〕；待 on-device 視覺驗證＋部署）。見 [skin 變形執行期驅動 spec](specs/2026-06-19-skin-deformation-runtime-design.md)、[全身 rig+skin 管線 spec](specs/2026-06-19-fullbody-rig-skin-pipeline-design.md)。

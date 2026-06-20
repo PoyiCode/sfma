@@ -73,6 +73,11 @@ describe('jointKinematics（運動學表不變式）', () => {
     expect(SEGMENT_BONES['joint.ankle']).toContain('bone.calcaneus');
   });
 
+  it('髕骨歸大腿段（追蹤股骨、非隨脛骨）——膝屈曲時留股骨前', () => {
+    expect(SEGMENT_BONES['joint.hip']).toContain('bone.patella');
+    expect(SEGMENT_BONES['joint.knee']).not.toContain('bone.patella');
+  });
+
   it('resolveSegmentMembership：成員不重複、骨＋肌皆納', () => {
     const membership = resolveSegmentMembership(anatomyEntities);
     const seen = new Map<string, string>();
