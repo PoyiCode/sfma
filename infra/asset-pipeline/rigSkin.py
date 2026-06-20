@@ -303,6 +303,8 @@ def add_corrective_shapekeys(arm, result_objects, anat_to_joint, za, cross_joint
 
         mw = o.matrix_world
         mwi = mw.inverted()
+        if o.data.users > 1:
+            o.data = o.data.copy()  # 避免共享 datablock 致 shape key 重複/幾何串擾（.001）
         if o.data.shape_keys is None:
             o.shape_key_add(name="Basis", from_mix=False)
         key = o.shape_key_add(name="corr.%s" % distal, from_mix=False)

@@ -79,6 +79,18 @@ describe('createMorphTargetController', () => {
     engine.dispose();
   });
 
+  it('踝 corrective 由 plantarDorsiflexion 驅動（取絕對值、負角亦觸發；錯軸不驅動）', () => {
+    const engine = new NullEngine();
+    const scene = new Scene(engine);
+    const t = meshWithMorph(scene, 'muscle.gastrocnemius#L', 'corr.joint.ankle');
+    const ctrl = createMorphTargetController(scene);
+    ctrl.sync({ 'joint.ankle#L': { plantarDorsiflexion: -1000 } } as MotionPose);
+    expect(t.influence).toBe(1); // 負大角 → |angle| 觸發
+    ctrl.sync({ 'joint.ankle#L': { flexionExtension: 1000 } } as MotionPose);
+    expect(t.influence).toBe(0); // 錯軸（flexionExtension）不驅動踝 corrective
+    engine.dispose();
+  });
+
   it('dispose 後 influence 歸 0', () => {
     const engine = new NullEngine();
     const scene = new Scene(engine);
