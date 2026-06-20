@@ -17,7 +17,7 @@
 
 - [ ] 骨架階層正確（待 MakeHuman 骨架——NullEngine 環境已備、骨架到位即可測）
 - [ ] ROM 限制有套用（超出範圍被鉗制）（待 MakeHuman 骨架，04 §4.3.3）
-- [ ] `anatomyId` **三方對應完整**：glTF node／2D SVG 圖層 id／definitions 實體三方一致且無孤兒，FMA ↔ anatomyId crosswalk 完整（04 §4.6.2）—— definitions ⇄ 3D-manifest 腿已落地（靜態測）；**仍待**：glTF-node 執行期腿（待 NullEngine 載 .glb）、2D-SVG 圖層 id 腿、FMA crosswalk
+- [x] `anatomyId` **三方對應完整**：glTF node／2D SVG 圖層 id／definitions 實體三方一致且無孤兒（04 §4.6.2）。三腿皆靜態守恆測：① definitions⇄3D-manifest（`manifestConsistency.test.ts`，既有）；② **glTF-node 腿**（`render/gltfNodeConsistency.test.ts`，新——解析部署 glb 之 JSON chunk node 名、免 Draco、以 gltfBinding 正規化對 definitions 查孤兒＋non-exempt 漏網；連帶涵蓋 20 條有 mesh 之神經〔manifest 測 blanket-exempt 之缺口〕）；③ **2D-SVG 腿**（`anatomy/svg2dConsistency.test.ts`，新——2dManifest coverage＋SVG `data-anatomy-id` base 對 definitions、coverage⇄SVG 互核）。審計結果無孤兒（730 glTF mesh node／730 2D partKey 全解析）。**FMA crosswalk N/A**：本專案 FMA＝Selective Functional Movement Assessment（評估協定）、非 Foundational Model of Anatomy 本體，無 FMA id／crosswalk。
 - [ ] LOD 效能預算量測：三角面／draw calls／下載量／GPU 記憶體對照 04 §4.3.6；基準裝置 FPS（≥ 30 fps 底線）—— 靜態三角面/預算上限對照已由 `verifyModelBudget.mjs` 核；**待實機**：GPU 記憶體量測＋基準裝置 FPS ≥30 底線
 
 ## E2E（Playwright）
