@@ -56,6 +56,10 @@ import {
   createRigController,
   type RigController,
 } from '../../utils/humanModel/motion/rigController';
+import {
+  createMorphTargetController,
+  type MorphTargetController,
+} from '../../utils/humanModel/motion/morphTargetController';
 import type { MotionPose } from '../../utils/humanModel/motion/motionPose';
 import {
   createGizmoController,
@@ -144,6 +148,7 @@ let extents: Extents | null = null;
 let meshBounds: readonly MeshBounds[] = [];
 let labelLayer: LabelLayer | null = null;
 let rigController: RigController | null = null;
+let morphTargetController: MorphTargetController | null = null;
 let gizmoController: GizmoController | null = null;
 let gizmoDragging = false;
 
@@ -309,6 +314,8 @@ onMounted(() => {
         syncLabels();
         rigController = createRigController(builtScene);
         rigController.sync(props.motionMode, props.pose ?? {});
+        morphTargetController = createMorphTargetController(builtScene);
+        morphTargetController.sync(props.pose ?? {});
         gizmoController = createGizmoController(
           builtScene,
           (j, s) => rigController?.getPivot(j, s) ?? null,
@@ -379,6 +386,8 @@ onMounted(() => {
     labelLayer = null;
     rigController?.dispose();
     rigController = null;
+    morphTargetController?.dispose();
+    morphTargetController = null;
     gizmoController?.dispose();
     gizmoController = null;
     const builtScene = scene;
@@ -447,6 +456,7 @@ watch(
     ] as const,
   () => {
     if (rigController) rigController.sync(props.motionMode, props.pose ?? {});
+    if (morphTargetController) morphTargetController.sync(props.pose ?? {});
     if (gizmoController) {
       gizmoController.sync(
         props.motionMode,
