@@ -72,6 +72,32 @@ def _face_center(lo, hi, face):
     return Vector(c)
 
 
+# 球窩關節（髖/肩）之旋轉中心＝股骨/肱骨近端球頭之球心，非 AABB 頂面中心
+# （後者偏上外、致旋轉中心錯位、肢體旋轉時球頭擺動而非定點）。
+BALL_JOINTS = {"hip.L", "hip.R", "shoulder.L", "shoulder.R"}
+
+
+def _fit_ball_center(o, seed, seed_r=0.06):
+    """最小二乘球面擬合近端球頭→回傳球心（關節旋轉中心）。seed＝AABB 頂面中心粗起點；
+    seed_r 內取點、迭代去骨幹/粗隆汙染。擬合失敗回 None（呼端 fallback seed）。"""
+    mw = o.matrix_world
+    P = np.array([list(mw @ v.co) for v in o.data.vertices])
+    s = np.array([seed[0], seed[1], seed[2]])
+    sel = P[np.linalg.norm(P - s, axis=1) < seed_r]
+    if len(sel) < 20:
+        return None
+    c = s
+    for _ in range(6):
+        A = np.hstack([2 * sel, np.ones((len(sel), 1))])
+        sol = np.linalg.lstsq(A, (sel ** 2).sum(1), rcond=None)[0]
+        c = sol[:3]
+        r = math.sqrt(max(sol[3] + c @ c, 1e-9))
+        near = P[np.abs(np.linalg.norm(P - c, axis=1) - r) < 0.006]
+        if len(near) >= 20:
+            sel = near
+    return Vector((float(c[0]), float(c[1]), float(c[2])))
+
+
 def build_aligned_armature(skel):
     """建 MakeHuman armature 並對位 z-anatomy。anchor 以改名後節點名（anatomyId#L/R）解析。
     回傳 armature object。須於 exportGltf 改名 mesh 後呼用。"""
@@ -81,7 +107,12 @@ def build_aligned_armature(skel):
         o = bpy.data.objects.get(_node_name(anat, side))
         if o is not None:
             lo, hi = _world_aabb([o])
-            za[label] = _face_center(lo, hi, face)
+            seed = _face_center(lo, hi, face)
+            if label in BALL_JOINTS:
+                fit = _fit_ball_center(o, seed)
+                za[label] = fit if fit is not None else seed
+            else:
+                za[label] = seed
     mh = {l: _yup_to_zup(bones[mhn]["head"]) for l, mhn, *_ in BINDING if mhn in bones}
     labels = [l for l in mh if l in za]
     s = np.array([list(mh[l]) for l in labels])

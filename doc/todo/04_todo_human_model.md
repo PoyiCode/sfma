@@ -28,6 +28,7 @@
 - [x] **下肢 bone-path 軸/sign 校正**（procedural 解析推導）：自出貨 glb node rest 解析推導 `localAxis = R_rest⁻¹·W`（W＝解剖世界軸：屈伸X／外展內收Z／旋轉Y）＋ Blender contact sheet 目視確認 sign（`boneRigMap.ts` 髖／膝／踝 6 DOF）。修正＝髖內外旋 sign、踝背蹠屈 sign、踝內外翻**斜軸** `[0,0.884,-0.4675]`＋sign；髖屈伸／外展、膝屈伸 placeholder 經驗證即正確（thigh rest≈Rot(X,180°)）。[spec](../design/specs/2026-06-20-bone-path-axis-calibration-design.md)
 - [x] **髕骨綁定改歸股骨（髕股關節）**：髕骨追蹤股骨滑車溝、非隨脛骨；`SEGMENT_BONES` 將 `bone.patella` 由 joint.knee→joint.hip（綁 femur），膝屈曲時留股骨前（Blender 質心驗證：膝屈 120° 位移 0.000m、脛骨 0.114m、髖屈 60° 隨大腿 0.221m）。仍剛綁、未含遠端滑移/傾轉（後續可加角度驅動）。
 - [x] **上肢／軀幹 bone-path 軸/sign 校正**（同下肢解析法）：肩（盂肱）rest 斜且左右鏡像不對稱→per-side `localAxisLeft`（屈/外展 sign -1、內旋 +1）；脊椎/頸椎側屈/旋轉為斜軸（FE=世界 X；+ROM＝右側屈/左旋/內旋，使用者確認）。改 `boneRigMap.ts`＋`boneRig.applyPose` per-side、補測試（851 綠）。
+- [x] **球窩關節（髖/肩）旋轉中心校正**：`rigSkin._fit_ball_center` 以最小二乘球面擬合股骨/肱骨頭球心為 anchor（取代 AABB 頂面中心、偏上外 2.9–3.5cm），旋轉中心移至球心（實證 <1.5mm、球頭旋轉定座於關節窩）；重出部署 glb。
 - [ ] rigged 資產 on-device 視覺最終驗證；rigid fallback 軸/sign 同步；髕骨遠端滑移/傾轉（選配精修）
 - [ ] 修 muscle-shading overlay 於 skinned 幾何之表面噪訊（§4.3.4；目前 skinned 資產下關閉，待修）
 - [ ] skinned 路徑 gizmo 精確擺位與 picking 精修：bone 驅動下手柄擺位／拾取（v1 `getPivot` 回 null、手柄不啟用；04 §4.3.3）
