@@ -195,6 +195,20 @@ def main():
             if addDecimateModifier(obj, effectiveCap):
                 decimated += 1
 
+    # corrective shape key 與「改拓樸修飾器」不相容：export_apply 無法對帶 shape key 之 mesh 套用
+    # DECIMATE → corrective 於匯出被丟棄（僅未減面之小件倖存）。故於 bind/corrective 前先 bake decimate，
+    # 使幾何定形後再綁定/加 shape key。
+    if cap:
+        for obj in resultObjects:
+            decs = [m for m in obj.modifiers if m.type == "DECIMATE"]
+            if not decs:
+                continue
+            if obj.data.users > 1:
+                obj.data = obj.data.copy()
+            bpy.context.view_layer.objects.active = obj
+            for m in decs:
+                bpy.ops.object.modifier_apply(modifier=m.name)
+
     # rig+skin（選填）：建對位 armature、依成員剛性綁定（須於 mesh 改名後、匯出前）。
     arm = None
     if rig_enabled:
