@@ -198,7 +198,7 @@ def main():
     # rig+skin（選填）：建對位 armature、依成員剛性綁定（須於 mesh 改名後、匯出前）。
     arm = None
     if rig_enabled:
-        from rigSkin import build_aligned_armature, bind_meshes
+        from rigSkin import add_corrective_shapekeys, build_aligned_armature, bind_meshes
         with open(skeleton_path, "r", encoding="utf-8") as fh:
             skel = json.load(fh)
         with open(membership_path, "r", encoding="utf-8") as fh:
@@ -214,6 +214,8 @@ def main():
         nbound, nblend = bind_meshes(arm, resultObjects, anat_to_joint, za, cross_joint)
         print("RIG_OK bones=%d bound=%d blended=%d crossJoint=%d"
               % (len(skel["bones"]), nbound, nblend, len(cross_joint)))
+        ncm, nct = add_corrective_shapekeys(arm, resultObjects, anat_to_joint, za, cross_joint)
+        print("MORPH_OK meshes=%d targets=%d" % (ncm, nct))
 
     deselectAll()
     selected = []
@@ -237,6 +239,7 @@ def main():
         export_apply=True,
         export_yup=True,
         export_skins=rig_enabled,
+        export_morph=rig_enabled,
         # Draco 網格壓縮（KHR_draco_mesh_compression；GLB 壓縮切片）：縮小傳輸體積（行動/區網首載）。
         # 載入端 Babylon glTF 以 DracoDecoder.Default 解碼、配置自帶 public/draco/（apps/web render/dracoConfig.ts）。
         # 量化為有損——位置 14-bit 於解剖尺度視覺無損；無 UV/頂點色故 texcoord/color 量化無作用。皆 Blender 預設、明列利重現。
