@@ -104,4 +104,33 @@ describe('Model3DControls（3D 控制列；04 §4.3.2／§4.4／§3.5）', () =>
     await sw.trigger('click');
     expect(wrapper.emitted('motionModeChange')?.[0]).toEqual([true]);
   });
+
+  // Feature A：次要控制 disclosure（§A）
+  it('次要控制 disclosure 預設收合（aria-expanded=false、body hidden）', () => {
+    const wrapper = mount(Model3DControls, {
+      props: { view: 'front', canChangeRegion: true, region: 'whole' },
+      ...mountOpts,
+    });
+    const toggle = wrapper.get('[data-testid="secondary-disclosure-toggle"]');
+    expect(toggle.attributes('aria-expanded')).toBe('false');
+    const body = wrapper.get('.model3dSecondaryBody');
+    expect(body.attributes('hidden')).toBeDefined();
+  });
+
+  it('次要控制 disclosure 點按後展開（aria-expanded=true、body 無 hidden）', async () => {
+    const wrapper = mount(Model3DControls, {
+      props: { view: 'front', canChangeRegion: true, region: 'whole' },
+      ...mountOpts,
+    });
+    const toggle = wrapper.get('[data-testid="secondary-disclosure-toggle"]');
+    await toggle.trigger('click');
+    expect(toggle.attributes('aria-expanded')).toBe('true');
+    const body = wrapper.get('.model3dSecondaryBody');
+    expect(body.attributes('hidden')).toBeUndefined();
+  });
+
+  it('無次要控制時不顯 disclosure', () => {
+    const wrapper = mount(Model3DControls, { props: { view: 'front' }, ...mountOpts });
+    expect(wrapper.find('[data-testid="secondary-disclosure-toggle"]').exists()).toBe(false);
+  });
 });

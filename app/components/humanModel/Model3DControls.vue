@@ -1,7 +1,8 @@
 <script setup lang="ts">
 // 3D 檢視器控制列（04 §4.3.2／§4.4／§3.5）：前/後/左/右預設視角切換＋部位視角＋標籤開關＋LOD。
 // 純展示受控，狀態由容器管理。各分段以對應 can* 旗標休眠（對應 ptApp onXChange 是否提供）。
-import { computed } from 'vue';
+// 次要控制（region、label-mode、LOD）收於「顯示選項」disclosure，預設收合（§A）。
+import { computed, ref, useId } from 'vue';
 import BaseSegmentedControl, { type SegmentedOption } from '../base/SegmentedControl.vue';
 import BaseSwitch from '../base/Switch.vue';
 import { CAMERA_VIEW_KEYS, type CameraViewKey } from '../../utils/humanModel/render/sceneCamera';
@@ -80,6 +81,14 @@ const { t } = useI18n();
 
 const labelsOn = computed(() => props.showLabels ?? true);
 
+// 次要控制 disclosure（§A）：預設收合；hasSecondary 為真方顯外框。
+const secondaryCollapsed = ref(true);
+const secondaryBodyId = useId();
+const hasSecondary = computed(
+  () =>
+    props.canChangeRegion || props.canShowLabels || props.canChangeLabelMode || props.canChangeLod,
+);
+
 const viewOptions: SegmentedOption[] = CAMERA_VIEW_KEYS.map((value) => ({
   value,
   label: t(VIEW_LABEL_KEYS[value]),
@@ -117,6 +126,7 @@ function onLod(value: string): void {
 
 <template>
   <div class="model3dControls">
+    <!-- 主要控制：恆顯 -->
     <BaseSwitch
       v-if="canToggleMotion"
       data-testid="motion-toggle"
@@ -130,33 +140,52 @@ function onLod(value: string): void {
       :options="viewOptions"
       @update:model-value="onView"
     />
-    <BaseSegmentedControl
-      v-if="canChangeRegion"
-      v-bind="{ ariaLabel: t('model3dRegionLabel') }"
-      :model-value="String(region)"
-      :options="regionOptions"
-      @update:model-value="onRegion"
-    />
-    <BaseSwitch
-      v-if="canShowLabels"
-      :label="t('modelShowLabels')"
-      :model-value="labelsOn"
-      @update:model-value="emit('showLabelsChange', $event === true)"
-    />
-    <BaseSegmentedControl
-      v-if="canChangeLabelMode && labelsOn"
-      v-bind="{ ariaLabel: t('modelLabelModeLabel') }"
-      :model-value="String(labelMode)"
-      :options="labelModeOptions"
-      @update:model-value="onLabelMode"
-    />
-    <BaseSegmentedControl
-      v-if="canChangeLod"
-      v-bind="{ ariaLabel: t('settingsLod') }"
-      :model-value="String(lodMode)"
-      :options="lodOptions"
-      @update:model-value="onLod"
-    />
+
+    <!-- 次要控制 disclosure（§A）：region／label-mode／LOD 收合於「顯示選項」。 -->
+    <div v-if="hasSecondary" class="model3dSecondary">
+      <button
+        type="button"
+        class="model3dSecondaryToggle"
+        data-testid="secondary-disclosure-toggle"
+        :aria-expanded="!secondaryCollapsed"
+        :aria-controls="secondaryBodyId"
+        @click="secondaryCollapsed = !secondaryCollapsed"
+      >
+        {{ t('modelDisplayOptions') }}
+        <span class="model3dSecondaryToggleIcon" aria-hidden="true">
+          {{ secondaryCollapsed ? '▸' : '▾' }}
+        </span>
+      </button>
+      <div :id="secondaryBodyId" class="model3dSecondaryBody" :hidden="secondaryCollapsed">
+        <BaseSegmentedControl
+          v-if="canChangeRegion"
+          v-bind="{ ariaLabel: t('model3dRegionLabel') }"
+          :model-value="String(region)"
+          :options="regionOptions"
+          @update:model-value="onRegion"
+        />
+        <BaseSwitch
+          v-if="canShowLabels"
+          :label="t('modelShowLabels')"
+          :model-value="labelsOn"
+          @update:model-value="emit('showLabelsChange', $event === true)"
+        />
+        <BaseSegmentedControl
+          v-if="canChangeLabelMode && labelsOn"
+          v-bind="{ ariaLabel: t('modelLabelModeLabel') }"
+          :model-value="String(labelMode)"
+          :options="labelModeOptions"
+          @update:model-value="onLabelMode"
+        />
+        <BaseSegmentedControl
+          v-if="canChangeLod"
+          v-bind="{ ariaLabel: t('settingsLod') }"
+          :model-value="String(lodMode)"
+          :options="lodOptions"
+          @update:model-value="onLod"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -166,5 +195,46 @@ function onLod(value: string): void {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+}
+
+/* 次要控制 disclosure（§A）：與 LayerControls 風格一致。 */
+.model3dSecondary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+
+.model3dSecondaryToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  text-align: start;
+}
+
+.model3dSecondaryToggleIcon {
+  font-size: var(--font-size-sm);
+}
+
+.model3dSecondaryBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* 收合時隱藏 body：須以屬性選擇器覆寫上方 display:flex（否則 [hidden] 不生效）。 */
+.model3dSecondaryBody[hidden] {
+  display: none;
 }
 </style>
