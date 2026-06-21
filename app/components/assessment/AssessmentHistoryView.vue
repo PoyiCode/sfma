@@ -55,6 +55,12 @@ const { t } = useI18n();
           <span class="assessmentRowAssessor">{{ row.assessorName }}</span>
           <span class="assessmentRowChevron" aria-hidden="true">›</span>
         </NuxtLink>
+        <NuxtLink
+          class="assessmentRowModelLink"
+          :to="`/patients/${patientId}/model?session=${row.sessionId}`"
+        >
+          {{ t('assessmentHistoryViewModel') }}
+        </NuxtLink>
       </li>
     </ul>
   </div>
@@ -77,7 +83,15 @@ const { t } = useI18n();
   gap: var(--space-2);
 }
 
+/* 每列以 flex 橫排：主連結（grow）＋「看模型」次要動作並排，符合 WCAG 1.3.1 無巢狀互動元素。 */
+.assessmentRow {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-2);
+}
+
 .assessmentRowLink {
+  flex: 1;
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -88,6 +102,20 @@ const { t } = useI18n();
   background: var(--color-surface);
   color: var(--color-text);
   text-decoration: none;
+}
+
+/* 「看模型」深連結：次要動作按鈕樣式（ghost + accent 前景）。 */
+.assessmentRowModelLink {
+  display: flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-accent-fg);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .assessmentRowDate {

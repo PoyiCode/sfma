@@ -71,6 +71,7 @@
   "assessmentProgressLabel": "已判讀",
   "assessmentComplete": "完成評估",
   "viewOnModel": "在模型上檢視",
+  "assessmentHistoryViewModel": "看模型",
   "markOnModel": "標到模型",
   "assessmentSessionLoadError": "評估表載入失敗，請重試",
   "assessmentNotFound": "找不到此評估",

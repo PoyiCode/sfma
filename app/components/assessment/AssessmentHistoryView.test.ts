@@ -20,8 +20,20 @@ const NuxtLinkStub = defineComponent({
 });
 
 const rows: AssessmentRowData[] = [
-  { sessionId: 's1', assessedAt: '2026-06-10T09:00:00+08:00', assessorName: '王治療師', dn: 2, dp: 1 },
-  { sessionId: 's2', assessedAt: '2026-06-09T09:00:00+08:00', assessorName: '陳治療師', dn: 0, dp: 0 },
+  {
+    sessionId: 's1',
+    assessedAt: '2026-06-10T09:00:00+08:00',
+    assessorName: '王治療師',
+    dn: 2,
+    dp: 1,
+  },
+  {
+    sessionId: 's2',
+    assessedAt: '2026-06-09T09:00:00+08:00',
+    assessorName: '陳治療師',
+    dn: 0,
+    dp: 0,
+  },
 ];
 
 function mountView(props: Partial<{ patientId: string; rows: AssessmentRowData[] }> = {}) {
@@ -42,6 +54,16 @@ describe('AssessmentHistoryView（03 §3.3.8 評估紀錄）', () => {
     expect(wrapper.text()).toContain('×2');
     const rowLink = wrapper.findAll('a').find((a) => a.text().includes('2026-06-10'));
     expect(rowLink?.attributes('href')).toBe('/patients/p1/assessments/s1');
+  });
+
+  it('每列含「看模型」深連結，指向 /patients/{id}/model?session={sessionId}', () => {
+    const wrapper = mountView();
+    const modelLinks = wrapper
+      .findAll('a')
+      .filter((a) => a.text().includes('assessmentHistoryViewModel'));
+    expect(modelLinks).toHaveLength(2);
+    expect(modelLinks[0]?.attributes('href')).toBe('/patients/p1/model?session=s1');
+    expect(modelLinks[1]?.attributes('href')).toBe('/patients/p1/model?session=s2');
   });
 
   it('全 FN（dn=0,dp=0）顯「全 FN」，無 chip', () => {
