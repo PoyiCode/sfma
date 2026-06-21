@@ -2,6 +2,11 @@
 
 > 階段：開發期｜來源設計：[05_assessment.md](../design/05_assessment.md)、[06_data_model.md](../design/06_data_model.md) §6.3–6.4｜流程依據：[../ref/SFMA_form.md](../ref/SFMA_form.md)｜前置：[01](01_todo_setup.md)、[02](02_todo_data.md)
 
+## 已完成
+
+- [x] **2×2 判讀方格輸入**（`SfmaQuadrant`）：取代原分離的 `painful` checkbox ＋ `dysfunctional` SegmentedControl；列為功能正常／功能異常 × 欄為無痛／疼痛，`role="radiogroup"` ＋方向鍵導覽，格子 ≥44px。資料模型（`painful`／`dysfunctional`）與手動覆寫邏輯均不變（見 03 §3.3.9 & 05 §5.2）。
+- [x] **評估紀錄「看模型」深連結**：`AssessmentHistoryView` 歷程列附次要動作，連至 `/patients/:patientId/model?session=<sessionId>`，以該評估標註反向高亮部位（見 03 §3.3.8 & 04 §4.5）。
+
 ## ⚠ 待決事項
 
 - [ ] SFMA 授權確認：**對外發布或商業化前**向權利方確認；`sfmaBreakoutFlows.json` 為原版流程圖之數位化，同受約束；替代方案見 05 §5.6 — 統一追蹤於 [09_todo_security.md](09_todo_security.md)

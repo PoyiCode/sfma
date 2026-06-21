@@ -139,11 +139,11 @@ Compact <600        Medium 600–1024       Expanded >1024
 
 - **個案清單**（`/`）：頂列搜尋 ＋「＋ 新增個案」；列項＝**代碼 · 姓名 · 上次評估概況（`StatusChip` 之 DN／DP 計數，或「全 FN」「尚無評估」）· 日期 · ›**，概況取自衍生快取（[06_data_model.md](06_data_model.md) §6.3）；空清單顯示引導式空狀態 ＋ CTA。
 - **個案表單**（`/patients/new`、`…/edit`）：欄位依 06 §6.2（姓名必填，餘選填）；**告知同意＝表單末同意區（inline）**——末段顯示告知同意（可展開全文）＋必勾「已取得當事人同意」，勾選後「儲存」才可按，存檔即寫 `consentAcknowledgedAt`（§3.3.6）；未存草稿離開觸發守衛（§3.3.5）。
-- **個案詳情**（`/patients/:patientId`）：頂列姓名·代碼 ＋ 編輯 ＋ 匯出此個案；下半「評估紀錄 ⇄ 人體模型」——**Compact／Medium 分頁、Expanded 模型常駐第 3 欄**與評估並看（醫病同視，§3.6）；評估紀錄列＝日期·結果概況·評估者 → 開啟，空狀態 ＋「新評估」CTA。
+- **個案詳情**（`/patients/:patientId`）：頂列姓名·代碼 ＋ 編輯 ＋ 匯出此個案；下半「評估紀錄 ⇄ 人體模型」——**Compact／Medium 分頁、Expanded 模型常駐第 3 欄**與評估並看（醫病同視，§3.6）；評估紀錄列＝日期·結果概況·評估者 → 開啟，每列附「**看模型**」次要動作深連結至 `/patients/:patientId/model?session=<sessionId>`（以該評估標註反向高亮部位，見 §3.3.4 & 04 §4.5），空狀態 ＋「新評估」CTA。
 - **評估表**（`…/assessments/:sessionId`）：頂列個案·日期·進度（n/15）·完成；**列項＝手風琴清單**——每動作一列點開填疼痛＋判讀標準勾選 → 即時衍生 FN/FP/DN/DP（`StatusChip`，[05_assessment.md](05_assessment.md) §5.2），收合顯示結果，雙側左右各一（展開版面見 §3.3.9），衍生值可覆寫；**Breakout 容器**＝DN／DP 列「進入 Breakout」開疊層（Compact 全屏 sheet、Expanded 側面板），步進卡逐步互動見 §3.3.9 與 05 §5.3。
 - **人體模型檢視**（`…/model` 或詳情第 3 欄）：畫布（**僅 3D**）＋ 控制項（分層、標籤、LOD、視角、關節），Expanded 側欄、Compact 浮動工具列＋可收合分層面板（§3.1、§3.5）；**選取資訊卡＝浮動卡貼近部位**（名稱／屬性／「隱藏此部位」／「＋關聯到評估」，點空白關閉、避免遮擋）；ROM 極限以提示色＋文字（§3.4）。
 - **設定**（`/settings`）：四區塊 —— 治療師資料／顯示（語系·主題·LOD·密度·方向鎖定·預設分層）／資料管理（匯出全部·匯入還原＋資料保全提醒）／**關於·授權標示**（SFMA ©、Z-Anatomy CC BY-SA、BodyParts3D、MakeHuman CC0、版本·隱私；對應 [05_assessment.md](05_assessment.md) §5.6、[04_human_model.md](04_human_model.md) §4.6.1）。
-  - 「匯出全部備份」按下先開確認 AlertDialog 提示「匯出檔為明文 JSON 且含個資」與存放注意（受控位置、勿上公開雲端／即時通訊、轉移後刪暫存），確認才匯出（[08_security_privacy.md](08_security_privacy.md) §8.7）。
+  - 「匯出全部備份」按下先開確認 AlertDialog 提示「匯出檔為明文 JSON 且含個資」與存放注意（受控位置、勿上公開雲端／即時通訊、轉移後刪暫存），確認才匯出；匯出成功後以 **success toast**（`useToast`，i18n `toastExportDone`「備份已匯出」）給予即時回饋（[08_security_privacy.md](08_security_privacy.md) §8.7）。
   - 「關於」區塊含可展開「資料安全指引」（Accordion）＝裝置保護（螢幕鎖／磁碟加密／設定檔不共用）＋匯出檔處理守則（受控位置／勿公開雲端·即時通訊／刪暫存），就地呈現 [08_security_privacy.md](08_security_privacy.md) §8.7 指引。
 
 ### 3.3.9 評估表與 Breakout 互動細節
@@ -153,8 +153,8 @@ Compact <600        Medium 600–1024       Expanded >1024
 **頂層手風琴填寫**
 
 - 收合列＝動作名 · 兩側 `StatusChip` 概況 · `▾`；頂列顯示進度 **n/15**（已判讀筆數）、「在模型上檢視」（深連結至 `…/model?session=<sessionId>`，於模型反向高亮本評估標註部位，見 [04_human_model.md](04_human_model.md) §4.5）與「完成評估」。
-- 展開版面：雙側動作＝**左右並排雙欄**，Compact 斷點改**上下堆疊**；每側為獨立卡＝一筆判讀紀錄（與 [06_data_model.md](06_data_model.md) §6.3 的 15 筆 1:1），單一動作退化為單欄。
-- 每側卡：`painful` 勾選、`failedCriteria[]` 判讀標準勾選、`dysfunctional` 功能軸（二元：功能正常／功能異常，以 **SegmentedControl** 二態分段控制呈現，點按目標較大）、即時該側 `StatusChip`（FN/FP/DN/DP 衍生、不入庫）。勾任一 `failedCriteria` → `dysfunctional` 自動帶「異常」；治療師可覆寫，覆寫後顯「已手動」標記以別於自動值（05 §5.2）。
+- 展開版面：雙側動作＝**左右並排雙欄**，Compact 斷點改**上下堆疊**；每側為獨立卡＝一筆判讀紀錄（與 [06_data_model.md](06_data_model.md) §6.3 的 15 筆 1:1），單一動作退化為單欄。每側卡之**側別標題**（左／右）為 `position: sticky`，高卡片直式捲動時恆可見。
+- 每側卡：`failedCriteria[]` 判讀標準勾選、**2×2 判讀方格 `SfmaQuadrant`**（取代原分離的 `painful` checkbox ＋ `dysfunctional` SegmentedControl）——列為「功能正常／功能異常」× 欄為「無痛／疼痛」，單格點按即選取 `painful`／`dysfunctional` 組合並即時寫入；`role="radiogroup"` ＋ 方向鍵導覽，格子 ≥44px。即時該側 `StatusChip`（FN/FP/DN/DP 衍生、不入庫）。勾任一 `failedCriteria` → `dysfunctional` 自動帶「異常」；治療師可覆寫，覆寫後顯「已手動」標記以別於自動值（05 §5.2）。資料模型（`painful`／`dysfunctional`）、`entryClassification`、判讀標準、手動覆寫邏輯均不變，純為輸入介面收斂。
 - Breakout 入口置於**展開的每側卡**（非收合列——收合列為 `AccordionTrigger` button，不可巢狀互動控制）：DN 列標「優先」、DP 列標「視疼痛決定」；FP／FN 不顯入口（FP 不進 Breakout，05 §5.3）。收合列既有 DN/DP `StatusChip` 概況作「此列需 Breakout」之訊號。
 - 每側卡完成後鈕字改「檢視 Breakout」（進行中「續測 Breakout」），並顯 findingType 概況 chips；**概況與 `classification` 合並為單組**——`classification` 那枚以外框強調並掛 `aria-label`「判讀：X」，避免單發現時 chip 重複。`classification` 取 `record.classification` 覆寫優先、否則預設推導（覆寫下拉見下「完成」）。
 
@@ -209,13 +209,21 @@ Compact <600        Medium 600–1024       Expanded >1024
 
 固定提供以下控制（佈局隨斷點調整為側欄或浮動工具列）。App 為 3D-only、無維度切換；無 WebGL／3D 載入失敗顯不支援訊息＋重試（`PageError`）。
 
-- **分層開關**：表層肌群、深層肌群、神經、骨骼（可多選）
-- **單一部位**：已隱藏部位清單、逐一或「恢復全部」還原
-- **標籤**：各部位名稱顯示／隱藏
-- **LOD**：自動／精簡／完整（以 `SegmentedControl` 呈現；`auto` 解析為簡化，降級鏈 完整→精簡；切換寫回設定單一真相 `lodMode`，設定頁與檢視器同步、即時重套渲染分級）
+**主要控制（恆顯）**：
 - **視角**：預設視角快捷（前／後／左／右／自訂）、重置
+- **標籤**：各部位名稱顯示／隱藏
+- **關節活動（motion toggle）**：開啟 / 關閉運動模式
 
-控制項佈局以純函式 `render/viewerLayoutMode(breakpoint, orientation)` 三模式編碼（§3.1）：`modelPriority`（手機橫式浮動工具列）、`sidePanel`（Expanded 固定寬側欄〔clamp 220–320px〕、模型佔主區）、`standard`（堆疊）。分層面板可收合（WAI-ARIA Disclosure，`aria-expanded`／`aria-controls`，收合時 `hidden` 隱藏 checkbox／還原鈕 body）；手機橫式浮動工具列下分層面板起始收合、不遮擋模型。選取資訊卡「點空白關閉」：點擊未命中部位之背景即清除選取（命中無 anatomyId 之 mesh 不誤清），未選取時休眠。LOD「完整」（無損 ~38 MB）首載大流量，切換至「完整」前跳流量確認對話框（`AlertDialog`，設定頁與檢視器兩切換點共用），確認才套。
+**「顯示選項」收合 disclosure（WAI-ARIA disclosure，預設收合）**：次要控制收入，避免主畫面過雜：
+- **部位（region）**：全身／頭部／胸腹／臀腿取景
+- **標籤範圍（label-mode）**：全部／僅選取（`SegmentedControl`）
+- **LOD**：自動／精簡／完整（`SegmentedControl`；`auto` 解析為精簡，降級鏈 完整→精簡；切換寫回設定單一真相 `lodMode`，設定頁與檢視器同步）
+
+**分層面板（`LayerControls`）**：表層肌群、深層肌群、神經、骨骼；已隱藏部位清單逐一或「恢復全部」還原；可收合（WAI-ARIA Disclosure）。
+
+**患者檢視模式（`patientView`）**：工具列常駐的一鍵切換（`modelPatientView` / `modelExitPatientView`），開啟後隱藏工具列（分層開關／控制列／重置）及已隱藏清單，保留畫布與選取部位資訊卡，令模型填滿空間——適合醫病同視／衛教情境。狀態由 `model.vue` 持有並傳入 `Model3DViewer`（`patientView` prop）。
+
+控制項佈局以純函式 `render/viewerLayoutMode(breakpoint, orientation)` 三模式編碼（§3.1）：`modelPriority`（手機橫式浮動工具列）、`sidePanel`（Expanded 固定寬側欄〔clamp 220–320px〕、模型佔主區）、`standard`（堆疊）；手機橫式浮動工具列下分層面板起始收合、不遮擋模型。選取資訊卡「點空白關閉」：點擊未命中部位之背景即清除選取（命中無 anatomyId 之 mesh 不誤清），未選取時休眠。LOD「完整」（無損 ~38 MB）首載大流量，切換至「完整」前跳流量確認對話框（`AlertDialog`，設定頁與檢視器兩切換點共用），確認才套。
 
 **仍待**：選取資訊卡精準貼近部位定位（需執行期螢幕座標、待真實資產）。
 
@@ -297,7 +305,7 @@ Compact <600        Medium 600–1024       Expanded >1024
 ### 3.7.5 無障礙規格（系統級）
 
 - **WCAG 2.1 AA** 為基線。
-- 鍵盤：所有互動可達可操作；`:focus-visible` 顯示 `--color-focus` 2px 外框；合理 tab 序；Esc 關閉浮層（Nuxt UI／Reka UI 內建）。「跳至主內容」skip link（WCAG 2.4.1 Bypass Blocks）置於 `.appShell` 最前、`:focus` 時滑入，焦點移入 `<main id="appMain" tabindex="-1">`。
+- 鍵盤：所有互動可達可操作；`:focus-visible` 顯示 `--color-focus` 2px 外框；合理 tab 序；Esc 關閉浮層（Nuxt UI／Reka UI 內建）。「跳至主內容」skip link（WCAG 2.4.1 Bypass Blocks）置於 `.appShell` 最前、`:focus` 時滑入，焦點移入 `<main id="appMain" tabindex="-1">`。**焦點環強化**：`SegmentedControl`（父層 `overflow:hidden` 截斷 outline）與 `Accordion`（Reka UI 可能以 `outline:none` 覆寫）改以 **inset `box-shadow`** 取代 `outline` 呈現焦點指示，確保不被容器裁切。`SfmaQuadrant` 格子同樣套用 inset box-shadow 焦點環。
 - **不僅依賴顏色**（§3.6）升為系統規則：狀態／意義一律配文字或圖示。
 - 點按目標 ≥44px；遵 `prefers-reduced-motion`；`forced-colors`／高對比模式下 token 優雅退化。
 - 語意 HTML＋Reka UI（Nuxt UI 底層）ARIA；icon-only 按鈕配 VisuallyHidden 文字。根 `<html lang>` 隨目前語系動態同步（WCAG 3.1.1 Language of Page；以 `@nuxtjs/i18n` 套用、`nuxt.config` 靜態 `zh-TW` 為無 JS 後備），切英文時報讀器以英語朗讀。
