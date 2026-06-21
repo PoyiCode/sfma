@@ -18,6 +18,8 @@ APP 需支援以下組合（取自草稿需求）：
 
 模型檢視器之版面模式由純函式 `render/viewerLayoutMode(breakpoint, orientation)` 編碼（規則單一來源）：**Compact＋landscape→`modelPriority`**（手機橫式、模型優先）、**Expanded→`sidePanel`**（控制項收為固定寬側欄）、其餘→`standard`（堆疊）；容器 `ModelViewerContent` 以 `useBreakpoint`＋`useOrientation` 算出後傳入，根 `data-layout` 反映、CSS 依此切換 flex 佈局。承接 §3.2 方向訊號。
 
+模型**畫面**整體欄佈局另由純函式 `render/modelPageLayout(breakpoint, orientation)` 決定（檢視器與身體標註清單之並排與否）：寬度足夠時（**Expanded 任一方向**、或 **Medium 橫式**）兩者**並排**（`split`，模型與評估同視、利衛教）；其餘（手機任一、**平板直式單欄**）**堆疊**（`stack`，§3.1 平板直式單欄）。`.modelViewerPage` 以 `data-page-layout` 反映、CSS 切換 flex 方向；`split` 時標註清單收為固定寬側欄（`clamp(280px, 32%, 420px)`）自身捲動。
+
 **iOS 安全區與視口**：`nuxt.config` `app.head`（viewport meta）以 `viewport-fit=cover` 令內容延伸至螢幕邊緣，並以 `env(safe-area-inset-*)` 避讓瀏海／Dynamic Island／home indicator／橫式側邊缺口——AppBar 頂內距與側內距、`appContent` 底／側內距、sticky 底部暫態層（`InstallGuide`／`FirstLaunchNotice`）底內距皆取 `max(原間距, env())`，桌面／非缺口裝置回 0 故零視覺變化。App Shell 高度用 `100dvh`（保 `100vh` 後備）使 iOS 動態工具列顯隱時內容高度正確；`overscroll-behavior-y: contain` 防文件層過捲串聯（誤觸下拉重整／橡皮筋）；`-webkit-tap-highlight-color: transparent` 去 iOS 點按灰閃；表單 input/select 為 16px 以達 iOS 焦點不縮放門檻。
 
 ## 3.2 響應式佈局斷點

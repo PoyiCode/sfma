@@ -38,7 +38,10 @@ import {
 } from '../../../utils/humanModel/anatomy/anatomyHighlight';
 import { degradeLodTier, type LodTier } from '../../../utils/humanModel/lod/lodTier';
 import { detectDeviceCapability } from '../../../utils/humanModel/lod/deviceCapability';
-import { viewerLayoutMode } from '../../../utils/humanModel/render/viewerLayoutMode';
+import {
+  modelPageLayout,
+  viewerLayoutMode,
+} from '../../../utils/humanModel/render/viewerLayoutMode';
 import {
   DEFAULT_CAMERA_VIEW,
   type CameraViewKey,
@@ -204,6 +207,8 @@ const lodConfirmOpen = computed({
 const breakpoint = useBreakpoint();
 const orientation = useOrientation();
 const layoutMode = computed(() => viewerLayoutMode(breakpoint.value, orientation.value));
+// 畫面欄佈局（03 §3.1／§3.2）：寬／橫式平板以上→模型與評估清單並排（split）、其餘堆疊（stack）。
+const pageLayout = computed(() => modelPageLayout(breakpoint.value, orientation.value));
 
 // 標籤預設關（issue 3）：載入即與「重置視角」一致。
 const showLabels = ref(false);
@@ -395,81 +400,98 @@ function retryBoundary(): void {
     :retry-label="t('retry')"
     @retry="retryCapability"
   />
-  <div v-else class="modelViewerPage">
+  <div v-else class="modelViewerPage" :data-page-layout="pageLayout">
     <p v-if="autoDegraded" class="modelLodNotice" role="status">
       {{ t('modelLodAutoDegraded') }}
     </p>
-    <PageError
-      v-if="boundaryFailed"
-      class="modelViewerStatus"
-      :message="t('model3dLoadError')"
-      :retry-label="t('retry')"
-      @retry="retryBoundary"
-    />
-    <ErrorBoundary v-else :key="boundaryNonce" @error="boundaryFailed = true">
-      <template #fallback>
+    <div class="modelViewerBody">
+      <div class="modelViewerMain">
         <PageError
+          v-if="boundaryFailed"
           class="modelViewerStatus"
           :message="t('model3dLoadError')"
           :retry-label="t('retry')"
           @retry="retryBoundary"
         />
-      </template>
-      <Model3DViewer
-        :tier="runtimeTier"
-        :layout-mode="layoutMode"
-        :visibility="layers.visibility.value"
-        :can-reset-layers="true"
-        :selected="selected"
-        :selected-key="selection.selectedId.value"
-        :selected-side="selectedSide"
-        :can-annotate="canAnnotate"
-        :highlights="highlights"
-        :hidden-ids="hidden.hiddenIds.value"
-        :can-hide="selected !== null"
-        :can-restore="true"
-        :view="view"
-        :can-change-view="true"
-        :region="region"
-        :can-change-region="true"
-        :view-nonce="viewNonce"
-        :show-labels="showLabels"
-        :can-show-labels="true"
-        :label-mode="labelMode"
-        :can-change-label-mode="true"
-        :lod-mode="lodMode"
-        :can-change-lod="true"
-        :can-reset-view="true"
-        :can-toggle-motion="true"
-        :motion-mode="motionMode"
-        :pose="pose"
-        :motion-joint="motionJoint"
-        :motion-side="motionSide"
-        :muscle-shading="muscleShading"
-        @muscle-shading-change="muscleShading = $event"
-        @set-visible="layers.setVisible"
-        @reset-layers="layers.reset"
-        @select-part="selection.toggle"
-        @annotate="annotating = true"
-        @background-click="selected ? selection.clear() : undefined"
-        @hide="handleHide"
-        @restore-part="hidden.restore"
-        @restore-all="hidden.restoreAll"
-        @view-change="handleViewChange"
-        @region-change="handleRegionChange"
-        @show-labels-change="showLabels = $event"
-        @label-mode-change="labelMode = $event"
-        @lod-mode-change="handleLodModeChange"
-        @reset-view="handleResetView"
-        @motion-mode-change="handleMotionModeChange"
-        @set-joint-angle="handleSetJointAngle"
-        @reset-pose="handleResetPose"
-        @motion-joint-change="handleMotionJointChange"
-        @select-motion-joint="handleSelectMotionJoint"
-        @motion-side-change="handleMotionSideChange"
-        @fps="sampleFps"
+        <ErrorBoundary v-else :key="boundaryNonce" @error="boundaryFailed = true">
+          <template #fallback>
+            <PageError
+              class="modelViewerStatus"
+              :message="t('model3dLoadError')"
+              :retry-label="t('retry')"
+              @retry="retryBoundary"
+            />
+          </template>
+          <Model3DViewer
+            :tier="runtimeTier"
+            :layout-mode="layoutMode"
+            :visibility="layers.visibility.value"
+            :can-reset-layers="true"
+            :selected="selected"
+            :selected-key="selection.selectedId.value"
+            :selected-side="selectedSide"
+            :can-annotate="canAnnotate"
+            :highlights="highlights"
+            :hidden-ids="hidden.hiddenIds.value"
+            :can-hide="selected !== null"
+            :can-restore="true"
+            :view="view"
+            :can-change-view="true"
+            :region="region"
+            :can-change-region="true"
+            :view-nonce="viewNonce"
+            :show-labels="showLabels"
+            :can-show-labels="true"
+            :label-mode="labelMode"
+            :can-change-label-mode="true"
+            :lod-mode="lodMode"
+            :can-change-lod="true"
+            :can-reset-view="true"
+            :can-toggle-motion="true"
+            :motion-mode="motionMode"
+            :pose="pose"
+            :motion-joint="motionJoint"
+            :motion-side="motionSide"
+            :muscle-shading="muscleShading"
+            @muscle-shading-change="muscleShading = $event"
+            @set-visible="layers.setVisible"
+            @reset-layers="layers.reset"
+            @select-part="selection.toggle"
+            @annotate="annotating = true"
+            @background-click="selected ? selection.clear() : undefined"
+            @hide="handleHide"
+            @restore-part="hidden.restore"
+            @restore-all="hidden.restoreAll"
+            @view-change="handleViewChange"
+            @region-change="handleRegionChange"
+            @show-labels-change="showLabels = $event"
+            @label-mode-change="labelMode = $event"
+            @lod-mode-change="handleLodModeChange"
+            @reset-view="handleResetView"
+            @motion-mode-change="handleMotionModeChange"
+            @set-joint-angle="handleSetJointAngle"
+            @reset-pose="handleResetPose"
+            @motion-joint-change="handleMotionJointChange"
+            @select-motion-joint="handleSelectMotionJoint"
+            @motion-side-change="handleMotionSideChange"
+            @fps="sampleFps"
+          />
+        </ErrorBoundary>
+      </div>
+
+      <BodyAnnotationList
+        v-if="annotations"
+        class="modelViewerAside"
+        :annotations="annotations"
+        :patterns="sfmaPatterns"
+        :selected-anatomy-id="selection.selectedId.value"
+        :can-select="true"
+        :can-remove="canAnnotateSession"
+        :build-finding-href="buildFindingHref"
+        @select="selection.select"
+        @remove="session.removeAnnotation"
       />
-    </ErrorBoundary>
+    </div>
 
     <BodyAnnotationDialog
       v-if="selected && canAnnotateSession"
@@ -488,18 +510,6 @@ function retryBoundary(): void {
 
     <!-- 切換至「完整」LOD 之流量確認（無損模型巨大、首載大流量）；確認才套 full。 -->
     <FullLodConfirmDialog v-model:open="lodConfirmOpen" @confirm="lodConfirm.confirmFull" />
-
-    <BodyAnnotationList
-      v-if="annotations"
-      :annotations="annotations"
-      :patterns="sfmaPatterns"
-      :selected-anatomy-id="selection.selectedId.value"
-      :can-select="true"
-      :can-remove="canAnnotateSession"
-      :build-finding-href="buildFindingHref"
-      @select="selection.select"
-      @remove="session.removeAnnotation"
-    />
   </div>
 </template>
 
@@ -508,6 +518,36 @@ function retryBoundary(): void {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+}
+
+/* 畫面欄佈局（03 §3.1／§3.2）：stack＝模型上、評估清單下（手機／平板直式單欄）；
+   split＝模型與評估並排（平板橫式／Expanded，衛教同視）。data-page-layout 由純函式 modelPageLayout 決定。 */
+.modelViewerBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.modelViewerMain {
+  min-width: 0;
+}
+
+.modelViewerPage[data-page-layout='split'] .modelViewerBody {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.modelViewerPage[data-page-layout='split'] .modelViewerMain {
+  flex: 1 1 auto;
+}
+
+/* 並排時評估清單收為固定寬側欄、自身捲動（不撐高頁面）。 */
+.modelViewerPage[data-page-layout='split'] .modelViewerAside {
+  flex: 0 0 clamp(280px, 32%, 420px);
+  align-self: stretch;
+  min-width: 0;
+  overflow-y: auto;
 }
 
 .modelViewerStatus {
