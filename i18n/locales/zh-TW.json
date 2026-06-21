@@ -250,6 +250,7 @@
   "settingsDataTitle": "資料管理",
   "settingsExportAll": "匯出全部備份",
   "settingsExportAllError": "匯出失敗，請重試",
+  "toastExportDone": "備份已匯出",
   "settingsDataReminder": "所有資料僅儲存於本機裝置，請定期匯出備份以免遺失。",
   "settingsExportConfirmTitle": "匯出前須知",
   "settingsExportConfirmBody": "匯出檔為明文 JSON 且含個案個資。請存放於受控位置，勿上傳公開雲端硬碟或經即時通訊傳遞，轉移完成後刪除暫存檔。",

@@ -24,6 +24,7 @@ const colorMode = useColorMode();
 
 const settings = useSettings();
 const dataImport = useDataImport();
+const toast = useToast();
 
 const exporting = ref(false);
 const exportError = ref(false);
@@ -43,6 +44,8 @@ async function handleExportAll(): Promise<void> {
   exportError.value = false;
   try {
     await saveExportFile(await buildFullExport(localStore));
+    // 匯出僅觸發瀏覽器下載、無 app 內回饋 → 成功明確提示（失敗保留 exportError 行內提示）。
+    toast.add({ title: t('toastExportDone'), color: 'success' });
   } catch {
     exportError.value = true;
   } finally {
