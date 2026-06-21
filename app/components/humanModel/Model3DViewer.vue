@@ -2,6 +2,7 @@
 // 3D 檢視器組裝（04 §4.2／§4.6.4）：分層開關＋一鍵重置工具列＋
 // Babylon glTF 3D 檢視＋選取資訊卡＋已隱藏清單。純展示受控，狀態由容器管理。
 // 視角／標籤以 3D 控制列快捷；反向高亮（§4.5）以 highlights→mesh overlay 著色（選取優先）。
+// 患者檢視（§B）：patientView=true 時隱藏 .model3dToolbar 與已隱藏清單，模型填滿可視區。
 import { computed, ref } from 'vue';
 import type { AnatomyEntity } from '@ptapp/shared';
 import BaseButton from '../base/Button.vue';
@@ -78,6 +79,8 @@ interface Props {
   // 選取側別（左右獨立，§4.3.3）：雙側 '#L'/'#R'、單側 null。透傳至 Model3DView（手柄側）與 MotionControls（滑桿側）。
   motionSide?: string | null;
   muscleShading?: boolean;
+  // 患者檢視（§B）：隱藏臨床 chrome（工具列＋已隱藏清單），模型填滿可視區。
+  patientView?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -110,6 +113,7 @@ const props = withDefaults(defineProps<Props>(), {
   motionJoint: 'joint.knee',
   motionSide: '#R',
   muscleShading: true,
+  patientView: false,
 });
 
 const emit = defineEmits<{
@@ -137,6 +141,8 @@ const emit = defineEmits<{
   // 點 3D 肢體選關節＋側別（左右獨立，§4.3.3）；面板左/右切換則發 motionSideChange。
   selectMotionJoint: [jointId: string, side: string | null];
   motionSideChange: [side: string | null];
+  // 患者檢視（§B）：容器切換 patientView 狀態。
+  patientViewChange: [on: boolean];
 }>();
 
 const { t } = useI18n();
@@ -154,8 +160,22 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
 </script>
 
 <template>
-  <div class="model3dViewer" :data-layout="layoutMode">
-    <div class="model3dToolbar">
+  <div
+    class="model3dViewer"
+    :data-layout="layoutMode"
+    :data-patient-view="patientView || undefined"
+  >
+    <!-- 患者檢視切換鈕（§B）：恆顯於右上角（兩種模式皆可見）。 -->
+    <button
+      type="button"
+      class="model3dPatientViewToggle"
+      data-testid="patient-view-toggle"
+      @click="emit('patientViewChange', !patientView)"
+    >
+      {{ patientView ? t('modelExitPatientView') : t('modelPatientView') }}
+    </button>
+
+    <div v-if="!patientView" class="model3dToolbar">
       <LayerControls
         :visibility="visibility"
         :can-reset="canResetLayers"
@@ -218,10 +238,11 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
           {{ t('modelLoading3d') }}
         </p>
       </div>
-      <!-- 資訊卡預留位（恆佔位）：避免選取/取消選取時主區總高變動、畫面跳動。 -->
+      <!-- 資訊卡預留位（恆佔位）：避免選取/取消選取時主區總高變動、畫面跳動。
+           患者檢視保留 AnatomyInfoCard（部位名稱顯示），不顯 MotionControls。 -->
       <div class="model3dCardSlot">
         <MotionControls
-          v-if="motionMode"
+          v-if="motionMode && !patientView"
           :pose="pose ?? {}"
           :selected-joint="motionJoint"
           :selected-side="motionSide"
@@ -236,14 +257,14 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
           v-else-if="selected"
           :entity="selected"
           :side="selectedSide ?? null"
-          :can-annotate="canAnnotate"
-          :can-hide="canHide"
+          :can-annotate="canAnnotate && !patientView"
+          :can-hide="canHide && !patientView"
           @annotate="emit('annotate')"
           @hide="emit('hide')"
         />
       </div>
       <HiddenPartsControls
-        v-if="canRestore"
+        v-if="canRestore && !patientView"
         :hidden-ids="hiddenIds"
         @restore="emit('restorePart', $event)"
         @restore-all="emit('restoreAll')"
@@ -255,6 +276,7 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
 <style scoped>
 /* 3D 檢視器組裝佈局（mirror Model2DViewer）：工具列＋主檢視，沿用三佈局模式（03 §3.1／§3.5）。 */
 .model3dViewer {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
@@ -304,10 +326,6 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
 }
 
 /* 手機橫式（Compact＋landscape）：模型優先、控制項收為浮動工具列（03 §3.1）。 */
-.model3dViewer[data-layout='modelPriority'] {
-  position: relative;
-}
-
 .model3dViewer[data-layout='modelPriority'] .model3dToolbar {
   position: absolute;
   inset-block-start: var(--space-2);
@@ -336,5 +354,26 @@ const viewSelectedId = computed(() => props.selectedKey ?? props.selected?.anato
 
 .model3dViewer[data-layout='sidePanel'] .model3dMain {
   flex: 1 1 auto;
+}
+
+/* 患者檢視切換鈕（§B）：固定於右上角，輕薄不搶眼。 */
+.model3dPatientViewToggle {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  z-index: 2;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  box-shadow: var(--shadow-1);
+}
+
+.model3dPatientViewToggle:hover {
+  color: var(--color-text);
 }
 </style>

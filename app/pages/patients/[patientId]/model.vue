@@ -257,6 +257,9 @@ function handleResetPose(): void {
   pose.value = resetMotionPose();
 }
 
+// 患者檢視（§B）：隱藏臨床 chrome（工具列＋已隱藏清單），模型填滿可視區。
+const patientView = ref(false);
+
 // 裝置能力偵測（建 canvas 探測 WebGL）：canRender3D 為 App 唯一渲染閘（僅 3D）。
 const capability = ref(detectDeviceCapability());
 const canRender3D = computed(() => capability.value.webglSupported);
@@ -453,6 +456,8 @@ function retryBoundary(): void {
             :motion-joint="motionJoint"
             :motion-side="motionSide"
             :muscle-shading="muscleShading"
+            :patient-view="patientView"
+            @patient-view-change="patientView = $event"
             @muscle-shading-change="muscleShading = $event"
             @set-visible="layers.setVisible"
             @reset-layers="layers.reset"
