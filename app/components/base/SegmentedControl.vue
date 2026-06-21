@@ -100,4 +100,22 @@ watch(
   background: var(--color-accent);
   color: #ffffff;
 }
+
+/* `:focus-visible` 強化：父層 overflow:hidden 會截斷 outline；
+   改用 box-shadow 模擬外框（不受裁切），並疊背景色變化增強對比。
+   prefers-reduced-motion 不影響靜態 box-shadow／background（僅 transition 受全域 reduce）。 */
+.segmentedItem:focus-visible {
+  outline: none; /* 由 box-shadow 取代，避免被 overflow:hidden 截斷 */
+  box-shadow: inset 0 0 0 2px var(--color-focus);
+  background: color-mix(in srgb, var(--color-focus) 12%, var(--color-surface));
+  z-index: 1;
+  position: relative;
+}
+
+.segmentedItem[data-state='checked']:focus-visible {
+  box-shadow:
+    inset 0 0 0 2px var(--color-focus),
+    inset 0 0 0 4px var(--color-accent);
+  background: var(--color-accent);
+}
 </style>

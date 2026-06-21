@@ -60,4 +60,13 @@ const uiItems = computed(() =>
   flex-direction: column;
   gap: var(--space-2);
 }
+
+/* `:focus-visible` 強化：Nuxt UI／Reka UI 的 AccordionTrigger 可能以 outline:none 覆蓋全域規則。
+   以 :deep() 穿透 Shadow DOM 邊界並明確宣告 tokens，確保觸發按鈕的焦點環在任何主題下均清晰可見。
+   使用 var(--color-focus)（= teal-600 light / teal-400 dark）符合 §3.7.5 設計規範。 */
+.accordion :deep([data-slot='trigger']:focus-visible) {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+  background: color-mix(in srgb, var(--color-focus) 8%, transparent);
+}
 </style>
