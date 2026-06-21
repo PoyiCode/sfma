@@ -58,6 +58,8 @@
   "assessmentLoadError": "評估載入失敗，請重試",
   "assessmentCreateError": "建立評估失敗，請重試",
   "assessmentPainful": "疼痛",
+  "assessmentNonPainful": "無痛",
+  "assessmentClassificationGrid": "功能×疼痛判讀",
   "assessmentCriteria": "判讀標準",
   "assessmentFunctional": "功能正常",
   "assessmentDysfunctional": "功能異常",

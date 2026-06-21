@@ -5,8 +5,8 @@ import { computed } from 'vue';
 import type { PatternRecord } from '@ptapp/shared';
 import BaseButton from '../base/Button.vue';
 import BaseCheckbox from '../base/Checkbox.vue';
-import BaseSegmentedControl from '../base/SegmentedControl.vue';
 import BaseStatusChip from '../base/StatusChip.vue';
+import SfmaQuadrant from './SfmaQuadrant.vue';
 import {
   entryClassification,
   isManualOverride,
@@ -64,13 +64,12 @@ const breakoutButtonLabel = computed(() => {
   return t('breakoutEntry');
 });
 
-const functionalValue = computed(() =>
-  props.record.dysfunctional ? 'dysfunctional' : 'functional',
-);
-const functionalOptions = computed(() => [
-  { value: 'functional', label: t('assessmentFunctional') },
-  { value: 'dysfunctional', label: t('assessmentDysfunctional') },
-]);
+function onQuadrantSelect(payload: { painful: boolean; dysfunctional: boolean }): void {
+  emit(
+    'change',
+    setDysfunctional(setPainful(props.record, payload.painful), payload.dysfunctional),
+  );
+}
 </script>
 
 <template>
@@ -79,11 +78,16 @@ const functionalOptions = computed(() => [
       <span v-if="sideLabel" class="assessmentEntryCardSide">{{ sideLabel }}</span>
       <BaseStatusChip :status="classification" />
     </div>
-    <BaseCheckbox
-      :label="t('assessmentPainful')"
-      :model-value="record.painful"
-      @update:model-value="emit('change', setPainful(record, Boolean($event)))"
-    />
+    <div class="assessmentEntryCardQuadrant">
+      <SfmaQuadrant
+        :painful="record.painful"
+        :dysfunctional="record.dysfunctional"
+        @select="onQuadrantSelect"
+      />
+      <span v-if="isManualOverride(record)" class="assessmentEntryCardManual">
+        {{ t('assessmentManualOverride') }}
+      </span>
+    </div>
     <fieldset class="assessmentEntryCardCriteria">
       <legend>{{ t('assessmentCriteria') }}</legend>
       <BaseCheckbox
@@ -94,17 +98,6 @@ const functionalOptions = computed(() => [
         @update:model-value="emit('change', toggleCriterion(record, criterion.code))"
       />
     </fieldset>
-    <div class="assessmentEntryCardFunction">
-      <BaseSegmentedControl
-        v-bind="{ ariaLabel: t('assessmentFunctionalAxis') }"
-        :model-value="functionalValue"
-        :options="functionalOptions"
-        @update:model-value="emit('change', setDysfunctional(record, $event === 'dysfunctional'))"
-      />
-      <span v-if="isManualOverride(record)" class="assessmentEntryCardManual">
-        {{ t('assessmentManualOverride') }}
-      </span>
-    </div>
     <div v-if="showBreakoutEntry" class="assessmentEntryCardBreakout">
       <BaseButton variant="secondary" @click="emit('openBreakout')">
         {{ breakoutButtonLabel }}
@@ -151,6 +144,13 @@ const functionalOptions = computed(() => [
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--color-bg);
+  /* 避免 sticky 卡頭與卡片內容視覺裁切，給一點下邊距 */
+  padding-bottom: var(--space-1);
+  margin-bottom: calc(-1 * var(--space-1));
 }
 
 .assessmentEntryCardSide {
@@ -172,9 +172,9 @@ const functionalOptions = computed(() => [
   font-size: var(--font-size-sm);
 }
 
-.assessmentEntryCardFunction {
+.assessmentEntryCardQuadrant {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-3);
 }
 
