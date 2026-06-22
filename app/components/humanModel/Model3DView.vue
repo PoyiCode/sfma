@@ -254,6 +254,10 @@ onMounted(() => {
   let lastFitWidth: number | null = null;
   let createdEngineRef: AbstractEngine | null = null;
   let handleResize: (() => void) | null = null;
+  // 畫布尺寸觀察：除視窗 resize 外，亦需在「版面變更使畫布改尺寸」時 engine.resize()——
+  // 否則 Babylon 算繪尺寸滯後、指標選取射線錯位（如「患者檢視」隱藏工具列致畫布變大，
+  // 點空白卻 highlight 他處部位）。ResizeObserver 觀察 canvas 本身、涵蓋此類非視窗事件之改變。
+  let resizeObserver: ResizeObserver | null = null;
 
   const setupScene = (createdEngine: AbstractEngine): void => {
     // 非同步 engine 於卸載後才 resolve：守衛 cancelled，dispose late engine、不建場景。
@@ -371,6 +375,12 @@ onMounted(() => {
       }
     };
     window.addEventListener('resize', handleResize);
+    // 觀察畫布實際尺寸：版面驅動之改變（患者檢視切換、面板收合、方位）不發 window resize，
+    // 由此 ResizeObserver 補上 engine.resize()＋re-fit，修正指標選取錯位。
+    if (typeof ResizeObserver !== 'undefined') {
+      resizeObserver = new ResizeObserver(() => handleResize?.());
+      resizeObserver.observe(canvas);
+    }
   };
 
   // 同步工廠（WebGL2／NullEngine）即時 setup；非同步工廠（WebGPU）於 resolve 後 setup。
@@ -382,6 +392,8 @@ onMounted(() => {
     cancelled = true;
     canvas.removeEventListener('wheel', preventWheelScroll);
     if (handleResize) window.removeEventListener('resize', handleResize);
+    resizeObserver?.disconnect();
+    resizeObserver = null;
     labelLayer?.dispose();
     labelLayer = null;
     rigController?.dispose();

@@ -145,9 +145,12 @@
   --clinical-finding: var(--orange-clinical);
 }
 
-/* —— semantic：dark（系統偏好自動跟隨；無顯式覆寫時生效）—— */
+/* —— semantic：dark（系統偏好自動跟隨）——
+   僅在「使用者未顯式選色」時生效：@nuxtjs/color-mode（Nuxt UI）會在 <html> 掛上 .light／.dark
+   類別（並經 colorMode.dataValue 同掛 data-theme）；一旦掛上即由下方顯式覆寫接手，故此處以
+   :not(.light):not(.dark) 排除，避免系統偏好壓過使用者於設定頁所選主題（淺色切換失效之修正）。 */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(.light):not(.dark) {
     --color-bg: var(--slate-900);
     --color-surface: var(--slate-800);
     --color-text: #e2e8f0;
@@ -164,7 +167,10 @@
   }
 }
 
-/* —— 顯式覆寫（AppSettings.theme = 'light' | 'dark'）勝過系統偏好 —— */
+/* —— 顯式覆寫（AppSettings.theme = 'light' | 'dark'）勝過系統偏好 ——
+   同時對應 color-mode 掛的 .light/.dark 類別與 data-theme 屬性（雙選擇器：類別為實際生效途徑、
+   data-theme 保留為設計文件 §3.7.1 的語意 hook 與 token 測試錨點）。 */
+:root.light,
 :root[data-theme='light'] {
   --color-bg: var(--sage-50);
   --color-surface: #ffffff;
@@ -180,6 +186,7 @@
   --shadow-3: 0 12px 32px rgb(27 38 32 / 20%);
 }
 
+:root.dark,
 :root[data-theme='dark'] {
   --color-bg: var(--slate-900);
   --color-surface: var(--slate-800);

@@ -16,6 +16,9 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: ['@nuxt/ui', '@nuxt/eslint', '@pinia/nuxt', '@nuxtjs/i18n', '@vite-pwa/nuxt'],
   css: ['~/assets/css/main.css'],
+  // color-mode（@nuxtjs/color-mode，Nuxt UI 提供）除預設 .light/.dark 類別外，另於 <html> 掛
+  // data-theme（dataValue）——使 tokens.css 之 :root[data-theme] 顯式覆寫亦生效（§3.7.1 主題機制）。
+  colorMode: { dataValue: 'theme' },
   devServer: {
     // 開發者模式綁 0.0.0.0（區網可及，供實機測試）；否則 localhost（02 §2.11、08 §8.9）
     host: resolveDevServerHost(VITE_DEV_MODE),
