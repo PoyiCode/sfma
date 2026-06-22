@@ -1,1 +1,6 @@
 __pycache__/
+
+# 測試側出之 rig 橋接資料（exportSegmentMembership.test.ts 每次跑測試重寫，rigSkin.py bpy 綁定消費）；
+# 為衍生產物、非手寫源，依全身 rig+skin 管線計畫不入版控（doc/design/plans/2026-06-19-fullbody-rig-skin-pipeline.md）。
+out/segmentMembership.json
+out/crossJointBlend.json
