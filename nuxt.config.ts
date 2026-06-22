@@ -32,8 +32,8 @@ export default defineNuxtConfig({
         '@babylonjs/gui',
         '@babylonjs/loaders',
         '@babylonjs/loaders/glTF',
-      ]
-    }
+      ],
+    },
   },
   i18n: {
     defaultLocale: 'zh-TW',
@@ -52,8 +52,8 @@ export default defineNuxtConfig({
       lang: 'zh-TW',
       display: 'standalone',
       start_url: '/',
-      theme_color: '#0e7490',
-      background_color: '#F8FAFC',
+      theme_color: '#596d5d',
+      background_color: '#f4f6f4',
       icons: [
         { src: 'icons/pwa-192x192.png', sizes: '192x192', type: 'image/png' },
         { src: 'icons/pwa-512x512.png', sizes: '512x512', type: 'image/png' },

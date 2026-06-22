@@ -182,11 +182,12 @@ function onKeydown(event: KeyboardEvent, index: number): void {
   padding: var(--space-2) var(--space-3);
   background: var(--color-surface);
   color: var(--color-text-muted);
-  font: inherit;
+  /* 代碼採 mono「讀值」字排，與簽名 Quadrant Mark（StatusChip）同一識別（§3.7.3–3.7.4）。 */
+  font-family: var(--font-mono);
   font-size: var(--font-size-sm);
   font-weight: 700;
   cursor: pointer;
-  letter-spacing: 0.03em;
+  letter-spacing: var(--tracking-data);
   transition: background var(--motion-fast) var(--easing-standard);
 }
 

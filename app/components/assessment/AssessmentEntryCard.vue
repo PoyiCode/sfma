@@ -45,6 +45,13 @@ const sideLabel = computed(() => {
   return null;
 });
 
+// 側別短碼（mono eyebrow，量測儀器識別）：左→L、右→R；單側/雙側測試不顯。
+const sideCode = computed(() => {
+  if (props.entry.side === 'left') return 'L';
+  if (props.entry.side === 'right') return 'R';
+  return null;
+});
+
 const classification = computed(() => entryClassification(props.record));
 // 有發現（非 FN：FP／DN／DP）才提供「標到模型」捷徑；FN 無可標部位。§3.3.8。
 const showModelLink = computed(
@@ -75,7 +82,12 @@ function onQuadrantSelect(payload: { painful: boolean; dysfunctional: boolean })
 <template>
   <div class="assessmentEntryCard">
     <div class="assessmentEntryCardHead">
-      <span v-if="sideLabel" class="assessmentEntryCardSide">{{ sideLabel }}</span>
+      <span v-if="sideLabel" class="assessmentEntryCardSide">
+        <span v-if="sideCode" class="assessmentEntryCardSideCode eyebrow" aria-hidden="true">{{
+          sideCode
+        }}</span>
+        {{ sideLabel }}
+      </span>
       <BaseStatusChip :status="classification" />
     </div>
     <div class="assessmentEntryCardQuadrant">
@@ -154,7 +166,24 @@ function onQuadrantSelect(payload: { painful: boolean; dysfunctional: boolean })
 }
 
 .assessmentEntryCardSide {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+}
+
+/* 側別短碼徽記：sage 描邊方塊內的 mono L/R（與 eyebrow 字排一致）。 */
+.assessmentEntryCardSideCode {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5em;
+  height: 1.5em;
+  padding: 0 0.35em;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent-fg);
 }
 
 .assessmentEntryCardCriteria {

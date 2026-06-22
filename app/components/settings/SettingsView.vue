@@ -279,6 +279,8 @@ function onImportInputChange(event: Event): void {
 .settingsBlockTitle {
   margin: 0;
   font-size: var(--font-size-lg);
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
   border-bottom: 1px solid var(--color-border);
   padding-bottom: var(--space-2);
 }

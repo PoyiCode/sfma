@@ -43,28 +43,47 @@ const { t } = useI18n();
     <ul v-else class="patientRows">
       <li v-for="item in items" :key="item.patientId" class="patientRow">
         <NuxtLink class="patientRowLink" :to="`/patients/${item.patientId}`">
-          <span v-if="item.displayCode" class="patientRowCode">{{ item.displayCode }}</span>
-          <span class="patientRowName">{{ item.name }}</span>
-          <span v-if="item.summary.kind === 'none'" class="patientSummaryMuted">
-            {{ t('patientNoAssessments') }}
+          <span class="patientRowMain">
+            <span v-if="item.displayCode" class="patientRowCode eyebrow">{{
+              item.displayCode
+            }}</span>
+            <span class="patientRowName">{{ item.name }}</span>
           </span>
-          <span v-else-if="item.summary.kind === 'allFn'" class="patientSummaryMuted">
-            {{ t('patientAllFn') }}
-          </span>
-          <span v-else class="patientSummaryFlags">
-            <span v-if="item.summary.dp > 0" class="patientSummaryFlag">
-              <BaseStatusChip status="DP" />
-              <span class="patientSummaryCount">×{{ item.summary.dp }}</span>
+          <span class="patientRowMeta">
+            <span v-if="item.summary.kind === 'none'" class="patientSummaryMuted">
+              {{ t('patientNoAssessments') }}
             </span>
-            <span v-if="item.summary.dn > 0" class="patientSummaryFlag">
-              <BaseStatusChip status="DN" />
-              <span class="patientSummaryCount">×{{ item.summary.dn }}</span>
+            <span v-else-if="item.summary.kind === 'allFn'" class="patientSummaryMuted">
+              {{ t('patientAllFn') }}
+            </span>
+            <span v-else class="patientSummaryFlags">
+              <span v-if="item.summary.dp > 0" class="patientSummaryFlag">
+                <BaseStatusChip status="DP" />
+                <span class="patientSummaryCount dataText">×{{ item.summary.dp }}</span>
+              </span>
+              <span v-if="item.summary.dn > 0" class="patientSummaryFlag">
+                <BaseStatusChip status="DN" />
+                <span class="patientSummaryCount dataText">×{{ item.summary.dn }}</span>
+              </span>
+            </span>
+            <span v-if="item.lastAssessedAt" class="patientRowDate dataText">
+              {{ item.lastAssessedAt.slice(0, 10) }}
             </span>
           </span>
-          <span v-if="item.lastAssessedAt" class="patientRowDate">
-            {{ item.lastAssessedAt.slice(0, 10) }}
-          </span>
-          <span class="patientRowChevron" aria-hidden="true">›</span>
+          <svg
+            class="patientRowChevron"
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 6l6 6-6 6" />
+          </svg>
         </NuxtLink>
       </li>
     </ul>
@@ -98,28 +117,56 @@ const { t } = useI18n();
   align-items: center;
   gap: var(--space-3);
   min-height: var(--control-height);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
   color: var(--color-text);
   text-decoration: none;
+  transition:
+    border-color var(--motion-fast) var(--easing-standard),
+    box-shadow var(--motion-fast) var(--easing-standard);
+}
+
+.patientRowLink:hover {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-1);
+}
+
+/* 左欄：兩層——代碼 eyebrow（mono）在上、姓名（重）在下。 */
+.patientRowMain {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
 .patientRowCode {
-  color: var(--color-text-muted);
-  font-family: var(--font-mono);
-  font-size: var(--font-size-sm);
+  /* 字排取全域 .eyebrow（mono/大寫/字距）；此處僅微調行高 */
+  line-height: 1.2;
 }
 
 .patientRowName {
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 右欄：狀態概況在上、日期（mono 讀值）在下，右對齊。 */
+.patientRowMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  margin-left: auto;
+  text-align: right;
 }
 
 .patientSummaryFlags {
   display: inline-flex;
   gap: var(--space-2);
-  margin-left: auto;
 }
 
 .patientSummaryFlag {
@@ -130,11 +177,10 @@ const { t } = useI18n();
 
 .patientSummaryCount {
   font-size: var(--font-size-sm);
-  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
 }
 
 .patientSummaryMuted {
-  margin-left: auto;
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
 }
@@ -142,10 +188,10 @@ const { t } = useI18n();
 .patientRowDate {
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
-  font-variant-numeric: tabular-nums;
 }
 
 .patientRowChevron {
+  flex: none;
   color: var(--color-text-muted);
 }
 

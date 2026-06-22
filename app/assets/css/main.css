@@ -2,6 +2,43 @@
 @import '@nuxt/ui';
 @import './tokens.css';
 
+/* 設計 token → Nuxt UI theme 橋接（§3.7.6）：將 sage 品牌色階注入 Tailwind theme，
+   使 app.config.ts 之 ui.colors.primary='sage' 可解析，令 U* 元件（USwitch/UCheckbox/USelect 焦點與選取態、
+   useToast 等）與自建 base 元件吃同一組 sage 品牌色（500＝tokens.css --sage-500 品牌主色）。
+   值與 tokens.css --sage-* 一致（唯一真相仍為 tokens.css semantic 變數）。 */
+@theme {
+  --color-sage-50: #f4f6f4;
+  --color-sage-100: #e7ece8;
+  --color-sage-200: #ccd7ce;
+  --color-sage-300: #abbcae;
+  --color-sage-400: #7f9483;
+  --color-sage-500: #596d5d;
+  --color-sage-600: #4f6354;
+  --color-sage-700: #3e4d42;
+  --color-sage-800: #34413a;
+  --color-sage-900: #2c362f;
+  --color-sage-950: #1b2620;
+}
+
+/* eyebrow：區段小標／結構標籤的「儀器」字排（§3.7.3）——系統 mono、全大寫、字距張開。
+   僅用於編碼真實結構處（畫面別、進度 n/15、左右側別、FINDINGS），非裝飾。 */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-eyebrow);
+  font-weight: 600;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* data：代碼／角度／日期／計數等「讀值」字排——系統 mono、等寬數字、微張字距。 */
+.dataText {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-data);
+}
+
 /* 全域 .button：供「以連結呈現為按鈕」之元素（NuxtLink class="button" data-variant=…）取用，
    與 Button.vue（scoped）外觀對齊（03 §3.7.1–3.7.4）。ptApp 原以全域 Button.css 提供，移植沿用。 */
 .button {

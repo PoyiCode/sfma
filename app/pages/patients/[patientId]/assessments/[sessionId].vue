@@ -115,7 +115,12 @@ function buildModelHref(patternKey: SfmaPatternKey): string {
   <div v-else-if="session && progress" class="assessmentSession">
     <div class="assessmentSessionHeader">
       <span class="assessmentSessionProgress">
-        {{ `${t('assessmentProgressLabel')} ${progress.assessed}/${progress.total}` }}
+        <span class="assessmentSessionProgressLabel eyebrow">{{
+          t('assessmentProgressLabel')
+        }}</span>
+        <span class="assessmentSessionProgressValue dataText">{{
+          ` ${progress.assessed}/${progress.total}`
+        }}</span>
       </span>
       <NuxtLink
         class="button"
@@ -164,9 +169,17 @@ function buildModelHref(patternKey: SfmaPatternKey): string {
   gap: var(--space-3);
 }
 
+/* 進度「讀值」：eyebrow 小標 ＋ mono 大數字（量測儀器讀數感，§3.7.3）。 */
 .assessmentSessionProgress {
-  color: var(--color-text-muted);
-  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.assessmentSessionProgressValue {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
 }
 
 .assessmentSessionStatus {

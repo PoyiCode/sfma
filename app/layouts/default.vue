@@ -59,15 +59,51 @@ function goSettings(): void {
   >
     <a class="skipLink" href="#appMain">{{ t('skipToContent') }}</a>
     <header class="appBar">
-      <span v-if="isRoot" class="appBarLead" aria-hidden="true" />
-      <BaseIconButton v-else class="appBarBack" :label="t('navBack')" icon="‹" @click="goBack" />
+      <!-- 根路徑：品牌標記＝SFMA 2×2 判讀方格徽記（與簽名 StatusChip／SfmaQuadrant 同構，
+           令「此 APP 即那張 2×2」之識別貫穿）；非根路徑：返回鍵。 -->
+      <span
+        v-if="isRoot"
+        class="appBarBrand"
+        role="img"
+        :aria-label="t('appTitle')"
+        :title="t('appTitle')"
+      >
+        <span class="appBarBrandGlyph" aria-hidden="true"><i /><i /><i /><i /></span>
+      </span>
+      <BaseIconButton v-else class="appBarBack" :label="t('navBack')" @click="goBack">
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M15 6l-6 6 6 6" />
+        </svg>
+      </BaseIconButton>
       <h1 class="appBarTitle">{{ t(titleKey) }}</h1>
-      <BaseIconButton
-        class="appBarSettings"
-        :label="t('navSettings')"
-        icon="⚙"
-        @click="goSettings"
-      />
+      <BaseIconButton class="appBarSettings" :label="t('navSettings')" @click="goSettings">
+        <svg
+          viewBox="0 0 24 24"
+          width="20"
+          height="20"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+          />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+      </BaseIconButton>
     </header>
     <main id="appMain" ref="appMainRef" class="appScroll" tabindex="-1">
       <div class="appContent">
@@ -114,14 +150,47 @@ function goSettings(): void {
 .appBarTitle {
   margin: 0;
   font-size: var(--font-size-lg);
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.appBarLead {
+/* 品牌徽記：SFMA 2×2 方格（sage 對角填色，抽象「判讀矩陣」標記）。置於 44px 前導槽、與返回鍵共位、保標題置中。 */
+.appBarBrand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--target-min);
+  height: var(--target-min);
+}
+
+.appBarBrandGlyph {
+  display: grid;
+  grid-template-columns: repeat(2, 9px);
+  grid-template-rows: repeat(2, 9px);
+  gap: 1.5px;
+  padding: 1.5px;
+  border-radius: var(--radius-sm);
+  background: var(--color-border);
+}
+
+.appBarBrandGlyph i {
+  display: block;
+  border-radius: 1px;
+  background: var(--color-surface);
+}
+
+/* 對角（左上＋右下）填品牌 sage——平衡、抽象，不指涉特定判讀 */
+.appBarBrandGlyph i:nth-child(1),
+.appBarBrandGlyph i:nth-child(4) {
+  background: var(--color-accent);
+}
+
+.appBarBack :deep(svg),
+.appBarSettings :deep(svg) {
   display: block;
 }
 

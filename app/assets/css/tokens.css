@@ -14,7 +14,7 @@
   --slate-800: #1e293b;
   --slate-900: #0f172a;
 
-  /* —— primitive：accent（teal/cyan，jolly-health 健康基調）—— */
+  /* —— primitive：accent（teal/cyan，原健康基調；保留供降級／參照，light 主題已改用 sage）—— */
   --teal-50: #ecfeff;
   --teal-100: #cffafe;
   --teal-200: #a5f3fc;
@@ -24,6 +24,21 @@
   --teal-600: #0891b2;
   --teal-700: #0e7490;
   --teal-800: #155e75;
+
+  /* —— primitive：sage（鼠尾草綠，light 主題品牌基調；取自 jolly-health.com 品牌色 #596d5d，
+     §3.7.2「jolly-health 健康基調」之具體落地。500＝品牌主色，與 Nuxt UI primary 對齊 @theme sage）—— */
+  --sage-50: #f4f6f4;
+  --sage-100: #e7ece8;
+  --sage-200: #ccd7ce;
+  --sage-300: #abbcae;
+  --sage-400: #7f9483;
+  --sage-500: #596d5d;
+  --sage-600: #4f6354;
+  --sage-700: #3e4d42;
+  --sage-800: #34413a;
+  --sage-900: #2c362f;
+  --sage-950: #1b2620;
+  --sage-grey-500: #5f6760; /* 中性暖灰（微帶 sage 底），供 muted 文字——與互動 accent 區隔 */
 
   /* —— primitive：臨床／語意原色 —— */
   --red-clinical: #c0392b;
@@ -82,23 +97,46 @@
   --motion-slow: 320ms;
   --easing-standard: cubic-bezier(0.2, 0, 0, 1);
 
-  /* —— semantic：light（預設）—— */
-  --color-bg: var(--slate-50);
+  /* —— semantic：light（預設；jolly-health sage 基調，§3.7.2）——
+     中性階改用 sage 微染暖白（bg）＋純白卡面（surface）＋暖灰文字，accent＝sage 品牌綠。
+     臨床保留色（綠/紅/橙/黃/藍）不變、仍為畫面最濃處——sage chrome 刻意低彩度以讓解剖色與狀態色為焦點。 */
+  --color-bg: var(--sage-50);
   --color-surface: #ffffff;
-  --color-text: var(--slate-900);
-  --color-text-muted: var(--slate-500);
-  --color-border: var(--slate-200);
-  --color-accent: var(--teal-700);
-  --color-accent-hover: var(--teal-800);
-  --color-focus: var(--teal-600);
+  --color-text: var(--sage-950);
+  --color-text-muted: var(--sage-grey-500);
+  --color-border: #dde3df; /* 淡 sage 分隔線（jolly-health #dee2df 取向） */
+  --color-accent: var(--sage-500);
+  --color-accent-hover: var(--sage-600);
+  --color-focus: var(--sage-500);
   --color-danger: var(--red-clinical);
   --color-warning: var(--amber-clinical);
   --color-success: var(--green-clinical);
 
   /* 前景安全變體（作文字／狀態標記時用）：填色 token（--color-accent／--color-danger）保留給
-     白字底色；前景變體於暗色另覆寫淺色以達 WCAG AA 4.5:1（§3.7.2、§3.7.5）。 */
-  --color-accent-fg: var(--teal-700);
+     白字底色；前景變體於暗色另覆寫淺色以達 WCAG AA 4.5:1（§3.7.2、§3.7.5）。
+     light accent-fg 取 sage-600（較填色深，作文字過 AA 4.5:1）。 */
+  --color-accent-fg: var(--sage-600);
   --color-danger-fg: var(--red-clinical);
+
+  /* —— primitive：字排識別（「量測儀器」識別——系統 mono 升格為資料字、eyebrow 用字距，§3.7.3）—— */
+  --tracking-eyebrow: 0.08em; /* eyebrow（區段小標）字距 */
+  --tracking-data: 0.02em; /* 代碼／角度／日期等資料字微張 */
+  --tracking-tight: -0.01em; /* 標題收緊 */
+  --font-size-eyebrow: var(--font-size-xs);
+
+  /* Nuxt UI primary 色階直接綁定 sage（與 app.config primary='sage' ＋ main.css @theme 互為保險，
+     確保 U* 元件焦點／選取／開關態恆為品牌 sage；值同 --sage-*）。 */
+  --ui-color-primary-50: var(--sage-50);
+  --ui-color-primary-100: var(--sage-100);
+  --ui-color-primary-200: var(--sage-200);
+  --ui-color-primary-300: var(--sage-300);
+  --ui-color-primary-400: var(--sage-400);
+  --ui-color-primary-500: var(--sage-500);
+  --ui-color-primary-600: var(--sage-600);
+  --ui-color-primary-700: var(--sage-700);
+  --ui-color-primary-800: var(--sage-800);
+  --ui-color-primary-900: var(--sage-900);
+  --ui-color-primary-950: var(--sage-950);
 
   /* 臨床保留色亦為 semantic（唯一真相源；DOM 圖例與 Babylon GUI 疊層共用）。 */
   --clinical-contraction: var(--red-clinical);
@@ -115,8 +153,10 @@
     --color-text: #e2e8f0;
     --color-text-muted: var(--slate-400);
     --color-border: var(--slate-700);
-    --color-focus: var(--teal-400);
-    --color-accent-fg: var(--teal-400);
+    /* dark 維持冷色 slate 中性（使用者要求 jolly-health 配色針對 light 主題）；
+       accent 品牌 sage 跨主題一致——暗背景上提亮為 sage-300 以達 AA。 */
+    --color-focus: var(--sage-300);
+    --color-accent-fg: var(--sage-300);
     --color-danger-fg: #f87171;
     --shadow-1: 0 0 0 1px rgb(148 163 184 / 12%);
     --shadow-2: 0 4px 12px rgb(0 0 0 / 40%);
@@ -126,15 +166,18 @@
 
 /* —— 顯式覆寫（AppSettings.theme = 'light' | 'dark'）勝過系統偏好 —— */
 :root[data-theme='light'] {
-  --color-bg: var(--slate-50);
+  --color-bg: var(--sage-50);
   --color-surface: #ffffff;
-  --color-text: var(--slate-900);
-  --color-text-muted: var(--slate-500);
-  --color-border: var(--slate-400);
-  --color-focus: var(--teal-600);
-  --shadow-1: 0 1px 2px rgb(15 23 42 / 8%);
-  --shadow-2: 0 4px 12px rgb(15 23 42 / 12%);
-  --shadow-3: 0 12px 32px rgb(15 23 42 / 20%);
+  --color-text: var(--sage-950);
+  --color-text-muted: var(--sage-grey-500);
+  --color-border: #c4cdc6; /* 顯式 light 用較深 sage 邊框（對比更明確，比照原 slate-400 取向） */
+  --color-accent: var(--sage-500);
+  --color-accent-hover: var(--sage-600);
+  --color-accent-fg: var(--sage-600);
+  --color-focus: var(--sage-500);
+  --shadow-1: 0 1px 2px rgb(27 38 32 / 8%);
+  --shadow-2: 0 4px 12px rgb(27 38 32 / 12%);
+  --shadow-3: 0 12px 32px rgb(27 38 32 / 20%);
 }
 
 :root[data-theme='dark'] {
@@ -143,8 +186,9 @@
   --color-text: #e2e8f0;
   --color-text-muted: var(--slate-400);
   --color-border: var(--slate-700);
-  --color-focus: var(--teal-400);
-  --color-accent-fg: var(--teal-400);
+  /* dark 維持冷色 slate 中性；accent 品牌 sage 暗背景提亮為 sage-300（AA）。 */
+  --color-focus: var(--sage-300);
+  --color-accent-fg: var(--sage-300);
   --color-danger-fg: #f87171;
   --shadow-1: 0 0 0 1px rgb(148 163 184 / 12%);
   --shadow-2: 0 4px 12px rgb(0 0 0 / 40%);

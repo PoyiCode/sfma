@@ -68,7 +68,9 @@ APP 需支援以下組合（取自草稿需求）：
 
 App Shell 為單一持久版面元件（對應 [07_dev_conventions.md](07_dev_conventions.md) §7.3 `app/layouts/`），路由視圖渲染進其內容區：
 
-- **頂列 App Bar（持久）**：情境標題 ＋ 返回鍵（堆疊深度 > 1 時顯示）＋ 設定 icon ＋ 視需要的 overflow。standalone PWA 下為 APP 自有 bar。
+- **頂列 App Bar（持久）**：情境標題（字重 600＋`--tracking-tight` 收緊）＋ 前導區 ＋ 設定 icon ＋ 視需要的 overflow。standalone PWA 下為 APP 自有 bar。
+  - **前導區**：非根路徑顯**返回鍵**（堆疊深度 > 1）；根路徑顯 **SFMA 品牌徽記**＝2×2 sage 方格（對角填色，與簽名 `StatusChip`／`SfmaQuadrant` 同構，§3.7.4），佔同一 44px 槽位、保標題置中。
+  - **真實 SVG icon**（取代原 `‹`／`⚙` 文字字符）：返回＝chevron-left、設定＝齒輪，`stroke="currentColor"` 隨主題；icon-only 仍配 `aria-label`＋`title`（§3.7.5）。清單列導引箭頭亦改 SVG chevron-right。
 - **主內容區**：承載路由視圖。
 - **次要／詳情區**（Medium／Expanded）：master-detail。
 - **暫態層**：Toast、Dialog、資料保全 Callout（§3.6）浮於 shell 之上，不佔版位。
@@ -137,7 +139,7 @@ Compact <600        Medium 600–1024       Expanded >1024
 
 承 §3.3.2 畫面說明，本節定各主要畫面的版面、列項與狀態（細節層級供實作）。視覺詞彙取 §3.7（token／`StatusChip`），佈局接 §3.3.3 斷點。
 
-- **個案清單**（`/`）：頂列搜尋 ＋「＋ 新增個案」；列項＝**代碼 · 姓名 · 上次評估概況（`StatusChip` 之 DN／DP 計數，或「全 FN」「尚無評估」）· 日期 · ›**，概況取自衍生快取（[06_data_model.md](06_data_model.md) §6.3）；空清單顯示引導式空狀態 ＋ CTA。
+- **個案清單**（`/`）：頂列搜尋 ＋「＋ 新增個案」；列項＝**兩層階層**——左欄上行為**代碼 eyebrow**（mono），下行為**姓名**（重、`--tracking-tight`）；右欄上行為上次評估概況（`StatusChip` Quadrant Mark 之 DN／DP 計數，或「全 FN」「尚無評估」），下行為**日期**（mono 讀值）；列末 SVG chevron-right；hover 以 sage 邊框＋微陰影回饋。概況取自衍生快取（[06_data_model.md](06_data_model.md) §6.3）；空清單顯示引導式空狀態 ＋ CTA。
 - **個案表單**（`/patients/new`、`…/edit`）：欄位依 06 §6.2（姓名必填，餘選填）；**告知同意＝表單末同意區（inline）**——末段顯示告知同意（可展開全文）＋必勾「已取得當事人同意」，勾選後「儲存」才可按，存檔即寫 `consentAcknowledgedAt`（§3.3.6）；未存草稿離開觸發守衛（§3.3.5）。
 - **個案詳情**（`/patients/:patientId`）：頂列姓名·代碼 ＋ 編輯 ＋ 匯出此個案；下半「評估紀錄 ⇄ 人體模型」——**Compact／Medium 分頁、Expanded 模型常駐第 3 欄**與評估並看（醫病同視，§3.6）；評估紀錄列＝日期·結果概況·評估者 → 開啟，每列附「**看模型**」次要動作深連結至 `/patients/:patientId/model?session=<sessionId>`（以該評估標註反向高亮部位，見 §3.3.4 & 04 §4.5），空狀態 ＋「新評估」CTA。
 - **評估表**（`…/assessments/:sessionId`）：頂列個案·日期·進度（n/15）·完成；**列項＝手風琴清單**——每動作一列點開填疼痛＋判讀標準勾選 → 即時衍生 FN/FP/DN/DP（`StatusChip`，[05_assessment.md](05_assessment.md) §5.2），收合顯示結果，雙側左右各一（展開版面見 §3.3.9），衍生值可覆寫；**Breakout 容器**＝DN／DP 列「進入 Breakout」開疊層（Compact 全屏 sheet、Expanded 側面板），步進卡逐步互動見 §3.3.9 與 05 §5.3。
@@ -153,7 +155,7 @@ Compact <600        Medium 600–1024       Expanded >1024
 **頂層手風琴填寫**
 
 - 收合列＝動作名 · 兩側 `StatusChip` 概況 · `▾`；頂列顯示進度 **n/15**（已判讀筆數）、「在模型上檢視」（深連結至 `…/model?session=<sessionId>`，於模型反向高亮本評估標註部位，見 [04_human_model.md](04_human_model.md) §4.5）與「完成評估」。
-- 展開版面：雙側動作＝**左右並排雙欄**，Compact 斷點改**上下堆疊**；每側為獨立卡＝一筆判讀紀錄（與 [06_data_model.md](06_data_model.md) §6.3 的 15 筆 1:1），單一動作退化為單欄。每側卡之**側別標題**（左／右）為 `position: sticky`，高卡片直式捲動時恆可見。
+- 展開版面：雙側動作＝**左右並排雙欄**，Compact 斷點改**上下堆疊**；每側為獨立卡＝一筆判讀紀錄（與 [06_data_model.md](06_data_model.md) §6.3 的 15 筆 1:1），單一動作退化為單欄。每側卡之**側別標題**（左／右）為 `position: sticky`，高卡片直式捲動時恆可見；側別標題前綴 **mono 短碼徽記 L／R**（sage 描邊，eyebrow 字排，量測識別）。頂列進度 **n/15** 以「讀值」呈現＝eyebrow 小標 ＋ mono 大數字（儀器讀數感，§3.7.3）。
 - 每側卡：`failedCriteria[]` 判讀標準勾選、**2×2 判讀方格 `SfmaQuadrant`**（取代原分離的 `painful` checkbox ＋ `dysfunctional` SegmentedControl）——列為「功能正常／功能異常」× 欄為「無痛／疼痛」，單格點按即選取 `painful`／`dysfunctional` 組合並即時寫入；`role="radiogroup"` ＋ 方向鍵導覽，格子 ≥44px。即時該側 `StatusChip`（FN/FP/DN/DP 衍生、不入庫）。勾任一 `failedCriteria` → `dysfunctional` 自動帶「異常」；治療師可覆寫，覆寫後顯「已手動」標記以別於自動值（05 §5.2）。資料模型（`painful`／`dysfunctional`）、`entryClassification`、判讀標準、手動覆寫邏輯均不變，純為輸入介面收斂。
 - Breakout 入口置於**展開的每側卡**（非收合列——收合列為 `AccordionTrigger` button，不可巢狀互動控制）：DN 列標「優先」、DP 列標「視疼痛決定」；FP／FN 不顯入口（FP 不進 Breakout，05 §5.3）。收合列既有 DN/DP `StatusChip` 概況作「此列需 Breakout」之訊號。
 - 每側卡完成後鈕字改「檢視 Breakout」（進行中「續測 Breakout」），並顯 findingType 概況 chips；**概況與 `classification` 合並為單組**——`classification` 那枚以外框強調並掛 `aria-label`「判讀：X」，避免單發現時 chip 重複。`classification` 取 `record.classification` 覆寫優先、否則預設推導（覆寫下拉見下「完成」）。
@@ -258,7 +260,7 @@ Compact <600        Medium 600–1024       Expanded >1024
 **設計 token 對應 Nuxt UI theme（橋接策略，後續 UI Phase 落實）**：
 
 - semantic token（`--color-bg`、`--color-accent`、`--color-danger` 等）與**臨床保留色**（`--clinical-contraction`／`--clinical-stretch`／`--clinical-nerve`／`--clinical-finding`）仍為臨床語意之唯一真相源，以 CSS 變數（kebab-case）定義。
-- 對應到 Nuxt UI：於 `app/assets/css/main.css`（`@import "tailwindcss"; @import "@nuxt/ui";`）以 `@theme` 把設計 token 注入 Tailwind theme，並於 `app.config.ts`（Nuxt UI `ui` 設定）指定語意色別名（primary 取 teal/cyan accent、error 取 danger 等），使 UAccordion/UModal/UCheckbox 等元件吃同一組臨床語意值。
+- 對應到 Nuxt UI（**已落實**）：於 `app/assets/css/main.css` 以 `@theme` 註冊 **sage 品牌色階**，並於 `app.config.ts` 設 `primary: 'sage'`、`neutral: 'slate'`；另於 tokens.css 直接綁 `--ui-color-primary-* → --sage-*`，使 UAccordion/UModal/UCheckbox/USwitch 等元件吃同一組品牌 sage（§3.7.6）。
 - light／dark 仍以重新定義 semantic token 達成（`:root` light、`.dark` 覆寫），與 Nuxt UI／Tailwind 的 color-mode 同步；臨床保留色於 DOM 圖例與 Babylon GUI 疊層（`getComputedStyle` 讀同組 CSS 變數）共用，確保 3D 與表單臨床色一致。
 - 此為與原 ptApp 設計的刻意偏離（見本節開頭）；token 與 theme 並非 1:1，橋接細節與對比驗收於後續 UI Phase 落實。
 
@@ -268,9 +270,13 @@ Compact <600        Medium 600–1024       Expanded >1024
 
 | 角色 | 用途 | 取值（light／dark 摘要） |
 | --- | --- | --- |
-| Chrome 中性階 | 表面／文字／邊框 | bg `#F8FAFC`／`#0F172A`、surface `#FFFFFF`／`#1E293B`、text `#0F172A`／`#E2E8F0`、muted `#64748B`／`#94A3B8`、border `#E2E8F0`／`#334155` |
-| Accent 互動 | 主要動作／選取／focus | accent `#0E7490`、hover `#155E75`、focus `#0891B2`（dark focus／accent-fg 提亮至 `#22D3EE`） |
+| Chrome 中性階 | 表面／文字／邊框 | **light（sage 暖調）**：bg `#F4F6F4`、surface `#FFFFFF`、text `#1B2620`、muted `#5F6760`、border `#DDE3DF`；**dark（冷 slate，不變）**：bg `#0F172A`、surface `#1E293B`、text `#E2E8F0`、muted `#94A3B8`、border `#334155` |
+| Accent 互動 | 主要動作／選取／focus | **sage 品牌綠**：accent `#596D5D`（sage-500）、hover `#4F6354`（sage-600）、focus `#596D5D`；前景文字 accent-fg light `#4F6354`／dark 提亮至 sage-300 `#ABBCAE`（過 AA 4.5:1） |
 | 臨床／語意 | 載 domain 意義，**永不用於 chrome/accent** | contraction `#C0392B` 紅、stretch `#2E73B8` 藍、nerve `#E8B400` 黃、finding `#E67E22` 橙 |
+
+> **light 主題配色取自 jolly-health.com 品牌**（鼠尾草綠 sage `#596D5D` 為按鈕／焦點／邊框主色，搭暖白與淡 sage 分隔線）——落實本節原「jolly-health 健康基調」之具體取色。dark 主題依需求僅針對 light 換色，維持原冷色 slate 中性，跨主題共用 sage 品牌 accent（暗背景提亮）。完整色階見 `app/assets/css/tokens.css` `--sage-50…950`。
+>
+> **sage accent 與臨床 functional 綠（`#2E7D32`）之區隔**：兩者皆綠，但 accent sage 為低彩度灰綠（chrome 互動），臨床 functional 為高彩度森林綠（狀態填色）——以**彩度差＋情境**區辨；且 FN/FP/DN/DP 之意義主要由 `StatusChip` 的 **2×2 方格幾何＋字母**承載（§3.7.4），不單靠顏色（§3.6）。原 teal/cyan primitive 保留於 tokens.css 供降級／參照。
 
 - **FN／FP／DN／DP 編碼**：照其本質「`dysfunctional` × `painful` 兩軸積」分軸表達，不另造會與保留色打架的四色板：
   - 功能軸＝填色：functional 綠 `#2E7D32`／dysfunctional 紅 `#C0392B`（二元、色盲安全）。
@@ -279,7 +285,8 @@ Compact <600        Medium 600–1024       Expanded >1024
   - 結果：FN 綠·無 glyph｜FP 綠＋glyph｜DN 紅·無 glyph｜DP 紅＋glyph。封裝為 `StatusChip` 元件。
 - **通用狀態色**：`--danger #C0392B`／`--warning #B26A00`／`--success #2E7D32`。紅同時用於臨床疼痛與破壞性動作（如刪除個案），以**情境＋圖示＋文字**區辨，不靠顏色本身。
 - **對比**：全部達 **WCAG AA**（內文 4.5:1、大字／UI 元件 3:1）；狀態 chip 於 light／dark 皆須過 AA。`--color-accent`／`--color-danger` 暗色作前景文字對比不足，故另設前景安全變體 `--color-accent-fg`／`--color-danger-fg`（暗色提亮：accent-fg teal-400 `#22D3EE`、danger-fg `#F87171`），錯誤訊息、AlertDialog 破壞性標題、Breakout pain 端點文字、Button ghost、啟用分頁、選取部位等前景文字／狀態標記皆用之，與作白字底色之填色 token 分工。`--color-focus`（亮 teal-600 `#0891B2`）白字對比不足內文 AA，故僅作 focus 環（UI 元件 3:1）、不作文字。純工具 `app/utils/contrast.ts` ＋驗收測 `app/utils/contrast.test.ts`（讀 `app/assets/css/main.css` 的 `@theme` token 解析 var()、鎖定亮暗雙主題所有意義對比對 ≥4.5）為活的回歸閘門。
-- accent 色族取 **teal/cyan**（健康／臨床基調，非「AI 紫」indigo）。token 兩層架構乾淨（元件僅消費 semantic），唯硬編品牌色處手動同步：3D 選取覆蓋色 `render/sceneHighlight.ts`、PWA `theme-color`、品牌圖示。
+- accent 色族取 **sage 鼠尾草綠**（取自 jolly-health.com 品牌；健康／臨床基調，非「AI 紫」indigo；原 teal/cyan 取向之延續與具體取色）。token 兩層架構乾淨（元件僅消費 semantic），唯硬編品牌色處手動同步：PWA `theme_color`（已改 sage `#596d5d`、background `#f4f6f4`）、品牌圖示。
+  - **3D 視埠 accent 刻意維持 teal `#0e7490`**（`render/sceneHighlight.ts` 選取覆蓋色、`motion/jointGizmo.ts` 關節控制點）：此非主題 chrome，而是疊在解剖模型上的**功能性回饋**——teal 對紅色肌肉／骨骼對比佳、辨識度高；sage（低彩度綠）疊在綠調組織上會失去對比。故 3D 功能色與 UI chrome accent 分流，為刻意邊界（`jointGizmo.test.ts` 鎖定此值）。
 
 ### 3.7.3 字體與比例階
 
@@ -287,6 +294,7 @@ Compact <600        Medium 600–1024       Expanded >1024
   - `--font-sans: -apple-system, "Segoe UI", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;`
   - `--font-mono: "SF Mono", "Cascadia Code", Consolas, "Noto Sans Mono", monospace;`（ID、數字）
   - Latin 取 OS UI 字、CJK 逐字回退到 PingFang TC／JhengHei，兩端皆原生。
+- **字排識別「量測儀器」（刻意取向）**：本 APP 為 SFMA **量測／判讀工具**，故把既有系統 **mono 字族升格為一級識別角色**——所有 Latin「讀值」（FN/FP/DN/DP 代碼、ROM 角度、個案代碼、日期、計數、進度 `n/15`）與**結構小標 eyebrow**（畫面別、進度、左右側別 L/R、FINDINGS）一律 mono＋等寬數字（`tabular-nums`）＋字距張開；中文敘述／標題仍走人文無襯線（humanist sans）。**維持零字體下載＋ CJK 原生**——識別來自「mono 作資料字」的策略，非新字檔（下載字無法承載中文標題，與本節零下載原則衝突，故不採）。對應 token：`--tracking-eyebrow 0.08em`、`--tracking-data 0.02em`、`--tracking-tight -0.01em`、`--font-size-eyebrow`；工具類別 `.eyebrow`／`.dataText`（`app/assets/css/main.css`）。標題字重提至 600＋`--tracking-tight` 收緊。
 - **字級階**（模組化 ~1.2、rem＠16px）：`xs 12 · sm 14 · base 16 · lg 18 · xl 20 · 2xl 24 · 3xl 30`；行高 內文 1.65（CJK 較寬）、標題 1.3；字重 400／500／700。
 - **間距階**（4px base）：`--space-1…12` = `4·8·12·16·20·24·32·40·48`。
 - **尺寸與點按**：最小點按目標 `--target-min: 44px`（建議 44–48 CSS px）；控制項高度 comfortable 44／compact 36。
@@ -299,7 +307,7 @@ Compact <600        Medium 600–1024       Expanded >1024
 
 - **Nuxt UI（Reka UI）原件**：UModal（Dialog）／UModal 破壞性確認變體（AlertDialog）、UPopover、UDropdownMenu、UTooltip、UTabs、USwitch、UCheckbox、URadioGroup、USelect、USlider、UToast、Accordion（UAccordion）、ULabel、以及 Reka UI VisuallyHidden 等。
 - **設計系統擁有的基礎套件**（建在 Nuxt UI 原件＋theme token、領域中性，僅消費 semantic token）：以 Nuxt UI 元件為底並按需薄封裝——`UButton`／`UButton` icon-only、`UInput`／`USelect`／`UCheckbox`／`URadioGroup`／`USwitch`／`USlider`、`UTabs`、`UModal`（含 AlertDialog 變體）、`UPopover`／`UTooltip`、`UToast`、`UDropdownMenu`、`UCard`、`UBadge`、`Callout`（資料保全提示，以 UAlert／UCard 封裝）、`SegmentedControl`（LOD、相機視角、標籤模式、密度；以 URadioGroup／UTabs 樣式封裝）。
-- **唯一帶領域味的 token 綁定元件**：`StatusChip`（封裝 §3.7.2 的 FN/FP/DN/DP 分軸編碼，以 UBadge 為底）。
+- **唯一帶領域味的 token 綁定元件＝APP 簽名標記**：`StatusChip`＝**Quadrant Mark**——把 SFMA 判讀的 2×2 心智模型（功能軸 × 疼痛軸）畫成**微縮方格**，亮起的格「位置即答案」（左上 FN／右上 FP／左下 DN／右下 DP；功能列綠、異常列紅），與全尺寸輸入元件 `SfmaQuadrant` **同構**（同列＝功能/異常、同欄＝無痛/疼痛），先讀「形」再讀「字」。仍遵 §3.7.2 分軸編碼（功能軸填色＋疼痛軸獨立 glyph ✳＋字母恆顯，mono 代碼）。此標記貫穿個案清單／評估列頭／總覽／Breakout，並以同一 2×2 幾何延伸為 **App Bar 品牌徽記**（sage 對角填色，§3.3.3）——令「此 APP 即那張 2×2」之識別一致。
 - **領域畫面元件**（個案卡、評估 stepper、Breakout 步進卡…）屬後續主要畫面（wireframe）與評估互動設計，本節不展開。
 
 ### 3.7.5 無障礙規格（系統級）
@@ -314,8 +322,9 @@ Compact <600        Medium 600–1024       Expanded >1024
 
 ### 3.7.6 檔案結構（供後續實作）
 
-- `app/assets/css/main.css`：`@import "tailwindcss"; @import "@nuxt/ui";` ＋ 以 `@theme` 注入設計 token（primitive＋semantic＋light/dark＋density），全域載入（`nuxt.config` `css`）。
-- `app.config.ts`：Nuxt UI `ui` 語意色別名設定（primary／error 等對應臨床 accent／danger）。
+- `app/assets/css/main.css`：`@import "tailwindcss"; @import "@nuxt/ui"; @import "./tokens.css";` ＋ 以 **`@theme` 註冊 sage 品牌色階**（`--color-sage-50…950`，值同 tokens.css `--sage-*`）供 Nuxt UI primary 解析；另含 `.button`、**`.eyebrow`／`.dataText`** 字排工具類別；全域載入（`nuxt.config` `css`）。
+- `app.config.ts`：Nuxt UI `ui.colors` 設定 **`primary: 'sage'`**（對應上述 @theme 色階）、`neutral: 'slate'`（與 dark 主題一致）。
+- `tokens.css`：另直接綁定 `--ui-color-primary-50…950 → --sage-*`（與 `@theme`／`app.config` 互為保險），確保 U* 元件焦點／選取／開關態恆為品牌 sage；色彩唯一真相仍為 tokens.css semantic 變數。
 - `app/components/`：自建領域元件（`StatusChip`、`SegmentedControl`、`Callout` 等），以 Nuxt UI 元件為底、僅消費 semantic token。
 - Babylon GUI 疊層以 `getComputedStyle` 讀同組 CSS 變數，與 DOM 視覺一致。
 

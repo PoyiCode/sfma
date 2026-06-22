@@ -123,7 +123,8 @@ function summaryFor(entry: AssessmentEntry) {
 }
 
 .assessmentRowName {
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
 }
 
 .assessmentRowChips {
