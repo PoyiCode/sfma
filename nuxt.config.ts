@@ -9,10 +9,19 @@ import { RUNTIME_CACHING } from './app/utils/pwa/runtimeCaching';
 const VITE_DEV_MODE =
   process.env.VITE_DEV_MODE ?? (process.env.NODE_ENV === 'production' ? 'false' : 'true');
 
+// 站台基底路徑（GitHub Pages 專案站台 https://<user>.github.io/<repo>/ 需以 /<repo>/ 為前綴）。
+// 本機開發／自訂網域為 '/'；佈署於 CI 以 NUXT_APP_BASE_URL=/sfma/ 覆寫。結尾須含斜線。
+// app.baseURL 同時驅動 Vite base → import.meta.env.BASE_URL（資產 URL 解析依此，見 modelAsset/dracoConfig）。
+const APP_BASE_URL = process.env.NUXT_APP_BASE_URL ?? '/';
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   ssr: false, // SPA：local-first（IndexedDB/Babylon 僅 client），無 SSR 水合問題（master plan F）
+  app: { baseURL: APP_BASE_URL },
+  // GitHub Pages 靜態佈署：輸出 .nojekyll（保留 _nuxt/ 下底線前綴資產不被 Jekyll 忽略）
+  // 與 404.html（SPA 深連結回退，由 Pages 對未知路徑回傳，交還客戶端路由）。
+  nitro: { preset: 'github-pages' },
   devtools: { enabled: false },
   modules: ['@nuxt/ui', '@nuxt/eslint', '@pinia/nuxt', '@nuxtjs/i18n', '@vite-pwa/nuxt'],
   css: ['~/assets/css/main.css'],
@@ -54,7 +63,9 @@ export default defineNuxtConfig({
       short_name: 'sfma',
       lang: 'zh-TW',
       display: 'standalone',
-      start_url: '/',
+      // start_url／scope 須隨 baseURL（專案站台子路徑），否則安裝後啟動／作用域指向網域根而失效。
+      start_url: APP_BASE_URL,
+      scope: APP_BASE_URL,
       theme_color: '#596d5d',
       background_color: '#f4f6f4',
       icons: [

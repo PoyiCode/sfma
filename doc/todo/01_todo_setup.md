@@ -50,5 +50,6 @@
 ## CI 與部署
 
 - [x] CI pipeline：lint → typecheck → 單元／元件 → test:nuxt → build → verify:bundle，E2E 另立 job（`.github/workflows/ci.yml`，pnpm）—— **待 GitHub remote 實跑**
-- [ ] 前端靜態託管（CDN、HTTPS）—— 暫緩：需供應商帳號決策，見 `infra/README.md`
+- [x] GitHub Pages 靜態佈署 workflow（`.github/workflows/deploy-pages.yml`）：`pnpm generate` + `NUXT_APP_BASE_URL=/<repo>/` → `actions/deploy-pages`；nitro `github-pages` preset 產 `.nojekyll` 與 `404.html`（SPA 深連結回退）；資產 url（glb／draco）隨 `app.baseURL` 前綴。**先決條件：repo Settings → Pages → Source 選「GitHub Actions」（一次性）；推送至 `main` 後自動佈署**
+- [ ] 前端靜態託管（CDN、HTTPS）—— GitHub Pages 為現行方案（上述）；正式 CDN／自訂網域待供應商帳號決策，見 `infra/README.md`
 - [ ] 3D 資產物件儲存桶 + CDN 基礎配置（02 §2.5；資產內容見 [03_todo_assets.md](03_todo_assets.md)）—— 暫緩：同上

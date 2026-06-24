@@ -24,10 +24,12 @@ const defaultImporter: MeshImporter = (url, scene) =>
 export function createGltfMeshLoader(
   url: string,
   importer: MeshImporter = defaultImporter,
+  dracoBaseUrl?: string,
 ): SceneMeshLoader {
   // 配置自帶 Draco decoder（不走 CDN）於 import 前——glb 經 KHR_draco_mesh_compression 壓縮、
   // Babylon glTF 載入器以 DracoDecoder.Default 解碼，須先指向自帶 public/draco/（§4.6.3、todo 04 line 8）。
-  configureDracoDecoder();
+  // 子路徑佈署（GitHub Pages）由呼叫端傳含 app.baseURL 前綴之 dracoBaseUrl；未傳則預設 /draco/。
+  configureDracoDecoder(dracoBaseUrl);
   return async (scene) => {
     // 開發者埋點（07 §7.6、todo 07 line 16）：資產載入生命週期——assetLoad（開始、時戳供算載入時長）／
     // assetLoaded（成功）／assetLoadError（失敗，診斷 iOS 區網非安全環境載入失敗，見 [[ios-lan-nonsecure-context]]）。

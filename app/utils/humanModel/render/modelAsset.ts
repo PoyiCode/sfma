@@ -18,22 +18,35 @@ export const MODEL_ASSET_URLS = {
   simplified: '/models/anatomyV1.glb',
 } as const;
 
+// app.baseURL（結尾含斜線）前綴：根站台／自訂網域 '/' 維持原始絕對 url；GitHub Pages 子路徑
+// '/sfma/' → '/sfma/models/...'。深層路由（如 /sfma/patients/<id>/model）下相對解析會 404，
+// 故須以 baseURL 顯式前綴而非相對路徑。Vite 之 import.meta.env.BASE_URL 於 Nuxt 為 './' 不可用，
+// 真值取自 useRuntimeConfig().app.baseURL（由呼叫端於 Nuxt context 傳入）。
+export function withAppBase(url: string, baseURL: string): string {
+  return baseURL === '/' ? url : `${baseURL.replace(/\/+$/, '')}${url}`;
+}
+
 // 依解析分級擇資產 url。full→完整無損獨立檔；simplified→現役 anatomyV1.glb。
-export function resolveModelAssetUrl(tier: LodTier): string {
-  if (tier === 'full') return MODEL_ASSET_URLS.full;
-  return MODEL_ASSET_URLS.simplified;
+// baseURL 預設 '/'（單元測試／根站台）；子路徑佈署由呼叫端傳 app.baseURL。
+export function resolveModelAssetUrl(tier: LodTier, baseURL: string = '/'): string {
+  const url = tier === 'full' ? MODEL_ASSET_URLS.full : MODEL_ASSET_URLS.simplified;
+  return withAppBase(url, baseURL);
 }
 
 // 每-url 之 ScenePopulator memo：同一 url 回穩定相同參考（避免 Model3DView 因參考變動重建場景），
 // 相異 url 回相異參考。填充器＝載入該 glb，缺檔／失敗退佔位身體（§4.2／§4.6.4）。
 const POPULATOR_BY_URL = new Map<string, ScenePopulator>();
 
-export function anatomyScenePopulatorFor(url: string): ScenePopulator {
+export function anatomyScenePopulatorFor(url: string, baseURL: string = '/'): ScenePopulator {
   const cached = POPULATOR_BY_URL.get(url);
   if (cached) {
     return cached;
   }
-  const populator = createGltfScenePopulatorWithFallback(createGltfMeshLoader(url));
+  // Draco decoder 亦須隨 baseURL（與 glb 同源、同子路徑前綴）；缺檔退佔位身體（§4.2／§4.6.4）。
+  const dracoBaseUrl = withAppBase('/draco/', baseURL);
+  const populator = createGltfScenePopulatorWithFallback(
+    createGltfMeshLoader(url, undefined, dracoBaseUrl),
+  );
   POPULATOR_BY_URL.set(url, populator);
   return populator;
 }

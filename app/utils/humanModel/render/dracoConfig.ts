@@ -5,7 +5,8 @@
 // 自 @babylonjs/core/assets/Draco 複製。WASM 自 iOS 11 全支援、不設 fallbackUrl（不出貨 500K JS fallback）。
 import { DracoDecoder } from '@babylonjs/core';
 
-// 自帶 decoder 託管前綴（public/draco/ → runtime /draco/）。
+// 自帶 decoder 託管前綴（public/draco/ → runtime /draco/）。子路徑佈署（GitHub Pages）時，
+// 呼叫端傳入含 app.baseURL 前綴之 baseUrl（如 /sfma/draco/），見 createGltfMeshLoader。
 const DEFAULT_DRACO_BASE_URL = '/draco/';
 
 // 設定 DracoDecoder.DefaultConfiguration 指向自帶 decoder（冪等；須於首次 glb 載入前呼叫，
