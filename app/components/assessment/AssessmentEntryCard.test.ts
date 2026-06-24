@@ -204,6 +204,18 @@ describe('AssessmentEntryCard（判讀卡）', () => {
     });
   });
 
+  describe('動作參考圖', () => {
+    it('顯示該動作的參考圖（含可存取 alt）', () => {
+      const wrapper = mountCard(makeRecord());
+      const img = wrapper.find('.assessmentEntryCardFigure img');
+      expect(img.exists()).toBe(true);
+      expect(img.attributes('src')).toBeTruthy();
+      // alt＝資料層動作名稱 + i18n 參考圖標籤（t 於測試回傳 key）。
+      expect(img.attributes('alt')).toContain('頸椎屈曲');
+      expect(img.attributes('alt')).toContain('assessmentMovementReference');
+    });
+  });
+
   describe('modelHref 深連結', () => {
     it('FN 時不顯「標到模型」', () => {
       const wrapper = mountCard(makeRecord(), { modelHref: '/model?x=1' });
