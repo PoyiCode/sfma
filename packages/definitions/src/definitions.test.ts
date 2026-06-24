@@ -12,6 +12,7 @@ import {
   anatomyEntityById,
   sfmaBreakoutFlowByKey,
   sfmaBreakoutFlows,
+  sfmaPatternByKey,
   sfmaPatternEntryFlows,
   sfmaPatterns,
 } from './index';
@@ -106,6 +107,13 @@ describe('sfmaPatterns（06 §6.4、05 §5.2）', () => {
     );
     expect(sfmaPatternEntryFlows.multiSegmentalExtension).toBe('spineExtensionBreakout');
     expect(sfmaPatternEntryFlows.singleLegStance).toBe('vestibularCoreBreakout');
+  });
+
+  it('sfmaPatternByKey 涵蓋全部 10 動作且回對應定義', () => {
+    expect([...sfmaPatternByKey.keys()].sort()).toEqual([...sfmaPatternKeySchema.options].sort());
+    for (const pattern of sfmaPatterns) {
+      expect(sfmaPatternByKey.get(pattern.patternKey)).toBe(pattern);
+    }
   });
 });
 
