@@ -16,6 +16,7 @@ import {
   type AssessmentEntry,
 } from '../../utils/assessment/assessmentForm';
 import type { BreakoutEntrySummary } from '../../utils/assessment/breakoutPresentation';
+import { patternImageUrl } from '../../utils/assessment/patternImage';
 import { localizeText } from '../../utils/i18n/localizeText';
 
 interface Props {
@@ -51,6 +52,10 @@ const sideCode = computed(() => {
   if (props.entry.side === 'right') return 'R';
   return null;
 });
+
+// 動作參考圖（03 §3.3.9）：供 PT 評估時直接對照該動作；缺圖則不顯。
+const patternName = computed(() => localizeText(props.entry.definition.name));
+const movementImageUrl = computed(() => patternImageUrl(props.entry.patternKey));
 
 const classification = computed(() => entryClassification(props.record));
 // 有發現（非 FN：FP／DN／DP）才提供「標到模型」捷徑；FN 無可標部位。§3.3.8。
@@ -91,6 +96,14 @@ function onQuadrantSelect(payload: { painful: boolean; dysfunctional: boolean })
       <BaseStatusChip :status="classification" />
     </div>
     <div class="assessmentEntryCardQuadrant">
+      <figure v-if="movementImageUrl" class="assessmentEntryCardFigure">
+        <img
+          :src="movementImageUrl"
+          :alt="`${patternName}（${t('assessmentMovementReference')}）`"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
       <SfmaQuadrant
         :painful="record.painful"
         :dysfunctional="record.dysfunctional"
@@ -205,6 +218,28 @@ function onQuadrantSelect(payload: { painful: boolean; dysfunctional: boolean })
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
+}
+
+/* 動作參考圖：來源為白底插畫，固定白底並描邊，使深／淺主題下皆如「參考照片」。 */
+.assessmentEntryCardFigure {
+  flex: none;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88px;
+  height: 112px;
+  padding: var(--space-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.assessmentEntryCardFigure img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .assessmentEntryCardManual {
