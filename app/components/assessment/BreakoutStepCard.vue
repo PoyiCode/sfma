@@ -5,6 +5,7 @@ import { computed } from 'vue';
 import type { BreakoutNode } from '@ptapp/shared';
 import BaseButton from '../base/Button.vue';
 import { localizeText } from '../../utils/i18n/localizeText';
+import { breakoutStepImageUrl } from '../../utils/assessment/breakoutStepImage';
 
 interface Props {
   node: BreakoutNode;
@@ -50,6 +51,8 @@ const specialResults = computed(() =>
   props.node.resultOptions.filter((code) => !CORE_RESULTS.includes(code)),
 );
 const nodeName = computed(() => localizeText(props.node.name));
+// 測試參考圖（缺圖回 undefined → 不顯 figure，優雅退場）。
+const stepImageUrl = computed(() => breakoutStepImageUrl(props.node.nodeKey));
 const criterion = computed(() =>
   props.node.criterion ? localizeText(props.node.criterion) : undefined,
 );
@@ -66,6 +69,14 @@ const priorLabel = computed(() =>
       </span>
       <h3 class="breakoutStepCardName">{{ nodeName }}</h3>
     </div>
+    <figure v-if="stepImageUrl" class="breakoutStepCardFigure">
+      <img
+        :src="stepImageUrl"
+        :alt="`${nodeName}（${t('assessmentMovementReference')}）`"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
     <p v-if="criterion" class="breakoutStepCardCriterion">{{ criterion }}</p>
     <div v-if="priorResult !== undefined" class="breakoutStepCardPrior">
       <span class="breakoutStepCardPriorLabel">{{ t('breakoutPriorOtherSide') }}</span>
@@ -128,6 +139,22 @@ const priorLabel = computed(() =>
   margin: 0;
   font-size: var(--font-size-lg);
   font-weight: 600;
+}
+
+/* 測試參考圖（03 §3.3.9）：置中、限高，深淺色皆有底框避免去背圖糊邊。 */
+.breakoutStepCardFigure {
+  margin: 0;
+  align-self: center;
+  max-width: 100%;
+}
+
+.breakoutStepCardFigure img {
+  display: block;
+  max-width: 100%;
+  max-height: 180px;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted, #fff);
 }
 
 .breakoutStepCardCriterion {
