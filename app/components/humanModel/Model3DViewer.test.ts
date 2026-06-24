@@ -9,6 +9,8 @@ import { DEFAULT_LAYER_VISIBILITY } from '../../utils/humanModel/anatomy/anatomy
 
 beforeEach(() => {
   vi.stubGlobal('useI18n', () => ({ t: (key: string) => key }));
+  // app.baseURL 取自 Nuxt auto-import；單元測試以根站台 '/' stub（子路徑前綴邏輯見 resolveModelAssetUrl）。
+  vi.stubGlobal('useRuntimeConfig', () => ({ app: { baseURL: '/' } }));
 });
 afterEach(() => {
   vi.unstubAllGlobals();

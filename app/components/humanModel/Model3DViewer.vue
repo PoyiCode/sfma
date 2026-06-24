@@ -147,9 +147,15 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 
+// app.baseURL（子路徑佈署如 GitHub Pages '/sfma/'）：glb／draco 資產 url 須前綴之，
+// 否則深層路由（/sfma/patients/<id>/model）相對解析 404（見 resolveModelAssetUrl）。
+const appBaseURL = useRuntimeConfig().app.baseURL;
+
 // 未注入 populateScene 時依 tier 解析填充器（每-url memo→穩定參考，免 Model3DView 重建場景）。
 const scenePopulator = computed<ScenePopulator>(
-  () => props.populateScene ?? anatomyScenePopulatorFor(resolveModelAssetUrl(props.tier)),
+  () =>
+    props.populateScene ??
+    anatomyScenePopulatorFor(resolveModelAssetUrl(props.tier, appBaseURL), appBaseURL),
 );
 
 // 3D 模型載入態（§4.6.4）：3D 掛載即載入中（多 MB GLB 下載期），Model3DView 填充 settle 後清。

@@ -1,0 +1,52 @@
+name: deploy-pages
+
+# 靜態 SPA 佈署至 GitHub Pages（專案站台 https://<user>.github.io/<repo>/）。
+# 先決條件（一次性，repo 擁有者於 Settings → Pages 設定）：Source 選「GitHub Actions」。
+# 觸發：推送至 main 自動佈署；亦可於 Actions 頁手動 workflow_dispatch。
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# 供 actions/deploy-pages 推送至 Pages 並取得 OIDC 權杖。
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時只跑一個佈署；新推送取消進行中的舊佈署（保留已完成的不中斷）。
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4 # 版本取根 package.json 之 packageManager
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # 子路徑基底：注入 repo 名 → app.baseURL=/sfma/（資產／路由／PWA 前綴皆依此）。
+      # 自訂網域時改為 '/' 並於 public/ 放 CNAME。
+      - name: Generate static site
+        run: pnpm generate
+        env:
+          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
