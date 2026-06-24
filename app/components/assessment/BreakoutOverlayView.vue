@@ -2,7 +2,13 @@
 // Breakout 疊層三區（03 §3.3.9）：頂條（流程名·已測步數·收合）／中段（端點結果卡＋步進卡）／底摺疊條
 // （發現·待測流程）。純展示——結果上拋 result、收合上拋 close；自動前進與引擎呼叫由上層 composable 負責。
 import { computed, ref } from 'vue';
-import type { BreakoutFindingType, BreakoutNode, LocalizedText, SfmaFlowKey } from '@ptapp/shared';
+import type {
+  BreakoutFindingType,
+  BreakoutNode,
+  LocalizedText,
+  SfmaFlowKey,
+  SfmaPatternKey,
+} from '@ptapp/shared';
 import BaseAlertDialog from '../base/AlertDialog.vue';
 import BaseButton from '../base/Button.vue';
 import BaseIconButton from '../base/IconButton.vue';
@@ -21,6 +27,7 @@ import type {
   BreakoutResultCardModel,
   BreakoutStepView,
 } from '../../utils/assessment/breakoutPresentation';
+import { patternImageUrl } from '../../utils/assessment/patternImage';
 import { localizeText } from '../../utils/i18n/localizeText';
 
 // 自由模式控制（06-F2g-iii）：picker 欄位＋啟用旗標，由上層 useBreakout 映入。
@@ -35,6 +42,9 @@ export interface BreakoutFreeformControls {
 
 interface Props {
   flowName: LocalizedText;
+  // 來源頂層動作（供頂條顯示動作參考圖，讓 PT 於 Breakout 過程仍可對照原動作）。
+  patternKey: SfmaPatternKey;
+  patternName: LocalizedText;
   stepCount: number;
   node: BreakoutNode | undefined;
   // 不分側測試另一側前值（05 §5.3.3 #8）；傳入步進卡顯「沿用前值」。
@@ -67,6 +77,9 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 
+// 來源動作參考圖（與評估卡同源）：頂條顯示，缺圖則不顯。
+const movementImageUrl = computed(() => patternImageUrl(props.patternKey));
+
 const stepsExpanded = ref(false);
 // 待量化確認的作廢步索引（null＝無待決）；破壞性作廢只經此 AlertDialog 觸發（§3.3.5）。
 const pendingRewind = ref<number | null>(null);
@@ -94,16 +107,26 @@ function confirmRewind(): void {
 <template>
   <div class="breakoutOverlay">
     <header class="breakoutOverlayTop">
-      <div class="breakoutOverlayHeading">
-        <h2 class="breakoutOverlayFlowName">{{ localizeText(flowName) }}</h2>
-        <button
-          type="button"
-          class="breakoutOverlayBreadcrumb"
-          :aria-expanded="stepsExpanded"
-          @click="stepsExpanded = !stepsExpanded"
-        >
-          {{ `${t('breakoutStepsLabel')} ${stepCount}` }}
-        </button>
+      <div class="breakoutOverlayLead">
+        <figure v-if="movementImageUrl" class="breakoutOverlayFigure">
+          <img
+            :src="movementImageUrl"
+            :alt="`${localizeText(patternName)}（${t('assessmentMovementReference')}）`"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <div class="breakoutOverlayHeading">
+          <h2 class="breakoutOverlayFlowName">{{ localizeText(flowName) }}</h2>
+          <button
+            type="button"
+            class="breakoutOverlayBreadcrumb"
+            :aria-expanded="stepsExpanded"
+            @click="stepsExpanded = !stepsExpanded"
+          >
+            {{ `${t('breakoutStepsLabel')} ${stepCount}` }}
+          </button>
+        </div>
       </div>
       <div class="breakoutOverlayTopActions">
         <BaseButton
@@ -204,6 +227,36 @@ function confirmRewind(): void {
   margin: 0;
   font-size: var(--font-size-lg);
   font-weight: 600;
+}
+
+/* 頂條左側：來源動作參考圖 + 標題並排。 */
+.breakoutOverlayLead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+/* 來源動作參考圖：與評估卡同樣式（白底描邊如參考照片），頂條較窄故略小。 */
+.breakoutOverlayFigure {
+  flex: none;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 72px;
+  padding: var(--space-1);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.breakoutOverlayFigure img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .breakoutOverlayHeading {

@@ -17,6 +17,11 @@ export const sfmaPatterns: SfmaPatternDefinition[] = sfmaPatternDefinitionSchema
   .array()
   .parse(rawPatterns);
 
+// patternKey → 頂層動作定義查找（評估卡／Breakout 顯示動作名稱與參考圖共用）
+export const sfmaPatternByKey: ReadonlyMap<SfmaPatternKey, SfmaPatternDefinition> = new Map(
+  sfmaPatterns.map((pattern) => [pattern.patternKey, pattern]),
+);
+
 // Breakout 16 流程決策樹（05 §5.3、ref §3）
 export const sfmaBreakoutFlows: SfmaBreakoutFlow[] = sfmaBreakoutFlowSchema.array().parse(rawFlows);
 

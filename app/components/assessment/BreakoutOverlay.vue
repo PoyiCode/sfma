@@ -5,6 +5,7 @@
 // 每步經 useBreakout→change 樂觀落盤。flows 可注入供測試脫鉤（預設 16 真實流程）。
 import { computed, toRef } from 'vue';
 import type { BreakoutRecord, LocalizedText } from '@ptapp/shared';
+import { sfmaPatternByKey } from '@ptapp/definitions';
 import { useBreakpoint } from '../../composables/app/useBreakpoint';
 import { useHistoryDismiss } from '../../composables/app/useHistoryDismiss';
 import { useBreakout } from '../../composables/assessment/useBreakout';
@@ -41,6 +42,10 @@ const breakout = useBreakout(
 
 const variant = computed(() => (breakpoint.value === 'expanded' ? 'panel' : 'sheet'));
 const flowName = computed(() => breakout.flowName.value ?? UNKNOWN_FLOW_NAME);
+// 來源頂層動作名稱（供頂條動作參考圖之 alt）；理論上恆有值，型別安全後備為空。
+const patternName = computed(
+  () => sfmaPatternByKey.get(props.record.patternKey)?.name ?? UNKNOWN_FLOW_NAME,
+);
 const freeformControls = computed(() => ({
   active: breakout.freeform.value,
   flowOptions: breakout.flowOptions.value,
@@ -60,6 +65,8 @@ const freeformControls = computed(() => ({
   >
     <BreakoutOverlayView
       :flow-name="flowName"
+      :pattern-key="record.patternKey"
+      :pattern-name="patternName"
       :step-count="breakout.stepCount.value"
       :node="breakout.node.value"
       :prior-result="breakout.priorResult.value"
