@@ -69,9 +69,11 @@ export function createLocalStore(dbName: string = DB_NAME): Repository {
       if (input.birthDate !== undefined) patient.birthDate = input.birthDate;
       if (input.contact !== undefined) patient.contact = input.contact;
       if (input.notes !== undefined) patient.notes = input.notes;
-      await database.put('patients', patient);
-      actionLogger.log('data', 'createPatient', patient.patientId);
-      return patient;
+      // 與 updatePatient 一致：JSON 往返去 Vue reactive proxy（input 巢狀欄位如 contact 可能挾 proxy）。
+      const stored = toStorable(patient);
+      await database.put('patients', stored);
+      actionLogger.log('data', 'createPatient', stored.patientId);
+      return stored;
     },
 
     async updatePatient(patient) {

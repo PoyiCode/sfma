@@ -3,11 +3,14 @@
 // 對 definitions 查核。與 manifestConsistency（definitions⇄manifest 腿）、svg2dConsistency（2D 腿）
 // 合為 anatomyId 三方守恆——任一處改名/漏網即被擋下。
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { anatomyEntityById } from '@ptapp/definitions';
 
 const GLB = 'public/models/anatomyV1.glb';
 const MANIFEST = 'infra/asset-pipeline/manifestV1.json';
+// 部署 glb 為 gitignore 之大型二進位資產（見 public/models/README.md）：缺檔時整組跳過，
+// 不硬讀致 ENOENT 失敗（此為資產管線守護測試，唯資產就位時有意義）。
+const hasGlb = existsSync(GLB);
 // 功能關節無幾何；神經多為 0-poly metadata-only（僅部分有 mesh）→ 不要求每一條皆有 node。
 const EXEMPT_FROM_MESH = new Set(['joint', 'nerve']);
 
@@ -41,8 +44,8 @@ function manifestAnatomyIds(): string[] {
   return arr.map((e) => e.anatomyId);
 }
 
-describe('glTF node ⇄ definitions 一致（3-way glTF 腿；todo 08 L20）', () => {
-  const names = glbMeshNodeNames();
+describe.skipIf(!hasGlb)('glTF node ⇄ definitions 一致（3-way glTF 腿；todo 08 L20）', () => {
+  const names = hasGlb ? glbMeshNodeNames() : [];
 
   it('部署 glb 含 mesh node（健全性）', () => {
     expect(names.length).toBeGreaterThan(300);
