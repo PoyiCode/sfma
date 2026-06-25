@@ -30,6 +30,11 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # 佈署前品質閘：lint／typecheck／單元測試須過才產站，避免壞版（型別錯、測試紅）佈上線。
+      # （瀏覽器相依之 test:nuxt／e2e 留於 ci.yml，不拖慢佈署。）
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
       # 子路徑基底：注入 repo 名 → app.baseURL=/sfma/（資產／路由／PWA 前綴皆依此）。
       # 自訂網域時改為 '/' 並於 public/ 放 CNAME。
       - name: Generate static site

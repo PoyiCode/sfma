@@ -2,9 +2,12 @@
 // 階層若於重出時斷裂（如 lowerleg01 不再為 upperleg01 後裔），骨骼驅動 rig 之 FK 即崩、肢段脫節。
 // 解析 glb JSON chunk（免 Draco）取 nodes/children/skin。與 gltfNodeConsistency（節點名）互補。
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 
 const GLB = 'public/models/anatomyV1.glb';
+// 部署 glb 為 gitignore 之大型二進位資產（見 public/models/README.md）：缺檔時整組跳過，
+// 不硬讀致 ENOENT 失敗（此為資產管線守護測試，唯資產就位時有意義）。
+const hasGlb = existsSync(GLB);
 
 interface GlbJson {
   nodes?: { name?: string; children?: number[] }[];
@@ -16,8 +19,8 @@ function parseGlb(): GlbJson {
   return JSON.parse(buf.subarray(20, 20 + jsonLen).toString('utf8')) as GlbJson;
 }
 
-describe('glTF 骨架階層正確（todo 08 L18；部署 glb armature FK 鏈）', () => {
-  const js = parseGlb();
+describe.skipIf(!hasGlb)('glTF 骨架階層正確（todo 08 L18；部署 glb armature FK 鏈）', () => {
+  const js = hasGlb ? parseGlb() : { nodes: [], skins: [] };
   const nodes = js.nodes ?? [];
   const idxOf = new Map<string, number>();
   nodes.forEach((n, i) => {
