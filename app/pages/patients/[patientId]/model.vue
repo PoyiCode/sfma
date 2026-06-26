@@ -8,12 +8,14 @@ import { computed, ref, watch } from 'vue';
 import { sfmaPatterns } from '@ptapp/definitions';
 import {
   createUuid,
+  toIsoDateTime,
   type AppSettings,
   type BodyAnnotation,
   type SfmaPatternKey,
 } from '@ptapp/shared';
 import { localStore } from '../../../utils/data/localStore';
 import { actionLogger } from '../../../utils/devtools/actionLogger';
+import { defaultAppSettings } from '../../../utils/settings/settingsModel';
 import {
   findBodyAnnotation,
   newBodyAnnotation,
@@ -101,9 +103,11 @@ watch(
     settingsState.value = { status: 'loading' };
     void (async () => {
       try {
-        const settings = await localStore.getSettings();
+        const existing = await localStore.getSettings();
         if (cancelled) return;
-        settingsState.value = settings ? { status: 'ready', settings } : { status: 'error' };
+        // 首次使用尚無設定紀錄時退回預設（同 useSettings），勿誤判為載入錯誤。
+        const settings = existing ?? defaultAppSettings(createUuid(), toIsoDateTime(new Date()));
+        settingsState.value = { status: 'ready', settings };
       } catch {
         if (!cancelled) settingsState.value = { status: 'error' };
       }
