@@ -159,7 +159,7 @@ export function createLocalStore(dbName: string = DB_NAME): Repository {
           result.patientsSkipped += 1;
           continue;
         }
-        await patients.put(patient);
+        await patients.put(toStorable(patient));
         result.patientsWritten += 1;
       }
       const assessments = tx.objectStore('assessments');
@@ -172,11 +172,11 @@ export function createLocalStore(dbName: string = DB_NAME): Repository {
           continue;
         }
         // 匯入時忽略檔內 summary、一律重新推導覆蓋（06 §6.3、§6.7）
-        await assessments.put({ ...session, summary: deriveSummary(session.patterns) });
+        await assessments.put(toStorable({ ...session, summary: deriveSummary(session.patterns) }));
         result.assessmentsWritten += 1;
       }
       if (batch.settings !== undefined && options.applySettings) {
-        await tx.objectStore('settings').put({ ...batch.settings, settingsId: 'app' });
+        await tx.objectStore('settings').put(toStorable({ ...batch.settings, settingsId: 'app' }));
         result.settingsApplied = true;
       }
       await tx.done;

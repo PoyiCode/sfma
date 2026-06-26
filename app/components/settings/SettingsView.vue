@@ -59,10 +59,9 @@ const lodConfirmOpen = computed({
   },
 });
 
-const localeOptions = computed(() => [
-  { value: 'zh-TW', label: t('settingsLocaleZhTw') },
-  { value: 'en', label: t('settingsLocaleEn') },
-]);
+// 僅列出已備妥訊息檔之語系（目前僅 zh-TW）。en 待 i18n/locales/en.json 補齊並於
+// nuxt.config 註冊後再開放，避免選了英文卻無翻譯（schema 仍保留 'en' 供未來啟用）。
+const localeOptions = computed(() => [{ value: 'zh-TW', label: t('settingsLocaleZhTw') }]);
 const themeOptions = computed(() => [
   { value: 'system', label: t('settingsThemeSystem') },
   { value: 'light', label: t('settingsThemeLight') },
